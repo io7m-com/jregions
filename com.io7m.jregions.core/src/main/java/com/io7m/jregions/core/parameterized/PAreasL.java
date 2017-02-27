@@ -133,7 +133,7 @@ public final class PAreasL
     final long y)
   {
     NullCheck.notNull(area, "Area");
-    return PAreasL.create(x, y, area.width(), area.height());
+    return create(x, y, area.width(), area.height());
   }
 
   /**
@@ -149,7 +149,7 @@ public final class PAreasL
     final PAreaL<S> area)
   {
     NullCheck.notNull(area, "Area");
-    return PAreasL.create(0L, 0L, area.width(), area.height());
+    return create(0L, 0L, area.width(), area.height());
   }
 
 
@@ -204,7 +204,7 @@ public final class PAreasL
     final long inner_width = inner.width();
     final long xm0 = Math.addExact(outer.minimumX(), outer_width / 2L);
     final long xm1 = Math.subtractExact(xm0, inner_width / 2L);
-    return PAreasL.create(xm1, inner.minimumY(), inner_width, inner.height());
+    return create(xm1, inner.minimumY(), inner_width, inner.height());
   }
 
   /**
@@ -222,7 +222,7 @@ public final class PAreasL
     final PAreaL<S> outer,
     final PAreaL<S> inner)
   {
-    return PAreasL.alignHorizontallyMinXOffset(outer, inner, 0L);
+    return alignHorizontallyMinXOffset(outer, inner, 0L);
   }
 
   /**
@@ -266,7 +266,7 @@ public final class PAreasL
     final PAreaL<S> outer,
     final PAreaL<S> inner)
   {
-    return PAreasL.alignHorizontallyMaxXOffset(outer, inner, 0L);
+    return alignHorizontallyMaxXOffset(outer, inner, 0L);
   }
 
   /**
@@ -310,7 +310,7 @@ public final class PAreasL
     final PAreaL<S> outer,
     final PAreaL<S> inner)
   {
-    return PAreasL.alignVerticallyMinYOffset(outer, inner, 0L);
+    return alignVerticallyMinYOffset(outer, inner, 0L);
   }
 
   /**
@@ -354,7 +354,7 @@ public final class PAreasL
     final PAreaL<S> outer,
     final PAreaL<S> inner)
   {
-    return PAreasL.alignVerticallyMaxYOffset(outer, inner, 0L);
+    return alignVerticallyMaxYOffset(outer, inner, 0L);
   }
 
   /**
@@ -405,7 +405,7 @@ public final class PAreasL
 
     final long ym0 = Math.addExact(outer.minimumY(), outer_height / 2L);
     final long ym1 = Math.subtractExact(ym0, inner_height / 2L);
-    return PAreasL.create(inner.minimumX(), ym1, inner.width(), inner_height);
+    return create(inner.minimumX(), ym1, inner.width(), inner_height);
   }
 
   /**
@@ -423,7 +423,7 @@ public final class PAreasL
     final PAreaL<S> outer,
     final PAreaL<S> inner)
   {
-    return PAreasL.alignMinYMinXOffset(outer, inner, 0L, 0L);
+    return alignMinYMinXOffset(outer, inner, 0L, 0L);
   }
 
   /**
@@ -472,7 +472,7 @@ public final class PAreasL
     final PAreaL<S> outer,
     final PAreaL<S> inner)
   {
-    return PAreasL.alignMinYMaxXOffset(outer, inner, 0L, 0L);
+    return alignMinYMaxXOffset(outer, inner, 0L, 0L);
   }
 
   /**
@@ -521,7 +521,7 @@ public final class PAreasL
     final PAreaL<S> outer,
     final PAreaL<S> inner)
   {
-    return PAreasL.alignMaxYMinXOffset(outer, inner, 0L, 0L);
+    return alignMaxYMinXOffset(outer, inner, 0L, 0L);
   }
 
   /**
@@ -570,7 +570,7 @@ public final class PAreasL
     final PAreaL<S> outer,
     final PAreaL<S> inner)
   {
-    return PAreasL.alignMaxYMaxXOffset(outer, inner, 0L, 0L);
+    return alignMaxYMaxXOffset(outer, inner, 0L, 0L);
   }
 
   /**
@@ -622,24 +622,24 @@ public final class PAreasL
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    return PAreasL.alignVerticallyCenter(
-      outer, PAreasL.alignHorizontallyCenter(outer, inner));
+    return alignVerticallyCenter(
+      outer, alignHorizontallyCenter(outer, inner));
   }
 
   /**
    * Construct a new area that fits inside {@code outer} based on the given
    * offsets from each edge.
    *
-   * @param outer         The containing area
-   * @param min_x_offset   The offset from the minimum-x edge (must be
-   *                      non-negative)
-   * @param max_x_offset  The offset from the maximum-x edge (must be
-   *                      non-negative)
-   * @param min_y_offset    The offset from the minimum-y edge (must be
-   *                      non-negative)
+   * @param outer        The containing area
+   * @param min_x_offset The offset from the minimum-x edge (must be
+   *                     non-negative)
+   * @param max_x_offset The offset from the maximum-x edge (must be
+   *                     non-negative)
+   * @param min_y_offset The offset from the minimum-y edge (must be
+   *                     non-negative)
    * @param max_y_offset The offset from the maximum-y edge (must be
-   *                      non-negative)
-   * @param <S>           The coordinate space of the areas
+   *                     non-negative)
+   * @param <S>          The coordinate space of the areas
    *
    * @return A new area
    */
@@ -654,22 +654,22 @@ public final class PAreasL
     NullCheck.notNull(outer);
 
     final long x_min =
-      PAreasL.clamp(
+      clamp(
         Math.addExact(outer.minimumX(), min_x_offset),
         outer.minimumX(),
         outer.maximumX());
     final long x_max =
-      PAreasL.clamp(
+      clamp(
         Math.subtractExact(outer.maximumX(), max_x_offset),
         outer.minimumX(),
         outer.maximumX());
     final long y_min =
-      PAreasL.clamp(
+      clamp(
         Math.addExact(outer.minimumY(), min_y_offset),
         outer.minimumY(),
         outer.maximumY());
     final long y_max =
-      PAreasL.clamp(
+      clamp(
         Math.subtractExact(outer.maximumY(), max_y_offset),
         outer.minimumY(),
         outer.maximumY());
@@ -695,7 +695,7 @@ public final class PAreasL
     final PAreaL<S> outer,
     final long offset)
   {
-    return PAreasL.hollowOut(outer, offset, offset, offset, offset);
+    return hollowOut(outer, offset, offset, offset, offset);
   }
 
   /**
@@ -719,7 +719,7 @@ public final class PAreasL
   {
     NullCheck.notNull(area);
 
-    return PAreasL.alignCenter(area, PAreaL.of(
+    return alignCenter(area, PAreaL.of(
       area.minimumX(),
       Math.addExact(area.minimumX(), width),
       area.minimumY(),
@@ -747,7 +747,7 @@ public final class PAreasL
   {
     NullCheck.notNull(area);
 
-    return PAreasL.alignMaxYMaxX(area, PAreaL.of(
+    return alignMaxYMaxX(area, PAreaL.of(
       area.minimumX(),
       Math.addExact(area.minimumX(), width),
       area.minimumY(),
@@ -775,7 +775,7 @@ public final class PAreasL
   {
     NullCheck.notNull(area);
 
-    return PAreasL.alignMaxYMinX(area, PAreaL.of(
+    return alignMaxYMinX(area, PAreaL.of(
       area.minimumX(),
       Math.addExact(area.minimumX(), width),
       area.minimumY(),
@@ -803,7 +803,7 @@ public final class PAreasL
   {
     NullCheck.notNull(area);
 
-    return PAreasL.alignMinYMinX(area, PAreaL.of(
+    return alignMinYMinX(area, PAreaL.of(
       area.minimumX(),
       Math.addExact(area.minimumX(), width),
       area.minimumY(),
@@ -831,7 +831,7 @@ public final class PAreasL
   {
     NullCheck.notNull(area);
 
-    return PAreasL.alignMinYMaxX(area, PAreaL.of(
+    return alignMinYMaxX(area, PAreaL.of(
       area.minimumX(),
       Math.addExact(area.minimumX(), width),
       area.minimumY(),
@@ -862,7 +862,7 @@ public final class PAreasL
 
     final long width = Math.max(0L, Math.addExact(area.width(), x_diff));
     final long height = Math.max(0L, Math.addExact(area.height(), y_diff));
-    return PAreasL.setSizeFromMinYMinX(area, width, height);
+    return setSizeFromMinYMinX(area, width, height);
   }
 
   /**
@@ -889,7 +889,7 @@ public final class PAreasL
 
     final long width = Math.max(0L, Math.addExact(area.width(), x_diff));
     final long height = Math.max(0L, Math.addExact(area.height(), y_diff));
-    return PAreasL.setSizeFromMinYMaxX(area, width, height);
+    return setSizeFromMinYMaxX(area, width, height);
   }
 
   /**
@@ -916,7 +916,7 @@ public final class PAreasL
 
     final long width = Math.max(0L, Math.addExact(area.width(), x_diff));
     final long height = Math.max(0L, Math.addExact(area.height(), y_diff));
-    return PAreasL.setSizeFromMaxYMinX(area, width, height);
+    return setSizeFromMaxYMinX(area, width, height);
   }
 
   /**
@@ -943,7 +943,7 @@ public final class PAreasL
 
     final long width = Math.max(0L, Math.addExact(area.width(), x_diff));
     final long height = Math.max(0L, Math.addExact(area.height(), y_diff));
-    return PAreasL.setSizeFromMaxYMaxX(area, width, height);
+    return setSizeFromMaxYMaxX(area, width, height);
   }
 
   /**
@@ -970,7 +970,7 @@ public final class PAreasL
 
     final long width = Math.max(0L, Math.addExact(area.width(), x_diff));
     final long height = Math.max(0L, Math.addExact(area.height(), y_diff));
-    return PAreasL.setSizeFromCenter(area, width, height);
+    return setSizeFromCenter(area, width, height);
   }
 
   /**
@@ -1041,8 +1041,6 @@ public final class PAreasL
    * @param <S> The coordinate space of the areas
    *
    * @return An area containing {@code a} and {@code b}
-   *
-   * @since 0.2.0
    */
 
   public static <S> PAreaL<S> containing(
@@ -1211,7 +1209,7 @@ public final class PAreasL
     NullCheck.notNull(area);
 
     final StringBuilder sb = new StringBuilder(128);
-    return PAreasL.showToBuilder(area, sb);
+    return showToBuilder(area, sb);
   }
 
   /**

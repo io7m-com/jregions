@@ -24,6 +24,7 @@ import com.io7m.jregions.core.parameterized.PAreaSizesB;
 import com.io7m.jregions.core.parameterized.PAreaSizesD;
 import com.io7m.jregions.core.parameterized.PAreaSizesI;
 import com.io7m.jregions.core.parameterized.PAreaSizesL;
+import com.io7m.jregions.core.parameterized.PAreasD;
 import com.io7m.jregions.core.parameterized.PAreasI;
 import com.io7m.jregions.core.parameterized.PAreasL;
 import com.io7m.junreachable.UnreachableCodeException;
@@ -129,6 +130,14 @@ public final class UnreachableTest
     throws Throwable
   {
     this.checkUnreachable(PAreasI.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testPAreasD()
+    throws Throwable
+  {
+    this.checkUnreachable(PAreasD.class);
     Assert.fail();
   }
 

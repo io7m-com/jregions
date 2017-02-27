@@ -29,9 +29,9 @@ import com.io7m.junreachable.UnreachableCodeException;
  * <i>minimum-x</i> and "top" for <i>minimum-y</i>.</p>
  */
 
-public final class PAreasI
+public final class PAreasD
 {
-  private PAreasI()
+  private PAreasD()
   {
     throw new UnreachableCodeException();
   }
@@ -49,17 +49,17 @@ public final class PAreasI
    * @return An area
    */
 
-  public static <S> PAreaI<S> create(
-    final int x,
-    final int y,
-    final int width,
-    final int height)
+  public static <S> PAreaD<S> create(
+    final double x,
+    final double y,
+    final double width,
+    final double height)
   {
-    return PAreaI.of(
+    return PAreaD.of(
       x,
-      Math.addExact(x, width),
+      x + width,
       y,
-      Math.addExact(y, height));
+      y + height);
   }
 
   /**
@@ -80,8 +80,8 @@ public final class PAreasI
    */
 
   public static <S> boolean contains(
-    final PAreaI<S> a,
-    final PAreaI<S> b)
+    final PAreaD<S> a,
+    final PAreaD<S> b)
   {
     NullCheck.notNull(a, "Area A");
     NullCheck.notNull(b, "Area B");
@@ -102,18 +102,18 @@ public final class PAreasI
    * @return A moved area
    */
 
-  public static <S> PAreaI<S> moveRelative(
-    final PAreaI<S> area,
-    final int x,
-    final int y)
+  public static <S> PAreaD<S> moveRelative(
+    final PAreaD<S> area,
+    final double x,
+    final double y)
   {
     NullCheck.notNull(area, "Area");
 
-    final int x_min = Math.addExact(area.minimumX(), x);
-    final int x_max = Math.addExact(area.maximumX(), x);
-    final int y_min = Math.addExact(area.minimumY(), y);
-    final int y_max = Math.addExact(area.maximumY(), y);
-    return PAreaI.of(x_min, x_max, y_min, y_max);
+    final double x_min = area.minimumX() + x;
+    final double x_max = area.maximumX() + x;
+    final double y_min = area.minimumY() + y;
+    final double y_max = area.maximumY() + y;
+    return PAreaD.of(x_min, x_max, y_min, y_max);
   }
 
   /**
@@ -127,17 +127,17 @@ public final class PAreasI
    * @return A moved area
    */
 
-  public static <S> PAreaI<S> moveAbsolute(
-    final PAreaI<S> area,
-    final int x,
-    final int y)
+  public static <S> PAreaD<S> moveAbsolute(
+    final PAreaD<S> area,
+    final double x,
+    final double y)
   {
     NullCheck.notNull(area, "Area");
     return create(x, y, area.width(), area.height());
   }
 
   /**
-   * Move the given area to {@code (0, 0)}.
+   * Move the given area to {@code (0.0, 0.0)}.
    *
    * @param area The area
    * @param <S>  The coordinate space of the area
@@ -145,18 +145,18 @@ public final class PAreasI
    * @return A moved area
    */
 
-  public static <S> PAreaI<S> moveToOrigin(
-    final PAreaI<S> area)
+  public static <S> PAreaD<S> moveToOrigin(
+    final PAreaD<S> area)
   {
     NullCheck.notNull(area, "Area");
-    return create(0, 0, area.width(), area.height());
+    return create(0.0, 0.0, area.width(), area.height());
   }
 
 
-  private static int clamp(
-    final int x,
-    final int minimum,
-    final int maximum)
+  private static double clamp(
+    final double x,
+    final double minimum,
+    final double maximum)
   {
     Preconditions.checkPrecondition(maximum >= minimum, "Maximum >= minimum");
     return Math.max(Math.min(x, maximum), minimum);
@@ -175,11 +175,11 @@ public final class PAreasI
    */
 
   @SuppressWarnings("unchecked")
-  public static <S, T> PAreaI<T> cast(
-    final PAreaI<S> area)
+  public static <S, T> PAreaD<T> cast(
+    final PAreaD<S> area)
   {
     NullCheck.notNull(area);
-    return (PAreaI<T>) area;
+    return (PAreaD<T>) area;
   }
 
 
@@ -193,23 +193,23 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignHorizontallyCenter(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignHorizontallyCenter(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    final int outer_width = outer.width();
-    final int inner_width = inner.width();
-    final int xm0 = Math.addExact(outer.minimumX(), outer_width / 2);
-    final int xm1 = Math.subtractExact(xm0, inner_width / 2);
+    final double outer_width = outer.width();
+    final double inner_width = inner.width();
+    final double xm0 = outer.minimumX() + outer_width / 2;
+    final double xm1 = xm0 - inner_width / 2;
     return create(xm1, inner.minimumY(), inner_width, inner.height());
   }
 
   /**
-   * Equivalent to calling {@link #alignHorizontallyMinXOffset(PAreaI, PAreaI,
-   * int)} with a zero offset.
+   * Equivalent to calling {@link #alignHorizontallyMinXOffset(PAreaD, PAreaD,
+   * double)} with a zero offset.
    *
    * @param outer The outer area
    * @param inner The inner area
@@ -218,11 +218,11 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignHorizontallyMinX(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignHorizontallyMinX(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
-    return alignHorizontallyMinXOffset(outer, inner, 0);
+    return alignHorizontallyMinXOffset(outer, inner, 0.0);
   }
 
   /**
@@ -238,22 +238,22 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignHorizontallyMinXOffset(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner,
-    final int offset)
+  public static <S> PAreaD<S> alignHorizontallyMinXOffset(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner,
+    final double offset)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    final int x_min = Math.addExact(outer.minimumX(), offset);
-    final int x_max = Math.addExact(x_min, inner.width());
-    return PAreaI.of(x_min, x_max, inner.minimumY(), inner.maximumY());
+    final double x_min = outer.minimumX() + offset;
+    final double x_max = x_min + inner.width();
+    return PAreaD.of(x_min, x_max, inner.minimumY(), inner.maximumY());
   }
 
   /**
-   * Equivalent to calling {@link #alignHorizontallyMaxXOffset(PAreaI,
-   * PAreaI, int)} with a zero offset.
+   * Equivalent to calling {@link #alignHorizontallyMaxXOffset(PAreaD,
+   * PAreaD, double)} with a zero offset.
    *
    * @param outer The outer area
    * @param inner The inner area
@@ -262,11 +262,11 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignHorizontallyMaxX(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignHorizontallyMaxX(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
-    return alignHorizontallyMaxXOffset(outer, inner, 0);
+    return alignHorizontallyMaxXOffset(outer, inner, 0.0);
   }
 
   /**
@@ -282,22 +282,22 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignHorizontallyMaxXOffset(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner,
-    final int offset)
+  public static <S> PAreaD<S> alignHorizontallyMaxXOffset(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner,
+    final double offset)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    final int x_max = Math.subtractExact(outer.maximumX(), offset);
-    final int x_min = Math.subtractExact(x_max, inner.width());
-    return PAreaI.of(x_min, x_max, inner.minimumY(), inner.maximumY());
+    final double x_max = outer.maximumX() - offset;
+    final double x_min = x_max - inner.width();
+    return PAreaD.of(x_min, x_max, inner.minimumY(), inner.maximumY());
   }
 
   /**
-   * Equivalent to calling {@link #alignVerticallyMinYOffset(PAreaI, PAreaI,
-   * int)} with a zero offset.
+   * Equivalent to calling {@link #alignVerticallyMinYOffset(PAreaD, PAreaD,
+   * double)} with a zero offset.
    *
    * @param outer The outer area
    * @param inner The inner area
@@ -306,11 +306,11 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignVerticallyMinY(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignVerticallyMinY(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
-    return alignVerticallyMinYOffset(outer, inner, 0);
+    return alignVerticallyMinYOffset(outer, inner, 0.0);
   }
 
   /**
@@ -326,22 +326,22 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignVerticallyMinYOffset(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner,
-    final int offset)
+  public static <S> PAreaD<S> alignVerticallyMinYOffset(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner,
+    final double offset)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    final int y_min = Math.addExact(outer.minimumY(), offset);
-    final int y_max = Math.addExact(y_min, inner.height());
-    return PAreaI.of(inner.minimumX(), inner.maximumX(), y_min, y_max);
+    final double y_min = outer.minimumY() + offset;
+    final double y_max = y_min + inner.height();
+    return PAreaD.of(inner.minimumX(), inner.maximumX(), y_min, y_max);
   }
 
   /**
-   * Equivalent to calling {@link #alignVerticallyMaxYOffset(PAreaI, PAreaI,
-   * int)} with a zero offset.
+   * Equivalent to calling {@link #alignVerticallyMaxYOffset(PAreaD, PAreaD,
+   * double)} with a zero offset.
    *
    * @param outer The outer area
    * @param inner The inner area
@@ -350,11 +350,11 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignVerticallyMaxY(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignVerticallyMaxY(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
-    return alignVerticallyMaxYOffset(outer, inner, 0);
+    return alignVerticallyMaxYOffset(outer, inner, 0.0);
   }
 
   /**
@@ -370,17 +370,17 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignVerticallyMaxYOffset(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner,
-    final int offset)
+  public static <S> PAreaD<S> alignVerticallyMaxYOffset(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner,
+    final double offset)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    final int y_max = Math.subtractExact(outer.maximumY(), offset);
-    final int y_min = Math.subtractExact(y_max, inner.height());
-    return PAreaI.of(inner.minimumX(), inner.maximumX(), y_min, y_max);
+    final double y_max = outer.maximumY() - offset;
+    final double y_min = y_max - inner.height();
+    return PAreaD.of(inner.minimumX(), inner.maximumX(), y_min, y_max);
   }
 
   /**
@@ -393,24 +393,24 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignVerticallyCenter(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignVerticallyCenter(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    final int outer_height = outer.height();
-    final int inner_height = inner.height();
+    final double outer_height = outer.height();
+    final double inner_height = inner.height();
 
-    final int ym0 = Math.addExact(outer.minimumY(), outer_height / 2);
-    final int ym1 = Math.subtractExact(ym0, inner_height / 2);
+    final double ym0 = outer.minimumY() + outer_height / 2;
+    final double ym1 = ym0 - inner_height / 2;
     return create(inner.minimumX(), ym1, inner.width(), inner_height);
   }
 
   /**
-   * Equivalent to calling {@link #alignMinYMinXOffset(PAreaI, PAreaI, int,
-   * int)} with zero offsets.
+   * Equivalent to calling {@link #alignMinYMinXOffset(PAreaD, PAreaD, double,
+   * double)} with zero offsets.
    *
    * @param outer The outer area
    * @param inner The inner area
@@ -419,11 +419,11 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignMinYMinX(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignMinYMinX(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
-    return alignMinYMinXOffset(outer, inner, 0, 0);
+    return alignMinYMinXOffset(outer, inner, 0.0, 0.0);
   }
 
   /**
@@ -441,25 +441,25 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignMinYMinXOffset(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner,
-    final int offset_x,
-    final int offset_y)
+  public static <S> PAreaD<S> alignMinYMinXOffset(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner,
+    final double offset_x,
+    final double offset_y)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    final int x_min = Math.addExact(outer.minimumX(), offset_x);
-    final int y_min = Math.addExact(outer.minimumY(), offset_y);
-    final int y_max = Math.addExact(y_min, inner.height());
-    final int x_max = Math.addExact(x_min, inner.width());
-    return PAreaI.of(x_min, x_max, y_min, y_max);
+    final double x_min = outer.minimumX() + offset_x;
+    final double y_min = outer.minimumY() + offset_y;
+    final double y_max = y_min + inner.height();
+    final double x_max = x_min + inner.width();
+    return PAreaD.of(x_min, x_max, y_min, y_max);
   }
 
   /**
-   * Equivalent to calling {@link #alignMinYMaxXOffset(PAreaI, PAreaI, int,
-   * int)} with zero offsets.
+   * Equivalent to calling {@link #alignMinYMaxXOffset(PAreaD, PAreaD, double,
+   * double)} with zero offsets.
    *
    * @param outer The outer area
    * @param inner The inner area
@@ -468,11 +468,11 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignMinYMaxX(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignMinYMaxX(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
-    return alignMinYMaxXOffset(outer, inner, 0, 0);
+    return alignMinYMaxXOffset(outer, inner, 0.0, 0.0);
   }
 
   /**
@@ -490,25 +490,25 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignMinYMaxXOffset(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner,
-    final int offset_x,
-    final int offset_y)
+  public static <S> PAreaD<S> alignMinYMaxXOffset(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner,
+    final double offset_x,
+    final double offset_y)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    final int x_max = Math.subtractExact(outer.maximumX(), offset_x);
-    final int y_min = Math.addExact(outer.minimumY(), offset_y);
-    final int y_max = Math.addExact(y_min, inner.height());
-    final int x_min = Math.subtractExact(x_max, inner.width());
-    return PAreaI.of(x_min, x_max, y_min, y_max);
+    final double x_max = outer.maximumX() - offset_x;
+    final double y_min = outer.minimumY() + offset_y;
+    final double y_max = y_min + inner.height();
+    final double x_min = x_max - inner.width();
+    return PAreaD.of(x_min, x_max, y_min, y_max);
   }
 
   /**
-   * Equivalent to calling {@link #alignMaxYMinXOffset(PAreaI, PAreaI, int,
-   * int)} with zero offsets.
+   * Equivalent to calling {@link #alignMaxYMinXOffset(PAreaD, PAreaD, double,
+   * double)} with zero offsets.
    *
    * @param outer The outer area
    * @param inner The inner area
@@ -517,11 +517,11 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignMaxYMinX(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignMaxYMinX(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
-    return alignMaxYMinXOffset(outer, inner, 0, 0);
+    return alignMaxYMinXOffset(outer, inner, 0.0, 0.0);
   }
 
   /**
@@ -539,25 +539,25 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignMaxYMinXOffset(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner,
-    final int offset_x,
-    final int offset_y)
+  public static <S> PAreaD<S> alignMaxYMinXOffset(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner,
+    final double offset_x,
+    final double offset_y)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    final int x_min = Math.addExact(outer.minimumX(), offset_x);
-    final int y_max = Math.subtractExact(outer.maximumY(), offset_y);
-    final int y_min = Math.subtractExact(y_max, inner.height());
-    final int x_max = Math.addExact(x_min, inner.width());
-    return PAreaI.of(x_min, x_max, y_min, y_max);
+    final double x_min = outer.minimumX() + offset_x;
+    final double y_max = outer.maximumY() - offset_y;
+    final double y_min = y_max - inner.height();
+    final double x_max = x_min + inner.width();
+    return PAreaD.of(x_min, x_max, y_min, y_max);
   }
 
   /**
-   * Equivalent to calling {@link #alignMaxYMaxXOffset(PAreaI, PAreaI, int,
-   * int)} with zero offsets.
+   * Equivalent to calling {@link #alignMaxYMaxXOffset(PAreaD, PAreaD, double,
+   * double)} with zero offsets.
    *
    * @param outer The outer area
    * @param inner The inner area
@@ -566,11 +566,11 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignMaxYMaxX(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignMaxYMaxX(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
-    return alignMaxYMaxXOffset(outer, inner, 0, 0);
+    return alignMaxYMaxXOffset(outer, inner, 0.0, 0.0);
   }
 
   /**
@@ -588,20 +588,20 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignMaxYMaxXOffset(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner,
-    final int offset_x,
-    final int offset_y)
+  public static <S> PAreaD<S> alignMaxYMaxXOffset(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner,
+    final double offset_x,
+    final double offset_y)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
 
-    final int x_max = Math.subtractExact(outer.maximumX(), offset_x);
-    final int y_max = Math.subtractExact(outer.maximumY(), offset_y);
-    final int y_min = Math.subtractExact(y_max, inner.height());
-    final int x_min = Math.subtractExact(x_max, inner.width());
-    return PAreaI.of(x_min, x_max, y_min, y_max);
+    final double x_max = outer.maximumX() - offset_x;
+    final double y_max = outer.maximumY() - offset_y;
+    final double y_min = y_max - inner.height();
+    final double x_min = x_max - inner.width();
+    return PAreaD.of(x_min, x_max, y_min, y_max);
   }
 
   /**
@@ -615,9 +615,9 @@ public final class PAreasI
    * @return An aligned area
    */
 
-  public static <S> PAreaI<S> alignCenter(
-    final PAreaI<S> outer,
-    final PAreaI<S> inner)
+  public static <S> PAreaD<S> alignCenter(
+    final PAreaD<S> outer,
+    final PAreaD<S> inner)
   {
     NullCheck.notNull(outer);
     NullCheck.notNull(inner);
@@ -644,45 +644,45 @@ public final class PAreasI
    * @return A new area
    */
 
-  public static <S> PAreaI<S> hollowOut(
-    final PAreaI<S> outer,
-    final int min_x_offset,
-    final int max_x_offset,
-    final int min_y_offset,
-    final int max_y_offset)
+  public static <S> PAreaD<S> hollowOut(
+    final PAreaD<S> outer,
+    final double min_x_offset,
+    final double max_x_offset,
+    final double min_y_offset,
+    final double max_y_offset)
   {
     NullCheck.notNull(outer);
 
-    final int x_min =
+    final double x_min =
       clamp(
-        Math.addExact(outer.minimumX(), min_x_offset),
+        outer.minimumX() + min_x_offset,
         outer.minimumX(),
         outer.maximumX());
-    final int x_max =
+    final double x_max =
       clamp(
-        Math.subtractExact(outer.maximumX(), max_x_offset),
+        outer.maximumX() - max_x_offset,
         outer.minimumX(),
         outer.maximumX());
-    final int y_min =
+    final double y_min =
       clamp(
-        Math.addExact(outer.minimumY(), min_y_offset),
+        outer.minimumY() + min_y_offset,
         outer.minimumY(),
         outer.maximumY());
-    final int y_max =
+    final double y_max =
       clamp(
-        Math.subtractExact(outer.maximumY(), max_y_offset),
+        outer.maximumY() - max_y_offset,
         outer.minimumY(),
         outer.maximumY());
 
-    final int out_x_max = Math.max(x_min, x_max);
-    final int out_y_max = Math.max(y_min, y_max);
+    final double out_x_max = Math.max(x_min, x_max);
+    final double out_y_max = Math.max(y_min, y_max);
 
-    return PAreaI.of(x_min, out_x_max, y_min, out_y_max);
+    return PAreaD.of(x_min, out_x_max, y_min, out_y_max);
   }
 
   /**
-   * Equivalent to calling {@link #hollowOut(PAreaI, int, int, int, int)}
-   * with {@code offset} for all offset parameters.
+   * Equivalent to calling {@link #hollowOut(PAreaD, double, double, double,
+   * double)} with {@code offset} for all offset parameters.
    *
    * @param outer  The containing area
    * @param offset The offset from each edge (must be non-negative)
@@ -691,9 +691,9 @@ public final class PAreasI
    * @return A new area
    */
 
-  public static <S> PAreaI<S> hollowOutEvenly(
-    final PAreaI<S> outer,
-    final int offset)
+  public static <S> PAreaD<S> hollowOutEvenly(
+    final PAreaD<S> outer,
+    final double offset)
   {
     return hollowOut(outer, offset, offset, offset, offset);
   }
@@ -712,18 +712,18 @@ public final class PAreasI
    * @return A resized area
    */
 
-  public static <S> PAreaI<S> setSizeFromCenter(
-    final PAreaI<S> area,
-    final int width,
-    final int height)
+  public static <S> PAreaD<S> setSizeFromCenter(
+    final PAreaD<S> area,
+    final double width,
+    final double height)
   {
     NullCheck.notNull(area);
 
-    return alignCenter(area, PAreaI.of(
+    return alignCenter(area, PAreaD.of(
       area.minimumX(),
-      Math.addExact(area.minimumX(), width),
+      area.minimumX() + width,
       area.minimumY(),
-      Math.addExact(area.minimumY(), height)));
+      area.minimumY() + height));
   }
 
   /**
@@ -740,18 +740,18 @@ public final class PAreasI
    * @return A resized area
    */
 
-  public static <S> PAreaI<S> setSizeFromMinYMinX(
-    final PAreaI<S> area,
-    final int width,
-    final int height)
+  public static <S> PAreaD<S> setSizeFromMinYMinX(
+    final PAreaD<S> area,
+    final double width,
+    final double height)
   {
     NullCheck.notNull(area);
 
-    return alignMaxYMaxX(area, PAreaI.of(
+    return alignMaxYMaxX(area, PAreaD.of(
       area.minimumX(),
-      Math.addExact(area.minimumX(), width),
+      area.minimumX() + width,
       area.minimumY(),
-      Math.addExact(area.minimumY(), height)));
+      area.minimumY() + height));
   }
 
   /**
@@ -768,18 +768,18 @@ public final class PAreasI
    * @return A resized area
    */
 
-  public static <S> PAreaI<S> setSizeFromMinYMaxX(
-    final PAreaI<S> area,
-    final int width,
-    final int height)
+  public static <S> PAreaD<S> setSizeFromMinYMaxX(
+    final PAreaD<S> area,
+    final double width,
+    final double height)
   {
     NullCheck.notNull(area);
 
-    return alignMaxYMinX(area, PAreaI.of(
+    return alignMaxYMinX(area, PAreaD.of(
       area.minimumX(),
-      Math.addExact(area.minimumX(), width),
+      area.minimumX() + width,
       area.minimumY(),
-      Math.addExact(area.minimumY(), height)));
+      area.minimumY() + height));
   }
 
   /**
@@ -796,18 +796,18 @@ public final class PAreasI
    * @return A resized area
    */
 
-  public static <S> PAreaI<S> setSizeFromMaxYMaxX(
-    final PAreaI<S> area,
-    final int width,
-    final int height)
+  public static <S> PAreaD<S> setSizeFromMaxYMaxX(
+    final PAreaD<S> area,
+    final double width,
+    final double height)
   {
     NullCheck.notNull(area);
 
-    return alignMinYMinX(area, PAreaI.of(
+    return alignMinYMinX(area, PAreaD.of(
       area.minimumX(),
-      Math.addExact(area.minimumX(), width),
+      area.minimumX() + width,
       area.minimumY(),
-      Math.addExact(area.minimumY(), height)));
+      area.minimumY() + height));
   }
 
   /**
@@ -824,18 +824,18 @@ public final class PAreasI
    * @return A resized area
    */
 
-  public static <S> PAreaI<S> setSizeFromMaxYMinX(
-    final PAreaI<S> area,
-    final int width,
-    final int height)
+  public static <S> PAreaD<S> setSizeFromMaxYMinX(
+    final PAreaD<S> area,
+    final double width,
+    final double height)
   {
     NullCheck.notNull(area);
 
-    return alignMinYMaxX(area, PAreaI.of(
+    return alignMinYMaxX(area, PAreaD.of(
       area.minimumX(),
-      Math.addExact(area.minimumX(), width),
+      area.minimumX() + width,
       area.minimumY(),
-      Math.addExact(area.minimumY(), height)));
+      area.minimumY() + height));
   }
 
   /**
@@ -853,15 +853,15 @@ public final class PAreasI
    * @return A resized area
    */
 
-  public static <S> PAreaI<S> scaleFromMinYMinX(
-    final PAreaI<S> area,
-    final int x_diff,
-    final int y_diff)
+  public static <S> PAreaD<S> scaleFromMinYMinX(
+    final PAreaD<S> area,
+    final double x_diff,
+    final double y_diff)
   {
     NullCheck.notNull(area);
 
-    final int width = Math.max(0, Math.addExact(area.width(), x_diff));
-    final int height = Math.max(0, Math.addExact(area.height(), y_diff));
+    final double width = Math.max(0.0, area.width() + x_diff);
+    final double height = Math.max(0.0, area.height() + y_diff);
     return setSizeFromMinYMinX(area, width, height);
   }
 
@@ -880,15 +880,15 @@ public final class PAreasI
    * @return A resized area
    */
 
-  public static <S> PAreaI<S> scaleFromMinYMaxX(
-    final PAreaI<S> area,
-    final int x_diff,
-    final int y_diff)
+  public static <S> PAreaD<S> scaleFromMinYMaxX(
+    final PAreaD<S> area,
+    final double x_diff,
+    final double y_diff)
   {
     NullCheck.notNull(area);
 
-    final int width = Math.max(0, Math.addExact(area.width(), x_diff));
-    final int height = Math.max(0, Math.addExact(area.height(), y_diff));
+    final double width = Math.max(0.0, area.width() + x_diff);
+    final double height = Math.max(0.0, area.height() + y_diff);
     return setSizeFromMinYMaxX(area, width, height);
   }
 
@@ -907,15 +907,15 @@ public final class PAreasI
    * @return A resized area
    */
 
-  public static <S> PAreaI<S> scaleFromMaxYMinX(
-    final PAreaI<S> area,
-    final int x_diff,
-    final int y_diff)
+  public static <S> PAreaD<S> scaleFromMaxYMinX(
+    final PAreaD<S> area,
+    final double x_diff,
+    final double y_diff)
   {
     NullCheck.notNull(area);
 
-    final int width = Math.max(0, Math.addExact(area.width(), x_diff));
-    final int height = Math.max(0, Math.addExact(area.height(), y_diff));
+    final double width = Math.max(0.0, area.width() + x_diff);
+    final double height = Math.max(0.0, area.height() + y_diff);
     return setSizeFromMaxYMinX(area, width, height);
   }
 
@@ -934,15 +934,15 @@ public final class PAreasI
    * @return A resized area
    */
 
-  public static <S> PAreaI<S> scaleFromMaxYMaxX(
-    final PAreaI<S> area,
-    final int x_diff,
-    final int y_diff)
+  public static <S> PAreaD<S> scaleFromMaxYMaxX(
+    final PAreaD<S> area,
+    final double x_diff,
+    final double y_diff)
   {
     NullCheck.notNull(area);
 
-    final int width = Math.max(0, Math.addExact(area.width(), x_diff));
-    final int height = Math.max(0, Math.addExact(area.height(), y_diff));
+    final double width = Math.max(0.0, area.width() + x_diff);
+    final double height = Math.max(0.0, area.height() + y_diff);
     return setSizeFromMaxYMaxX(area, width, height);
   }
 
@@ -961,15 +961,15 @@ public final class PAreasI
    * @return A resized area
    */
 
-  public static <S> PAreaI<S> scaleFromCenter(
-    final PAreaI<S> area,
-    final int x_diff,
-    final int y_diff)
+  public static <S> PAreaD<S> scaleFromCenter(
+    final PAreaD<S> area,
+    final double x_diff,
+    final double y_diff)
   {
     NullCheck.notNull(area);
 
-    final int width = Math.max(0, Math.addExact(area.width(), x_diff));
-    final int height = Math.max(0, Math.addExact(area.height(), y_diff));
+    final double width = Math.max(0.0, area.width() + x_diff);
+    final double height = Math.max(0.0, area.height() + y_diff);
     return setSizeFromCenter(area, width, height);
   }
 
@@ -990,8 +990,8 @@ public final class PAreasI
    */
 
   public static <S> boolean overlaps(
-    final PAreaI<S> a,
-    final PAreaI<S> b)
+    final PAreaD<S> a,
+    final PAreaD<S> b)
   {
     NullCheck.notNull(a);
     NullCheck.notNull(b);
@@ -1023,8 +1023,8 @@ public final class PAreasI
    */
 
   public static <S> boolean couldFitInside(
-    final PAreaI<S> a,
-    final PAreaI<S> b)
+    final PAreaD<S> a,
+    final PAreaD<S> b)
   {
     NullCheck.notNull(a);
     NullCheck.notNull(b);
@@ -1043,14 +1043,14 @@ public final class PAreasI
    * @return An area containing {@code a} and {@code b}
    */
 
-  public static <S> PAreaI<S> containing(
-    final PAreaI<S> a,
-    final PAreaI<S> b)
+  public static <S> PAreaD<S> containing(
+    final PAreaD<S> a,
+    final PAreaD<S> b)
   {
     NullCheck.notNull(a);
     NullCheck.notNull(b);
 
-    return PAreaI.of(
+    return PAreaD.of(
       Math.min(a.minimumX(), b.minimumX()),
       Math.max(a.maximumX(), b.maximumX()),
       Math.min(a.minimumY(), b.minimumY()),
@@ -1069,9 +1069,9 @@ public final class PAreasI
    */
 
   public static <S> boolean containsPoint(
-    final PAreaI<S> a,
-    final int x,
-    final int y)
+    final PAreaD<S> a,
+    final double x,
+    final double y)
   {
     NullCheck.notNull(a);
 
@@ -1091,20 +1091,20 @@ public final class PAreasI
    * @return A fitted area
    */
 
-  public static <S> PAreaI<S> fitBetweenHorizontal(
-    final PAreaI<S> fit,
-    final PAreaI<S> a,
-    final PAreaI<S> b)
+  public static <S> PAreaD<S> fitBetweenHorizontal(
+    final PAreaD<S> fit,
+    final PAreaD<S> a,
+    final PAreaD<S> b)
   {
     NullCheck.notNull(fit);
     NullCheck.notNull(a);
     NullCheck.notNull(b);
 
-    final int x_min = Math.min(a.maximumX(), b.maximumX());
-    final int x_max = Math.max(a.minimumX(), b.minimumX());
-    final int out_x_min = Math.min(x_min, x_max);
-    final int out_x_max = Math.max(x_min, x_max);
-    return PAreaI.of(out_x_min, out_x_max, fit.minimumY(), fit.maximumY());
+    final double x_min = Math.min(a.maximumX(), b.maximumX());
+    final double x_max = Math.max(a.minimumX(), b.minimumX());
+    final double out_x_min = Math.min(x_min, x_max);
+    final double out_x_max = Math.max(x_min, x_max);
+    return PAreaD.of(out_x_min, out_x_max, fit.minimumY(), fit.maximumY());
   }
 
   /**
@@ -1118,20 +1118,20 @@ public final class PAreasI
    * @return A fitted area
    */
 
-  public static <S> PAreaI<S> fitBetweenVertical(
-    final PAreaI<S> fit,
-    final PAreaI<S> a,
-    final PAreaI<S> b)
+  public static <S> PAreaD<S> fitBetweenVertical(
+    final PAreaD<S> fit,
+    final PAreaD<S> a,
+    final PAreaD<S> b)
   {
     NullCheck.notNull(fit);
     NullCheck.notNull(a);
     NullCheck.notNull(b);
 
-    final int y_min = Math.min(a.maximumY(), b.maximumY());
-    final int y_max = Math.max(a.minimumY(), b.minimumY());
-    final int out_y_min = Math.min(y_min, y_max);
-    final int out_y_max = Math.max(y_min, y_max);
-    return PAreaI.of(fit.minimumX(), fit.maximumX(), out_y_min, out_y_max);
+    final double y_min = Math.min(a.maximumY(), b.maximumY());
+    final double y_max = Math.max(a.minimumY(), b.minimumY());
+    final double out_y_min = Math.min(y_min, y_max);
+    final double out_y_max = Math.max(y_min, y_max);
+    return PAreaD.of(fit.minimumX(), fit.maximumX(), out_y_min, out_y_max);
   }
 
   /**
@@ -1145,24 +1145,24 @@ public final class PAreasI
    * @return A pair of areas
    */
 
-  public static <S> PAreaXSplitI<S, PAreaI<S>> splitAlongParallelToX(
-    final PAreaI<S> area,
-    final int y)
+  public static <S> PAreaXSplitD<S, PAreaD<S>> splitAlongParallelToX(
+    final PAreaD<S> area,
+    final double y)
   {
     NullCheck.notNull(area);
 
-    final int clamped_height = Math.min(area.height(), y);
-    final int upper_y_min = area.minimumY();
-    final int upper_y_max = Math.addExact(area.minimumY(), clamped_height);
-    final int lower_y_min = upper_y_max;
-    final int lower_y_max = area.maximumY();
+    final double clamped_height = Math.min(area.height(), y);
+    final double upper_y_min = area.minimumY();
+    final double upper_y_max = area.minimumY() + clamped_height;
+    final double lower_y_min = upper_y_max;
+    final double lower_y_max = area.maximumY();
 
-    final PAreaI<S> lower = PAreaI.of(
+    final PAreaD<S> lower = PAreaD.of(
       area.minimumX(), area.maximumX(), lower_y_min, lower_y_max);
-    final PAreaI<S> upper = PAreaI.of(
+    final PAreaD<S> upper = PAreaD.of(
       area.minimumX(), area.maximumX(), upper_y_min, upper_y_max);
 
-    return PAreaXSplitI.of(lower, upper);
+    return PAreaXSplitD.of(lower, upper);
   }
 
   /**
@@ -1176,24 +1176,24 @@ public final class PAreasI
    * @return A pair of areas
    */
 
-  public static <S> PAreaYSplitI<S, PAreaI<S>> splitAlongParallelToY(
-    final PAreaI<S> area,
-    final int x)
+  public static <S> PAreaYSplitD<S, PAreaD<S>> splitAlongParallelToY(
+    final PAreaD<S> area,
+    final double x)
   {
     NullCheck.notNull(area);
 
-    final int clamped_width = Math.min(area.width(), x);
-    final int lower_x_min = area.minimumX();
-    final int lower_x_max = Math.addExact(area.minimumX(), clamped_width);
-    final int upper_x_min = lower_x_max;
-    final int upper_x_max = area.maximumX();
+    final double clamped_width = Math.min(area.width(), x);
+    final double lower_x_min = area.minimumX();
+    final double lower_x_max = area.minimumX() + clamped_width;
+    final double upper_x_min = lower_x_max;
+    final double upper_x_max = area.maximumX();
 
-    final PAreaI<S> lower = PAreaI.of(
+    final PAreaD<S> lower = PAreaD.of(
       lower_x_min, lower_x_max, area.minimumY(), area.maximumY());
-    final PAreaI<S> upper = PAreaI.of(
+    final PAreaD<S> upper = PAreaD.of(
       upper_x_min, upper_x_max, area.minimumY(), area.maximumY());
 
-    return PAreaYSplitI.of(lower, upper);
+    return PAreaYSplitD.of(lower, upper);
   }
 
   /**
@@ -1204,7 +1204,7 @@ public final class PAreasI
    */
 
   public static <S> String show(
-    final PAreaI<S> area)
+    final PAreaD<S> area)
   {
     NullCheck.notNull(area);
 
@@ -1221,7 +1221,7 @@ public final class PAreasI
    */
 
   public static <S> String showToBuilder(
-    final PAreaI<S> area,
+    final PAreaD<S> area,
     final StringBuilder sb)
   {
     NullCheck.notNull(area);
