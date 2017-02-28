@@ -14,9 +14,10 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.io7m.jregions.core;
+package com.io7m.jregions.core.parameterized;
 
 import com.io7m.jaffirm.core.Preconditions;
+import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
 import java.math.BigInteger;
@@ -28,11 +29,14 @@ import java.math.BigInteger;
  * {@link #minimumX()} refers to the minimum <i>inclusive</i> value on the X
  * axis, and {@link #maximumX()} refers to the maximum <i>exclusive</i> value on
  * the X axis. Likewise for the Y axis.</p>
+ *
+ * @param <S> A phantom type parameter indicating the coordinate space of the
+ *            area
  */
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface AreaBType
+public interface PAreaBIType<S>
 {
   /**
    * @return The value on the X axis of the minimum edge of the box (inclusive)

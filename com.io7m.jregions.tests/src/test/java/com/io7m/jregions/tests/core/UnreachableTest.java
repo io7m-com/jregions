@@ -16,11 +16,11 @@
 
 package com.io7m.jregions.tests.core;
 
-import com.io7m.jregions.core.AreaSizesB;
+import com.io7m.jregions.core.AreaSizesBI;
 import com.io7m.jregions.core.AreaSizesD;
 import com.io7m.jregions.core.AreaSizesI;
 import com.io7m.jregions.core.AreaSizesL;
-import com.io7m.jregions.core.parameterized.PAreaSizesB;
+import com.io7m.jregions.core.parameterized.PAreaSizesBI;
 import com.io7m.jregions.core.parameterized.PAreaSizesD;
 import com.io7m.jregions.core.parameterized.PAreaSizesI;
 import com.io7m.jregions.core.parameterized.PAreaSizesL;
@@ -57,7 +57,7 @@ public final class UnreachableTest
   public void testAreaSizesB()
     throws Throwable
   {
-    this.checkUnreachable(AreaSizesB.class);
+    this.checkUnreachable(AreaSizesBI.class);
     Assert.fail();
   }
 
@@ -89,7 +89,7 @@ public final class UnreachableTest
   public void testPAreaSizesB()
     throws Throwable
   {
-    this.checkUnreachable(PAreaSizesB.class);
+    this.checkUnreachable(PAreaSizesBI.class);
     Assert.fail();
   }
 

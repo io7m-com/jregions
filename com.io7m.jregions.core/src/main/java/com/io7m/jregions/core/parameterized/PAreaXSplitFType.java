@@ -16,51 +16,32 @@
 
 package com.io7m.jregions.core.parameterized;
 
-import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
-import java.math.BigInteger;
-
 /**
- * The size of an area with <tt>BigInteger</tt> coordinates.
+ * An area that has been split via the X axis.
  *
  * @param <S> A phantom type parameter indicating the coordinate space of the
  *            area
+ * @param <T> The precise type of area
  */
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface PAreaSizeBType<S>
+public interface PAreaXSplitFType<S, T extends PAreaFType<S>>
 {
   /**
-   * @return The width of an area
+   * @return The lower half
    */
 
-  @Value.Parameter
-  BigInteger width();
+  @Value.Parameter(order = 0)
+  T lower();
 
   /**
-   * @return The height of an area
+   * @return The upper half
    */
 
-  @Value.Parameter
-  BigInteger height();
-
-  /**
-   * Check preconditions for the type.
-   */
-
-  @Value.Check
-  default void checkPreconditions()
-  {
-    Preconditions.checkPrecondition(
-      this.width(),
-      this.width().compareTo(BigInteger.ZERO) >= 0,
-      d -> "Width must be non-negative");
-    Preconditions.checkPrecondition(
-      this.height(),
-      this.height().compareTo(BigInteger.ZERO) >= 0,
-      d -> "Height must be non-negative");
-  }
+  @Value.Parameter(order = 1)
+  T upper();
 }

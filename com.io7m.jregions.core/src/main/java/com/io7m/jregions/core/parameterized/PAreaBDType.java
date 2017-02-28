@@ -20,10 +20,10 @@ import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 /**
- * <p>An area with <tt>BigInteger</tt> coordinates.</p>
+ * <p>An area with <tt>BigDecimal</tt> coordinates.</p>
  *
  * <p>The coordinates of the area are given in <i>half-closed</i> form. That is,
  * {@link #minimumX()} refers to the minimum <i>inclusive</i> value on the X
@@ -36,42 +36,42 @@ import java.math.BigInteger;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface PAreaBType<S>
+public interface PAreaBDType<S>
 {
   /**
    * @return The value on the X axis of the minimum edge of the box (inclusive)
    */
 
   @Value.Parameter(order = 0)
-  BigInteger minimumX();
+  BigDecimal minimumX();
 
   /**
    * @return The value on the X axis of the maximum edge of the box (exclusive)
    */
 
   @Value.Parameter(order = 1)
-  BigInteger maximumX();
+  BigDecimal maximumX();
 
   /**
    * @return The value on the Y axis of the minimum edge of the box (inclusive)
    */
 
   @Value.Parameter(order = 2)
-  BigInteger minimumY();
+  BigDecimal minimumY();
 
   /**
    * @return The value on the Y axis of the maximum edge of the box (exclusive)
    */
 
   @Value.Parameter(order = 3)
-  BigInteger maximumY();
+  BigDecimal maximumY();
 
   /**
    * @return The width of the area
    */
 
   @Value.Lazy
-  default BigInteger width()
+  default BigDecimal width()
   {
     return this.maximumX().subtract(this.minimumX());
   }
@@ -81,7 +81,7 @@ public interface PAreaBType<S>
    */
 
   @Value.Lazy
-  default BigInteger height()
+  default BigDecimal height()
   {
     return this.maximumY().subtract(this.minimumY());
   }

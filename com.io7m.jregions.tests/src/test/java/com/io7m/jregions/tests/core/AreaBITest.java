@@ -17,7 +17,7 @@
 package com.io7m.jregions.tests.core;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
-import com.io7m.jregions.core.AreaB;
+import com.io7m.jregions.core.AreaBI;
 import org.hamcrest.core.StringContains;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -26,14 +26,14 @@ import org.junit.rules.ExpectedException;
 
 import java.math.BigInteger;
 
-public final class AreaBTest
+public final class AreaBITest
 {
   @Rule public final ExpectedException expected = ExpectedException.none();
 
   @Test
   public void testIdentities()
   {
-    final AreaB area = AreaB.of(
+    final AreaBI area = AreaBI.of(
       BigInteger.ZERO,
       new BigInteger("100"),
       BigInteger.ZERO,
@@ -51,7 +51,7 @@ public final class AreaBTest
   {
     this.expected.expect(PreconditionViolationException.class);
     this.expected.expectMessage(StringContains.containsString("X"));
-    AreaB.of(
+    AreaBI.of(
       BigInteger.TEN,
       new BigInteger("9"),
       BigInteger.ZERO,
@@ -63,7 +63,7 @@ public final class AreaBTest
   {
     this.expected.expect(PreconditionViolationException.class);
     this.expected.expectMessage(StringContains.containsString("Y"));
-    AreaB.of(
+    AreaBI.of(
       BigInteger.ZERO,
       new BigInteger("100"),
       BigInteger.TEN,

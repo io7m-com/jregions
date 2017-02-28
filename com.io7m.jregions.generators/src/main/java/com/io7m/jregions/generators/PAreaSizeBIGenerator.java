@@ -17,7 +17,7 @@
 package com.io7m.jregions.generators;
 
 import com.io7m.jnull.NullCheck;
-import com.io7m.jregions.core.AreaSizeB;
+import com.io7m.jregions.core.parameterized.PAreaSizeBI;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.support.LongGenerator;
 
@@ -25,9 +25,12 @@ import java.math.BigInteger;
 
 /**
  * A generator for area sizes.
+ *
+ * @param <S> A phantom type parameter indicating the coordinate space of the
+ *            area
  */
 
-public final class AreaSizeBGenerator implements Generator<AreaSizeB>
+public final class PAreaSizeBIGenerator<S> implements Generator<PAreaSizeBI<S>>
 {
   private final Generator<BigInteger> gen;
 
@@ -37,25 +40,28 @@ public final class AreaSizeBGenerator implements Generator<AreaSizeB>
    * @param in_gen A number generator
    */
 
-  public AreaSizeBGenerator(
+  public PAreaSizeBIGenerator(
     final Generator<BigInteger> in_gen)
   {
     this.gen = NullCheck.notNull(in_gen, "gen");
   }
 
   /**
+   * @param <S> A phantom type parameter indicating the coordinate space of the
+   *            area
+   *
    * @return A generator initialized with useful defaults
    */
 
-  public static AreaSizeBGenerator create()
+  public static <S> PAreaSizeBIGenerator<S> create()
   {
     final LongGenerator gen = new LongGenerator(0L, Long.MAX_VALUE);
-    return new AreaSizeBGenerator(() -> new BigInteger(gen.next().toString()));
+    return new PAreaSizeBIGenerator<>(() -> new BigInteger(gen.next().toString()));
   }
 
   @Override
-  public AreaSizeB next()
+  public PAreaSizeBI<S> next()
   {
-    return AreaSizeB.of(this.gen.next(), this.gen.next());
+    return PAreaSizeBI.of(this.gen.next(), this.gen.next());
   }
 }

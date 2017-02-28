@@ -19,40 +19,74 @@ package com.io7m.jregions.core.parameterized;
 import com.io7m.jnull.NullCheck;
 import com.io7m.junreachable.UnreachableCodeException;
 
-/**
- * Functions over area sizes.
- */
-
-public final class PAreaSizesB
+final class PAreaLOps
 {
-  private PAreaSizesB()
+  public static final long ZERO = 0L;
+
+  private PAreaLOps()
   {
     throw new UnreachableCodeException();
   }
 
-  /**
-   * <p>Determine if an area includes another area.</p>
-   *
-   * <p>Inclusion is reflexive: {@code ∀a. includes(a, a)}</p>
-   *
-   * <p>Inclusion is transitive: {@code ∀a b c. includes(a, b) ∧ includes(b, c)
-   * → includes(a, c)}</p>
-   *
-   * @param a   The containing area
-   * @param b   The contained area
-   * @param <S> A phantom type parameter indicating the coordinate space of the
-   *            area
-   *
-   * @return {@code true} if {@code a} can contain {@code b}
-   */
-
-  public static <S> boolean includes(
-    final PAreaSizeB<S> a,
-    final PAreaSizeB<S> b)
+  public static long minimum(
+    final long a,
+    final long b)
   {
-    NullCheck.notNull(a, "Area A");
-    NullCheck.notNull(b, "Area B");
-    return b.width().compareTo(a.width()) <= 0
-      && b.height().compareTo(a.height()) <= 0;
+    return Math.min(a, b);
+  }
+
+  public static int compare(
+    final long a,
+    final long b)
+  {
+    return Long.compare(a, b);
+  }
+
+  public static long maximum(
+    final long a,
+    final long b)
+  {
+    return Math.max(a, b);
+  }
+
+  public static long add(
+    final long a,
+    final long b)
+  {
+    return a + b;
+  }
+
+  public static long subtract(
+    final long a,
+    final long b)
+  {
+    return a - b;
+  }
+
+  public static long divide(
+    final long a,
+    final long b)
+  {
+    return a / b;
+  }
+
+  public static long constant(
+    final long x)
+  {
+    return x;
+  }
+
+  public static void notNullArea(
+    final Object expression,
+    final String name)
+  {
+    NullCheck.notNull(expression, name);
+  }
+
+  public static void notNullScalar(
+    final long expression,
+    final String name)
+  {
+
   }
 }

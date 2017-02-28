@@ -34,6 +34,13 @@
     </dependency>
 
     <dependency>
+      <groupId>com.webguys</groupId>
+      <artifactId>string-template-maven-plugin</artifactId>
+      <version>1.1</version>
+      <type>maven-plugin</type>
+    </dependency>
+
+    <dependency>
       <groupId>org.immutables</groupId>
       <artifactId>value</artifactId>
       <scope>provided</scope>
@@ -42,6 +49,164 @@
 
   <build>
     <plugins>
+      <!-- Generate sources -->
+      <plugin>
+        <groupId>com.webguys</groupId>
+        <artifactId>string-template-maven-plugin</artifactId>
+        <executions>
+
+          <execution>
+            <id>generate-BD</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/PAreasBD.java</target>
+                  <properties>
+                    <scalarType>java.math.BigDecimal</scalarType>
+                    <areaType>PAreaBD</areaType>
+                    <className>PAreasBD</className>
+                    <splitXType>PAreaXSplitBD</splitXType>
+                    <splitYType>PAreaYSplitBD</splitYType>
+                    <opClass>PAreaBDOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-BI</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/PAreasBI.java</target>
+                  <properties>
+                    <scalarType>java.math.BigInteger</scalarType>
+                    <areaType>PAreaBI</areaType>
+                    <className>PAreasBI</className>
+                    <splitXType>PAreaXSplitBI</splitXType>
+                    <splitYType>PAreaYSplitBI</splitYType>
+                    <opClass>PAreaBIOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-I</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/PAreasI.java</target>
+                  <properties>
+                    <scalarType>int</scalarType>
+                    <areaType>PAreaI</areaType>
+                    <className>PAreasI</className>
+                    <splitXType>PAreaXSplitI</splitXType>
+                    <splitYType>PAreaYSplitI</splitYType>
+                    <opClass>PAreaIOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-F</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/PAreasF.java</target>
+                  <properties>
+                    <scalarType>float</scalarType>
+                    <areaType>PAreaF</areaType>
+                    <className>PAreasF</className>
+                    <splitXType>PAreaXSplitF</splitXType>
+                    <splitYType>PAreaYSplitF</splitYType>
+                    <opClass>PAreaFOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-D</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/PAreasD.java</target>
+                  <properties>
+                    <scalarType>double</scalarType>
+                    <areaType>PAreaD</areaType>
+                    <className>PAreasD</className>
+                    <splitXType>PAreaXSplitD</splitXType>
+                    <splitYType>PAreaYSplitD</splitYType>
+                    <opClass>PAreaDOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-L</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/PAreasL.java</target>
+                  <properties>
+                    <scalarType>long</scalarType>
+                    <areaType>PAreaL</areaType>
+                    <className>PAreasL</className>
+                    <splitXType>PAreaXSplitL</splitXType>
+                    <splitYType>PAreaYSplitL</splitYType>
+                    <opClass>PAreaLOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- Check style -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

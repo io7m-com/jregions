@@ -14,7 +14,7 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.io7m.jregions.core;
+package com.io7m.jregions.core.parameterized;
 
 import com.io7m.jnull.NullCheck;
 import com.io7m.junreachable.UnreachableCodeException;
@@ -23,9 +23,9 @@ import com.io7m.junreachable.UnreachableCodeException;
  * Functions over area sizes.
  */
 
-public final class AreaSizesB
+public final class PAreaSizesBI
 {
-  private AreaSizesB()
+  private PAreaSizesBI()
   {
     throw new UnreachableCodeException();
   }
@@ -38,15 +38,17 @@ public final class AreaSizesB
    * <p>Inclusion is transitive: {@code ∀a b c. includes(a, b) ∧ includes(b, c)
    * → includes(a, c)}</p>
    *
-   * @param a The containing area
-   * @param b The contained area
+   * @param a   The containing area
+   * @param b   The contained area
+   * @param <S> A phantom type parameter indicating the coordinate space of the
+   *            area
    *
    * @return {@code true} if {@code a} can contain {@code b}
    */
 
-  public static boolean includes(
-    final AreaSizeB a,
-    final AreaSizeB b)
+  public static <S> boolean includes(
+    final PAreaSizeBI<S> a,
+    final PAreaSizeBI<S> b)
   {
     NullCheck.notNull(a, "Area A");
     NullCheck.notNull(b, "Area B");

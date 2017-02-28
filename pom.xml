@@ -243,6 +243,12 @@
           <extensions>true</extensions>
         </plugin>
 
+        <plugin>
+          <groupId>com.webguys</groupId>
+          <artifactId>string-template-maven-plugin</artifactId>
+          <version>1.1</version>
+        </plugin>
+
         <!-- Require JDK >= 1.8 -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>

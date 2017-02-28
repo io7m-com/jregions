@@ -17,7 +17,7 @@
 package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
-import com.io7m.jregions.core.parameterized.PAreaB;
+import com.io7m.jregions.core.parameterized.PAreaBI;
 import org.hamcrest.core.StringContains;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -26,14 +26,14 @@ import org.junit.rules.ExpectedException;
 
 import java.math.BigInteger;
 
-public final class PAreaBTest
+public final class PAreaBITest
 {
   @Rule public final ExpectedException expected = ExpectedException.none();
 
   @Test
   public void testIdentities()
   {
-    final PAreaB<Object> area = PAreaB.of(
+    final PAreaBI<Object> area = PAreaBI.of(
       BigInteger.ZERO,
       new BigInteger("100"),
       BigInteger.ZERO,
@@ -51,7 +51,7 @@ public final class PAreaBTest
   {
     this.expected.expect(PreconditionViolationException.class);
     this.expected.expectMessage(StringContains.containsString("X"));
-    PAreaB.of(
+    PAreaBI.of(
       BigInteger.TEN,
       new BigInteger("9"),
       BigInteger.ZERO,
@@ -63,7 +63,7 @@ public final class PAreaBTest
   {
     this.expected.expect(PreconditionViolationException.class);
     this.expected.expectMessage(StringContains.containsString("Y"));
-    PAreaB.of(
+    PAreaBI.of(
       BigInteger.ZERO,
       new BigInteger("100"),
       BigInteger.TEN,

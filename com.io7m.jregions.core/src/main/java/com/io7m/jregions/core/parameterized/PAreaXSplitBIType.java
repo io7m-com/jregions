@@ -20,7 +20,7 @@ import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
 /**
- * An area that has been split via the Y axis.
+ * An area that has been split via the X axis.
  *
  * @param <S> A phantom type parameter indicating the coordinate space of the
  *            area
@@ -29,7 +29,7 @@ import org.immutables.value.Value;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface PAreaYSplitBType<S, T extends PAreaBType<S>>
+public interface PAreaXSplitBIType<S, T extends PAreaBIType<S>>
 {
   /**
    * @return The lower half
