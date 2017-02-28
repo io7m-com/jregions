@@ -66,7 +66,7 @@
                 <template>
                   <directory>src/main/string-template</directory>
                   <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/PAreasBD.java</target>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasBD.java</target>
                   <properties>
                     <scalarType>java.math.BigDecimal</scalarType>
                     <areaType>PAreaBD</areaType>
@@ -91,7 +91,7 @@
                 <template>
                   <directory>src/main/string-template</directory>
                   <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/PAreasBI.java</target>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasBI.java</target>
                   <properties>
                     <scalarType>java.math.BigInteger</scalarType>
                     <areaType>PAreaBI</areaType>
@@ -116,7 +116,7 @@
                 <template>
                   <directory>src/main/string-template</directory>
                   <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/PAreasI.java</target>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasI.java</target>
                   <properties>
                     <scalarType>int</scalarType>
                     <areaType>PAreaI</areaType>
@@ -141,7 +141,7 @@
                 <template>
                   <directory>src/main/string-template</directory>
                   <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/PAreasF.java</target>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasF.java</target>
                   <properties>
                     <scalarType>float</scalarType>
                     <areaType>PAreaF</areaType>
@@ -166,7 +166,7 @@
                 <template>
                   <directory>src/main/string-template</directory>
                   <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/PAreasD.java</target>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasD.java</target>
                   <properties>
                     <scalarType>double</scalarType>
                     <areaType>PAreaD</areaType>
@@ -191,7 +191,7 @@
                 <template>
                   <directory>src/main/string-template</directory>
                   <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/PAreasL.java</target>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasL.java</target>
                   <properties>
                     <scalarType>long</scalarType>
                     <areaType>PAreaL</areaType>
