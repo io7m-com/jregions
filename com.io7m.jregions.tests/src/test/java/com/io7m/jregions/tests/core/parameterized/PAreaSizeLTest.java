@@ -16,8 +16,8 @@
 
 package com.io7m.jregions.tests.core.parameterized;
 
-import com.io7m.jregions.core.parameterized.PAreaSizeL;
-import com.io7m.jregions.core.parameterized.PAreaSizesL;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizeL;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizesL;
 import com.io7m.jregions.generators.PAreaSizeLGenerator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;

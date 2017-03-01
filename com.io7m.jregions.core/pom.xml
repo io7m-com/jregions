@@ -48,6 +48,160 @@
         <artifactId>string-template-maven-plugin</artifactId>
         <executions>
 
+          <!-- Parameterized types -->
+
+          <execution>
+            <id>generate-P-BD</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasBD.java</target>
+                  <properties>
+                    <scalarType>java.math.BigDecimal</scalarType>
+                    <areaType>PAreaBD</areaType>
+                    <className>PAreasBD</className>
+                    <splitXType>PAreaXSplitBD</splitXType>
+                    <splitYType>PAreaYSplitBD</splitYType>
+                    <opClass>PAreaBDOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-P-BI</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasBI.java</target>
+                  <properties>
+                    <scalarType>java.math.BigInteger</scalarType>
+                    <areaType>PAreaBI</areaType>
+                    <className>PAreasBI</className>
+                    <splitXType>PAreaXSplitBI</splitXType>
+                    <splitYType>PAreaYSplitBI</splitYType>
+                    <opClass>PAreaBIOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-P-I</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasI.java</target>
+                  <properties>
+                    <scalarType>int</scalarType>
+                    <areaType>PAreaI</areaType>
+                    <className>PAreasI</className>
+                    <splitXType>PAreaXSplitI</splitXType>
+                    <splitYType>PAreaYSplitI</splitYType>
+                    <opClass>PAreaIOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-P-F</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasF.java</target>
+                  <properties>
+                    <scalarType>float</scalarType>
+                    <areaType>PAreaF</areaType>
+                    <className>PAreasF</className>
+                    <splitXType>PAreaXSplitF</splitXType>
+                    <splitYType>PAreaYSplitF</splitYType>
+                    <opClass>PAreaFOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-P-D</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasD.java</target>
+                  <properties>
+                    <scalarType>double</scalarType>
+                    <areaType>PAreaD</areaType>
+                    <className>PAreasD</className>
+                    <splitXType>PAreaXSplitD</splitXType>
+                    <splitYType>PAreaYSplitD</splitYType>
+                    <opClass>PAreaDOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-P-L</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/main/string-template</directory>
+                  <name>PAreas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasL.java</target>
+                  <properties>
+                    <scalarType>long</scalarType>
+                    <areaType>PAreaL</areaType>
+                    <className>PAreasL</className>
+                    <splitXType>PAreaXSplitL</splitXType>
+                    <splitYType>PAreaYSplitL</splitYType>
+                    <opClass>PAreaLOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <!-- Core types -->
+
           <execution>
             <id>generate-BD</id>
             <phase>generate-sources</phase>
@@ -58,15 +212,15 @@
               <templates>
                 <template>
                   <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasBD.java</target>
+                  <name>Areas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasBD.java</target>
                   <properties>
                     <scalarType>java.math.BigDecimal</scalarType>
-                    <areaType>PAreaBD</areaType>
-                    <className>PAreasBD</className>
-                    <splitXType>PAreaXSplitBD</splitXType>
-                    <splitYType>PAreaYSplitBD</splitYType>
-                    <opClass>PAreaBDOps</opClass>
+                    <areaType>AreaBD</areaType>
+                    <className>AreasBD</className>
+                    <splitXType>AreaXSplitBD</splitXType>
+                    <splitYType>AreaYSplitBD</splitYType>
+                    <opClass>AreaBDOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -83,15 +237,15 @@
               <templates>
                 <template>
                   <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasBI.java</target>
+                  <name>Areas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasBI.java</target>
                   <properties>
                     <scalarType>java.math.BigInteger</scalarType>
-                    <areaType>PAreaBI</areaType>
-                    <className>PAreasBI</className>
-                    <splitXType>PAreaXSplitBI</splitXType>
-                    <splitYType>PAreaYSplitBI</splitYType>
-                    <opClass>PAreaBIOps</opClass>
+                    <areaType>AreaBI</areaType>
+                    <className>AreasBI</className>
+                    <splitXType>AreaXSplitBI</splitXType>
+                    <splitYType>AreaYSplitBI</splitYType>
+                    <opClass>AreaBIOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -108,15 +262,15 @@
               <templates>
                 <template>
                   <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasI.java</target>
+                  <name>Areas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasI.java</target>
                   <properties>
                     <scalarType>int</scalarType>
-                    <areaType>PAreaI</areaType>
-                    <className>PAreasI</className>
-                    <splitXType>PAreaXSplitI</splitXType>
-                    <splitYType>PAreaYSplitI</splitYType>
-                    <opClass>PAreaIOps</opClass>
+                    <areaType>AreaI</areaType>
+                    <className>AreasI</className>
+                    <splitXType>AreaXSplitI</splitXType>
+                    <splitYType>AreaYSplitI</splitYType>
+                    <opClass>AreaIOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -133,15 +287,15 @@
               <templates>
                 <template>
                   <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasF.java</target>
+                  <name>Areas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasF.java</target>
                   <properties>
                     <scalarType>float</scalarType>
-                    <areaType>PAreaF</areaType>
-                    <className>PAreasF</className>
-                    <splitXType>PAreaXSplitF</splitXType>
-                    <splitYType>PAreaYSplitF</splitYType>
-                    <opClass>PAreaFOps</opClass>
+                    <areaType>AreaF</areaType>
+                    <className>AreasF</className>
+                    <splitXType>AreaXSplitF</splitXType>
+                    <splitYType>AreaYSplitF</splitYType>
+                    <opClass>AreaFOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -158,15 +312,15 @@
               <templates>
                 <template>
                   <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasD.java</target>
+                  <name>Areas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasD.java</target>
                   <properties>
                     <scalarType>double</scalarType>
-                    <areaType>PAreaD</areaType>
-                    <className>PAreasD</className>
-                    <splitXType>PAreaXSplitD</splitXType>
-                    <splitYType>PAreaYSplitD</splitYType>
-                    <opClass>PAreaDOps</opClass>
+                    <areaType>AreaD</areaType>
+                    <className>AreasD</className>
+                    <splitXType>AreaXSplitD</splitXType>
+                    <splitYType>AreaYSplitD</splitYType>
+                    <opClass>AreaDOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -183,15 +337,15 @@
               <templates>
                 <template>
                   <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/PAreasL.java</target>
+                  <name>Areas</name>
+                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasL.java</target>
                   <properties>
                     <scalarType>long</scalarType>
-                    <areaType>PAreaL</areaType>
-                    <className>PAreasL</className>
-                    <splitXType>PAreaXSplitL</splitXType>
-                    <splitYType>PAreaYSplitL</splitYType>
-                    <opClass>PAreaLOps</opClass>
+                    <areaType>AreaL</areaType>
+                    <className>AreasL</className>
+                    <splitXType>AreaXSplitL</splitXType>
+                    <splitYType>AreaYSplitL</splitYType>
+                    <opClass>AreaLOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -215,7 +369,12 @@
           <instructions>
             <Export-Package>
               com.io7m.jregions.core,
-              com.io7m.jregions.core.parameterized
+              com.io7m.jregions.core.parameterized,
+              com.io7m.jregions.core.parameterized.areas,
+              com.io7m.jregions.core.parameterized.sizes,
+              com.io7m.jregions.core.unparameterized,
+              com.io7m.jregions.core.unparameterized.areas,
+              com.io7m.jregions.core.unparameterized.sizes
             </Export-Package>
           </instructions>
         </configuration>

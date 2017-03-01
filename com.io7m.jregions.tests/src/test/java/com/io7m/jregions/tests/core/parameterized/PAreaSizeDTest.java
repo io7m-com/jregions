@@ -17,8 +17,8 @@
 package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
-import com.io7m.jregions.core.parameterized.PAreaSizeD;
-import com.io7m.jregions.core.parameterized.PAreaSizesD;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizeD;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizesD;
 import com.io7m.jregions.generators.PAreaSizeDGenerator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;

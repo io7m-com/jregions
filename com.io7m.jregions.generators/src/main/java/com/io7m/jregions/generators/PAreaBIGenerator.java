@@ -17,7 +17,7 @@
 package com.io7m.jregions.generators;
 
 import com.io7m.jnull.NullCheck;
-import com.io7m.jregions.core.parameterized.PAreaBI;
+import com.io7m.jregions.core.parameterized.areas.PAreaBI;
 import net.java.quickcheck.Generator;
 
 import java.math.BigInteger;

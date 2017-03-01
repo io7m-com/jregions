@@ -17,7 +17,7 @@
 package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
-import com.io7m.jregions.core.parameterized.PAreaD;
+import com.io7m.jregions.core.parameterized.areas.PAreaD;
 import org.hamcrest.core.StringContains;
 import org.junit.Assert;
 import org.junit.Rule;

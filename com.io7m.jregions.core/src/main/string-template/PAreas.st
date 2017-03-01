@@ -15,7 +15,7 @@ PAreas(scalarType,areaType,className,splitXType,splitYType,opClass) ::= <<
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.io7m.jregions.core.parameterized;
+package com.io7m.jregions.core.parameterized.areas;
 
 import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.jnull.NullCheck;
@@ -180,7 +180,7 @@ public final class <className>
   }
 
   /**
-   * Brand a given area as be<scalarType>ing to a different coordinate space.
+   * Brand a given area as belonging to a different coordinate space.
    * Mixing up coordinate spaces is a common source of difficult-to-locate bugs.
    * Use at your own risk.
    *

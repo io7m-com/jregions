@@ -55,8 +55,10 @@
         <artifactId>string-template-maven-plugin</artifactId>
         <executions>
 
+          <!-- Parameterized types -->
+
           <execution>
-            <id>generate-BD</id>
+            <id>generate-P-BD</id>
             <phase>generate-sources</phase>
             <goals>
               <goal>render</goal>
@@ -70,12 +72,176 @@
                   <properties>
                     <scalarType>java.math.BigDecimal</scalarType>
                     <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.PAreaBD</areaType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.PAreasBD</areaOpsType>
+                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaBD</areaType>
+                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasBD</areaOpsType>
                     <className>PAreasBDTest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.PAreaXSplitBD</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.PAreaYSplitBD</splitYType>
+                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitBD</splitXType>
+                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitBD</splitYType>
                     <opClass>PAreasBDTestOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-P-BI</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/test/string-template</directory>
+                  <name>PAreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasBITest.java</target>
+                  <properties>
+                    <scalarType>java.math.BigInteger</scalarType>
+                    <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
+                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaBI</areaType>
+                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasBI</areaOpsType>
+                    <className>PAreasBITest</className>
+                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitBI</splitXType>
+                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitBI</splitYType>
+                    <opClass>PAreasBITestOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-P-F</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/test/string-template</directory>
+                  <name>PAreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasFTest.java</target>
+                  <properties>
+                    <scalarType>float</scalarType>
+                    <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
+                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaF</areaType>
+                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasF</areaOpsType>
+                    <className>PAreasFTest</className>
+                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitF</splitXType>
+                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitF</splitYType>
+                    <opClass>PAreasFTestOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-P-I</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/test/string-template</directory>
+                  <name>PAreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasITest.java</target>
+                  <properties>
+                    <scalarType>int</scalarType>
+                    <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
+                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaI</areaType>
+                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasI</areaOpsType>
+                    <className>PAreasITest</className>
+                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitI</splitXType>
+                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitI</splitYType>
+                    <opClass>PAreasITestOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-P-L</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/test/string-template</directory>
+                  <name>PAreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasLTest.java</target>
+                  <properties>
+                    <scalarType>long</scalarType>
+                    <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
+                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaL</areaType>
+                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasL</areaOpsType>
+                    <className>PAreasLTest</className>
+                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitL</splitXType>
+                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitL</splitYType>
+                    <opClass>PAreasLTestOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>generate-P-D</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/test/string-template</directory>
+                  <name>PAreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasDTest.java</target>
+                  <properties>
+                    <scalarType>double</scalarType>
+                    <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
+                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaD</areaType>
+                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasD</areaOpsType>
+                    <className>PAreasDTest</className>
+                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitD</splitXType>
+                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitD</splitYType>
+                    <opClass>PAreasDTestOps</opClass>
+                  </properties>
+                </template>
+              </templates>
+            </configuration>
+          </execution>
+
+          <!-- Parameterized types -->
+
+          <execution>
+            <id>generate-BD</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>render</goal>
+            </goals>
+            <configuration>
+              <templates>
+                <template>
+                  <directory>src/test/string-template</directory>
+                  <name>AreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasBDTest.java</target>
+                  <properties>
+                    <scalarType>java.math.BigDecimal</scalarType>
+                    <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
+                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaBD</areaType>
+                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasBD</areaOpsType>
+                    <className>AreasBDTest</className>
+                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitBD</splitXType>
+                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitBD</splitYType>
+                    <opClass>AreasBDTestOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -92,17 +258,17 @@
               <templates>
                 <template>
                   <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasBITest.java</target>
+                  <name>AreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasBITest.java</target>
                   <properties>
                     <scalarType>java.math.BigInteger</scalarType>
                     <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.PAreaBI</areaType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.PAreasBI</areaOpsType>
-                    <className>PAreasBITest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.PAreaXSplitBI</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.PAreaYSplitBI</splitYType>
-                    <opClass>PAreasBITestOps</opClass>
+                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaBI</areaType>
+                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasBI</areaOpsType>
+                    <className>AreasBITest</className>
+                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitBI</splitXType>
+                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitBI</splitYType>
+                    <opClass>AreasBITestOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -119,17 +285,17 @@
               <templates>
                 <template>
                   <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasFTest.java</target>
+                  <name>AreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasFTest.java</target>
                   <properties>
                     <scalarType>float</scalarType>
                     <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.PAreaF</areaType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.PAreasF</areaOpsType>
-                    <className>PAreasFTest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.PAreaXSplitF</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.PAreaYSplitF</splitYType>
-                    <opClass>PAreasFTestOps</opClass>
+                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaF</areaType>
+                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasF</areaOpsType>
+                    <className>AreasFTest</className>
+                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitF</splitXType>
+                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitF</splitYType>
+                    <opClass>AreasFTestOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -146,17 +312,17 @@
               <templates>
                 <template>
                   <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasITest.java</target>
+                  <name>AreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasITest.java</target>
                   <properties>
                     <scalarType>int</scalarType>
                     <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.PAreaI</areaType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.PAreasI</areaOpsType>
-                    <className>PAreasITest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.PAreaXSplitI</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.PAreaYSplitI</splitYType>
-                    <opClass>PAreasITestOps</opClass>
+                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaI</areaType>
+                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasI</areaOpsType>
+                    <className>AreasITest</className>
+                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitI</splitXType>
+                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitI</splitYType>
+                    <opClass>AreasITestOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -173,17 +339,17 @@
               <templates>
                 <template>
                   <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasLTest.java</target>
+                  <name>AreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasLTest.java</target>
                   <properties>
                     <scalarType>long</scalarType>
                     <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.PAreaL</areaType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.PAreasL</areaOpsType>
-                    <className>PAreasLTest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.PAreaXSplitL</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.PAreaYSplitL</splitYType>
-                    <opClass>PAreasLTestOps</opClass>
+                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaL</areaType>
+                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasL</areaOpsType>
+                    <className>AreasLTest</className>
+                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitL</splitXType>
+                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitL</splitYType>
+                    <opClass>AreasLTestOps</opClass>
                   </properties>
                 </template>
               </templates>
@@ -200,20 +366,39 @@
               <templates>
                 <template>
                   <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasDTest.java</target>
+                  <name>AreasTest</name>
+                  <target>${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasDTest.java</target>
                   <properties>
                     <scalarType>double</scalarType>
                     <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.PAreaD</areaType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.PAreasD</areaOpsType>
-                    <className>PAreasDTest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.PAreaXSplitD</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.PAreaYSplitD</splitYType>
-                    <opClass>PAreasDTestOps</opClass>
+                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaD</areaType>
+                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasD</areaOpsType>
+                    <className>AreasDTest</className>
+                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitD</splitXType>
+                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitD</splitYType>
+                    <opClass>AreasDTestOps</opClass>
                   </properties>
                 </template>
               </templates>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.build.directory}/generated-test-sources/string-template</source>
+              </sources>
             </configuration>
           </execution>
         </executions>

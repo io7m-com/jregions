@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.tests.core.parameterized;
 
-import com.io7m.jregions.core.parameterized.PAreaF;
+import com.io7m.jregions.core.parameterized.areas.PAreaF;
 import com.io7m.jregions.generators.PAreaFGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;

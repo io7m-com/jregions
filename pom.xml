@@ -248,6 +248,11 @@
           <artifactId>string-template-maven-plugin</artifactId>
           <version>1.1</version>
         </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
 
         <!-- Require JDK >= 1.8 -->
         <plugin>
@@ -380,6 +385,8 @@
               <goal>jar</goal>
             </goals>
             <configuration>
+              <!-- https://github.com/immutables/immutables/issues/565 -->
+              <additionalparam>-Xdoclint:none</additionalparam>
               <bottom><![CDATA[Copyright &#169; {currentYear} &lt;code@io7m.com&gt; http://io7m.com]]></bottom>
               <archive>
                 <manifestEntries>

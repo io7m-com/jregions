@@ -17,7 +17,7 @@
 package com.io7m.jregions.generators;
 
 import com.io7m.jnull.NullCheck;
-import com.io7m.jregions.core.parameterized.PAreaI;
+import com.io7m.jregions.core.parameterized.areas.PAreaI;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.support.IntegerGenerator;
 

@@ -17,7 +17,7 @@
 package com.io7m.jregions.generators;
 
 import com.io7m.jnull.NullCheck;
-import com.io7m.jregions.core.AreaSizeD;
+import com.io7m.jregions.core.unparameterized.sizes.AreaSizeD;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.support.DoubleGenerator;
 

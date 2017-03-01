@@ -17,7 +17,7 @@
 package com.io7m.jregions.generators;
 
 import com.io7m.jnull.NullCheck;
-import com.io7m.jregions.core.parameterized.PAreaSizeBI;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizeBI;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.support.LongGenerator;
 
