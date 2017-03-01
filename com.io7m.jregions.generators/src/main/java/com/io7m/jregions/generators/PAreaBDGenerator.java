@@ -7,7 +7,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+ * MERCHANTABDLITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
  * SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
  * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
@@ -17,13 +17,14 @@
 package com.io7m.jregions.generators;
 
 import com.io7m.jnull.NullCheck;
-import com.io7m.jregions.core.parameterized.PAreaI;
+import com.io7m.jregions.core.parameterized.PAreaBD;
 import net.java.quickcheck.Generator;
-import net.java.quickcheck.generator.support.IntegerGenerator;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A generator for areas.
@@ -32,9 +33,9 @@ import java.util.List;
  *            area
  */
 
-public final class PAreaIGenerator<S> implements Generator<PAreaI<S>>
+public final class PAreaBDGenerator<S> implements Generator<PAreaBD<S>>
 {
-  private final Generator<Integer> gen;
+  private final Generator<BigDecimal> gen;
 
   /**
    * Create a new generator.
@@ -42,8 +43,8 @@ public final class PAreaIGenerator<S> implements Generator<PAreaI<S>>
    * @param in_gen A number generator
    */
 
-  public PAreaIGenerator(
-    final Generator<Integer> in_gen)
+  public PAreaBDGenerator(
+    final Generator<BigDecimal> in_gen)
   {
     this.gen = NullCheck.notNull(in_gen, "gen");
   }
@@ -55,30 +56,39 @@ public final class PAreaIGenerator<S> implements Generator<PAreaI<S>>
    * @return A generator initialized with useful defaults
    */
 
-  public static <S> PAreaIGenerator<S> create()
+  public static <S> PAreaBDGenerator<S> create()
   {
-    return new PAreaIGenerator<>(new IntegerGenerator(0, 10000));
+    return new PAreaBDGenerator<>(new Generator<BigDecimal>()
+    {
+      private final Random random = new Random();
+
+      @Override
+      public BigDecimal next()
+      {
+        return BigDecimal.valueOf(Math.abs(this.random.nextLong()));
+      }
+    });
   }
 
   @Override
-  public PAreaI<S> next()
+  public PAreaBD<S> next()
   {
-    final List<Integer> order = new ArrayList<>(2);
+    final List<BigDecimal> order = new ArrayList<>(2);
     order.add(this.gen.next());
     order.add(this.gen.next());
     Collections.sort(order);
 
-    final int x_min = order.get(0).intValue();
-    final int x_max = order.get(1).intValue();
+    final BigDecimal x_min = BigDecimal.valueOf(order.get(0).longValue());
+    final BigDecimal x_max = BigDecimal.valueOf(order.get(1).longValue());
 
     order.clear();
     order.add(this.gen.next());
     order.add(this.gen.next());
     Collections.sort(order);
 
-    final int y_min = order.get(0).intValue();
-    final int y_max = order.get(1).intValue();
+    final BigDecimal y_min = BigDecimal.valueOf(order.get(0).longValue());
+    final BigDecimal y_max = BigDecimal.valueOf(order.get(1).longValue());
 
-    return PAreaI.of(x_min, x_max, y_min, y_max);
+    return PAreaBD.of(x_min, x_max, y_min, y_max);
   }
 }

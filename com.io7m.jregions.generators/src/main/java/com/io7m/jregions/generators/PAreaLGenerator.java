@@ -34,7 +34,7 @@ import java.util.List;
 
 public final class PAreaLGenerator<S> implements Generator<PAreaL<S>>
 {
-  private final LongGenerator gen;
+  private final Generator<Long> gen;
 
   /**
    * Create a new generator.
@@ -43,7 +43,7 @@ public final class PAreaLGenerator<S> implements Generator<PAreaL<S>>
    */
 
   public PAreaLGenerator(
-    final LongGenerator in_gen)
+    final Generator<Long> in_gen)
   {
     this.gen = NullCheck.notNull(in_gen, "gen");
   }

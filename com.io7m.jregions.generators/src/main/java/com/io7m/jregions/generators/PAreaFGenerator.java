@@ -17,9 +17,9 @@
 package com.io7m.jregions.generators;
 
 import com.io7m.jnull.NullCheck;
-import com.io7m.jregions.core.parameterized.PAreaI;
+import com.io7m.jregions.core.parameterized.PAreaF;
 import net.java.quickcheck.Generator;
-import net.java.quickcheck.generator.support.IntegerGenerator;
+import net.java.quickcheck.generator.PrimitiveGenerators;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,9 +32,9 @@ import java.util.List;
  *            area
  */
 
-public final class PAreaIGenerator<S> implements Generator<PAreaI<S>>
+public final class PAreaFGenerator<S> implements Generator<PAreaF<S>>
 {
-  private final Generator<Integer> gen;
+  private final Generator<Float> gen;
 
   /**
    * Create a new generator.
@@ -42,8 +42,8 @@ public final class PAreaIGenerator<S> implements Generator<PAreaI<S>>
    * @param in_gen A number generator
    */
 
-  public PAreaIGenerator(
-    final Generator<Integer> in_gen)
+  public PAreaFGenerator(
+    final Generator<Float> in_gen)
   {
     this.gen = NullCheck.notNull(in_gen, "gen");
   }
@@ -55,30 +55,31 @@ public final class PAreaIGenerator<S> implements Generator<PAreaI<S>>
    * @return A generator initialized with useful defaults
    */
 
-  public static <S> PAreaIGenerator<S> create()
+  public static <S> PAreaFGenerator<S> create()
   {
-    return new PAreaIGenerator<>(new IntegerGenerator(0, 10000));
+    final Generator<Double> base = PrimitiveGenerators.doubles(0.0, 10000.0);
+    return new PAreaFGenerator<>(() -> Float.valueOf(base.next().floatValue()));
   }
 
   @Override
-  public PAreaI<S> next()
+  public PAreaF<S> next()
   {
-    final List<Integer> order = new ArrayList<>(2);
+    final List<Float> order = new ArrayList<>(2);
     order.add(this.gen.next());
     order.add(this.gen.next());
     Collections.sort(order);
 
-    final int x_min = order.get(0).intValue();
-    final int x_max = order.get(1).intValue();
+    final float x_min = order.get(0).floatValue();
+    final float x_max = order.get(1).floatValue();
 
     order.clear();
     order.add(this.gen.next());
     order.add(this.gen.next());
     Collections.sort(order);
 
-    final int y_min = order.get(0).intValue();
-    final int y_max = order.get(1).intValue();
+    final float y_min = order.get(0).floatValue();
+    final float y_max = order.get(1).floatValue();
 
-    return PAreaI.of(x_min, x_max, y_min, y_max);
+    return PAreaF.of(x_min, x_max, y_min, y_max);
   }
 }
