@@ -8,14 +8,15 @@
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>0.1.0</version>
+    <version>0.0.1</version>
   </parent>
-  <artifactId>com.io7m.jregions.checkstyle</artifactId>
 
+  <artifactId>com.io7m.jregions.checkstyle</artifactId>
   <packaging>jar</packaging>
+
   <name>com.io7m.jregions.checkstyle</name>
   <description>Area types (Checkstyle policy)</description>
-  <url>http://io7m.github.io/jregions/</url>
+  <url>http://github.com/io7m/jregions</url>
 
   <scm>
     <url>${project.parent.scm.url}</url>
