@@ -1,0 +1,4 @@
+[part [title API Documentation] [id api]]
+[section [title JavaDoc] [id api.javadoc]]
+[paragraph]
+See the included [link-ext [target "apidocs"] JavaDoc].
