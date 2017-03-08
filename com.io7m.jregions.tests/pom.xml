@@ -5,10 +5,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
   </parent>
 
   <artifactId>com.io7m.jregions.tests</artifactId>
@@ -28,12 +29,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>com.io7m.jregions.core</artifactId>
-      <version>0.0.1</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>com.io7m.jregions.generators</artifactId>
-      <version>0.0.1</version>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
