@@ -16,6 +16,7 @@
 
 package com.io7m.jregions.core.unparameterized.areas;
 
+import com.io7m.jregions.core.unparameterized.sizes.AreaSizeValuesBDType;
 import org.immutables.value.Value;
 
 import java.math.BigDecimal;
@@ -29,7 +30,7 @@ import java.math.BigDecimal;
  * the X axis. Likewise for the Y axis.</p>
  */
 
-public interface AreaValuesBDType
+public interface AreaValuesBDType extends AreaSizeValuesBDType
 {
   /**
    * @return The value on the X axis of the minimum edge of the box (inclusive)
@@ -59,20 +60,14 @@ public interface AreaValuesBDType
   @Value.Parameter(order = 3)
   BigDecimal maximumY();
 
-  /**
-   * @return The width of the area
-   */
-
+  @Override
   @Value.Lazy
   default BigDecimal width()
   {
     return this.maximumX().subtract(this.minimumX());
   }
 
-  /**
-   * @return The height of the area
-   */
-
+  @Override
   @Value.Lazy
   default BigDecimal height()
   {

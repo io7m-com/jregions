@@ -16,6 +16,7 @@
 
 package com.io7m.jregions.core.unparameterized.areas;
 
+import com.io7m.jregions.core.unparameterized.sizes.AreaSizeValuesLType;
 import org.immutables.value.Value;
 
 /**
@@ -27,7 +28,7 @@ import org.immutables.value.Value;
  * the X axis. Likewise for the Y axis.</p>
  */
 
-public interface AreaValuesLType
+public interface AreaValuesLType extends AreaSizeValuesLType
 {
   /**
    * @return The value on the X axis of the minimum edge of the box (inclusive)
@@ -57,20 +58,14 @@ public interface AreaValuesLType
   @Value.Parameter(order = 3)
   long maximumY();
 
-  /**
-   * @return The width of the area
-   */
-
+  @Override
   @Value.Lazy
   default long width()
   {
     return Math.subtractExact(this.maximumX(), this.minimumX());
   }
 
-  /**
-   * @return The height of the area
-   */
-
+  @Override
   @Value.Lazy
   default long height()
   {

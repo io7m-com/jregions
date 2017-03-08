@@ -23,6 +23,12 @@
       <c:ticket>3</c:ticket>
       <c:summary>Add type conversion methods.</c:summary>
     </c:item>
+    <c:item>
+      <c:date>2017-03-08</c:date>
+      <c:type-code-new/>
+      <c:ticket>5</c:ticket>
+      <c:summary>Allow areas to be treated as area sizes.</c:summary>
+    </c:item>
   </c:release>
 
   <c:release c:ticket-system="com.github.io7m.jregions">
