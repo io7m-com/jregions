@@ -11,6 +11,12 @@
       <c:ticket>1</c:ticket>
       <c:summary>Add common "value" interfaces.</c:summary>
     </c:item>
+    <c:item>
+      <c:date>2017-03-08</c:date>
+      <c:type-code-new/>
+      <c:ticket>4</c:ticket>
+      <c:summary>Add missing float and BigDecimal generators and tests.</c:summary>
+    </c:item>
   </c:release>
 
   <c:release c:ticket-system="com.github.io7m.jregions">
