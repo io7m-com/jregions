@@ -18,6 +18,7 @@ package com.io7m.jregions.core.parameterized.areas;
 
 import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.jregions.core.unparameterized.areas.AreaValuesBDType;
 import org.immutables.value.Value;
 
 import java.math.BigDecimal;
@@ -36,55 +37,23 @@ import java.math.BigDecimal;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface PAreaBDType<S>
+public interface PAreaBDType<S> extends AreaValuesBDType
 {
-  /**
-   * @return The value on the X axis of the minimum edge of the box (inclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 0)
   BigDecimal minimumX();
 
-  /**
-   * @return The value on the X axis of the maximum edge of the box (exclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 1)
   BigDecimal maximumX();
 
-  /**
-   * @return The value on the Y axis of the minimum edge of the box (inclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 2)
   BigDecimal minimumY();
 
-  /**
-   * @return The value on the Y axis of the maximum edge of the box (exclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 3)
   BigDecimal maximumY();
-
-  /**
-   * @return The width of the area
-   */
-
-  @Value.Lazy
-  default BigDecimal width()
-  {
-    return this.maximumX().subtract(this.minimumX());
-  }
-
-  /**
-   * @return The height of the area
-   */
-
-  @Value.Lazy
-  default BigDecimal height()
-  {
-    return this.maximumY().subtract(this.minimumY());
-  }
 
   /**
    * Check the preconditions for the parameters.

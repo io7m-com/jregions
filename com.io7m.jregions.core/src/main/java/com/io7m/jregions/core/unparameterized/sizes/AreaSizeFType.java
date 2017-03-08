@@ -26,20 +26,14 @@ import org.immutables.value.Value;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface AreaSizeFType
+public interface AreaSizeFType extends AreaSizeValuesFType
 {
-  /**
-   * @return The width of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 0)
   float width();
 
-  /**
-   * @return The height of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 1)
   float height();
 
   /**

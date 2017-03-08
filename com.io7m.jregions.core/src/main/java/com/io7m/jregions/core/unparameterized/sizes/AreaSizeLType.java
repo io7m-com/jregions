@@ -25,19 +25,13 @@ import org.immutables.value.Value;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface AreaSizeLType
+public interface AreaSizeLType extends AreaSizeValuesLType
 {
-  /**
-   * @return The width of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 0)
   long width();
 
-  /**
-   * @return The height of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 1)
   long height();
 }

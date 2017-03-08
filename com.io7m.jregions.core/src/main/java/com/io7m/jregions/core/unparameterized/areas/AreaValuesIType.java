@@ -16,8 +16,6 @@
 
 package com.io7m.jregions.core.unparameterized.areas;
 
-import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
 /**
@@ -29,40 +27,53 @@ import org.immutables.value.Value;
  * the X axis. Likewise for the Y axis.</p>
  */
 
-@JRegionsImmutableStyleType
-@Value.Immutable
-public interface AreaIType extends AreaValuesIType
+public interface AreaValuesIType
 {
-  @Override
+  /**
+   * @return The value on the X axis of the minimum edge of the box (inclusive)
+   */
+
   @Value.Parameter(order = 0)
   int minimumX();
 
-  @Override
+  /**
+   * @return The value on the X axis of the maximum edge of the box (exclusive)
+   */
+
   @Value.Parameter(order = 1)
   int maximumX();
 
-  @Override
+  /**
+   * @return The value on the Y axis of the minimum edge of the box (inclusive)
+   */
+
   @Value.Parameter(order = 2)
   int minimumY();
 
-  @Override
+  /**
+   * @return The value on the Y axis of the maximum edge of the box (exclusive)
+   */
+
   @Value.Parameter(order = 3)
   int maximumY();
 
   /**
-   * Check the preconditions for the parameters.
+   * @return The width of the area
    */
 
-  @Value.Check
-  default void checkPreconditions()
+  @Value.Lazy
+  default int width()
   {
-    Preconditions.checkPreconditionI(
-      this.maximumX(),
-      this.maximumX() >= this.minimumX(),
-      x -> "X maximum must be >= X minimum");
-    Preconditions.checkPreconditionI(
-      this.maximumY(),
-      this.maximumY() >= this.minimumY(),
-      y -> "Y maximum must be >= Y minimum");
+    return Math.subtractExact(this.maximumX(), this.minimumX());
+  }
+
+  /**
+   * @return The height of the area
+   */
+
+  @Value.Lazy
+  default int height()
+  {
+    return Math.subtractExact(this.maximumY(), this.minimumY());
   }
 }

@@ -16,36 +16,25 @@
 
 package com.io7m.jregions.core.unparameterized.sizes;
 
-import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
 /**
  * The size of an area with <tt>double</tt> coordinates.
  */
 
-@JRegionsImmutableStyleType
-@Value.Immutable
-public interface AreaSizeDType extends AreaSizeValuesDType
+public interface AreaSizeValuesDType
 {
-  @Override
+  /**
+   * @return The width of an area
+   */
+
   @Value.Parameter(order = 0)
   double width();
 
-  @Override
-  @Value.Parameter(order = 1)
-  double height();
-
   /**
-   * Check preconditions for the type.
+   * @return The height of an area
    */
 
-  @Value.Check
-  default void checkPreconditions()
-  {
-    Preconditions.checkPreconditionD(
-      this.width(), this.width() >= 0.0, d -> "Width must be non-negative");
-    Preconditions.checkPreconditionD(
-      this.height(), this.height() >= 0.0, d -> "Height must be non-negative");
-  }
+  @Value.Parameter(order = 1)
+  double height();
 }

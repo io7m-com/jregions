@@ -16,12 +16,12 @@
 
 package com.io7m.jregions.core.unparameterized.areas;
 
-import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
+import java.math.BigInteger;
+
 /**
- * <p>An area with <tt>int</tt> coordinates.</p>
+ * <p>An area with <tt>BigInteger</tt> coordinates.</p>
  *
  * <p>The coordinates of the area are given in <i>half-closed</i> form. That is,
  * {@link #minimumX()} refers to the minimum <i>inclusive</i> value on the X
@@ -29,40 +29,53 @@ import org.immutables.value.Value;
  * the X axis. Likewise for the Y axis.</p>
  */
 
-@JRegionsImmutableStyleType
-@Value.Immutable
-public interface AreaIType extends AreaValuesIType
+public interface AreaValuesBIType
 {
-  @Override
-  @Value.Parameter(order = 0)
-  int minimumX();
-
-  @Override
-  @Value.Parameter(order = 1)
-  int maximumX();
-
-  @Override
-  @Value.Parameter(order = 2)
-  int minimumY();
-
-  @Override
-  @Value.Parameter(order = 3)
-  int maximumY();
-
   /**
-   * Check the preconditions for the parameters.
+   * @return The value on the X axis of the minimum edge of the box (inclusive)
    */
 
-  @Value.Check
-  default void checkPreconditions()
+  @Value.Parameter(order = 0)
+  BigInteger minimumX();
+
+  /**
+   * @return The value on the X axis of the maximum edge of the box (exclusive)
+   */
+
+  @Value.Parameter(order = 1)
+  BigInteger maximumX();
+
+  /**
+   * @return The value on the Y axis of the minimum edge of the box (inclusive)
+   */
+
+  @Value.Parameter(order = 2)
+  BigInteger minimumY();
+
+  /**
+   * @return The value on the Y axis of the maximum edge of the box (exclusive)
+   */
+
+  @Value.Parameter(order = 3)
+  BigInteger maximumY();
+
+  /**
+   * @return The width of the area
+   */
+
+  @Value.Lazy
+  default BigInteger width()
   {
-    Preconditions.checkPreconditionI(
-      this.maximumX(),
-      this.maximumX() >= this.minimumX(),
-      x -> "X maximum must be >= X minimum");
-    Preconditions.checkPreconditionI(
-      this.maximumY(),
-      this.maximumY() >= this.minimumY(),
-      y -> "Y maximum must be >= Y minimum");
+    return this.maximumX().subtract(this.minimumX());
+  }
+
+  /**
+   * @return The height of the area
+   */
+
+  @Value.Lazy
+  default BigInteger height()
+  {
+    return this.maximumY().subtract(this.minimumY());
   }
 }
