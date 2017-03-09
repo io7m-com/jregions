@@ -1,4 +1,4 @@
-PAreas(scalarType,areaType,className,splitXType,splitYType,opClass) ::= <<
+PAreas(scalarType,areaType,areaSizeType,className,splitXType,splitYType,opClass) ::= <<
 /*
  * Copyright © 2017 \<code@io7m.com\> http://io7m.com
  *
@@ -1286,6 +1286,19 @@ public final class <className>
 
     final StringBuilder sb = new StringBuilder(128);
     return showToBuilder(area, sb);
+  }
+
+  /**
+   * @param area The area
+   * @param \<S\>  The coordinate space of the area
+   * @return The size of the area
+   */
+
+  public static \<S\> <areaSizeType>\<S\> size(
+    final <areaType>\<S\> area)
+  {
+    <opClass>.notNullArea(area, "area");
+    return <areaSizeType>.of(area.width(), area.height());
   }
 
   /**

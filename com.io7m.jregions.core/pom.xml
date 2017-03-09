@@ -67,6 +67,7 @@
                   <properties>
                     <scalarType>java.math.BigDecimal</scalarType>
                     <areaType>PAreaBD</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBD</areaSizeType>
                     <className>PAreasBD</className>
                     <splitXType>PAreaXSplitBD</splitXType>
                     <splitYType>PAreaYSplitBD</splitYType>
@@ -92,6 +93,7 @@
                   <properties>
                     <scalarType>java.math.BigInteger</scalarType>
                     <areaType>PAreaBI</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBI</areaSizeType>
                     <className>PAreasBI</className>
                     <splitXType>PAreaXSplitBI</splitXType>
                     <splitYType>PAreaYSplitBI</splitYType>
@@ -117,6 +119,7 @@
                   <properties>
                     <scalarType>int</scalarType>
                     <areaType>PAreaI</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeI</areaSizeType>
                     <className>PAreasI</className>
                     <splitXType>PAreaXSplitI</splitXType>
                     <splitYType>PAreaYSplitI</splitYType>
@@ -142,6 +145,7 @@
                   <properties>
                     <scalarType>float</scalarType>
                     <areaType>PAreaF</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeF</areaSizeType>
                     <className>PAreasF</className>
                     <splitXType>PAreaXSplitF</splitXType>
                     <splitYType>PAreaYSplitF</splitYType>
@@ -167,6 +171,7 @@
                   <properties>
                     <scalarType>double</scalarType>
                     <areaType>PAreaD</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeD</areaSizeType>
                     <className>PAreasD</className>
                     <splitXType>PAreaXSplitD</splitXType>
                     <splitYType>PAreaYSplitD</splitYType>
@@ -192,6 +197,7 @@
                   <properties>
                     <scalarType>long</scalarType>
                     <areaType>PAreaL</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeL</areaSizeType>
                     <className>PAreasL</className>
                     <splitXType>PAreaXSplitL</splitXType>
                     <splitYType>PAreaYSplitL</splitYType>
@@ -219,6 +225,7 @@
                   <properties>
                     <scalarType>java.math.BigDecimal</scalarType>
                     <areaType>AreaBD</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBD</areaSizeType>
                     <className>AreasBD</className>
                     <splitXType>AreaXSplitBD</splitXType>
                     <splitYType>AreaYSplitBD</splitYType>
@@ -244,6 +251,7 @@
                   <properties>
                     <scalarType>java.math.BigInteger</scalarType>
                     <areaType>AreaBI</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBI</areaSizeType>
                     <className>AreasBI</className>
                     <splitXType>AreaXSplitBI</splitXType>
                     <splitYType>AreaYSplitBI</splitYType>
@@ -269,6 +277,7 @@
                   <properties>
                     <scalarType>int</scalarType>
                     <areaType>AreaI</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeI</areaSizeType>
                     <className>AreasI</className>
                     <splitXType>AreaXSplitI</splitXType>
                     <splitYType>AreaYSplitI</splitYType>
@@ -294,6 +303,7 @@
                   <properties>
                     <scalarType>float</scalarType>
                     <areaType>AreaF</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeF</areaSizeType>
                     <className>AreasF</className>
                     <splitXType>AreaXSplitF</splitXType>
                     <splitYType>AreaYSplitF</splitYType>
@@ -319,6 +329,7 @@
                   <properties>
                     <scalarType>double</scalarType>
                     <areaType>AreaD</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeD</areaSizeType>
                     <className>AreasD</className>
                     <splitXType>AreaXSplitD</splitXType>
                     <splitYType>AreaYSplitD</splitYType>
@@ -344,6 +355,7 @@
                   <properties>
                     <scalarType>long</scalarType>
                     <areaType>AreaL</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeL</areaSizeType>
                     <className>AreasL</className>
                     <splitXType>AreaXSplitL</splitXType>
                     <splitYType>AreaYSplitL</splitYType>

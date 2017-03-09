@@ -1,4 +1,4 @@
-AreasTest(scalarType,scalarGeneratorType,areaType,areaOpsType,className,splitXType,splitYType,opClass) ::= <<
+AreasTest(scalarType,scalarGeneratorType,areaType,areaSizeType,areaOpsType,className,splitXType,splitYType,opClass) ::= <<
 /*
  * Copyright © 2017 \<code@io7m.com\> http://io7m.com
  *
@@ -1922,6 +1922,28 @@ public final class <className>
         }
       });
   }
+
+    @Test
+    public void testSize()
+      throws Exception
+    {
+      final Generator\<<areaType>\> generator = <opClass>.createGenerator();
+      QuickCheck.forAll(
+        generator,
+        new AbstractCharacteristic\<<areaType>\>()
+        {
+          @Override
+          protected void doSpecify(final <areaType> outer)
+            throws Throwable
+          {
+            final <areaSizeType> s =
+              <areaOpsType>.size(outer);
+
+            <opClass>.checkEquals(outer.width(), s.width());
+            <opClass>.checkEquals(outer.height(), s.height());
+          }
+        });
+    }
 }
 
 >>

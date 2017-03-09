@@ -1,4 +1,4 @@
-Areas(scalarType,areaType,className,splitXType,splitYType,opClass) ::= <<
+Areas(scalarType,areaType,areaSizeType,className,splitXType,splitYType,opClass) ::= <<
 /*
  * Copyright © 2017 \<code@io7m.com\> http://io7m.com
  *
@@ -1250,7 +1250,6 @@ public final class <className>
 
   /**
    * @param area The area
-   * 
    *
    * @return A terse string describing the position and size of the area
    */
@@ -1262,6 +1261,19 @@ public final class <className>
 
     final StringBuilder sb = new StringBuilder(128);
     return showToBuilder(area, sb);
+  }
+
+  /**
+   * @param area The area
+   *
+   * @return The size of the area
+   */
+
+  public static <areaSizeType> size(
+    final <areaType> area)
+  {
+    <opClass>.notNullArea(area, "area");
+    return <areaSizeType>.of(area.width(), area.height());
   }
 
   /**
