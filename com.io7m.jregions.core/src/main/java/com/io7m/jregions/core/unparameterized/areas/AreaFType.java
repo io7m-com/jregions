@@ -31,55 +31,23 @@ import org.immutables.value.Value;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface AreaFType
+public interface AreaFType extends AreaValuesFType
 {
-  /**
-   * @return The value on the X axis of the minimum edge of the box (inclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 0)
   float minimumX();
 
-  /**
-   * @return The value on the X axis of the maximum edge of the box (exclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 1)
   float maximumX();
 
-  /**
-   * @return The value on the Y axis of the minimum edge of the box (inclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 2)
   float minimumY();
 
-  /**
-   * @return The value on the Y axis of the maximum edge of the box (exclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 3)
   float maximumY();
-
-  /**
-   * @return The width of the area
-   */
-
-  @Value.Lazy
-  default float width()
-  {
-    return this.maximumX() - this.minimumX();
-  }
-
-  /**
-   * @return The height of the area
-   */
-
-  @Value.Lazy
-  default float height()
-  {
-    return this.maximumY() - this.minimumY();
-  }
 
   /**
    * Check the preconditions for the parameters.

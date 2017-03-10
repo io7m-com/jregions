@@ -28,20 +28,14 @@ import java.math.BigInteger;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface AreaSizeBIType
+public interface AreaSizeBIType extends AreaSizeValuesBIType
 {
-  /**
-   * @return The width of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 0)
   BigInteger width();
 
-  /**
-   * @return The height of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 1)
   BigInteger height();
 
   /**

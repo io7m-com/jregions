@@ -17,6 +17,7 @@
 package com.io7m.jregions.core.parameterized.sizes;
 
 import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.jregions.core.unparameterized.sizes.AreaSizeValuesLType;
 import org.immutables.value.Value;
 
 /**
@@ -28,19 +29,13 @@ import org.immutables.value.Value;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface PAreaSizeLType<S>
+public interface PAreaSizeLType<S> extends AreaSizeValuesLType
 {
-  /**
-   * @return The width of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 0)
   long width();
 
-  /**
-   * @return The height of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 1)
   long height();
 }

@@ -1,4 +1,4 @@
-PAreasTest(scalarType,scalarGeneratorType,areaType,areaOpsType,className,splitXType,splitYType,opClass) ::= <<
+PAreasTest(scalarType,scalarGeneratorType,areaType,areaSizeType,areaOpsType,className,splitXType,splitYType,opClass) ::= <<
 /*
  * Copyright © 2017 \<code@io7m.com\> http://io7m.com
  *
@@ -1939,6 +1939,28 @@ public final class <className>
               Assert.assertTrue(<areaOpsType>.contains(outer, upper));
             }
           }
+        }
+      });
+  }
+
+  @Test
+  public void testSize()
+    throws Exception
+  {
+    final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
+    QuickCheck.forAll(
+      generator,
+      new AbstractCharacteristic\<<areaType>\<Object\>\>()
+      {
+        @Override
+        protected void doSpecify(final <areaType>\<Object\> outer)
+          throws Throwable
+        {
+          final <areaSizeType>\<Object\> s =
+            <areaOpsType>.size(outer);
+
+          <opClass>.checkEquals(outer.width(), s.width());
+          <opClass>.checkEquals(outer.height(), s.height());
         }
       });
   }

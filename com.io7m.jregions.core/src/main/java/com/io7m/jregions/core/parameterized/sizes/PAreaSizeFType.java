@@ -18,6 +18,7 @@ package com.io7m.jregions.core.parameterized.sizes;
 
 import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.jregions.core.unparameterized.sizes.AreaSizeValuesFType;
 import org.immutables.value.Value;
 
 /**
@@ -29,20 +30,14 @@ import org.immutables.value.Value;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface PAreaSizeFType<S>
+public interface PAreaSizeFType<S> extends AreaSizeValuesFType
 {
-  /**
-   * @return The width of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 0)
   float width();
 
-  /**
-   * @return The height of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 1)
   float height();
 
   /**

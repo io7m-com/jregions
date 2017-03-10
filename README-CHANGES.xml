@@ -3,6 +3,41 @@
   <c:project>jregions</c:project>
 
   <c:release c:ticket-system="com.github.io7m.jregions">
+    <c:date>2017-03-09</c:date>
+    <c:version>0.0.3</c:version>
+    <c:item>
+      <c:date>2017-03-08</c:date>
+      <c:type-code-new/>
+      <c:ticket>1</c:ticket>
+      <c:summary>Add common "value" interfaces.</c:summary>
+    </c:item>
+    <c:item>
+      <c:date>2017-03-08</c:date>
+      <c:type-code-new/>
+      <c:ticket>4</c:ticket>
+      <c:summary>Add missing float and BigDecimal generators and tests.</c:summary>
+    </c:item>
+    <c:item>
+      <c:date>2017-03-08</c:date>
+      <c:type-code-new/>
+      <c:ticket>3</c:ticket>
+      <c:summary>Add type conversion methods.</c:summary>
+    </c:item>
+    <c:item>
+      <c:date>2017-03-08</c:date>
+      <c:type-code-new/>
+      <c:ticket>5</c:ticket>
+      <c:summary>Allow areas to be treated as area sizes.</c:summary>
+    </c:item>
+    <c:item>
+      <c:date>2017-03-09</c:date>
+      <c:type-code-new/>
+      <c:ticket>2</c:ticket>
+      <c:summary>Add methods to return sizes from areas.</c:summary>
+    </c:item>
+  </c:release>
+
+  <c:release c:ticket-system="com.github.io7m.jregions">
     <c:date>2017-03-08</c:date>
     <c:version>0.0.2</c:version>
     <c:item>

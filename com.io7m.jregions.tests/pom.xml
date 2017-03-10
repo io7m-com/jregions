@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
   </parent>
 
   <artifactId>com.io7m.jregions.tests</artifactId>
@@ -75,6 +75,7 @@
                     <scalarType>java.math.BigDecimal</scalarType>
                     <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.parameterized.areas.PAreaBD</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBD</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasBD</areaOpsType>
                     <className>PAreasBDTest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitBD</splitXType>
@@ -102,6 +103,7 @@
                     <scalarType>java.math.BigInteger</scalarType>
                     <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.parameterized.areas.PAreaBI</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBI</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasBI</areaOpsType>
                     <className>PAreasBITest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitBI</splitXType>
@@ -129,6 +131,7 @@
                     <scalarType>float</scalarType>
                     <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.parameterized.areas.PAreaF</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeF</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasF</areaOpsType>
                     <className>PAreasFTest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitF</splitXType>
@@ -156,6 +159,7 @@
                     <scalarType>int</scalarType>
                     <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.parameterized.areas.PAreaI</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeI</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasI</areaOpsType>
                     <className>PAreasITest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitI</splitXType>
@@ -183,6 +187,7 @@
                     <scalarType>long</scalarType>
                     <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.parameterized.areas.PAreaL</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeL</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasL</areaOpsType>
                     <className>PAreasLTest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitL</splitXType>
@@ -210,6 +215,7 @@
                     <scalarType>double</scalarType>
                     <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.parameterized.areas.PAreaD</areaType>
+                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeD</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasD</areaOpsType>
                     <className>PAreasDTest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitD</splitXType>
@@ -239,6 +245,7 @@
                     <scalarType>java.math.BigDecimal</scalarType>
                     <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.unparameterized.areas.AreaBD</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBD</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasBD</areaOpsType>
                     <className>AreasBDTest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitBD</splitXType>
@@ -266,6 +273,7 @@
                     <scalarType>java.math.BigInteger</scalarType>
                     <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.unparameterized.areas.AreaBI</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBI</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasBI</areaOpsType>
                     <className>AreasBITest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitBI</splitXType>
@@ -293,6 +301,7 @@
                     <scalarType>float</scalarType>
                     <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.unparameterized.areas.AreaF</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeF</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasF</areaOpsType>
                     <className>AreasFTest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitF</splitXType>
@@ -320,6 +329,7 @@
                     <scalarType>int</scalarType>
                     <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.unparameterized.areas.AreaI</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeI</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasI</areaOpsType>
                     <className>AreasITest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitI</splitXType>
@@ -347,6 +357,7 @@
                     <scalarType>long</scalarType>
                     <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.unparameterized.areas.AreaL</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeL</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasL</areaOpsType>
                     <className>AreasLTest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitL</splitXType>
@@ -374,6 +385,7 @@
                     <scalarType>double</scalarType>
                     <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
                     <areaType>com.io7m.jregions.core.unparameterized.areas.AreaD</areaType>
+                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeD</areaSizeType>
                     <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasD</areaOpsType>
                     <className>AreasDTest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitD</splitXType>

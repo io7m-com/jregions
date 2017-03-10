@@ -18,6 +18,7 @@ package com.io7m.jregions.core.parameterized.areas;
 
 import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.jregions.core.unparameterized.areas.AreaValuesDType;
 import org.immutables.value.Value;
 
 /**
@@ -34,55 +35,23 @@ import org.immutables.value.Value;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface PAreaDType<S>
+public interface PAreaDType<S> extends AreaValuesDType
 {
-  /**
-   * @return The value on the X axis of the minimum edge of the box (inclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 0)
   double minimumX();
 
-  /**
-   * @return The value on the X axis of the maximum edge of the box (exclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 1)
   double maximumX();
 
-  /**
-   * @return The value on the Y axis of the minimum edge of the box (inclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 2)
   double minimumY();
 
-  /**
-   * @return The value on the Y axis of the maximum edge of the box (exclusive)
-   */
-
+  @Override
   @Value.Parameter(order = 3)
   double maximumY();
-
-  /**
-   * @return The width of the area
-   */
-
-  @Value.Lazy
-  default double width()
-  {
-    return this.maximumX() - this.minimumX();
-  }
-
-  /**
-   * @return The height of the area
-   */
-
-  @Value.Lazy
-  default double height()
-  {
-    return this.maximumY() - this.minimumY();
-  }
 
   /**
    * Check the preconditions for the parameters.

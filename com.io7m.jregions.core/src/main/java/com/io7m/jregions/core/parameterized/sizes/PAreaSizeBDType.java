@@ -18,6 +18,7 @@ package com.io7m.jregions.core.parameterized.sizes;
 
 import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.jregions.core.unparameterized.sizes.AreaSizeValuesBDType;
 import org.immutables.value.Value;
 
 import java.math.BigDecimal;
@@ -31,20 +32,14 @@ import java.math.BigDecimal;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface PAreaSizeBDType<S>
+public interface PAreaSizeBDType<S> extends AreaSizeValuesBDType
 {
-  /**
-   * @return The width of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 0)
   BigDecimal width();
 
-  /**
-   * @return The height of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 1)
   BigDecimal height();
 
   /**

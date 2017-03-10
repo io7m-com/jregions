@@ -28,20 +28,14 @@ import java.math.BigDecimal;
 
 @JRegionsImmutableStyleType
 @Value.Immutable
-public interface AreaSizeBDType
+public interface AreaSizeBDType extends AreaSizeValuesBDType
 {
-  /**
-   * @return The width of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 0)
   BigDecimal width();
 
-  /**
-   * @return The height of an area
-   */
-
-  @Value.Parameter
+  @Override
+  @Value.Parameter(order = 1)
   BigDecimal height();
 
   /**

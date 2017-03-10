@@ -16,6 +16,7 @@
 
 package com.io7m.jregions.tests.core;
 
+import com.io7m.jregions.core.conversions.AreaConversions;
 import com.io7m.jregions.core.parameterized.areas.PAreasBD;
 import com.io7m.jregions.core.parameterized.areas.PAreasBI;
 import com.io7m.jregions.core.parameterized.areas.PAreasD;
@@ -65,6 +66,14 @@ public final class UnreachableTest
     } catch (final InvocationTargetException e) {
       throw e.getCause();
     }
+  }
+
+  @Test
+  public void testAreaConversions()
+    throws Throwable
+  {
+    this.checkUnreachable(AreaConversions.class);
+    Assert.fail();
   }
 
   @Test
