@@ -1,4 +1,5 @@
 com.io7m.jregions.core
+com.io7m.jregions.core.conversions
 com.io7m.jregions.core.parameterized
 com.io7m.jregions.core.parameterized.areas
 com.io7m.jregions.core.parameterized.sizes
