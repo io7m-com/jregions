@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
   </parent>
 
   <artifactId>com.io7m.jregions.documentation</artifactId>
@@ -208,6 +208,26 @@
                 <directory>${project.build.directory}/${project.artifactId}-${project.version}.zip/${project.artifactId}-${project.version}/</directory>
                 <outputDirectory>${project.parent.build.directory}/staging/documentation/</outputDirectory>
               </fileset>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Ignore dependency issues -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>analyze</id>
+            <goals>
+              <goal>analyze-only</goal>
+            </goals>
+            <phase>
+              verify
+            </phase>
+            <configuration>
+              <failOnWarning>false</failOnWarning>
             </configuration>
           </execution>
         </executions>

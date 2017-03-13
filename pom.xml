@@ -9,12 +9,12 @@
   <parent>
     <groupId>com.io7m.primogenitor</groupId>
     <artifactId>com.io7m.primogenitor</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
   </parent>
 
   <groupId>com.io7m.jregions</groupId>
   <artifactId>com.io7m.jregions</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>com.io7m.jregions</name>
@@ -34,7 +34,7 @@
     <siteDocumentationDirectory>com/io7m/jregions/com.io7m.jregions.documentation</siteDocumentationDirectory>
     <io7m.checkstyle.artifact>com.io7m.jregions.checkstyle</io7m.checkstyle.artifact>
     <io7m.checkstyle.path>/com/io7m/jregions/checkstyle/checkstyle.xml</io7m.checkstyle.path>
-    <io7m.api.previousVersion>0.0.1</io7m.api.previousVersion>
+    <io7m.api.previousVersion>0.0.2</io7m.api.previousVersion>
   </properties>
 
   <inceptionYear>2017</inceptionYear>
@@ -95,6 +95,11 @@
         <artifactId>io7m-jaffirm-core</artifactId>
         <version>[1.0.0, 2.0.0)</version>
       </dependency>
+      <dependency>
+        <groupId>com.io7m.junreachable</groupId>
+        <artifactId>io7m-junreachable-core</artifactId>
+        <version>[1.0.0, 2.0.0)</version>
+      </dependency>
 
       <dependency>
         <groupId>org.immutables</groupId>
@@ -111,6 +116,11 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.12</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-core</artifactId>
+        <version>1.3</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
