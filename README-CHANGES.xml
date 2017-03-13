@@ -3,6 +3,17 @@
   <c:project>jregions</c:project>
 
   <c:release c:ticket-system="com.github.io7m.jregions">
+    <c:date>2017-03-13</c:date>
+    <c:version>0.0.4</c:version>
+
+    <c:item>
+      <c:date>2017-03-13</c:date>
+      <c:type-code-new/>
+      <c:summary>Use primogenitor 0.0.7.</c:summary>
+    </c:item>
+  </c:release>
+
+  <c:release c:ticket-system="com.github.io7m.jregions">
     <c:date>2017-03-09</c:date>
     <c:version>0.0.3</c:version>
     <c:item>
