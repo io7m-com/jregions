@@ -17,7 +17,10 @@
 package com.io7m.jregions.core.unparameterized.sizes;
 
 import com.io7m.jnull.NullCheck;
+import com.io7m.jregions.core.unparameterized.areas.AreaBI;
 import com.io7m.junreachable.UnreachableCodeException;
+
+import java.math.BigInteger;
 
 /**
  * Functions over area sizes.
@@ -52,5 +55,23 @@ public final class AreaSizesBI
     NullCheck.notNull(b, "Area B");
     return b.width().compareTo(a.width()) <= 0
       && b.height().compareTo(a.height()) <= 0;
+  }
+
+  /**
+   * Construct an area at the origin that has the same size as {@code size}.
+   *
+   * @param size The area size
+   *
+   * @return An area at the origin
+   */
+
+  public static AreaBI area(final AreaSizeBI size)
+  {
+    NullCheck.notNull(size, "Size");
+    return AreaBI.of(
+      BigInteger.ZERO,
+      size.width(),
+      BigInteger.ZERO,
+      size.height());
   }
 }

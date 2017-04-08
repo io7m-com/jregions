@@ -17,6 +17,7 @@
 package com.io7m.jregions.tests.core.unparameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
+import com.io7m.jregions.core.unparameterized.areas.AreaBD;
 import com.io7m.jregions.core.unparameterized.sizes.AreaSizeBD;
 import com.io7m.jregions.core.unparameterized.sizes.AreaSizesBD;
 import com.io7m.jregions.generators.AreaSizeBDGenerator;
@@ -83,6 +84,27 @@ public final class AreaSizeBDTest
           if (AreaSizesBD.includes(a, b) && AreaSizesBD.includes(b, c)) {
             Assert.assertTrue(AreaSizesBD.includes(a, c));
           }
+        }
+      });
+  }
+
+  @Test
+  public void testAreaIdentity()
+  {
+    final AreaSizeBDGenerator generator = AreaSizeBDGenerator.create();
+    QuickCheck.forAll(
+      generator,
+      new AbstractCharacteristic<AreaSizeBD>()
+      {
+        @Override
+        protected void doSpecify(final AreaSizeBD a)
+          throws Throwable
+        {
+          final AreaBD s = AreaSizesBD.area(a);
+          Assert.assertEquals(a.width(), s.width());
+          Assert.assertEquals(a.height(), s.height());
+          Assert.assertEquals(BigDecimal.ZERO, s.minimumX());
+          Assert.assertEquals(BigDecimal.ZERO, s.minimumY());
         }
       });
   }
