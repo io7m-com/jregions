@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <c:changelog xmlns:c="http://schemas.io7m.com/changelog/2.0.0">
-  <c:project>jregions</c:project>
+  <c:project>com.io7m.jregions</c:project>
+
+  <c:release c:ticket-system="com.github.io7m.jregions">
+    <c:date>2017-04-08</c:date>
+    <c:version>0.0.5</c:version>
+
+    <c:item>
+      <c:date>2017-04-08</c:date>
+      <c:type-code-new/>
+      <c:summary>Use primogenitor 1.0.2. Use newest versions of core io7m libraries.</c:summary>
+    </c:item>
+  </c:release>
 
   <c:release c:ticket-system="com.github.io7m.jregions">
     <c:date>2017-03-13</c:date>
