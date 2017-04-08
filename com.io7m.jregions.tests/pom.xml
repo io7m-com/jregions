@@ -39,11 +39,11 @@
 
     <dependency>
       <groupId>com.io7m.junreachable</groupId>
-      <artifactId>io7m-junreachable-core</artifactId>
+      <artifactId>com.io7m.junreachable.core</artifactId>
     </dependency>
     <dependency>
       <groupId>com.io7m.jaffirm</groupId>
-      <artifactId>io7m-jaffirm-core</artifactId>
+      <artifactId>com.io7m.jaffirm.core</artifactId>
     </dependency>
     <dependency>
       <groupId>net.java.quickcheck</groupId>

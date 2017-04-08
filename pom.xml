@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.io7m.primogenitor</groupId>
     <artifactId>com.io7m.primogenitor</artifactId>
-    <version>0.0.7</version>
+    <version>1.0.2</version>
   </parent>
 
   <groupId>com.io7m.jregions</groupId>
@@ -87,17 +87,17 @@
     <dependencies>
       <dependency>
         <groupId>com.io7m.jnull</groupId>
-        <artifactId>io7m-jnull-core</artifactId>
+        <artifactId>com.io7m.jnull.core</artifactId>
         <version>[1.0.0, 2.0.0)</version>
       </dependency>
       <dependency>
         <groupId>com.io7m.jaffirm</groupId>
-        <artifactId>io7m-jaffirm-core</artifactId>
+        <artifactId>com.io7m.jaffirm.core</artifactId>
         <version>[1.0.0, 2.0.0)</version>
       </dependency>
       <dependency>
         <groupId>com.io7m.junreachable</groupId>
-        <artifactId>io7m-junreachable-core</artifactId>
+        <artifactId>com.io7m.junreachable.core</artifactId>
         <version>[1.0.0, 2.0.0)</version>
       </dependency>
 
