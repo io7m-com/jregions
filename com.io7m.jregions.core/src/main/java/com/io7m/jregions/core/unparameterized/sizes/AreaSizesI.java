@@ -17,6 +17,7 @@
 package com.io7m.jregions.core.unparameterized.sizes;
 
 import com.io7m.jnull.NullCheck;
+import com.io7m.jregions.core.unparameterized.areas.AreaI;
 import com.io7m.junreachable.UnreachableCodeException;
 
 /**
@@ -52,5 +53,19 @@ public final class AreaSizesI
     NullCheck.notNull(b, "Area B");
     return Integer.compareUnsigned(b.width(), a.width()) <= 0
       && Integer.compareUnsigned(b.height(), a.height()) <= 0;
+  }
+
+  /**
+   * Construct an area at the origin that has the same size as {@code size}.
+   *
+   * @param size The area size
+   *
+   * @return An area at the origin
+   */
+
+  public static AreaI area(final AreaSizeI size)
+  {
+    NullCheck.notNull(size, "Size");
+    return AreaI.of(0, size.width(), 0, size.height());
   }
 }

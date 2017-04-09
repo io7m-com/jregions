@@ -16,6 +16,7 @@
 
 package com.io7m.jregions.tests.core.unparameterized;
 
+import com.io7m.jregions.core.unparameterized.areas.AreaI;
 import com.io7m.jregions.core.unparameterized.sizes.AreaSizeI;
 import com.io7m.jregions.core.unparameterized.sizes.AreaSizesI;
 import com.io7m.jregions.generators.AreaSizeIGenerator;
@@ -79,6 +80,27 @@ public final class AreaSizeITest
           if (AreaSizesI.includes(a, b) && AreaSizesI.includes(b, c)) {
             Assert.assertTrue(AreaSizesI.includes(a, c));
           }
+        }
+      });
+  }
+
+  @Test
+  public void testAreaIdentity()
+  {
+    final AreaSizeIGenerator generator = AreaSizeIGenerator.create();
+    QuickCheck.forAll(
+      generator,
+      new AbstractCharacteristic<AreaSizeI>()
+      {
+        @Override
+        protected void doSpecify(final AreaSizeI a)
+          throws Throwable
+        {
+          final AreaI s = AreaSizesI.area(a);
+          Assert.assertEquals((long) a.width(), (long) s.width());
+          Assert.assertEquals((long) a.height(), (long) s.height());
+          Assert.assertEquals(0L, (long) s.minimumX());
+          Assert.assertEquals(0L, (long) s.minimumY());
         }
       });
   }
