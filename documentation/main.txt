@@ -1,4 +1,4 @@
-com.io7m.jregions 0.0.6 Documentation
+com.io7m.jregions 1.0.0 Documentation
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   Contents
