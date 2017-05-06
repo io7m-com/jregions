@@ -1264,6 +1264,7 @@ public final class <className>
    * @param y    The relative Y coordinate of the splitting edge
    *
    * @return The four resulting quadrants
+   * @since 1.1.0
    */
 
   public static <splitXYType>\<<areaType>\> splitAlongXY(

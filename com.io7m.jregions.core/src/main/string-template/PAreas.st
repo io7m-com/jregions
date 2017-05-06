@@ -1289,6 +1289,7 @@ public final class <className>
    * @param \<S\>  The coordinate space of the areas
    *
    * @return The four resulting quadrants
+   * @since 1.1.0
    */
 
   public static \<S\> <splitXYType>\<S, <areaType>\<S\>\> splitAlongXY(
