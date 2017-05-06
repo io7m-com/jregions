@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>com.io7m.jregions.tests</artifactId>
@@ -96,6 +96,7 @@
                     <className>PAreasBDTest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitBD</splitXType>
                     <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitBD</splitYType>
+                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitBD</splitXYType>
                     <opClass>PAreasBDTestOps</opClass>
                   </properties>
                 </template>
@@ -124,6 +125,7 @@
                     <className>PAreasBITest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitBI</splitXType>
                     <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitBI</splitYType>
+                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitBI</splitXYType>
                     <opClass>PAreasBITestOps</opClass>
                   </properties>
                 </template>
@@ -152,6 +154,7 @@
                     <className>PAreasFTest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitF</splitXType>
                     <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitF</splitYType>
+                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitF</splitXYType>
                     <opClass>PAreasFTestOps</opClass>
                   </properties>
                 </template>
@@ -180,6 +183,7 @@
                     <className>PAreasITest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitI</splitXType>
                     <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitI</splitYType>
+                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitI</splitXYType>
                     <opClass>PAreasITestOps</opClass>
                   </properties>
                 </template>
@@ -208,6 +212,7 @@
                     <className>PAreasLTest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitL</splitXType>
                     <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitL</splitYType>
+                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitL</splitXYType>
                     <opClass>PAreasLTestOps</opClass>
                   </properties>
                 </template>
@@ -236,6 +241,7 @@
                     <className>PAreasDTest</className>
                     <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitD</splitXType>
                     <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitD</splitYType>
+                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitD</splitXYType>
                     <opClass>PAreasDTestOps</opClass>
                   </properties>
                 </template>
@@ -266,6 +272,7 @@
                     <className>AreasBDTest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitBD</splitXType>
                     <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitBD</splitYType>
+                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitBD</splitXYType>
                     <opClass>AreasBDTestOps</opClass>
                   </properties>
                 </template>
@@ -294,6 +301,7 @@
                     <className>AreasBITest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitBI</splitXType>
                     <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitBI</splitYType>
+                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitBI</splitXYType>
                     <opClass>AreasBITestOps</opClass>
                   </properties>
                 </template>
@@ -322,6 +330,7 @@
                     <className>AreasFTest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitF</splitXType>
                     <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitF</splitYType>
+                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitF</splitXYType>
                     <opClass>AreasFTestOps</opClass>
                   </properties>
                 </template>
@@ -350,6 +359,7 @@
                     <className>AreasITest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitI</splitXType>
                     <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitI</splitYType>
+                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitI</splitXYType>
                     <opClass>AreasITestOps</opClass>
                   </properties>
                 </template>
@@ -378,6 +388,7 @@
                     <className>AreasLTest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitL</splitXType>
                     <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitL</splitYType>
+                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitL</splitXYType>
                     <opClass>AreasLTestOps</opClass>
                   </properties>
                 </template>
@@ -406,6 +417,7 @@
                     <className>AreasDTest</className>
                     <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitD</splitXType>
                     <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitD</splitYType>
+                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitD</splitXYType>
                     <opClass>AreasDTestOps</opClass>
                   </properties>
                 </template>

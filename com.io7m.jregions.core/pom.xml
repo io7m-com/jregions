@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>com.io7m.jregions.core</artifactId>
@@ -75,6 +75,7 @@
                     <className>PAreasBD</className>
                     <splitXType>PAreaXSplitBD</splitXType>
                     <splitYType>PAreaYSplitBD</splitYType>
+                    <splitXYType>PAreaXYSplitBD</splitXYType>
                     <opClass>PAreaBDOps</opClass>
                   </properties>
                 </template>
@@ -101,6 +102,7 @@
                     <className>PAreasBI</className>
                     <splitXType>PAreaXSplitBI</splitXType>
                     <splitYType>PAreaYSplitBI</splitYType>
+                    <splitXYType>PAreaXYSplitBI</splitXYType>
                     <opClass>PAreaBIOps</opClass>
                   </properties>
                 </template>
@@ -127,6 +129,7 @@
                     <className>PAreasI</className>
                     <splitXType>PAreaXSplitI</splitXType>
                     <splitYType>PAreaYSplitI</splitYType>
+                    <splitXYType>PAreaXYSplitI</splitXYType>
                     <opClass>PAreaIOps</opClass>
                   </properties>
                 </template>
@@ -153,6 +156,7 @@
                     <className>PAreasF</className>
                     <splitXType>PAreaXSplitF</splitXType>
                     <splitYType>PAreaYSplitF</splitYType>
+                    <splitXYType>PAreaXYSplitF</splitXYType>
                     <opClass>PAreaFOps</opClass>
                   </properties>
                 </template>
@@ -179,6 +183,7 @@
                     <className>PAreasD</className>
                     <splitXType>PAreaXSplitD</splitXType>
                     <splitYType>PAreaYSplitD</splitYType>
+                    <splitXYType>PAreaXYSplitD</splitXYType>
                     <opClass>PAreaDOps</opClass>
                   </properties>
                 </template>
@@ -205,6 +210,7 @@
                     <className>PAreasL</className>
                     <splitXType>PAreaXSplitL</splitXType>
                     <splitYType>PAreaYSplitL</splitYType>
+                    <splitXYType>PAreaXYSplitL</splitXYType>
                     <opClass>PAreaLOps</opClass>
                   </properties>
                 </template>
@@ -233,6 +239,7 @@
                     <className>AreasBD</className>
                     <splitXType>AreaXSplitBD</splitXType>
                     <splitYType>AreaYSplitBD</splitYType>
+                    <splitXYType>AreaXYSplitBD</splitXYType>
                     <opClass>AreaBDOps</opClass>
                   </properties>
                 </template>
@@ -259,6 +266,7 @@
                     <className>AreasBI</className>
                     <splitXType>AreaXSplitBI</splitXType>
                     <splitYType>AreaYSplitBI</splitYType>
+                    <splitXYType>AreaXYSplitBI</splitXYType>
                     <opClass>AreaBIOps</opClass>
                   </properties>
                 </template>
@@ -285,6 +293,7 @@
                     <className>AreasI</className>
                     <splitXType>AreaXSplitI</splitXType>
                     <splitYType>AreaYSplitI</splitYType>
+                    <splitXYType>AreaXYSplitI</splitXYType>
                     <opClass>AreaIOps</opClass>
                   </properties>
                 </template>
@@ -311,6 +320,7 @@
                     <className>AreasF</className>
                     <splitXType>AreaXSplitF</splitXType>
                     <splitYType>AreaYSplitF</splitYType>
+                    <splitXYType>AreaXYSplitF</splitXYType>
                     <opClass>AreaFOps</opClass>
                   </properties>
                 </template>
@@ -337,6 +347,7 @@
                     <className>AreasD</className>
                     <splitXType>AreaXSplitD</splitXType>
                     <splitYType>AreaYSplitD</splitYType>
+                    <splitXYType>AreaXYSplitD</splitXYType>
                     <opClass>AreaDOps</opClass>
                   </properties>
                 </template>
@@ -363,6 +374,7 @@
                     <className>AreasL</className>
                     <splitXType>AreaXSplitL</splitXType>
                     <splitYType>AreaYSplitL</splitYType>
+                    <splitXYType>AreaXYSplitL</splitXYType>
                     <opClass>AreaLOps</opClass>
                   </properties>
                 </template>

@@ -1,4 +1,12 @@
-Areas(scalarType,areaType,areaSizeType,className,splitXType,splitYType,opClass) ::= <<
+Areas(
+  scalarType,
+  areaType,
+  areaSizeType,
+  className,
+  splitXType,
+  splitYType,
+  splitXYType,
+  opClass) ::= <<
 /*
  * Copyright © 2017 \<code@io7m.com\> http://io7m.com
  *
@@ -1246,6 +1254,49 @@ public final class <className>
       upper_x_min, upper_x_max, area.minimumY(), area.maximumY());
 
     return <splitYType>.of(lower, upper);
+  }
+
+  /**
+   * Split {@code area} along a two axis-aligned perpendicular lines that intercept at {@code (x, y)}.
+   *
+   * @param area The area to be split
+   * @param x    The relative X coordinate of the splitting edge
+   * @param y    The relative Y coordinate of the splitting edge
+   *
+   * @return The four resulting quadrants
+   */
+
+  public static <splitXYType>\<<areaType>\> splitAlongXY(
+    final <areaType> area,
+    final <scalarType> x,
+    final <scalarType> y)
+  {
+    <opClass>.notNullArea(area, "area");
+    <opClass>.notNullScalar(x, "x");
+    <opClass>.notNullScalar(y, "y");
+
+    final <scalarType> clamped_width = <opClass>.minimum(area.width(), x);
+    final <scalarType> lower_x_min = area.minimumX();
+    final <scalarType> lower_x_max = <opClass>.add(area.minimumX(), clamped_width);
+    final <scalarType> upper_x_min = lower_x_max;
+    final <scalarType> upper_x_max = <opClass>.maximum(area.maximumX(), lower_x_max);
+
+    final <scalarType> clamped_height = <opClass>.minimum(area.height(), y);
+    final <scalarType> lower_y_min = area.minimumY();
+    final <scalarType> lower_y_max = <opClass>.add(area.minimumY(), clamped_height);
+    final <scalarType> upper_y_min = lower_y_max;
+    final <scalarType> upper_y_max = <opClass>.maximum(area.maximumY(), lower_y_max);
+
+    final <areaType> x0y0 = <areaType>.of(
+      lower_x_min, lower_x_max, lower_y_min, lower_y_max);
+    final <areaType> x0y1 = <areaType>.of(
+      lower_x_min, lower_x_max, upper_y_min, upper_y_max);
+    final <areaType> x1y0 = <areaType>.of(
+      upper_x_min, upper_x_max, lower_y_min, lower_y_max);
+    final <areaType> x1y1 = <areaType>.of(
+      upper_x_min, upper_x_max, upper_y_min, upper_y_max);
+
+    return <splitXYType>.of(x0y0, x1y0, x0y1, x1y1);
   }
 
   /**

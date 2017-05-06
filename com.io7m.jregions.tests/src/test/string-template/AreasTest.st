@@ -1,4 +1,14 @@
-AreasTest(scalarType,scalarGeneratorType,areaType,areaSizeType,areaOpsType,className,splitXType,splitYType,opClass) ::= <<
+AreasTest(
+  scalarType,
+  scalarGeneratorType,
+  areaType,
+  areaSizeType,
+  areaOpsType,
+  className,
+  splitXType,
+  splitYType,
+  splitXYType,
+  opClass) ::= <<
 /*
  * Copyright © 2017 \<code@io7m.com\> http://io7m.com
  *
@@ -1923,27 +1933,136 @@ public final class <className>
       });
   }
 
-    @Test
-    public void testSize()
-      throws Exception
-    {
-      final Generator\<<areaType>\> generator = <opClass>.createGenerator();
-      QuickCheck.forAll(
-        generator,
-        new AbstractCharacteristic\<<areaType>\>()
-        {
-          @Override
-          protected void doSpecify(final <areaType> outer)
-            throws Throwable
-          {
-            final <areaSizeType> s =
-              <areaOpsType>.size(outer);
+  @Test
+  public void testSplitAlongXYAll()
+    throws Exception
+  {
+    final Generator\<<areaType>\> generator =
+      <opClass>.createParameterizedGenerator(<opClass>.createWideNonNegativeScalarGenerator());
 
-            <opClass>.checkEquals(outer.width(), s.width());
-            <opClass>.checkEquals(outer.height(), s.height());
-          }
-        });
-    }
+    QuickCheck.forAll(
+      generator,
+      new AbstractCharacteristic\<<areaType>\>()
+      {
+        @Override
+        protected void doSpecify(final <areaType> outer)
+          throws Throwable
+        {
+          final <scalarType> x_bound = <opClass>.add(outer.width(), <opClass>.ONE);
+          final <scalarType> y_bound = <opClass>.add(outer.height(), <opClass>.ONE);
+          final <scalarType> x = <opClass>.randomBounded(x_bound);
+          final <scalarType> y = <opClass>.randomBounded(y_bound);
+
+          System.out.println("outer:      " + outer);
+          System.out.println("x:          " + x);
+          System.out.println("y:          " + y);
+
+          final <splitXYType>\<<areaType>\> quadrants =
+            <areaOpsType>.splitAlongXY(outer, x, y);
+
+          System.out.println("quadrants: " + quadrants);
+
+          final <areaType> x0y0 = quadrants.x0y0();
+          final <areaType> x1y0 = quadrants.x1y0();
+          final <areaType> x0y1 = quadrants.x0y1();
+          final <areaType> x1y1 = quadrants.x1y1();
+
+          Assert.assertTrue(<opClass>.compare(x0y0.height(), outer.height()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x1y0.height(), outer.height()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x0y1.height(), outer.height()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x1y1.height(), outer.height()) \<= 0);
+
+          Assert.assertTrue(<opClass>.compare(x0y0.width(), outer.width()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x1y0.width(), outer.width()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x0y1.width(), outer.width()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x1y1.width(), outer.width()) \<= 0);
+
+          <opClass>.checkEquals(x0y0.minimumX(), outer.minimumX());
+          <opClass>.checkEquals(x0y0.minimumY(), outer.minimumY());
+          <opClass>.checkEquals(x0y0.maximumX(), <opClass>.add(x0y0.minimumX(), x));
+          <opClass>.checkEquals(x0y0.maximumY(), <opClass>.add(x0y0.minimumY(), y));
+
+          <opClass>.checkEquals(x1y0.minimumX(), <opClass>.add(x0y0.minimumX(), x));
+          <opClass>.checkEquals(x1y0.minimumY(), outer.minimumY());
+          <opClass>.checkEquals(x1y0.maximumX(), outer.maximumX());
+          <opClass>.checkEquals(x1y0.maximumY(), <opClass>.add(x0y0.minimumY(), y));
+
+          <opClass>.checkEquals(x0y1.minimumX(), outer.minimumX());
+          <opClass>.checkEquals(x0y1.minimumY(), <opClass>.add(x0y0.minimumY(), y));
+          <opClass>.checkEquals(x0y1.maximumX(), <opClass>.add(x0y0.minimumX(), x));
+          <opClass>.checkEquals(x0y1.maximumY(), outer.maximumY());
+
+          <opClass>.checkEquals(x1y1.minimumX(), <opClass>.add(x0y0.minimumX(), x));
+          <opClass>.checkEquals(x1y1.minimumY(), <opClass>.add(x0y0.minimumY(), y));
+          <opClass>.checkEquals(x1y1.maximumX(), outer.maximumX());
+          <opClass>.checkEquals(x1y1.maximumY(), outer.maximumY());
+
+          <opClass>.checkEquals(outer.height(), <opClass>.add(x0y0.height(), x0y1.height()));
+          <opClass>.checkEquals(outer.height(), <opClass>.add(x1y0.height(), x1y1.height()));
+
+          <opClass>.checkEquals(outer.width(), <opClass>.add(x0y0.width(), x1y0.width()));
+          <opClass>.checkEquals(outer.width(), <opClass>.add(x0y1.width(), x1y1.width()));
+        }
+      });
+  }
+
+  @Test
+  public void testSplitAlongXYSpecific()
+    throws Exception
+  {
+    final <areaType> box =
+      <areaType>.of(<opClass>.ZERO, <opClass>.constant("10"), <opClass>.ZERO, <opClass>.constant("10"));
+
+    final <splitXYType>\<<areaType>\> quadrants =
+      <areaOpsType>.splitAlongXY(box, <opClass>.constant("5"), <opClass>.constant("5"));
+
+    final <areaType> x0y0 = quadrants.x0y0();
+    final <areaType> x1y0 = quadrants.x1y0();
+    final <areaType> x0y1 = quadrants.x0y1();
+    final <areaType> x1y1 = quadrants.x1y1();
+
+    <opClass>.checkEquals(<opClass>.ZERO, x0y0.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), x0y0.maximumX());
+    <opClass>.checkEquals(<opClass>.ZERO, x0y0.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), x0y0.maximumY());
+
+    <opClass>.checkEquals(<opClass>.constant("5"), x1y0.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"), x1y0.maximumX());
+    <opClass>.checkEquals(<opClass>.ZERO, x1y0.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), x1y0.maximumY());
+
+    <opClass>.checkEquals(<opClass>.ZERO, x0y1.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), x0y1.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), x0y1.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"), x0y1.maximumY());
+
+    <opClass>.checkEquals(<opClass>.constant("5"), x1y1.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"), x1y1.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), x1y1.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"), x1y1.maximumY());
+  }
+
+  @Test
+  public void testSize()
+    throws Exception
+  {
+    final Generator\<<areaType>\> generator = <opClass>.createGenerator();
+    QuickCheck.forAll(
+      generator,
+      new AbstractCharacteristic\<<areaType>\>()
+      {
+        @Override
+        protected void doSpecify(final <areaType> outer)
+          throws Throwable
+        {
+          final <areaSizeType> s =
+            <areaOpsType>.size(outer);
+
+          <opClass>.checkEquals(outer.width(), s.width());
+          <opClass>.checkEquals(outer.height(), s.height());
+        }
+      });
+  }
 }
 
 >>

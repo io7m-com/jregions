@@ -49,7 +49,6 @@ import org.junit.rules.ExpectedException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 public final class UnreachableTest
 {
