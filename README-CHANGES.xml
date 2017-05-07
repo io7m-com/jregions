@@ -11,6 +11,18 @@
       <c:type-code-new/>
       <c:summary>Add splitAlongXY method for dividing areas into quadrants.</c:summary>
     </c:item>
+    <c:item>
+      <c:date>2017-05-07</c:date>
+      <c:type-code-new/>
+      <c:ticket>11</c:ticket>
+      <c:summary>Stop using terms such as "horizontally", "vertically", "width", "height", etc. Deprecate methods and add replacements.</c:summary>
+    </c:item>
+    <c:item>
+      <c:date>2017-05-06</c:date>
+      <c:type-code-new/>
+      <c:ticket>9</c:ticket>
+      <c:summary>Add volume types.</c:summary>
+    </c:item>
   </c:release>
 
   <c:release c:ticket-system="com.github.io7m.jregions">

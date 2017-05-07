@@ -187,17 +187,25 @@ public final class <className>
     return <opClass>.maximum(<opClass>.minimum(x, maximum), minimum);
   }
 
+
+
+
+
+
+
+
+
   /**
-   * Align the area {@code inner} horizontally in the center of {@code outer}.
+   * Align the area {@code inner} along the X axis in the center of {@code outer}.
    *
    * @param outer The outer area
    * @param inner The inner area
    * 
-   *
+   * @since 1.1.0
    * @return An aligned area
    */
 
-  public static <areaType> alignHorizontallyCenter(
+  public static <areaType> alignOnXCenter(
     final <areaType> outer,
     final <areaType> inner)
   {
@@ -214,37 +222,37 @@ public final class <className>
   }
 
   /**
-   * Equivalent to calling {@link #alignHorizontallyMinXOffset(<areaType>, <areaType>,
+   * Equivalent to calling {@link #alignOnXMinXOffset(<areaType>, <areaType>,
    * <scalarType>)} with a zero offset.
    *
    * @param outer The outer area
    * @param inner The inner area
    * 
-   *
+   * @since 1.1.0
    * @return An aligned area
    */
 
-  public static <areaType> alignHorizontallyMinX(
+  public static <areaType> alignOnXMinX(
     final <areaType> outer,
     final <areaType> inner)
   {
-    return alignHorizontallyMinXOffset(outer, inner, <opClass>.ZERO);
+    return alignOnXMinXOffset(outer, inner, <opClass>.ZERO);
   }
 
   /**
-   * Align the area {@code inner} horizontally against the inside minimum-x edge
+   * Align the area {@code inner} along the X axis against the inside minimum-x edge
    * of {@code outer}. The area will be at least {@code offset} units from the
    * minimum-x edge.
    *
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * s
    *
+   * @since 1.1.0
    * @return An aligned area
    */
 
-  public static <areaType> alignHorizontallyMinXOffset(
+  public static <areaType> alignOnXMinXOffset(
     final <areaType> outer,
     final <areaType> inner,
     final <scalarType> offset)
@@ -258,37 +266,37 @@ public final class <className>
   }
 
   /**
-   * Equivalent to calling {@link #alignHorizontallyMaxXOffset(<areaType>,
+   * Equivalent to calling {@link #alignOnXMaxXOffset(<areaType>,
    * <areaType>, <scalarType>)} with a zero offset.
    *
    * @param outer The outer area
    * @param inner The inner area
    * 
-   *
+   * @since 1.1.0
    * @return An aligned area
    */
 
-  public static <areaType> alignHorizontallyMaxX(
+  public static <areaType> alignOnXMaxX(
     final <areaType> outer,
     final <areaType> inner)
   {
-    return alignHorizontallyMaxXOffset(outer, inner, <opClass>.ZERO);
+    return alignOnXMaxXOffset(outer, inner, <opClass>.ZERO);
   }
 
   /**
-   * Align the area {@code inner} horizontally against the inside maximum-x edge
+   * Align the area {@code inner} along the X axis against the inside maximum-x edge
    * of {@code outer}. The area will be at least {@code offset} units from the
    * maximum-x edge.
    *
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * s
    *
+   * @since 1.1.0
    * @return An aligned area
    */
 
-  public static <areaType> alignHorizontallyMaxXOffset(
+  public static <areaType> alignOnXMaxXOffset(
     final <areaType> outer,
     final <areaType> inner,
     final <scalarType> offset)
@@ -303,37 +311,37 @@ public final class <className>
   }
 
   /**
-   * Equivalent to calling {@link #alignVerticallyMinYOffset(<areaType>, <areaType>,
+   * Equivalent to calling {@link #alignOnYMinYOffset(<areaType>, <areaType>,
    * <scalarType>)} with a zero offset.
    *
    * @param outer The outer area
    * @param inner The inner area
    * 
-   *
+   * @since 1.1.0
    * @return An aligned area
    */
 
-  public static <areaType> alignVerticallyMinY(
+  public static <areaType> alignOnYMinY(
     final <areaType> outer,
     final <areaType> inner)
   {
-    return alignVerticallyMinYOffset(outer, inner, <opClass>.ZERO);
+    return alignOnYMinYOffset(outer, inner, <opClass>.ZERO);
   }
 
   /**
-   * Align the area {@code inner} vertically against the inside minimum-y edge
+   * Align the area {@code inner} along the Y axis against the inside minimum-y edge
    * of {@code outer}. The area will be at least {@code offset} units from the
    * minimum-y edge.
    *
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * s
    *
+   * @since 1.1.0
    * @return An aligned area
    */
 
-  public static <areaType> alignVerticallyMinYOffset(
+  public static <areaType> alignOnYMinYOffset(
     final <areaType> outer,
     final <areaType> inner,
     final <scalarType> offset)
@@ -348,37 +356,37 @@ public final class <className>
   }
 
   /**
-   * Equivalent to calling {@link #alignVerticallyMaxYOffset(<areaType>, <areaType>,
+   * Equivalent to calling {@link #alignOnYMaxYOffset(<areaType>, <areaType>,
    * <scalarType>)} with a zero offset.
    *
    * @param outer The outer area
    * @param inner The inner area
    * 
-   *
+   * @since 1.1.0
    * @return An aligned area
    */
 
-  public static <areaType> alignVerticallyMaxY(
+  public static <areaType> alignOnYMaxY(
     final <areaType> outer,
     final <areaType> inner)
   {
-    return alignVerticallyMaxYOffset(outer, inner, <opClass>.ZERO);
+    return alignOnYMaxYOffset(outer, inner, <opClass>.ZERO);
   }
 
   /**
-   * Align the area {@code inner} vertically against the inside maximum-y edge
+   * Align the area {@code inner} along the Y axis against the inside maximum-y edge
    * of {@code outer}. The area will be at least {@code offset} units from the
    * maximum-y edge.
    *
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * s
    *
+   * @since 1.1.0
    * @return An aligned area
    */
 
-  public static <areaType> alignVerticallyMaxYOffset(
+  public static <areaType> alignOnYMaxYOffset(
     final <areaType> outer,
     final <areaType> inner,
     final <scalarType> offset)
@@ -393,16 +401,16 @@ public final class <className>
   }
 
   /**
-   * Align the area {@code inner} vertically in the center of {@code outer}.
+   * Align the area {@code inner} along the Y axis in the center of {@code outer}.
    *
    * @param outer The outer area
    * @param inner The inner area
    * 
-   *
+   * @since 1.1.0
    * @return An aligned area
    */
 
-  public static <areaType> alignVerticallyCenter(
+  public static <areaType> alignOnYCenter(
     final <areaType> outer,
     final <areaType> inner)
   {
@@ -418,6 +426,220 @@ public final class <className>
       <opClass>.subtract(ym0, <opClass>.divide(inner_height, <opClass>.constant(2L)));
     return create(inner.minimumX(), ym1, inner.width(), inner_height);
   }
+
+
+
+
+
+
+
+
+  /**
+   * Align the area {@code inner} horizontally in the center of {@code outer}.
+   *
+   * @param outer The outer area
+   * @param inner The inner area
+   *
+   * @deprecated Use {@link #alignOnXCenter(<areaType>, <areaType>)}
+   * @return An aligned area
+   */
+
+  @Deprecated
+  public static <areaType> alignHorizontallyCenter(
+    final <areaType> outer,
+    final <areaType> inner)
+  {
+    return alignOnXCenter(outer, inner);
+  }
+
+  /**
+   * Equivalent to calling {@link #alignHorizontallyMinXOffset(<areaType>, <areaType>,
+   * <scalarType>)} with a zero offset.
+   *
+   * @param outer The outer area
+   * @param inner The inner area
+   *
+   * @deprecated Use {@link #alignOnXMinX(<areaType>, <areaType>)}
+   * @return An aligned area
+   */
+
+  @Deprecated
+  public static <areaType> alignHorizontallyMinX(
+    final <areaType> outer,
+    final <areaType> inner)
+  {
+    return alignOnXMinXOffset(outer, inner, <opClass>.ZERO);
+  }
+
+  /**
+   * Align the area {@code inner} horizontally against the inside minimum-x edge
+   * of {@code outer}. The area will be at least {@code offset} units from the
+   * minimum-x edge.
+   *
+   * @param outer  The outer area
+   * @param inner  The inner area
+   * @param offset The offset from the edge
+   *
+   * @deprecated Use {@link #alignOnXMinXOffset(<areaType>, <areaType>, <scalarType>)}
+   * @return An aligned area
+   */
+
+  @Deprecated
+  public static <areaType> alignHorizontallyMinXOffset(
+    final <areaType> outer,
+    final <areaType> inner,
+    final <scalarType> offset)
+  {
+    return alignOnXMinXOffset(outer, inner, offset);
+  }
+
+  /**
+   * Equivalent to calling {@link #alignHorizontallyMaxXOffset(<areaType>,
+   * <areaType>, <scalarType>)} with a zero offset.
+   *
+   * @param outer The outer area
+   * @param inner The inner area
+   *
+   * @deprecated Use {@link #alignOnXMaxX(<areaType>, <areaType>)}
+   * @return An aligned area
+   */
+
+  @Deprecated
+  public static <areaType> alignHorizontallyMaxX(
+    final <areaType> outer,
+    final <areaType> inner)
+  {
+    return alignOnXMaxXOffset(outer, inner, <opClass>.ZERO);
+  }
+
+  /**
+   * Align the area {@code inner} horizontally against the inside maximum-x edge
+   * of {@code outer}. The area will be at least {@code offset} units from the
+   * maximum-x edge.
+   *
+   * @param outer  The outer area
+   * @param inner  The inner area
+   * @param offset The offset from the edge
+   *
+   * @deprecated Use {@link #alignOnXMaxXOffset(<areaType>, <areaType>, <scalarType>)}
+   * @return An aligned area
+   */
+
+  @Deprecated
+  public static <areaType> alignHorizontallyMaxXOffset(
+    final <areaType> outer,
+    final <areaType> inner,
+    final <scalarType> offset)
+  {
+    return alignOnXMaxXOffset(outer, inner, offset);
+  }
+
+  /**
+   * Equivalent to calling {@link #alignVerticallyMinYOffset(<areaType>, <areaType>,
+   * <scalarType>)} with a zero offset.
+   *
+   * @param outer The outer area
+   * @param inner The inner area
+   *
+   * @deprecated Use {@link #alignOnYMinY(<areaType>, <areaType>)}
+   * @return An aligned area
+   */
+
+  @Deprecated
+  public static <areaType> alignVerticallyMinY(
+    final <areaType> outer,
+    final <areaType> inner)
+  {
+    return alignOnYMinYOffset(outer, inner, <opClass>.ZERO);
+  }
+
+  /**
+   * Align the area {@code inner} vertically against the inside minimum-y edge
+   * of {@code outer}. The area will be at least {@code offset} units from the
+   * minimum-y edge.
+   *
+   * @param outer  The outer area
+   * @param inner  The inner area
+   * @param offset The offset from the edge
+   *
+   * @deprecated Use {@link #alignOnYMinYOffset(<areaType>, <areaType>, <scalarType>)}
+   * @return An aligned area
+   */
+
+  @Deprecated
+  public static <areaType> alignVerticallyMinYOffset(
+    final <areaType> outer,
+    final <areaType> inner,
+    final <scalarType> offset)
+  {
+    return alignOnYMinYOffset(outer, inner, offset);
+  }
+
+  /**
+   * Equivalent to calling {@link #alignVerticallyMaxYOffset(<areaType>, <areaType>,
+   * <scalarType>)} with a zero offset.
+   *
+   * @param outer The outer area
+   * @param inner The inner area
+   *
+   * @deprecated Use {@link #alignOnYMaxY(<areaType>, <areaType>)}
+   * @return An aligned area
+   */
+
+  @Deprecated
+  public static <areaType> alignVerticallyMaxY(
+    final <areaType> outer,
+    final <areaType> inner)
+  {
+    return alignOnYMaxYOffset(outer, inner, <opClass>.ZERO);
+  }
+
+  /**
+   * Align the area {@code inner} vertically against the inside maximum-y edge
+   * of {@code outer}. The area will be at least {@code offset} units from the
+   * maximum-y edge.
+   *
+   * @param outer  The outer area
+   * @param inner  The inner area
+   * @param offset The offset from the edge
+   *
+   * @deprecated Use {@link #alignOnYMaxYOffset(<areaType>, <areaType>, <scalarType>)}
+   * @return An aligned area
+   */
+
+  @Deprecated
+  public static <areaType> alignVerticallyMaxYOffset(
+    final <areaType> outer,
+    final <areaType> inner,
+    final <scalarType> offset)
+  {
+    return alignOnYMaxYOffset(outer, inner, offset);
+  }
+
+  /**
+   * Align the area {@code inner} vertically in the center of {@code outer}.
+   *
+   * @param outer The outer area
+   * @param inner The inner area
+   *
+   * @deprecated Use {@link #alignOnYCenter(<areaType>, <areaType>)}
+   * @return An aligned area
+   */
+
+  @Deprecated
+  public static <areaType> alignVerticallyCenter(
+    final <areaType> outer,
+    final <areaType> inner)
+  {
+    return alignOnYCenter(outer, inner);
+  }
+
+
+
+
+
+
+
 
   /**
    * Equivalent to calling {@link #alignMinYMinXOffset(<areaType>, <areaType>,
@@ -1138,6 +1360,14 @@ public final class <className>
     return contain_x && contain_y;
   }
 
+
+
+
+
+
+
+
+
   /**
    * Attempt to fit {@code fit} between {@code a} and {@code b}, horizontally.
    *
@@ -1145,11 +1375,58 @@ public final class <className>
    * @param a   An area
    * @param b   An area
    * 
+   * @deprecated Use {@link #fitBetweenOnX(<areaType>, <areaType>, <areaType>)}
+   * @return A fitted area
+   */
+
+  @Deprecated
+  public static <areaType> fitBetweenHorizontal(
+    final <areaType> fit,
+    final <areaType> a,
+    final <areaType> b)
+  {
+    return fitBetweenOnX(fit, a, b);
+  }
+
+  /**
+   * Attempt to fit {@code fit} between {@code a} and {@code b}, vertically.
+   *
+   * @param fit The area to be fitted
+   * @param a   An area
+   * @param b   An area
+   * 
+   * @deprecated Use {@link #fitBetweenOnY(<areaType>, <areaType>, <areaType>)}
+   * @return A fitted area
+   */
+
+  @Deprecated
+  public static <areaType> fitBetweenVertical(
+    final <areaType> fit,
+    final <areaType> a,
+    final <areaType> b)
+  {
+    return fitBetweenOnY(fit, a, b);
+  }
+
+
+
+
+
+
+
+
+  /**
+   * Attempt to fit {@code fit} between {@code a} and {@code b}, horizontally.
+   *
+   * @param fit The area to be fitted
+   * @param a   An area
+   * @param b   An area
+   *
    *
    * @return A fitted area
    */
 
-  public static <areaType> fitBetweenHorizontal(
+  public static <areaType> fitBetweenOnX(
     final <areaType> fit,
     final <areaType> a,
     final <areaType> b)
@@ -1171,12 +1448,12 @@ public final class <className>
    * @param fit The area to be fitted
    * @param a   An area
    * @param b   An area
-   * 
+   *
    *
    * @return A fitted area
    */
 
-  public static <areaType> fitBetweenVertical(
+  public static <areaType> fitBetweenOnY(
     final <areaType> fit,
     final <areaType> a,
     final <areaType> b)
@@ -1191,6 +1468,13 @@ public final class <className>
     final <scalarType> out_y_max = <opClass>.maximum(y_min, y_max);
     return <areaType>.of(fit.minimumX(), fit.maximumX(), out_y_min, out_y_max);
   }
+
+
+
+
+
+
+
 
   /**
    * Split {@code area} along a line parallel to the X axis placed at
