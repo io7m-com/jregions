@@ -2,6 +2,7 @@ PVolumes(
   scalarType,
   volumeType,
   volumeSizeType,
+  volumeSplitXYZType,
   className,
   opClass) ::= <<
 /*
@@ -44,7 +45,7 @@ public final class <className>
   }
 
   /**
-   * Create an volume of size ({@code size_x}, {@code size_y}, {@code size_z})
+   * Create a volume of size ({@code size_x}, {@code size_y}, {@code size_z})
    * placing the minimum corner at {@code (x, y, z)}.
    *
    * @param x      The X value of the minimum corner
@@ -210,7 +211,7 @@ public final class <className>
    * Mixing up coordinate spaces is a common source of difficult-to-locate bugs.
    * Use at your own risk.
    *
-   * @param volume An volume
+   * @param volume A volume
    * @param \<S\>  The starting coordinate space
    * @param \<T\>  The resulting coordinate space
    *
@@ -234,8 +235,8 @@ public final class <className>
    *
    * \<p\>Overlapping is not necessarily transitive.\</p\>
    *
-   * @param a   An volume
-   * @param b   An volume
+   * @param a   A volume
+   * @param b   A volume
    * @param \<S\> The coordinate space of the volumes
    *
    * @return {@code true} iff {@code a} overlaps {@code b}
@@ -271,8 +272,8 @@ public final class <className>
    *
    * \<p\>Fitting is not necessarily symmetric.\</p\>
    *
-   * @param a   An volume
-   * @param b   An volume
+   * @param a   A volume
+   * @param b   A volume
    * @param \<S\> The coordinate space of the volumes
    *
    * @return {@code true} iff {@code a} could fit inside {@code b}
@@ -297,11 +298,11 @@ public final class <className>
   /**
    * Construct a volume that will contain both {@code a} and {@code b}.
    *
-   * @param a   An volume
-   * @param b   An volume
+   * @param a   A volume
+   * @param b   A volume
    * @param \<S\> The coordinate space of the volumes
    *
-   * @return An volume containing {@code a} and {@code b}
+   * @return A volume containing {@code a} and {@code b}
    */
 
   public static \<S\> <volumeType>\<S\> containing(
@@ -323,7 +324,7 @@ public final class <className>
   /**
    * \<p\>Determine whether or not a volume contains a given point.\</p\>
    *
-   * @param a   An volume
+   * @param a   A volume
    * @param x   The X coordinate of the point
    * @param y   The Y coordinate of the point
    * @param z   The Z coordinate of the point
@@ -350,6 +351,76 @@ public final class <className>
     final boolean contain_z =
       <opClass>.compare(z, a.minimumZ()) \>= 0 && <opClass>.compare(z, a.maximumZ()) \< 0;
     return contain_x && contain_y && contain_z;
+  }
+
+  /**
+   * \<p\>Split the given volume at point {@code (x, y, z)}.\</p\>
+   *
+   * @param v   A volume
+   * @param x   The X coordinate of the point
+   * @param y   The Y coordinate of the point
+   * @param z   The Z coordinate of the point
+   * @param \<S\> The coordinate space of the volume
+   *
+   * @return {@code true} iff {@code a} contains {@code (x, y, z)}
+   */
+
+  public static \<S\> <volumeSplitXYZType>\<S, <volumeType>\<S\>\> splitAtXYZ(
+    final <volumeType>\<S\> v,
+    final <scalarType> x,
+    final <scalarType> y,
+    final <scalarType> z)
+  {
+    <opClass>.notNullVolume(v, "volume");
+    <opClass>.notNullScalar(x, "x");
+    <opClass>.notNullScalar(y, "y");
+    <opClass>.notNullScalar(z, "z");
+
+    final <scalarType> clamped_sizeX = <opClass>.minimum(v.sizeX(), x);
+    final <scalarType> lower_x_min = v.minimumX();
+    final <scalarType> lower_x_max = <opClass>.add(v.minimumX(), clamped_sizeX);
+    final <scalarType> upper_x_min = lower_x_max;
+    final <scalarType> upper_x_max = <opClass>.maximum(v.maximumX(), lower_x_max);
+
+    final <scalarType> clamped_sizeY = <opClass>.minimum(v.sizeY(), y);
+    final <scalarType> lower_y_min = v.minimumY();
+    final <scalarType> lower_y_max = <opClass>.add(v.minimumY(), clamped_sizeY);
+    final <scalarType> upper_y_min = lower_y_max;
+    final <scalarType> upper_y_max = <opClass>.maximum(v.maximumY(), lower_y_max);
+
+    final <scalarType> clamped_sizeZ = <opClass>.minimum(v.sizeZ(), z);
+    final <scalarType> lower_z_min = v.minimumZ();
+    final <scalarType> lower_z_max = <opClass>.add(v.minimumZ(), clamped_sizeZ);
+    final <scalarType> upper_z_min = lower_z_max;
+    final <scalarType> upper_z_max = <opClass>.maximum(v.maximumZ(), lower_y_max);
+
+    final <volumeType>\<S\> x0y0z0 = <volumeType>.of(
+      lower_x_min, lower_x_max, lower_y_min, lower_y_max, lower_z_min, lower_z_max);
+    final <volumeType>\<S\> x0y1z0 = <volumeType>.of(
+      lower_x_min, lower_x_max, upper_y_min, upper_y_max, lower_z_min, lower_z_max);
+    final <volumeType>\<S\> x1y0z0 = <volumeType>.of(
+      upper_x_min, upper_x_max, lower_y_min, lower_y_max, lower_z_min, lower_z_max);
+    final <volumeType>\<S\> x1y1z0 = <volumeType>.of(
+      upper_x_min, upper_x_max, upper_y_min, upper_y_max, lower_z_min, lower_z_max);
+
+    final <volumeType>\<S\> x0y0z1 = <volumeType>.of(
+      lower_x_min, lower_x_max, lower_y_min, lower_y_max, upper_z_min, upper_z_max);
+    final <volumeType>\<S\> x0y1z1 = <volumeType>.of(
+      lower_x_min, lower_x_max, upper_y_min, upper_y_max, upper_z_min, upper_z_max);
+    final <volumeType>\<S\> x1y0z1 = <volumeType>.of(
+      upper_x_min, upper_x_max, lower_y_min, lower_y_max, upper_z_min, upper_z_max);
+    final <volumeType>\<S\> x1y1z1 = <volumeType>.of(
+      upper_x_min, upper_x_max, upper_y_min, upper_y_max, upper_z_min, upper_z_max);
+
+    return <volumeSplitXYZType>.of(
+      x0y0z0,
+      x1y0z0,
+      x0y1z0,
+      x1y1z0,
+      x0y0z1,
+      x1y0z1,
+      x0y1z1,
+      x1y1z1);
   }
 
   /**

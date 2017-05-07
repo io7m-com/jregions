@@ -1390,6 +1390,7 @@ public final class <className>
           final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
           final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
 
+          System.out.println(outer);
           System.out.println(ppx + " " + ppy);
 
           boolean height_over = <opClass>.compare(outer.height(), <opClass>.ZERO) \> 0;

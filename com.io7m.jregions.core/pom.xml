@@ -394,6 +394,7 @@
                     <scalarType>java.math.BigDecimal</scalarType>
                     <volumeType>PVolumeBD</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBD</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBD</volumeSplitXYZType>
                     <className>PVolumesBD</className>
                     <opClass>PVolumeBDOps</opClass>
                   </properties>
@@ -418,6 +419,7 @@
                     <scalarType>java.math.BigInteger</scalarType>
                     <volumeType>PVolumeBI</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBI</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBI</volumeSplitXYZType>
                     <className>PVolumesBI</className>
                     <opClass>PVolumeBIOps</opClass>
                   </properties>
@@ -442,6 +444,7 @@
                     <scalarType>int</scalarType>
                     <volumeType>PVolumeI</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeI</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitI</volumeSplitXYZType>
                     <className>PVolumesI</className>
                     <opClass>PVolumeIOps</opClass>
                   </properties>
@@ -466,6 +469,7 @@
                     <scalarType>float</scalarType>
                     <volumeType>PVolumeF</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeF</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitF</volumeSplitXYZType>
                     <className>PVolumesF</className>
                     <opClass>PVolumeFOps</opClass>
                   </properties>
@@ -490,6 +494,7 @@
                     <scalarType>double</scalarType>
                     <volumeType>PVolumeD</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeD</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitD</volumeSplitXYZType>
                     <className>PVolumesD</className>
                     <opClass>PVolumeDOps</opClass>
                   </properties>
@@ -514,6 +519,7 @@
                     <scalarType>long</scalarType>
                     <volumeType>PVolumeL</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeL</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitL</volumeSplitXYZType>
                     <className>PVolumesL</className>
                     <opClass>PVolumeLOps</opClass>
                   </properties>
@@ -538,6 +544,7 @@
                     <scalarType>java.math.BigDecimal</scalarType>
                     <volumeType>VolumeBD</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBD</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBD</volumeSplitXYZType>
                     <className>VolumesBD</className>
                     <opClass>VolumeBDOps</opClass>
                   </properties>
@@ -562,6 +569,7 @@
                     <scalarType>java.math.BigInteger</scalarType>
                     <volumeType>VolumeBI</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBI</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBI</volumeSplitXYZType>
                     <className>VolumesBI</className>
                     <opClass>VolumeBIOps</opClass>
                   </properties>
@@ -586,6 +594,7 @@
                     <scalarType>int</scalarType>
                     <volumeType>VolumeI</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeI</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitI</volumeSplitXYZType>
                     <className>VolumesI</className>
                     <opClass>VolumeIOps</opClass>
                   </properties>
@@ -610,6 +619,7 @@
                     <scalarType>float</scalarType>
                     <volumeType>VolumeF</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeF</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitF</volumeSplitXYZType>
                     <className>VolumesF</className>
                     <opClass>VolumeFOps</opClass>
                   </properties>
@@ -634,6 +644,7 @@
                     <scalarType>double</scalarType>
                     <volumeType>VolumeD</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeD</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitD</volumeSplitXYZType>
                     <className>VolumesD</className>
                     <opClass>VolumeDOps</opClass>
                   </properties>
@@ -658,6 +669,7 @@
                     <scalarType>long</scalarType>
                     <volumeType>VolumeL</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeL</volumeSizeType>
+                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitL</volumeSplitXYZType>
                     <className>VolumesL</className>
                     <opClass>VolumeLOps</opClass>
                   </properties>

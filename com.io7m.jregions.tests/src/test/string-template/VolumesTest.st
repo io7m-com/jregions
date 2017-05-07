@@ -4,6 +4,7 @@ VolumesTest(
   volumeType,
   volumeSizeType,
   volumeOpsType,
+  volumeXYZSplitType,
   className,
   opClass) ::= <<
 /*
@@ -867,6 +868,109 @@ public final class <className>
           <opClass>.checkEquals(outer.sizeZ(), s.sizeZ());
         }
       });
+  }
+
+  @Test
+  public void testSplitXYZSpecific()
+    throws Exception
+  {
+    final <volumeType> volume =
+      <volumeType>.of(
+        <opClass>.ZERO, <opClass>.constant("10"),
+        <opClass>.ZERO, <opClass>.constant("10"),
+        <opClass>.ZERO, <opClass>.constant("10"));
+
+    final <scalarType> x = <opClass>.constant("5");
+    final <scalarType> y = <opClass>.constant("5");
+    final <scalarType> z = <opClass>.constant("5");
+
+    final <volumeXYZSplitType>\<<volumeType>\> s =
+      <volumeOpsType>.splitAtXYZ(volume, x, y, z);
+
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x0y0z0().minimumX());
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x0y0z0().minimumY());
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x0y0z0().minimumZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z0().maximumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z0().maximumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z0().maximumZ());
+
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z0().minimumX());
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x1y0z0().minimumY());
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x1y0z0().minimumZ());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x1y0z0().maximumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z0().maximumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z0().maximumZ());
+
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x0y1z0().minimumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z0().minimumY());
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x0y1z0().minimumZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z0().maximumX());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x0y1z0().maximumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z0().maximumZ());
+
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z0().minimumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z0().minimumY());
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x1y1z0().minimumZ());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x1y1z0().maximumX());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x1y1z0().maximumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z0().maximumZ());
+
+
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x0y0z1().minimumX());
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x0y0z1().minimumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z1().minimumZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z1().maximumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z1().maximumY());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x0y0z1().maximumZ());
+
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z1().minimumX());
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x1y0z1().minimumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z1().minimumZ());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x1y0z1().maximumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z1().maximumY());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x1y0z1().maximumZ());
+
+    <opClass>.checkEquals(<opClass>.constant("0"), s.x0y1z1().minimumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z1().minimumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z1().minimumZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z1().maximumX());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x0y1z1().maximumY());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x0y1z1().maximumZ());
+
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z1().minimumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z1().minimumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z1().minimumZ());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x1y1z1().maximumX());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x1y1z1().maximumY());
+    <opClass>.checkEquals(<opClass>.constant("10"), s.x1y1z1().maximumZ());
+
+
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z0().sizeX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z0().sizeX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z0().sizeX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z0().sizeX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z1().sizeX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z1().sizeX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z1().sizeX());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z1().sizeX());
+
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z0().sizeY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z0().sizeY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z0().sizeY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z0().sizeY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z1().sizeY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z1().sizeY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z1().sizeY());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z1().sizeY());
+
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z0().sizeZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z0().sizeZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z0().sizeZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z0().sizeZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y0z1().sizeZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z1().sizeZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z1().sizeZ());
+    <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z1().sizeZ());
   }
 }
 

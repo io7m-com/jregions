@@ -438,6 +438,7 @@
                     <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeBD</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBD</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesBD</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBD</volumeXYZSplitType>
                     <className>PVolumesBDTest</className>
                     <opClass>PVolumesBDTestOps</opClass>
                   </properties>
@@ -464,6 +465,7 @@
                     <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeBI</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBI</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesBI</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBI</volumeXYZSplitType>
                     <className>PVolumesBITest</className>
                     <opClass>PVolumesBITestOps</opClass>
                   </properties>
@@ -490,6 +492,7 @@
                     <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeF</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeF</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesF</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitF</volumeXYZSplitType>
                     <className>PVolumesFTest</className>
                     <opClass>PVolumesFTestOps</opClass>
                   </properties>
@@ -516,6 +519,7 @@
                     <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeI</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeI</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesI</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitI</volumeXYZSplitType>
                     <className>PVolumesITest</className>
                     <opClass>PVolumesITestOps</opClass>
                   </properties>
@@ -542,6 +546,7 @@
                     <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeL</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeL</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesL</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitL</volumeXYZSplitType>
                     <className>PVolumesLTest</className>
                     <opClass>PVolumesLTestOps</opClass>
                   </properties>
@@ -568,6 +573,7 @@
                     <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeD</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeD</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesD</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitD</volumeXYZSplitType>
                     <className>PVolumesDTest</className>
                     <opClass>PVolumesDTestOps</opClass>
                   </properties>
@@ -594,6 +600,7 @@
                     <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeBD</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBD</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesBD</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBD</volumeXYZSplitType>
                     <className>VolumesBDTest</className>
                     <opClass>VolumesBDTestOps</opClass>
                   </properties>
@@ -620,6 +627,7 @@
                     <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeBI</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBI</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesBI</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBI</volumeXYZSplitType>
                     <className>VolumesBITest</className>
                     <opClass>VolumesBITestOps</opClass>
                   </properties>
@@ -646,6 +654,7 @@
                     <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeF</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeF</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesF</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitF</volumeXYZSplitType>
                     <className>VolumesFTest</className>
                     <opClass>VolumesFTestOps</opClass>
                   </properties>
@@ -672,6 +681,7 @@
                     <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeI</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeI</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesI</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitI</volumeXYZSplitType>
                     <className>VolumesITest</className>
                     <opClass>VolumesITestOps</opClass>
                   </properties>
@@ -698,6 +708,7 @@
                     <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeL</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeL</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesL</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitL</volumeXYZSplitType>
                     <className>VolumesLTest</className>
                     <opClass>VolumesLTestOps</opClass>
                   </properties>
@@ -724,6 +735,7 @@
                     <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeD</volumeType>
                     <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeD</volumeSizeType>
                     <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesD</volumeOpsType>
+                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitD</volumeXYZSplitType>
                     <className>VolumesDTest</className>
                     <opClass>VolumesDTestOps</opClass>
                   </properties>
