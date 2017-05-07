@@ -46,34 +46,33 @@ public final class <className>
   }
 
   /**
-   * Create an area of width {@code width} and height {@code height}, placing
-   * the minimum corner at {@code (x, y)}.
+   * Create an area of size {@code size_x} on the X axis and size {@code size_y}
+   * on the Y axis, placing the minimum corner at {@code (x, y)}.
    *
    * @param x      The X value of the minimum corner
    * @param y      The Y value of the minimum corner
-   * @param width  The width of the area
-   * @param height The height of the area
-   * @param \<S\>    The coordinate space of the area
-   *
+   * @param size_x The width of the area
+   * @param size_y The height of the area
+   * @param \<S\> The coordinate space of the areas
    * @return An area
    */
 
   public static \<S\> <areaType>\<S\> create(
     final <scalarType> x,
     final <scalarType> y,
-    final <scalarType> width,
-    final <scalarType> height)
+    final <scalarType> size_x,
+    final <scalarType> size_y)
   {
     <opClass>.notNullScalar(x, "x");
     <opClass>.notNullScalar(y, "y");
-    <opClass>.notNullScalar(width, "width");
-    <opClass>.notNullScalar(height, "height");
+    <opClass>.notNullScalar(size_x, "size_x");
+    <opClass>.notNullScalar(size_y, "size_y");
 
     return <areaType>.of(
       x,
-      <opClass>.add(x, width),
+      <opClass>.add(x, size_x),
       y,
-      <opClass>.add(y, height));
+      <opClass>.add(y, size_y));
   }
 
   /**
