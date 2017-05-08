@@ -1848,6 +1848,8 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("5"),  lower.sizeY());
     <opClass>.checkEquals(<opClass>.constant("5"),  upper.sizeY());
 
+    Assert.assertTrue(<areaOpsType>.contains(box, upper));
+    Assert.assertTrue(<areaOpsType>.contains(box, lower));
     Assert.assertFalse(<areaOpsType>.overlaps(upper, lower));
     Assert.assertTrue(<areaOpsType>.overlaps(box, lower));
     Assert.assertTrue(<areaOpsType>.overlaps(box, upper));
@@ -1904,6 +1906,8 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("5"),  lower.sizeX());
     <opClass>.checkEquals(<opClass>.constant("5"),  upper.sizeX());
 
+    Assert.assertTrue(<areaOpsType>.contains(box, upper));
+    Assert.assertTrue(<areaOpsType>.contains(box, lower));
     Assert.assertFalse(<areaOpsType>.overlaps(upper, lower));
     Assert.assertTrue(<areaOpsType>.overlaps(box, lower));
     Assert.assertTrue(<areaOpsType>.overlaps(box, upper));
@@ -2095,6 +2099,27 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("10"), x1y1.maximumX());
     <opClass>.checkEquals(<opClass>.constant("5"), x1y1.minimumY());
     <opClass>.checkEquals(<opClass>.constant("10"), x1y1.maximumY());
+
+    Assert.assertTrue(<areaOpsType>.contains(box, x0y0));
+    Assert.assertTrue(<areaOpsType>.contains(box, x1y0));
+    Assert.assertTrue(<areaOpsType>.contains(box, x0y1));
+    Assert.assertTrue(<areaOpsType>.contains(box, x1y1));
+
+    Assert.assertFalse(<areaOpsType>.overlaps(x0y0, x1y0));
+    Assert.assertFalse(<areaOpsType>.overlaps(x0y0, x0y1));
+    Assert.assertFalse(<areaOpsType>.overlaps(x0y0, x1y1));
+
+    Assert.assertFalse(<areaOpsType>.overlaps(x1y0, x0y0));
+    Assert.assertFalse(<areaOpsType>.overlaps(x1y0, x0y1));
+    Assert.assertFalse(<areaOpsType>.overlaps(x1y0, x1y1));
+
+    Assert.assertFalse(<areaOpsType>.overlaps(x0y1, x0y0));
+    Assert.assertFalse(<areaOpsType>.overlaps(x0y1, x1y0));
+    Assert.assertFalse(<areaOpsType>.overlaps(x0y1, x1y1));
+
+    Assert.assertFalse(<areaOpsType>.overlaps(x1y1, x0y0));
+    Assert.assertFalse(<areaOpsType>.overlaps(x1y1, x1y0));
+    Assert.assertFalse(<areaOpsType>.overlaps(x1y1, x0y1));
   }
 
   @Test
