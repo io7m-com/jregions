@@ -991,6 +991,32 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("5"), s.x1y0z1().sizeZ());
     <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z1().sizeZ());
     <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z1().sizeZ());
+
+    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y0z0()));
+    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y0z0()));
+    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y1z0()));
+    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y1z0()));
+    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y0z1()));
+    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y0z1()));
+    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y1z1()));
+    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y1z1()));
+
+    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x0y0z0()));
+    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x1y0z0()));
+    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x0y1z0()));
+    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x1y1z0()));
+    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x0y0z1()));
+    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x1y0z1()));
+    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x0y1z1()));
+    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x1y1z1()));
+
+    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z0()));
+    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z0()));
+    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z0()));
+    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y0z1()));
+    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z1()));
+    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z1()));
+    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z1()));
   }
 }
 

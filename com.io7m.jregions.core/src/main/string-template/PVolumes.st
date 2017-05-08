@@ -249,17 +249,27 @@ public final class <className>
     <opClass>.notNullVolume(a, "a");
     <opClass>.notNullVolume(b, "b");
 
-    if (<opClass>.compare(a.minimumX(), b.maximumX()) \>= 0 || <opClass>.compare(a.maximumX(), b.minimumX()) \< 0) {
-      return false;
-    }
-    if (<opClass>.compare(a.minimumY(), b.maximumY()) \>= 0 || <opClass>.compare(a.maximumY(), b.minimumY()) \< 0) {
-      return false;
-    }
-    if (<opClass>.compare(a.minimumZ(), b.maximumZ()) \>= 0 || <opClass>.compare(a.maximumZ(), b.minimumZ()) \< 0) {
-      return false;
-    }
+    final <scalarType> a_x0 = a.minimumX();
+    final <scalarType> a_x1 = a.maximumX();
+    final <scalarType> a_y0 = a.minimumY();
+    final <scalarType> a_y1 = a.maximumY();
+    final <scalarType> a_z0 = a.minimumZ();
+    final <scalarType> a_z1 = a.maximumZ();
+    final <scalarType> b_x0 = b.minimumX();
+    final <scalarType> b_x1 = b.maximumX();
+    final <scalarType> b_y0 = b.minimumY();
+    final <scalarType> b_y1 = b.maximumY();
+    final <scalarType> b_z0 = b.minimumZ();
+    final <scalarType> b_z1 = b.maximumZ();
 
-    return true;
+    final boolean c0 = <opClass>.compare(a_x0, b_x1) \< 0;
+    final boolean c1 = <opClass>.compare(a_x1, b_x0) \> 0;
+    final boolean c2 = <opClass>.compare(a_y0, b_y1) \< 0;
+    final boolean c3 = <opClass>.compare(a_y1, b_y0) \> 0;
+    final boolean c4 = <opClass>.compare(a_z0, b_z1) \< 0;
+    final boolean c5 = <opClass>.compare(a_z1, b_z0) \> 0;
+
+    return c0 && c1 && c2 && c3 && c4 && c5;
   }
 
   /**
