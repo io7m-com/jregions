@@ -99,15 +99,21 @@ public final class <className>
     <opClass>.notNullArea(a, "Area A");
     <opClass>.notNullArea(b, "Area B");
 
-    final boolean contain_x =
-      <opClass>.compare(b.minimumX(), a.minimumX()) \>= 0
-        && <opClass>.compare(b.maximumX(), a.maximumX()) \<= 0;
+    final <scalarType> a_x0 = a.minimumX();
+    final <scalarType> a_x1 = a.maximumX();
+    final <scalarType> a_y0 = a.minimumY();
+    final <scalarType> a_y1 = a.maximumY();
+    final <scalarType> b_x0 = b.minimumX();
+    final <scalarType> b_x1 = b.maximumX();
+    final <scalarType> b_y0 = b.minimumY();
+    final <scalarType> b_y1 = b.maximumY();
 
-    final boolean contain_y =
-      <opClass>.compare(b.minimumY(), a.minimumY()) \>= 0
-        && <opClass>.compare(b.maximumY(), a.maximumY()) \<= 0;
+    final boolean c0 = <opClass>.compare(b_x0, a_x0) \>= 0;
+    final boolean c1 = <opClass>.compare(b_x1, a_x1) \<= 0;
+    final boolean c2 = <opClass>.compare(b_y0, a_y0) \>= 0;
+    final boolean c3 = <opClass>.compare(b_y1, a_y1) \<= 0;
 
-    return contain_x && contain_y;
+    return c0 && c1 && c2 && c3;
   }
 
   /**

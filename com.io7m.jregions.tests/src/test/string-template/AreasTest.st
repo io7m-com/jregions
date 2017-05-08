@@ -1369,6 +1369,9 @@ public final class <className>
           final <areaType> inner =
             <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
 
+          System.out.println("outer " + outer);
+          System.out.println("inner " + inner);
+
           Assert.assertTrue(<areaOpsType>.contains(outer, inner));
           Assert.assertFalse(<areaOpsType>.contains(inner, outer));
         }
