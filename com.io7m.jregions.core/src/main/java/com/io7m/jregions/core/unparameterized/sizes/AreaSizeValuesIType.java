@@ -46,6 +46,7 @@ public interface AreaSizeValuesIType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default int width()
   {
     return this.sizeX();
@@ -59,6 +60,7 @@ public interface AreaSizeValuesIType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default int height()
   {
     return this.sizeY();

@@ -46,6 +46,7 @@ public interface AreaSizeValuesDType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default double width()
   {
     return this.sizeX();
@@ -59,6 +60,7 @@ public interface AreaSizeValuesDType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default double height()
   {
     return this.sizeY();

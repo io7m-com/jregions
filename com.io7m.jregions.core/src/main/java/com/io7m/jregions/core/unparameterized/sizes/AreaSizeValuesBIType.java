@@ -48,6 +48,7 @@ public interface AreaSizeValuesBIType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default BigInteger width()
   {
     return this.sizeX();
@@ -61,6 +62,7 @@ public interface AreaSizeValuesBIType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default BigInteger height()
   {
     return this.sizeY();

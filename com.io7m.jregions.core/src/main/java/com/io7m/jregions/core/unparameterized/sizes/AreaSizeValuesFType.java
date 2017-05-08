@@ -46,6 +46,7 @@ public interface AreaSizeValuesFType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default float width()
   {
     return this.sizeX();
@@ -59,6 +60,7 @@ public interface AreaSizeValuesFType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default float height()
   {
     return this.sizeY();

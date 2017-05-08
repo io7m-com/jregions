@@ -46,6 +46,7 @@ public interface AreaSizeValuesLType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default long width()
   {
     return this.sizeX();
@@ -59,6 +60,7 @@ public interface AreaSizeValuesLType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default long height()
   {
     return this.sizeY();

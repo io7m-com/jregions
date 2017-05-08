@@ -48,6 +48,7 @@ public interface AreaSizeValuesBDType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default BigDecimal width()
   {
     return this.sizeX();
@@ -61,6 +62,7 @@ public interface AreaSizeValuesBDType
 
   @Deprecated
   @Value.Derived
+  @Value.Auxiliary
   default BigDecimal height()
   {
     return this.sizeY();
