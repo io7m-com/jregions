@@ -34,8 +34,8 @@ public final class PAreaLTest
     final PAreaL<Object> area = PAreaL.of(0L, 100L, 0L, 100L);
     Assert.assertEquals(0L, area.minimumX());
     Assert.assertEquals(0L, area.minimumY());
-    Assert.assertEquals(100L, area.width());
-    Assert.assertEquals(100L, area.height());
+    Assert.assertEquals(100L, area.sizeX());
+    Assert.assertEquals(100L, area.sizeY());
     Assert.assertEquals(100L, area.maximumX());
     Assert.assertEquals(100L, area.maximumY());
   }

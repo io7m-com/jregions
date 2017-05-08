@@ -36,11 +36,11 @@ public interface PAreaSizeBDType<S> extends AreaSizeValuesBDType
 {
   @Override
   @Value.Parameter(order = 0)
-  BigDecimal width();
+  BigDecimal sizeX();
 
   @Override
   @Value.Parameter(order = 1)
-  BigDecimal height();
+  BigDecimal sizeY();
 
   /**
    * Check preconditions for the type.
@@ -50,12 +50,60 @@ public interface PAreaSizeBDType<S> extends AreaSizeValuesBDType
   default void checkPreconditions()
   {
     Preconditions.checkPrecondition(
-      this.width(),
-      this.width().compareTo(BigDecimal.ZERO) >= 0,
+      this.sizeX(),
+      this.sizeX().compareTo(BigDecimal.ZERO) >= 0,
       d -> "Width must be non-negative");
     Preconditions.checkPrecondition(
-      this.height(),
-      this.height().compareTo(BigDecimal.ZERO) >= 0,
+      this.sizeY(),
+      this.sizeY().compareTo(BigDecimal.ZERO) >= 0,
       d -> "Height must be non-negative");
+  }
+
+  /**
+   * A builder for size values.
+   *
+   * @param <S> A phantom type parameter indicating the coordinate space of the
+   *            area
+   */
+
+  abstract class Builder<S>
+  {
+    abstract PAreaSizeBD.Builder<S> setSizeX(BigDecimal size_x);
+
+    abstract PAreaSizeBD.Builder<S> setSizeY(BigDecimal size_y);
+
+    /**
+     * Set the width.
+     *
+     * @param width The width
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeX(BigDecimal)}
+     */
+
+    @Deprecated
+    public final PAreaSizeBD.Builder<S> setWidth(
+      final BigDecimal width)
+    {
+      return this.setSizeX(width);
+    }
+
+    /**
+     * Set the height.
+     *
+     * @param height The height
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeY(BigDecimal)}
+     */
+
+    @Deprecated
+    public final PAreaSizeBD.Builder<S> setHeight(
+      final BigDecimal height)
+    {
+      return this.setSizeY(height);
+    }
   }
 }

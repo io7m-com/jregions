@@ -29,9 +29,54 @@ public interface AreaSizeLType extends AreaSizeValuesLType
 {
   @Override
   @Value.Parameter(order = 0)
-  long width();
+  long sizeX();
 
   @Override
   @Value.Parameter(order = 1)
-  long height();
+  long sizeY();
+
+  /**
+   * A builder for size values.
+   */
+
+  abstract class Builder
+  {
+    abstract AreaSizeL.Builder setSizeX(long size_x);
+
+    abstract AreaSizeL.Builder setSizeY(long size_y);
+
+    /**
+     * Set the width.
+     *
+     * @param width The width
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeX(long)}
+     */
+
+    @Deprecated
+    public AreaSizeL.Builder setWidth(
+      final long width)
+    {
+      return this.setSizeX(width);
+    }
+
+    /**
+     * Set the height.
+     *
+     * @param height The height
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeY(long)}
+     */
+
+    @Deprecated
+    public AreaSizeL.Builder setHeight(
+      final long height)
+    {
+      return this.setSizeY(height);
+    }
+  }
 }

@@ -51,7 +51,7 @@ public final class AreaSizesD
   {
     NullCheck.notNull(a, "Area A");
     NullCheck.notNull(b, "Area B");
-    return b.width() <= a.width() && b.height() <= a.height();
+    return b.sizeX() <= a.sizeX() && b.sizeY() <= a.sizeY();
   }
 
   /**
@@ -65,6 +65,6 @@ public final class AreaSizesD
   public static AreaD area(final AreaSizeD size)
   {
     NullCheck.notNull(size, "Size");
-    return AreaD.of(0.0, size.width(), 0.0, size.height());
+    return AreaD.of(0.0, size.sizeX(), 0.0, size.sizeY());
   }
 }

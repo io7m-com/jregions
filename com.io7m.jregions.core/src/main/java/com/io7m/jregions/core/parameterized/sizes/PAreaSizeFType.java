@@ -34,11 +34,11 @@ public interface PAreaSizeFType<S> extends AreaSizeValuesFType
 {
   @Override
   @Value.Parameter(order = 0)
-  float width();
+  float sizeX();
 
   @Override
   @Value.Parameter(order = 1)
-  float height();
+  float sizeY();
 
   /**
    * Check preconditions for the type.
@@ -48,8 +48,56 @@ public interface PAreaSizeFType<S> extends AreaSizeValuesFType
   default void checkPreconditions()
   {
     Preconditions.checkPreconditionD(
-      this.width(), this.width() >= 0.0, d -> "Width must be non-negative");
+      this.sizeX(), this.sizeX() >= 0.0, d -> "Width must be non-negative");
     Preconditions.checkPreconditionD(
-      this.height(), this.height() >= 0.0, d -> "Height must be non-negative");
+      this.sizeY(), this.sizeY() >= 0.0, d -> "Height must be non-negative");
+  }
+
+  /**
+   * A builder for size values.
+   *
+   * @param <S> A phantom type parameter indicating the coordinate space of the
+   *            area
+   */
+
+  abstract class Builder<S>
+  {
+    abstract PAreaSizeF.Builder<S> setSizeX(float size_x);
+
+    abstract PAreaSizeF.Builder<S> setSizeY(float size_y);
+
+    /**
+     * Set the width.
+     *
+     * @param width The width
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeX(float)}
+     */
+
+    @Deprecated
+    public final PAreaSizeF.Builder<S> setWidth(
+      final float width)
+    {
+      return this.setSizeX(width);
+    }
+
+    /**
+     * Set the height.
+     *
+     * @param height The height
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeY(float)}
+     */
+
+    @Deprecated
+    public final PAreaSizeF.Builder<S> setHeight(
+      final float height)
+    {
+      return this.setSizeY(height);
+    }
   }
 }

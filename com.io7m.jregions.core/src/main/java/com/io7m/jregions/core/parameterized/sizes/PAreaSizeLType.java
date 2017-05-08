@@ -33,9 +33,57 @@ public interface PAreaSizeLType<S> extends AreaSizeValuesLType
 {
   @Override
   @Value.Parameter(order = 0)
-  long width();
+  long sizeX();
 
   @Override
   @Value.Parameter(order = 1)
-  long height();
+  long sizeY();
+
+  /**
+   * A builder for size values.
+   *
+   * @param <S> A phantom type parameter indicating the coordinate space of the
+   *            area
+   */
+
+  abstract class Builder<S>
+  {
+    abstract PAreaSizeL.Builder<S> setSizeX(long size_x);
+
+    abstract PAreaSizeL.Builder<S> setSizeY(long size_y);
+
+    /**
+     * Set the width.
+     *
+     * @param width The width
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeX(long)}
+     */
+
+    @Deprecated
+    public final PAreaSizeL.Builder<S> setWidth(
+      final long width)
+    {
+      return this.setSizeX(width);
+    }
+
+    /**
+     * Set the height.
+     *
+     * @param height The height
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeY(long)}
+     */
+
+    @Deprecated
+    public final PAreaSizeL.Builder<S> setHeight(
+      final long height)
+    {
+      return this.setSizeY(height);
+    }
+  }
 }

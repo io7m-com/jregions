@@ -54,8 +54,8 @@ public final class AreaSizeConversionsTest
           throws Throwable
         {
           final AreaSizeL a1 = AreaSizeConversions.toAreaSizeL(a0);
-          Assert.assertEquals(a0.width(), a1.width());
-          Assert.assertEquals(a0.height(), a1.height());
+          Assert.assertEquals(a0.sizeX(), a1.sizeX());
+          Assert.assertEquals(a0.sizeY(), a1.sizeY());
           final PAreaSizeL<Object> a2 = AreaSizeConversions.toPAreaSizeL(a1);
           Assert.assertEquals(a0, a2);
         }
@@ -74,8 +74,8 @@ public final class AreaSizeConversionsTest
           throws Throwable
         {
           final AreaSizeI a1 = AreaSizeConversions.toAreaSizeI(a0);
-          Assert.assertEquals(a0.width(), a1.width());
-          Assert.assertEquals(a0.height(), a1.height());
+          Assert.assertEquals(a0.sizeX(), a1.sizeX());
+          Assert.assertEquals(a0.sizeY(), a1.sizeY());
           final PAreaSizeI<Object> a2 = AreaSizeConversions.toPAreaSizeI(a1);
           Assert.assertEquals(a0, a2);
         }
@@ -94,8 +94,8 @@ public final class AreaSizeConversionsTest
           throws Throwable
         {
           final AreaSizeBD a1 = AreaSizeConversions.toAreaSizeBD(a0);
-          Assert.assertEquals(a0.width(), a1.width());
-          Assert.assertEquals(a0.height(), a1.height());
+          Assert.assertEquals(a0.sizeX(), a1.sizeX());
+          Assert.assertEquals(a0.sizeY(), a1.sizeY());
           final PAreaSizeBD<Object> a2 = AreaSizeConversions.toPAreaSizeBD(a1);
           Assert.assertEquals(a0, a2);
         }
@@ -114,8 +114,8 @@ public final class AreaSizeConversionsTest
           throws Throwable
         {
           final AreaSizeBI a1 = AreaSizeConversions.toAreaSizeBI(a0);
-          Assert.assertEquals(a0.width(), a1.width());
-          Assert.assertEquals(a0.height(), a1.height());
+          Assert.assertEquals(a0.sizeX(), a1.sizeX());
+          Assert.assertEquals(a0.sizeY(), a1.sizeY());
           final PAreaSizeBI<Object> a2 = AreaSizeConversions.toPAreaSizeBI(a1);
           Assert.assertEquals(a0, a2);
         }
@@ -134,8 +134,8 @@ public final class AreaSizeConversionsTest
           throws Throwable
         {
           final AreaSizeD a1 = AreaSizeConversions.toAreaSizeD(a0);
-          Assert.assertEquals(a0.width(), a1.width(), 0.0);
-          Assert.assertEquals(a0.height(), a1.height(), 0.0);
+          Assert.assertEquals(a0.sizeX(), a1.sizeX(), 0.0);
+          Assert.assertEquals(a0.sizeY(), a1.sizeY(), 0.0);
           final PAreaSizeD<Object> a2 = AreaSizeConversions.toPAreaSizeD(a1);
           Assert.assertEquals(a0, a2);
         }
@@ -154,8 +154,8 @@ public final class AreaSizeConversionsTest
           throws Throwable
         {
           final AreaSizeF a1 = AreaSizeConversions.toAreaSizeF(a0);
-          Assert.assertEquals(a0.width(), a1.width(), 0.0);
-          Assert.assertEquals(a0.height(), a1.height(), 0.0);
+          Assert.assertEquals(a0.sizeX(), a1.sizeX(), 0.0);
+          Assert.assertEquals(a0.sizeY(), a1.sizeY(), 0.0);
           final PAreaSizeF<Object> a2 = AreaSizeConversions.toPAreaSizeF(a1);
           Assert.assertEquals(a0, a2);
         }

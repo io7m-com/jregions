@@ -42,12 +42,12 @@ public final class AreaSizeBDTest
       new BigDecimal(100),
       AreaSizeBD.of(
         new BigDecimal(100),
-        BigDecimal.ZERO).width());
+        BigDecimal.ZERO).sizeX());
     Assert.assertEquals(
       new BigDecimal(100),
       AreaSizeBD.of(
         BigDecimal.ZERO,
-        new BigDecimal(100)).height());
+        new BigDecimal(100)).sizeY());
   }
 
   @Test
@@ -101,8 +101,8 @@ public final class AreaSizeBDTest
           throws Throwable
         {
           final AreaBD s = AreaSizesBD.area(a);
-          Assert.assertEquals(a.width(), s.width());
-          Assert.assertEquals(a.height(), s.height());
+          Assert.assertEquals(a.sizeX(), s.sizeX());
+          Assert.assertEquals(a.sizeY(), s.sizeY());
           Assert.assertEquals(BigDecimal.ZERO, s.minimumX());
           Assert.assertEquals(BigDecimal.ZERO, s.minimumY());
         }

@@ -73,21 +73,18 @@ public interface VolumeValuesIType extends VolumeSizeValuesIType
   int maximumZ();
 
   @Override
-  @Value.Lazy
   default int sizeX()
   {
     return Math.subtractExact(this.maximumX(), this.minimumX());
   }
 
   @Override
-  @Value.Lazy
   default int sizeY()
   {
     return Math.subtractExact(this.maximumY(), this.minimumY());
   }
 
   @Override
-  @Value.Lazy
   default int sizeZ()
   {
     return Math.subtractExact(this.maximumZ(), this.minimumZ());

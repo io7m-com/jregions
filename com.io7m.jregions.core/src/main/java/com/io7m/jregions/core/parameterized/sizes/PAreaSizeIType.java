@@ -33,9 +33,57 @@ public interface PAreaSizeIType<S> extends AreaSizeValuesIType
 {
   @Override
   @Value.Parameter(order = 0)
-  int width();
+  int sizeX();
 
   @Override
   @Value.Parameter(order = 1)
-  int height();
+  int sizeY();
+
+  /**
+   * A builder for size values.
+   *
+   * @param <S> A phantom type parameter indicating the coordinate space of the
+   *            area
+   */
+
+  abstract class Builder<S>
+  {
+    abstract PAreaSizeI.Builder<S> setSizeX(int size_x);
+
+    abstract PAreaSizeI.Builder<S> setSizeY(int size_y);
+
+    /**
+     * Set the width.
+     *
+     * @param width The width
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeX(int)}
+     */
+
+    @Deprecated
+    public final PAreaSizeI.Builder<S> setWidth(
+      final int width)
+    {
+      return this.setSizeX(width);
+    }
+
+    /**
+     * Set the height.
+     *
+     * @param height The height
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeY(int)}
+     */
+
+    @Deprecated
+    public final PAreaSizeI.Builder<S> setHeight(
+      final int height)
+    {
+      return this.setSizeY(height);
+    }
+  }
 }

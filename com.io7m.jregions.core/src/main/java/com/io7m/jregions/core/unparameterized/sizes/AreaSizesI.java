@@ -51,8 +51,8 @@ public final class AreaSizesI
   {
     NullCheck.notNull(a, "Area A");
     NullCheck.notNull(b, "Area B");
-    return Integer.compareUnsigned(b.width(), a.width()) <= 0
-      && Integer.compareUnsigned(b.height(), a.height()) <= 0;
+    return Integer.compareUnsigned(b.sizeX(), a.sizeX()) <= 0
+      && Integer.compareUnsigned(b.sizeY(), a.sizeY()) <= 0;
   }
 
   /**
@@ -66,6 +66,6 @@ public final class AreaSizesI
   public static AreaI area(final AreaSizeI size)
   {
     NullCheck.notNull(size, "Size");
-    return AreaI.of(0, size.width(), 0, size.height());
+    return AreaI.of(0, size.sizeX(), 0, size.sizeY());
   }
 }

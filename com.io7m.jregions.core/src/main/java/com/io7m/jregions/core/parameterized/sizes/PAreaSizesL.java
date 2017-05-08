@@ -52,7 +52,7 @@ public final class PAreaSizesL
   {
     NullCheck.notNull(a, "Area A");
     NullCheck.notNull(b, "Area B");
-    return Long.compareUnsigned(b.width(), a.width()) <= 0
-      && Long.compareUnsigned(b.height(), a.height()) <= 0;
+    return Long.compareUnsigned(b.sizeX(), a.sizeX()) <= 0
+      && Long.compareUnsigned(b.sizeY(), a.sizeY()) <= 0;
   }
 }

@@ -75,21 +75,18 @@ public interface VolumeValuesBDType extends VolumeSizeValuesBDType
   BigDecimal maximumZ();
 
   @Override
-  @Value.Lazy
   default BigDecimal sizeX()
   {
     return this.maximumX().subtract(this.minimumX());
   }
 
   @Override
-  @Value.Lazy
   default BigDecimal sizeY()
   {
     return this.maximumY().subtract(this.minimumY());
   }
 
   @Override
-  @Value.Lazy
   default BigDecimal sizeZ()
   {
     return this.maximumZ().subtract(this.minimumZ());

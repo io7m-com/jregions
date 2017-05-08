@@ -25,21 +25,21 @@ import org.immutables.value.Value;
 public interface VolumeSizeValuesFType
 {
   /**
-   * @return The width of a volume
+   * @return The size of the area on the X axis
    */
 
   @Value.Parameter(order = 0)
   float sizeX();
 
   /**
-   * @return The height of a volume
+   * @return The size of the area on the Y axis
    */
 
   @Value.Parameter(order = 1)
   float sizeY();
 
   /**
-   * @return The depth of a volume
+   * @return The size of the area on the Z axis
    */
 
   @Value.Parameter(order = 2)

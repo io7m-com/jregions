@@ -73,21 +73,18 @@ public interface VolumeValuesDType extends VolumeSizeValuesDType
   double maximumZ();
 
   @Override
-  @Value.Lazy
   default double sizeX()
   {
     return this.maximumX() - this.minimumX();
   }
 
   @Override
-  @Value.Lazy
   default double sizeY()
   {
     return this.maximumY() - this.minimumY();
   }
 
   @Override
-  @Value.Lazy
   default double sizeZ()
   {
     return this.maximumZ() - this.minimumZ();

@@ -41,12 +41,12 @@ public final class PAreaSizeBDTest
       new BigDecimal(100),
       PAreaSizeBD.of(
         new BigDecimal(100),
-        BigDecimal.ZERO).width());
+        BigDecimal.ZERO).sizeX());
     Assert.assertEquals(
       new BigDecimal(100),
       PAreaSizeBD.of(
         BigDecimal.ZERO,
-        new BigDecimal(100)).height());
+        new BigDecimal(100)).sizeY());
   }
 
   @Test

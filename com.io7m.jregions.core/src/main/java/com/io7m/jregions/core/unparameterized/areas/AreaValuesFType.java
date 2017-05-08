@@ -59,15 +59,13 @@ public interface AreaValuesFType extends AreaSizeValuesFType
   float maximumY();
 
   @Override
-  @Value.Lazy
-  default float width()
+  default float sizeX()
   {
     return this.maximumX() - this.minimumX();
   }
 
   @Override
-  @Value.Lazy
-  default float height()
+  default float sizeY()
   {
     return this.maximumY() - this.minimumY();
   }

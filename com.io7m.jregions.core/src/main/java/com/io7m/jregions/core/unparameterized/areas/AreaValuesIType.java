@@ -59,15 +59,13 @@ public interface AreaValuesIType extends AreaSizeValuesIType
   int maximumY();
 
   @Override
-  @Value.Lazy
-  default int width()
+  default int sizeX()
   {
     return Math.subtractExact(this.maximumX(), this.minimumX());
   }
 
   @Override
-  @Value.Lazy
-  default int height()
+  default int sizeY()
   {
     return Math.subtractExact(this.maximumY(), this.minimumY());
   }

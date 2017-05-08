@@ -59,15 +59,13 @@ public interface AreaValuesDType extends AreaSizeValuesDType
   double maximumY();
 
   @Override
-  @Value.Lazy
-  default double width()
+  default double sizeX()
   {
     return this.maximumX() - this.minimumX();
   }
 
   @Override
-  @Value.Lazy
-  default double height()
+  default double sizeY()
   {
     return this.maximumY() - this.minimumY();
   }

@@ -52,6 +52,6 @@ public final class PAreaSizesF
   {
     NullCheck.notNull(a, "Area A");
     NullCheck.notNull(b, "Area B");
-    return b.width() <= a.width() && b.height() <= a.height();
+    return b.sizeX() <= a.sizeX() && b.sizeY() <= a.sizeY();
   }
 }

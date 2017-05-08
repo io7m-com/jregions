@@ -61,15 +61,13 @@ public interface AreaValuesBIType extends AreaSizeValuesBIType
   BigInteger maximumY();
 
   @Override
-  @Value.Lazy
-  default BigInteger width()
+  default BigInteger sizeX()
   {
     return this.maximumX().subtract(this.minimumX());
   }
 
   @Override
-  @Value.Lazy
-  default BigInteger height()
+  default BigInteger sizeY()
   {
     return this.maximumY().subtract(this.minimumY());
   }

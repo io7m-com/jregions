@@ -29,8 +29,8 @@ public final class PAreaSizeITest
   @Test
   public void testIdentities()
   {
-    Assert.assertEquals(100L, (long) PAreaSizeI.of(100, 0).width());
-    Assert.assertEquals(100L, (long) PAreaSizeI.of(0, 100).height());
+    Assert.assertEquals(100L, (long) PAreaSizeI.of(100, 0).sizeX());
+    Assert.assertEquals(100L, (long) PAreaSizeI.of(0, 100).sizeY());
   }
 
   @Test

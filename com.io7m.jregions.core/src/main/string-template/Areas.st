@@ -51,8 +51,8 @@ public final class <className>
    *
    * @param x      The X value of the minimum corner
    * @param y      The Y value of the minimum corner
-   * @param size_x The width of the area
-   * @param size_y The height of the area
+   * @param size_x The size of the area on the X axis
+   * @param size_y The size of the area on the Y axis
    *
    * @return An area
    */
@@ -152,7 +152,7 @@ public final class <className>
     final <scalarType> y)
   {
     <opClass>.notNullArea(area, "Area");
-    return create(x, y, area.width(), area.height());
+    return create(x, y, area.sizeX(), area.sizeY());
   }
 
   /**
@@ -171,8 +171,8 @@ public final class <className>
     return create(
       <opClass>.ZERO,
       <opClass>.ZERO,
-      area.width(),
-      area.height());
+      area.sizeX(),
+      area.sizeY());
   }
 
   private static <scalarType> clamp(
@@ -211,13 +211,13 @@ public final class <className>
     <opClass>.notNullArea(outer, "outer");
     <opClass>.notNullArea(inner, "inner");
 
-    final <scalarType> outer_width = outer.width();
-    final <scalarType> inner_width = inner.width();
+    final <scalarType> outer_sizeX = outer.sizeX();
+    final <scalarType> inner_sizeX = inner.sizeX();
     final <scalarType> xm0 =
-      <opClass>.add(outer.minimumX(), <opClass>.divide(outer_width, <opClass>.constant(2L)));
+      <opClass>.add(outer.minimumX(), <opClass>.divide(outer_sizeX, <opClass>.constant(2L)));
     final <scalarType> xm1 =
-    <opClass>.subtract(xm0, <opClass>.divide(inner_width, <opClass>.constant(2L)));
-    return create(xm1, inner.minimumY(), inner_width, inner.height());
+    <opClass>.subtract(xm0, <opClass>.divide(inner_sizeX, <opClass>.constant(2L)));
+    return create(xm1, inner.minimumY(), inner_sizeX, inner.sizeY());
   }
 
   /**
@@ -260,7 +260,7 @@ public final class <className>
     <opClass>.notNullArea(inner, "inner");
 
     final <scalarType> x_min = <opClass>.add(outer.minimumX(), offset);
-    final <scalarType> x_max = <opClass>.add(x_min, inner.width());
+    final <scalarType> x_max = <opClass>.add(x_min, inner.sizeX());
     return <areaType>.of(x_min, x_max, inner.minimumY(), inner.maximumY());
   }
 
@@ -305,7 +305,7 @@ public final class <className>
     <opClass>.notNullScalar(offset, "offset");
 
     final <scalarType> x_max = <opClass>.subtract(outer.maximumX(), offset);
-    final <scalarType> x_min = <opClass>.subtract(x_max, inner.width());
+    final <scalarType> x_min = <opClass>.subtract(x_max, inner.sizeX());
     return <areaType>.of(x_min, x_max, inner.minimumY(), inner.maximumY());
   }
 
@@ -350,7 +350,7 @@ public final class <className>
     <opClass>.notNullScalar(offset, "offset");
 
     final <scalarType> y_min = <opClass>.add(outer.minimumY(), offset);
-    final <scalarType> y_max = <opClass>.add(y_min, inner.height());
+    final <scalarType> y_max = <opClass>.add(y_min, inner.sizeY());
     return <areaType>.of(inner.minimumX(), inner.maximumX(), y_min, y_max);
   }
 
@@ -395,7 +395,7 @@ public final class <className>
     <opClass>.notNullScalar(offset, "offset");
 
     final <scalarType> y_max = <opClass>.subtract(outer.maximumY(), offset);
-    final <scalarType> y_min = <opClass>.subtract(y_max, inner.height());
+    final <scalarType> y_min = <opClass>.subtract(y_max, inner.sizeY());
     return <areaType>.of(inner.minimumX(), inner.maximumX(), y_min, y_max);
   }
 
@@ -416,14 +416,14 @@ public final class <className>
     <opClass>.notNullArea(outer, "outer");
     <opClass>.notNullArea(inner, "inner");
 
-    final <scalarType> outer_height = outer.height();
-    final <scalarType> inner_height = inner.height();
+    final <scalarType> outer_sizeY = outer.sizeY();
+    final <scalarType> inner_sizeY = inner.sizeY();
 
     final <scalarType> ym0 =
-      <opClass>.add(outer.minimumY(), <opClass>.divide(outer_height, <opClass>.constant(2L)));
+      <opClass>.add(outer.minimumY(), <opClass>.divide(outer_sizeY, <opClass>.constant(2L)));
     final <scalarType> ym1 =
-      <opClass>.subtract(ym0, <opClass>.divide(inner_height, <opClass>.constant(2L)));
-    return create(inner.minimumX(), ym1, inner.width(), inner_height);
+      <opClass>.subtract(ym0, <opClass>.divide(inner_sizeY, <opClass>.constant(2L)));
+    return create(inner.minimumX(), ym1, inner.sizeX(), inner_sizeY);
   }
 
 
@@ -686,8 +686,8 @@ public final class <className>
 
     final <scalarType> x_min = <opClass>.add(outer.minimumX(), offset_x);
     final <scalarType> y_min = <opClass>.add(outer.minimumY(), offset_y);
-    final <scalarType> y_max = <opClass>.add(y_min, inner.height());
-    final <scalarType> x_max = <opClass>.add(x_min, inner.width());
+    final <scalarType> y_max = <opClass>.add(y_min, inner.sizeY());
+    final <scalarType> x_max = <opClass>.add(x_min, inner.sizeX());
     return <areaType>.of(x_min, x_max, y_min, y_max);
   }
 
@@ -737,8 +737,8 @@ public final class <className>
 
     final <scalarType> x_max = <opClass>.subtract(outer.maximumX(), offset_x);
     final <scalarType> y_min = <opClass>.add(outer.minimumY(), offset_y);
-    final <scalarType> y_max = <opClass>.add(y_min, inner.height());
-    final <scalarType> x_min = <opClass>.subtract(x_max, inner.width());
+    final <scalarType> y_max = <opClass>.add(y_min, inner.sizeY());
+    final <scalarType> x_min = <opClass>.subtract(x_max, inner.sizeX());
     return <areaType>.of(x_min, x_max, y_min, y_max);
   }
 
@@ -788,8 +788,8 @@ public final class <className>
 
     final <scalarType> x_min = <opClass>.add(outer.minimumX(), offset_x);
     final <scalarType> y_max = <opClass>.subtract(outer.maximumY(), offset_y);
-    final <scalarType> y_min = <opClass>.subtract(y_max, inner.height());
-    final <scalarType> x_max = <opClass>.add(x_min, inner.width());
+    final <scalarType> y_min = <opClass>.subtract(y_max, inner.sizeY());
+    final <scalarType> x_max = <opClass>.add(x_min, inner.sizeX());
     return <areaType>.of(x_min, x_max, y_min, y_max);
   }
 
@@ -839,8 +839,8 @@ public final class <className>
 
     final <scalarType> x_max = <opClass>.subtract(outer.maximumX(), offset_x);
     final <scalarType> y_max = <opClass>.subtract(outer.maximumY(), offset_y);
-    final <scalarType> y_min = <opClass>.subtract(y_max, inner.height());
-    final <scalarType> x_min = <opClass>.subtract(x_max, inner.width());
+    final <scalarType> y_min = <opClass>.subtract(y_max, inner.sizeY());
+    final <scalarType> x_min = <opClass>.subtract(x_max, inner.sizeX());
     return <areaType>.of(x_min, x_max, y_min, y_max);
   }
 
@@ -941,43 +941,43 @@ public final class <className>
   }
 
   /**
-   * \<p\>Set the width and height of {@code area} to {@code width} and {@code
-   * height}, respectively.\</p\>
+   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p\>
    *
    * \<p\>The area is resized from its own center.\</p\>
    *
    * @param area   The area
-   * @param width  The new width (must be non-negative)
-   * @param height The new height (must be non-negative)
+   * @param sizeX  The new sizeX (must be non-negative)
+   * @param sizeY The new sizeY (must be non-negative)
    *
    * @return A resized area
    */
 
   public static <areaType> setSizeFromCenter(
     final <areaType> area,
-    final <scalarType> width,
-    final <scalarType> height)
+    final <scalarType> sizeX,
+    final <scalarType> sizeY)
   {
     <opClass>.notNullArea(area, "area");
-    <opClass>.notNullScalar(width, "width");
-    <opClass>.notNullScalar(width, "height");
+    <opClass>.notNullScalar(sizeX, "sizeX");
+    <opClass>.notNullScalar(sizeX, "sizeY");
 
     return alignCenter(area, <areaType>.of(
       area.minimumX(),
-      <opClass>.add(area.minimumX(), width),
+      <opClass>.add(area.minimumX(), sizeX),
       area.minimumY(),
-      <opClass>.add(area.minimumY(), height)));
+      <opClass>.add(area.minimumY(), sizeY)));
   }
 
   /**
-   * \<p\>Set the width and height of {@code area} to {@code width} and {@code
-   * height}, respectively.\</p\>
+   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p\>
    *
    * \<p\>The area is resized by moving its minimum-y-minimum-x corner.\</p\>
    *
    * @param area   The area
-   * @param width  The new width (must be non-negative)
-   * @param height The new height (must be non-negative)
+   * @param sizeX  The new sizeX (must be non-negative)
+   * @param sizeY The new sizeY (must be non-negative)
    * 
    *
    * @return A resized area
@@ -985,29 +985,29 @@ public final class <className>
 
   public static <areaType> setSizeFromMinYMinX(
     final <areaType> area,
-    final <scalarType> width,
-    final <scalarType> height)
+    final <scalarType> sizeX,
+    final <scalarType> sizeY)
   {
     <opClass>.notNullArea(area, "area");
-    <opClass>.notNullScalar(width, "width");
-    <opClass>.notNullScalar(width, "height");
+    <opClass>.notNullScalar(sizeX, "sizeX");
+    <opClass>.notNullScalar(sizeX, "sizeY");
 
     return alignMaxYMaxX(area, <areaType>.of(
       area.minimumX(),
-      <opClass>.add(area.minimumX(), width),
+      <opClass>.add(area.minimumX(), sizeX),
       area.minimumY(),
-      <opClass>.add(area.minimumY(), height)));
+      <opClass>.add(area.minimumY(), sizeY)));
   }
 
   /**
-   * \<p\>Set the width and height of {@code area} to {@code width} and {@code
-   * height}, respectively.\</p\>
+   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p\>
    *
    * \<p\>The area is resized by moving its minimum-y-maximum-x corner.\</p\>
    *
    * @param area   The area
-   * @param width  The new width (must be non-negative)
-   * @param height The new height (must be non-negative)
+   * @param sizeX  The new sizeX (must be non-negative)
+   * @param sizeY The new sizeY (must be non-negative)
    * 
    *
    * @return A resized area
@@ -1015,29 +1015,29 @@ public final class <className>
 
   public static <areaType> setSizeFromMinYMaxX(
     final <areaType> area,
-    final <scalarType> width,
-    final <scalarType> height)
+    final <scalarType> sizeX,
+    final <scalarType> sizeY)
   {
     <opClass>.notNullArea(area, "area");
-    <opClass>.notNullScalar(width, "width");
-    <opClass>.notNullScalar(width, "height");
+    <opClass>.notNullScalar(sizeX, "sizeX");
+    <opClass>.notNullScalar(sizeX, "sizeY");
 
     return alignMaxYMinX(area, <areaType>.of(
       area.minimumX(),
-      <opClass>.add(area.minimumX(), width),
+      <opClass>.add(area.minimumX(), sizeX),
       area.minimumY(),
-      <opClass>.add(area.minimumY(), height)));
+      <opClass>.add(area.minimumY(), sizeY)));
   }
 
   /**
-   * \<p\>Set the width and height of {@code area} to {@code width} and {@code
-   * height}, respectively.\</p\>
+   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p\>
    *
    * \<p\>The area is resized by moving its maximum-y-maximum-x corner.\</p\>
    *
    * @param area   The area
-   * @param width  The new width (must be non-negative)
-   * @param height The new height (must be non-negative)
+   * @param sizeX  The new sizeX (must be non-negative)
+   * @param sizeY The new sizeY (must be non-negative)
    * 
    *
    * @return A resized area
@@ -1045,29 +1045,29 @@ public final class <className>
 
   public static <areaType> setSizeFromMaxYMaxX(
     final <areaType> area,
-    final <scalarType> width,
-    final <scalarType> height)
+    final <scalarType> sizeX,
+    final <scalarType> sizeY)
   {
     <opClass>.notNullArea(area, "area");
-    <opClass>.notNullScalar(width, "width");
-    <opClass>.notNullScalar(width, "height");
+    <opClass>.notNullScalar(sizeX, "sizeX");
+    <opClass>.notNullScalar(sizeX, "sizeY");
 
     return alignMinYMinX(area, <areaType>.of(
       area.minimumX(),
-      <opClass>.add(area.minimumX(), width),
+      <opClass>.add(area.minimumX(), sizeX),
       area.minimumY(),
-      <opClass>.add(area.minimumY(), height)));
+      <opClass>.add(area.minimumY(), sizeY)));
   }
 
   /**
-   * \<p\>Set the width and height of {@code area} to {@code width} and {@code
-   * height}, respectively.\</p\>
+   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p\>
    *
    * \<p\>The area is resized by moving its maximum-y-minimum-x corner.\</p\>
    *
    * @param area   The area
-   * @param width  The new width (must be non-negative)
-   * @param height The new height (must be non-negative)
+   * @param sizeX  The new sizeX (must be non-negative)
+   * @param sizeY The new sizeY (must be non-negative)
    * 
    *
    * @return A resized area
@@ -1075,24 +1075,24 @@ public final class <className>
 
   public static <areaType> setSizeFromMaxYMinX(
     final <areaType> area,
-    final <scalarType> width,
-    final <scalarType> height)
+    final <scalarType> sizeX,
+    final <scalarType> sizeY)
   {
     <opClass>.notNullArea(area, "area");
-    <opClass>.notNullScalar(width, "width");
-    <opClass>.notNullScalar(width, "height");
+    <opClass>.notNullScalar(sizeX, "sizeX");
+    <opClass>.notNullScalar(sizeX, "sizeY");
 
     return alignMinYMaxX(area, <areaType>.of(
       area.minimumX(),
-      <opClass>.add(area.minimumX(), width),
+      <opClass>.add(area.minimumX(), sizeX),
       area.minimumY(),
-      <opClass>.add(area.minimumY(), height)));
+      <opClass>.add(area.minimumY(), sizeY)));
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the width, and {@code
-   * y_diff} to the height. The size of the resulting area is clamped so that
-   * its width and height are always non-negative.\</p\>
+   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * y_diff} to the sizeY. The size of the resulting area is clamped so that
+   * its sizeX and sizeY are always non-negative.\</p\>
    *
    * \<p\>The area is resized by moving its minimum-y-minimum-x corner.\</p\>
    *
@@ -1113,17 +1113,17 @@ public final class <className>
     <opClass>.notNullScalar(x_diff, "diff x");
     <opClass>.notNullScalar(y_diff, "diff y");
 
-    final <scalarType> width =
-      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.width(), x_diff));
-    final <scalarType> height =
-      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.height(), y_diff));
-    return setSizeFromMinYMinX(area, width, height);
+    final <scalarType> sizeX =
+      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.sizeX(), x_diff));
+    final <scalarType> sizeY =
+      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.sizeY(), y_diff));
+    return setSizeFromMinYMinX(area, sizeX, sizeY);
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the width, and {@code
-   * y_diff} to the height. The size of the resulting area is clamped so that
-   * its width and height are always non-negative.\</p\>
+   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * y_diff} to the sizeY. The size of the resulting area is clamped so that
+   * its sizeX and sizeY are always non-negative.\</p\>
    *
    * \<p\>The area is resized by moving its minimum-y-maximum-x corner.\</p\>
    *
@@ -1144,17 +1144,17 @@ public final class <className>
     <opClass>.notNullScalar(x_diff, "diff x");
     <opClass>.notNullScalar(y_diff, "diff y");
 
-    final <scalarType> width =
-      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.width(), x_diff));
-    final <scalarType> height =
-      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.height(), y_diff));
-    return setSizeFromMinYMaxX(area, width, height);
+    final <scalarType> sizeX =
+      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.sizeX(), x_diff));
+    final <scalarType> sizeY =
+      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.sizeY(), y_diff));
+    return setSizeFromMinYMaxX(area, sizeX, sizeY);
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the width, and {@code
-   * y_diff} to the height. The size of the resulting area is clamped so that
-   * its width and height are always non-negative.\</p\>
+   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * y_diff} to the sizeY. The size of the resulting area is clamped so that
+   * its sizeX and sizeY are always non-negative.\</p\>
    *
    * \<p\>The area is resized by moving its maximum-y-minimum-x corner.\</p\>
    *
@@ -1175,17 +1175,17 @@ public final class <className>
     <opClass>.notNullScalar(x_diff, "diff x");
     <opClass>.notNullScalar(y_diff, "diff y");
 
-    final <scalarType> width =
-      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.width(), x_diff));
-    final <scalarType> height =
-      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.height(), y_diff));
-    return setSizeFromMaxYMinX(area, width, height);
+    final <scalarType> sizeX =
+      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.sizeX(), x_diff));
+    final <scalarType> sizeY =
+      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.sizeY(), y_diff));
+    return setSizeFromMaxYMinX(area, sizeX, sizeY);
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the width, and {@code
-   * y_diff} to the height. The size of the resulting area is clamped so that
-   * its width and height are always non-negative.\</p\>
+   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * y_diff} to the sizeY. The size of the resulting area is clamped so that
+   * its sizeX and sizeY are always non-negative.\</p\>
    *
    * \<p\>The area is resized by moving its maximum-y-maximum-x corner.\</p\>
    *
@@ -1206,17 +1206,17 @@ public final class <className>
     <opClass>.notNullScalar(x_diff, "diff x");
     <opClass>.notNullScalar(y_diff, "diff y");
 
-    final <scalarType> width =
-      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.width(), x_diff));
-    final <scalarType> height =
-      <opClass>.maximum(<opClass>.ZERO,<opClass>.add(area.height(), y_diff));
-    return setSizeFromMaxYMaxX(area, width, height);
+    final <scalarType> sizeX =
+      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.sizeX(), x_diff));
+    final <scalarType> sizeY =
+      <opClass>.maximum(<opClass>.ZERO,<opClass>.add(area.sizeY(), y_diff));
+    return setSizeFromMaxYMaxX(area, sizeX, sizeY);
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the width, and {@code
-   * y_diff} to the height. The size of the resulting area is clamped so that
-   * its width and height are always non-negative.\</p\>
+   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * y_diff} to the sizeY. The size of the resulting area is clamped so that
+   * its sizeX and sizeY are always non-negative.\</p\>
    *
    * \<p\>The area is resized from its own center.\</p\>
    *
@@ -1237,11 +1237,11 @@ public final class <className>
     <opClass>.notNullScalar(x_diff, "diff x");
     <opClass>.notNullScalar(y_diff, "diff y");
 
-    final <scalarType> width =
-      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.width(), x_diff));
-    final <scalarType> height =
-      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.height(), y_diff));
-    return setSizeFromCenter(area, width, height);
+    final <scalarType> sizeX =
+      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.sizeX(), x_diff));
+    final <scalarType> sizeY =
+      <opClass>.maximum(<opClass>.ZERO, <opClass>.add(area.sizeY(), y_diff));
+    return setSizeFromCenter(area, sizeX, sizeY);
   }
 
   /**
@@ -1301,11 +1301,11 @@ public final class <className>
     <opClass>.notNullArea(a, "a");
     <opClass>.notNullArea(b, "b");
 
-    final boolean width_ok =
-    <opClass>.compare(a.width(), b.width()) \<= 0;
-    final boolean height_ok =
-    <opClass>.compare(a.height(), b.height()) \<= 0;
-    return width_ok && height_ok;
+    final boolean sizeX_ok =
+    <opClass>.compare(a.sizeX(), b.sizeX()) \<= 0;
+    final boolean sizeY_ok =
+    <opClass>.compare(a.sizeY(), b.sizeY()) \<= 0;
+    return sizeX_ok && sizeY_ok;
   }
 
   /**
@@ -1493,9 +1493,9 @@ public final class <className>
     <opClass>.notNullArea(area, "area");
     <opClass>.notNullScalar(y, "y");
 
-    final <scalarType> clamped_height = <opClass>.minimum(area.height(), y);
+    final <scalarType> clamped_sizeY = <opClass>.minimum(area.sizeY(), y);
     final <scalarType> upper_y_min = area.minimumY();
-    final <scalarType> upper_y_max = <opClass>.add(area.minimumY(), clamped_height);
+    final <scalarType> upper_y_max = <opClass>.add(area.minimumY(), clamped_sizeY);
     final <scalarType> lower_y_min = upper_y_max;
     final <scalarType> lower_y_max = area.maximumY();
 
@@ -1525,9 +1525,9 @@ public final class <className>
     <opClass>.notNullArea(area, "area");
     <opClass>.notNullScalar(x, "x");
 
-    final <scalarType> clamped_width = <opClass>.minimum(area.width(), x);
+    final <scalarType> clamped_sizeX = <opClass>.minimum(area.sizeX(), x);
     final <scalarType> lower_x_min = area.minimumX();
-    final <scalarType> lower_x_max = <opClass>.add(area.minimumX(), clamped_width);
+    final <scalarType> lower_x_max = <opClass>.add(area.minimumX(), clamped_sizeX);
     final <scalarType> upper_x_min = lower_x_max;
     final <scalarType> upper_x_max = area.maximumX();
 
@@ -1559,15 +1559,15 @@ public final class <className>
     <opClass>.notNullScalar(x, "x");
     <opClass>.notNullScalar(y, "y");
 
-    final <scalarType> clamped_width = <opClass>.minimum(area.width(), x);
+    final <scalarType> clamped_sizeX = <opClass>.minimum(area.sizeX(), x);
     final <scalarType> lower_x_min = area.minimumX();
-    final <scalarType> lower_x_max = <opClass>.add(area.minimumX(), clamped_width);
+    final <scalarType> lower_x_max = <opClass>.add(area.minimumX(), clamped_sizeX);
     final <scalarType> upper_x_min = lower_x_max;
     final <scalarType> upper_x_max = <opClass>.maximum(area.maximumX(), lower_x_max);
 
-    final <scalarType> clamped_height = <opClass>.minimum(area.height(), y);
+    final <scalarType> clamped_sizeY = <opClass>.minimum(area.sizeY(), y);
     final <scalarType> lower_y_min = area.minimumY();
-    final <scalarType> lower_y_max = <opClass>.add(area.minimumY(), clamped_height);
+    final <scalarType> lower_y_max = <opClass>.add(area.minimumY(), clamped_sizeY);
     final <scalarType> upper_y_min = lower_y_max;
     final <scalarType> upper_y_max = <opClass>.maximum(area.maximumY(), lower_y_max);
 
@@ -1608,7 +1608,7 @@ public final class <className>
     final <areaType> area)
   {
     <opClass>.notNullArea(area, "area");
-    return <areaSizeType>.of(area.width(), area.height());
+    return <areaSizeType>.of(area.sizeX(), area.sizeY());
   }
 
   /**
@@ -1626,9 +1626,9 @@ public final class <className>
     <opClass>.notNullArea(area, "area");
     NullCheck.notNull(sb, "sb");
 
-    sb.append(area.width());
+    sb.append(area.sizeX());
     sb.append("x");
-    sb.append(area.height());
+    sb.append(area.sizeY());
     sb.append(" ");
     sb.append(area.minimumX());
     sb.append("+");

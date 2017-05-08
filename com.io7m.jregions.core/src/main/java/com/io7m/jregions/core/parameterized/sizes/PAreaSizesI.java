@@ -52,7 +52,7 @@ public final class PAreaSizesI
   {
     NullCheck.notNull(a, "Area A");
     NullCheck.notNull(b, "Area B");
-    return Integer.compareUnsigned(b.width(), a.width()) <= 0
-      && Integer.compareUnsigned(b.height(), a.height()) <= 0;
+    return Integer.compareUnsigned(b.sizeX(), a.sizeX()) <= 0
+      && Integer.compareUnsigned(b.sizeY(), a.sizeY()) <= 0;
   }
 }

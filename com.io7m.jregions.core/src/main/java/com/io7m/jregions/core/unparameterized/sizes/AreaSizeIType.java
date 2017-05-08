@@ -29,9 +29,54 @@ public interface AreaSizeIType extends AreaSizeValuesIType
 {
   @Override
   @Value.Parameter(order = 0)
-  int width();
+  int sizeX();
 
   @Override
   @Value.Parameter(order = 1)
-  int height();
+  int sizeY();
+
+  /**
+   * A builder for size values.
+   */
+
+  abstract class Builder
+  {
+    abstract AreaSizeI.Builder setSizeX(int size_x);
+
+    abstract AreaSizeI.Builder setSizeY(int size_y);
+
+    /**
+     * Set the width.
+     *
+     * @param width The width
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeX(int)}
+     */
+
+    @Deprecated
+    public AreaSizeI.Builder setWidth(
+      final int width)
+    {
+      return this.setSizeX(width);
+    }
+
+    /**
+     * Set the height.
+     *
+     * @param height The height
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeY(int)}
+     */
+
+    @Deprecated
+    public AreaSizeI.Builder setHeight(
+      final int height)
+    {
+      return this.setSizeY(height);
+    }
+  }
 }

@@ -75,21 +75,18 @@ public interface VolumeValuesBIType extends VolumeSizeValuesBIType
   BigInteger maximumZ();
 
   @Override
-  @Value.Lazy
   default BigInteger sizeX()
   {
     return this.maximumX().subtract(this.minimumX());
   }
 
   @Override
-  @Value.Lazy
   default BigInteger sizeY()
   {
     return this.maximumY().subtract(this.minimumY());
   }
 
   @Override
-  @Value.Lazy
   default BigInteger sizeZ()
   {
     return this.maximumZ().subtract(this.minimumZ());

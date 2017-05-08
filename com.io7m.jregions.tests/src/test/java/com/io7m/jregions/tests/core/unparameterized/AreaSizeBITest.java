@@ -42,12 +42,12 @@ public final class AreaSizeBITest
       new BigInteger("100"),
       AreaSizeBI.of(
         new BigInteger("100"),
-        BigInteger.ZERO).width());
+        BigInteger.ZERO).sizeX());
     Assert.assertEquals(
       new BigInteger("100"),
       AreaSizeBI.of(
         BigInteger.ZERO,
-        new BigInteger("100")).height());
+        new BigInteger("100")).sizeY());
   }
 
   @Test
@@ -101,8 +101,8 @@ public final class AreaSizeBITest
           throws Throwable
         {
           final AreaBI s = AreaSizesBI.area(a);
-          Assert.assertEquals(a.width(), s.width());
-          Assert.assertEquals(a.height(), s.height());
+          Assert.assertEquals(a.sizeX(), s.sizeX());
+          Assert.assertEquals(a.sizeY(), s.sizeY());
           Assert.assertEquals(BigInteger.ZERO, s.minimumX());
           Assert.assertEquals(BigInteger.ZERO, s.minimumY());
         }

@@ -73,21 +73,18 @@ public interface VolumeValuesFType extends VolumeSizeValuesFType
   float maximumZ();
 
   @Override
-  @Value.Lazy
   default float sizeX()
   {
     return this.maximumX() - this.minimumX();
   }
 
   @Override
-  @Value.Lazy
   default float sizeY()
   {
     return this.maximumY() - this.minimumY();
   }
 
   @Override
-  @Value.Lazy
   default float sizeZ()
   {
     return this.maximumZ() - this.minimumZ();

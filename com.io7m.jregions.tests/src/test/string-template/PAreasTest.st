@@ -59,8 +59,8 @@ public final class <className>
             <areaOpsType>.create(
               outer.minimumX(),
               outer.minimumY(),
-              outer.width(),
-              outer.height());
+              outer.sizeX(),
+              outer.sizeY());
 
           <opClass>.checkEquals(outer.minimumX(), c.minimumX());
           <opClass>.checkEquals(outer.minimumY(), c.minimumY());
@@ -131,8 +131,8 @@ public final class <className>
 
           final <areaType>\<Object\> moved = <areaOpsType>.moveRelative(outer, x, y);
 
-          <opClass>.checkEquals(outer.width(), moved.width());
-          <opClass>.checkEquals(outer.height(), moved.height());
+          <opClass>.checkEquals(outer.sizeX(), moved.sizeX());
+          <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
           <opClass>.checkEquals(<opClass>.absolute(x), <opClass>.absoluteDifference(outer.minimumX(), moved.minimumX()));
           <opClass>.checkEquals(<opClass>.absolute(y), <opClass>.absoluteDifference(outer.minimumY(), moved.minimumY()));
         }
@@ -158,8 +158,8 @@ public final class <className>
           final <scalarType> y = gen.next();
           final <areaType>\<Object\> moved = <areaOpsType>.moveAbsolute(outer, x, y);
 
-          <opClass>.checkEquals(outer.width(), moved.width());
-          <opClass>.checkEquals(outer.height(), moved.height());
+          <opClass>.checkEquals(outer.sizeX(), moved.sizeX());
+          <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
           <opClass>.checkEquals(x, moved.minimumX());
           <opClass>.checkEquals(y, moved.minimumY());
         }
@@ -182,8 +182,8 @@ public final class <className>
         {
           final <areaType>\<Object\> moved = <areaOpsType>.moveToOrigin(outer);
 
-          <opClass>.checkEquals(outer.width(),  moved.width());
-          <opClass>.checkEquals(outer.height(),  moved.height());
+          <opClass>.checkEquals(outer.sizeX(),  moved.sizeX());
+          <opClass>.checkEquals(outer.sizeY(),  moved.sizeY());
           <opClass>.checkEquals(<opClass>.ZERO,  moved.minimumX());
           <opClass>.checkEquals(<opClass>.ZERO,  moved.minimumY());
         }
@@ -250,8 +250,8 @@ public final class <className>
     throws Exception
   {
     final <areaType>\<Object\> area = <areaType>.of(<opClass>.ZERO, <opClass>.ZERO, <opClass>.ZERO, <opClass>.ZERO);
-    <opClass>.checkEquals(<opClass>.ZERO,  area.width());
-    <opClass>.checkEquals(<opClass>.ZERO,  area.height());
+    <opClass>.checkEquals(<opClass>.ZERO,  area.sizeX());
+    <opClass>.checkEquals(<opClass>.ZERO,  area.sizeY());
   }
 
   @Test
@@ -392,17 +392,17 @@ public final class <className>
     final <areaType>\<Object\> outer = <areaType>.of(<opClass>.ZERO, <opClass>.constant("100"), <opClass>.ZERO, <opClass>.constant("100"));
     final <areaType>\<Object\> inner = <areaType>.of(<opClass>.ZERO, <opClass>.constant("10"), <opClass>.ZERO, <opClass>.constant("10"));
 
-    <opClass>.checkEquals(<opClass>.constant("100"),  outer.width());
-    <opClass>.checkEquals(<opClass>.constant("100"),  outer.height());
+    <opClass>.checkEquals(<opClass>.constant("100"),  outer.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("100"),  outer.sizeY());
 
-    <opClass>.checkEquals(<opClass>.constant("10"),  inner.width());
-    <opClass>.checkEquals(<opClass>.constant("10"),  inner.height());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeY());
 
     final <areaType>\<Object\> aligned =
       <areaOpsType>.alignHorizontallyCenter(outer, inner);
 
-    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.width());
-    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.height());
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeY());
     <opClass>.checkEquals(<opClass>.constant("45"),  aligned.minimumX());
     <opClass>.checkEquals(<opClass>.constant("55"),  aligned.maximumX());
   }
@@ -428,8 +428,8 @@ public final class <className>
 
           <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
           <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
-          <opClass>.checkEquals(inner.width(), aligned.width());
-          <opClass>.checkEquals(inner.height(), aligned.height());
+          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
           <opClass>.checkEquals(aligned.minimumX(), outer.minimumX());
         }
@@ -459,8 +459,8 @@ public final class <className>
 
           <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
           <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
-          <opClass>.checkEquals(inner.width(), aligned.width());
-          <opClass>.checkEquals(inner.height(), aligned.height());
+          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
           <opClass>.checkEquals(aligned.minimumX(), <opClass>.add(outer.minimumX(), offset));
         }
@@ -487,8 +487,8 @@ public final class <className>
 
           <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
           <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
-          <opClass>.checkEquals(inner.width(), aligned.width());
-          <opClass>.checkEquals(inner.height(), aligned.height());
+          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
           <opClass>.checkEquals(aligned.maximumX(), outer.maximumX());
         }
@@ -518,8 +518,8 @@ public final class <className>
 
           <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
           <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
-          <opClass>.checkEquals(inner.width(), aligned.width());
-          <opClass>.checkEquals(inner.height(), aligned.height());
+          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
           <opClass>.checkEquals(aligned.maximumX(), <opClass>.subtract(outer.maximumX(), offset));
         }
@@ -546,8 +546,8 @@ public final class <className>
 
           <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
           <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
-          <opClass>.checkEquals(inner.width(), aligned.width());
-          <opClass>.checkEquals(inner.height(), aligned.height());
+          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
           final <scalarType> diff_left =
             <opClass>.absoluteDifference(
@@ -569,17 +569,17 @@ public final class <className>
     final <areaType>\<Object\> outer = <areaType>.of(<opClass>.ZERO, <opClass>.constant("100"), <opClass>.ZERO, <opClass>.constant("100"));
     final <areaType>\<Object\> inner = <areaType>.of(<opClass>.ZERO, <opClass>.constant("10"), <opClass>.ZERO, <opClass>.constant("10"));
 
-    <opClass>.checkEquals(<opClass>.constant("100"),  outer.width());
-    <opClass>.checkEquals(<opClass>.constant("100"),  outer.height());
+    <opClass>.checkEquals(<opClass>.constant("100"),  outer.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("100"),  outer.sizeY());
 
-    <opClass>.checkEquals(<opClass>.constant("10"),  inner.width());
-    <opClass>.checkEquals(<opClass>.constant("10"),  inner.height());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeY());
 
     final <areaType>\<Object\> aligned =
       <areaOpsType>.alignVerticallyCenter(outer, inner);
 
-    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.width());
-    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.height());
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeY());
     <opClass>.checkEquals(<opClass>.ZERO,  aligned.minimumX());
     <opClass>.checkEquals(<opClass>.constant("10"),  aligned.maximumX());
     <opClass>.checkEquals(<opClass>.constant("45"),  aligned.minimumY());
@@ -593,16 +593,16 @@ public final class <className>
     final <areaType>\<Object\> outer = <areaType>.of(<opClass>.constant("6"), <opClass>.constant("634"), <opClass>.ZERO, <opClass>.constant("16"));
     final <areaType>\<Object\> inner = <areaType>.of(<opClass>.constant("3"), <opClass>.constant("13"), <opClass>.constant("6"), <opClass>.constant("16"));
 
-    <opClass>.checkEquals(<opClass>.constant("628"),  outer.width());
-    <opClass>.checkEquals(<opClass>.constant("16"),  outer.height());
-    <opClass>.checkEquals(<opClass>.constant("10"),  inner.width());
-    <opClass>.checkEquals(<opClass>.constant("10"),  inner.height());
+    <opClass>.checkEquals(<opClass>.constant("628"),  outer.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("16"),  outer.sizeY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeY());
 
     final <areaType>\<Object\> aligned =
       <areaOpsType>.alignVerticallyCenter(outer, inner);
 
-    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.width());
-    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.height());
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeY());
 
     <opClass>.checkEquals(<opClass>.constant("3"),  aligned.minimumX());
     <opClass>.checkEquals(<opClass>.constant("13"),  aligned.maximumX());
@@ -630,8 +630,8 @@ public final class <className>
 
           <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
           <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           final <scalarType> diff_top =
             <opClass>.absoluteDifference(
@@ -668,8 +668,8 @@ public final class <className>
 
           <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
           <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(aligned.minimumY(),  outer.minimumY());
         }
@@ -699,8 +699,8 @@ public final class <className>
 
           <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
           <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(aligned.minimumY(), <opClass>.add(outer.minimumY(), offset));
         }
@@ -727,8 +727,8 @@ public final class <className>
 
           <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
           <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(aligned.maximumY(),  outer.maximumY());
         }
@@ -757,8 +757,8 @@ public final class <className>
 
           <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
           <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(aligned.maximumY(), <opClass>.subtract(outer.maximumY(), offset));
         }
@@ -783,8 +783,8 @@ public final class <className>
           final <areaType>\<Object\> aligned =
             <areaOpsType>.alignCenter(outer, inner);
 
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           final <scalarType> diff_left =
             <opClass>.absoluteDifference(
@@ -827,8 +827,8 @@ public final class <className>
           final <areaType>\<Object\> aligned =
             <areaOpsType>.alignMinYMinX(outer, inner);
 
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(outer.minimumX(),  aligned.minimumX());
           <opClass>.checkEquals(outer.minimumY(),  aligned.minimumY());
@@ -858,8 +858,8 @@ public final class <className>
           final <areaType>\<Object\> aligned =
             <areaOpsType>.alignMinYMinXOffset(outer, inner, offset_left, offset_top);
 
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(<opClass>.add(outer.minimumX(), offset_left), aligned.minimumX());
           <opClass>.checkEquals(<opClass>.add(outer.minimumY(), offset_top), aligned.minimumY());
@@ -885,8 +885,8 @@ public final class <className>
           final <areaType>\<Object\> aligned =
             <areaOpsType>.alignMaxYMinX(outer, inner);
 
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(outer.minimumX(),  aligned.minimumX());
           <opClass>.checkEquals(outer.maximumY(),  aligned.maximumY());
@@ -920,8 +920,8 @@ public final class <className>
               offset_left,
               offset_bottom);
 
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(<opClass>.add(outer.minimumX(), offset_left), aligned.minimumX());
           <opClass>.checkEquals(<opClass>.subtract(outer.maximumY(), offset_bottom), aligned.maximumY());
@@ -947,8 +947,8 @@ public final class <className>
           final <areaType>\<Object\> aligned =
             <areaOpsType>.alignMaxYMaxX(outer, inner);
 
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(outer.maximumX(),  aligned.maximumX());
           <opClass>.checkEquals(outer.maximumY(),  aligned.maximumY());
@@ -982,8 +982,8 @@ public final class <className>
               offset_right,
               offset_bottom);
 
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(<opClass>.subtract(outer.maximumX(), offset_right), aligned.maximumX());
           <opClass>.checkEquals(<opClass>.subtract(outer.maximumY(), offset_bottom), aligned.maximumY());
@@ -1009,8 +1009,8 @@ public final class <className>
           final <areaType>\<Object\> aligned =
             <areaOpsType>.alignMinYMaxX(outer, inner);
 
-          <opClass>.checkEquals(inner.width(), aligned.width());
-          <opClass>.checkEquals(inner.height(), aligned.height());
+          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
           <opClass>.checkEquals(outer.maximumX(), aligned.maximumX());
           <opClass>.checkEquals(outer.minimumY(), aligned.minimumY());
@@ -1044,8 +1044,8 @@ public final class <className>
               offset_right,
               offset_top);
 
-          <opClass>.checkEquals(inner.width(),  aligned.width());
-          <opClass>.checkEquals(inner.height(),  aligned.height());
+          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
           <opClass>.checkEquals(<opClass>.subtract(outer.maximumX(), offset_right), aligned.maximumX());
           <opClass>.checkEquals(<opClass>.add(outer.minimumY(), offset_top), aligned.minimumY());
@@ -1068,19 +1068,19 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> expected_width = gen.next();
-          final <scalarType> expected_height = gen.next();
+          final <scalarType> expected_sizeX = gen.next();
+          final <scalarType> expected_sizeY = gen.next();
 
           final <areaType>\<Object\> resized =
             <areaOpsType>.setSizeFromMinYMinX(
               outer,
-              expected_width,
-              expected_height);
+              expected_sizeX,
+              expected_sizeY);
 
           <opClass>.checkEquals(outer.maximumX(), resized.maximumX());
           <opClass>.checkEquals(outer.maximumY(), resized.maximumY());
-          <opClass>.checkEquals(expected_width,  resized.width());
-          <opClass>.checkEquals(expected_height,  resized.height());
+          <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+          <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
         }
       });
   }
@@ -1100,19 +1100,19 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> expected_width = gen.next();
-          final <scalarType> expected_height = gen.next();
+          final <scalarType> expected_sizeX = gen.next();
+          final <scalarType> expected_sizeY = gen.next();
 
           final <areaType>\<Object\> resized =
             <areaOpsType>.setSizeFromMinYMaxX(
               outer,
-              expected_width,
-              expected_height);
+              expected_sizeX,
+              expected_sizeY);
 
           <opClass>.checkEquals(outer.minimumX(), resized.minimumX());
           <opClass>.checkEquals(outer.maximumY(), resized.maximumY());
-          <opClass>.checkEquals(expected_width,  resized.width());
-          <opClass>.checkEquals(expected_height,  resized.height());
+          <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+          <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
         }
       });
   }
@@ -1132,19 +1132,19 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> expected_width = gen.next();
-          final <scalarType> expected_height = gen.next();
+          final <scalarType> expected_sizeX = gen.next();
+          final <scalarType> expected_sizeY = gen.next();
 
           final <areaType>\<Object\> resized =
             <areaOpsType>.setSizeFromMaxYMinX(
               outer,
-              expected_width,
-              expected_height);
+              expected_sizeX,
+              expected_sizeY);
 
           <opClass>.checkEquals(outer.maximumX(), resized.maximumX());
           <opClass>.checkEquals(outer.minimumY(), resized.minimumY());
-          <opClass>.checkEquals(expected_width,  resized.width());
-          <opClass>.checkEquals(expected_height,  resized.height());
+          <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+          <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
         }
       });
   }
@@ -1164,19 +1164,19 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> expected_width = gen.next();
-          final <scalarType> expected_height = gen.next();
+          final <scalarType> expected_sizeX = gen.next();
+          final <scalarType> expected_sizeY = gen.next();
 
           final <areaType>\<Object\> resized =
             <areaOpsType>.setSizeFromMaxYMaxX(
               outer,
-              expected_width,
-              expected_height);
+              expected_sizeX,
+              expected_sizeY);
 
           <opClass>.checkEquals(outer.minimumX(), resized.minimumX());
           <opClass>.checkEquals(outer.minimumY(), resized.minimumY());
-          <opClass>.checkEquals(expected_width,  resized.width());
-          <opClass>.checkEquals(expected_height,  resized.height());
+          <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+          <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
         }
       });
   }
@@ -1196,14 +1196,14 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> expected_width = gen.next();
-          final <scalarType> expected_height = gen.next();
+          final <scalarType> expected_sizeX = gen.next();
+          final <scalarType> expected_sizeY = gen.next();
 
           final <areaType>\<Object\> resized =
-            <areaOpsType>.setSizeFromCenter(outer, expected_width, expected_height);
+            <areaOpsType>.setSizeFromCenter(outer, expected_sizeX, expected_sizeY);
 
-          <opClass>.checkEquals(expected_width,  resized.width());
-          <opClass>.checkEquals(expected_height,  resized.height());
+          <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+          <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
 
           final <scalarType> diff_left =
             <opClass>.absoluteDifference(
@@ -1289,10 +1289,10 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          boolean height_over = <opClass>.compare(outer.height(), <opClass>.ZERO) \> 0;
-          boolean width_over = <opClass>.compare(outer.width(), <opClass>.ZERO) \> 0;
+          boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.ZERO) \> 0;
+          boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.ZERO) \> 0;
 
-          if (height_over && width_over) {
+          if (sizeY_over && sizeX_over) {
             Assert.assertTrue(<areaOpsType>.overlaps(outer, outer));
           } else {
             Assert.assertFalse(<areaOpsType>.overlaps(outer, outer));
@@ -1383,8 +1383,8 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> w = <opClass>.maximum(<opClass>.ONE, outer.width());
-          final <scalarType> h = <opClass>.maximum(<opClass>.ONE, outer.height());
+          final <scalarType> w = <opClass>.maximum(<opClass>.ONE, outer.sizeX());
+          final <scalarType> h = <opClass>.maximum(<opClass>.ONE, outer.sizeY());
           final <scalarType> px = <opClass>.randomBounded(w);
           final <scalarType> py = <opClass>.randomBounded(h);
           final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
@@ -1393,10 +1393,10 @@ public final class <className>
           System.out.println(outer);
           System.out.println(ppx + " " + ppy);
 
-          boolean height_over = <opClass>.compare(outer.height(), <opClass>.ZERO) \> 0;
-          boolean width_over = <opClass>.compare(outer.width(), <opClass>.ZERO) \> 0;
+          boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.ZERO) \> 0;
+          boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.ZERO) \> 0;
 
-          if (width_over && height_over) {
+          if (sizeX_over && sizeY_over) {
             Assert.assertTrue(<areaOpsType>.containsPoint(outer, ppx, ppy));
           } else {
             Assert.assertFalse(<areaOpsType>.containsPoint(outer, ppx, ppy));
@@ -1421,10 +1421,10 @@ public final class <className>
         {
           final <areaType>\<Object\> b = generator.next();
           final <areaType>\<Object\> c = <areaOpsType>.containing(a, b);
-          Assert.assertTrue(<opClass>.compare(c.width(), a.width()) >= 0);
-          Assert.assertTrue(<opClass>.compare(c.height(), a.height()) >= 0);
-          Assert.assertTrue(<opClass>.compare(c.width(), b.width()) >= 0);
-          Assert.assertTrue(<opClass>.compare(c.height(), b.height()) >= 0);
+          Assert.assertTrue(<opClass>.compare(c.sizeX(), a.sizeX()) >= 0);
+          Assert.assertTrue(<opClass>.compare(c.sizeY(), a.sizeY()) >= 0);
+          Assert.assertTrue(<opClass>.compare(c.sizeX(), b.sizeX()) >= 0);
+          Assert.assertTrue(<opClass>.compare(c.sizeY(), b.sizeY()) >= 0);
           Assert.assertTrue(<areaOpsType>.contains(c, a));
           Assert.assertTrue(<areaOpsType>.contains(c, b));
         }
@@ -1445,8 +1445,8 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> w = <opClass>.maximum(<opClass>.ONE, outer.width());
-          final <scalarType> h = <opClass>.maximum(<opClass>.ONE, outer.height());
+          final <scalarType> w = <opClass>.maximum(<opClass>.ONE, outer.sizeX());
+          final <scalarType> h = <opClass>.maximum(<opClass>.ONE, outer.sizeY());
           final <scalarType> px = <opClass>.randomBounded(w);
           final <scalarType> py = <opClass>.randomBounded(h);
           final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
@@ -1456,7 +1456,7 @@ public final class <className>
             outer.minimumX(),
             outer.minimumY(),
             <opClass>.ZERO,
-            outer.height());
+            outer.sizeY());
 
           System.out.println(ppx + " " + ppy);
 
@@ -1479,8 +1479,8 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> w = <opClass>.maximum(<opClass>.ONE, outer.width());
-          final <scalarType> h = <opClass>.maximum(<opClass>.ONE, outer.height());
+          final <scalarType> w = <opClass>.maximum(<opClass>.ONE, outer.sizeX());
+          final <scalarType> h = <opClass>.maximum(<opClass>.ONE, outer.sizeY());
           final <scalarType> px = <opClass>.randomBounded(w);
           final <scalarType> py = <opClass>.randomBounded(h);
           final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
@@ -1489,7 +1489,7 @@ public final class <className>
           final <areaType>\<Object\> scaled = <areaOpsType>.create(
             outer.minimumX(),
             outer.minimumY(),
-            outer.width(),
+            outer.sizeX(),
             <opClass>.ZERO);
 
           System.out.println(ppx + " " + ppy);
@@ -1590,8 +1590,8 @@ public final class <className>
           final <areaType>\<Object\> resized =
             <areaOpsType>.scaleFromMinYMinX(outer, x_diff, y_diff);
 
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.width(), x_diff)), resized.width());
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.height(), y_diff)), resized.height());
+          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
 
           <opClass>.checkEquals(outer.maximumX(),  resized.maximumX());
           <opClass>.checkEquals(outer.maximumY(),  resized.maximumY());
@@ -1620,8 +1620,8 @@ public final class <className>
           final <areaType>\<Object\> resized =
             <areaOpsType>.scaleFromMinYMaxX(outer, x_diff, y_diff);
 
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.width(), x_diff)), resized.width());
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.height(), y_diff)), resized.height());
+          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
 
           <opClass>.checkEquals(outer.minimumX(),  resized.minimumX());
           <opClass>.checkEquals(outer.maximumY(),  resized.maximumY());
@@ -1650,8 +1650,8 @@ public final class <className>
           final <areaType>\<Object\> resized =
             <areaOpsType>.scaleFromMaxYMaxX(outer, x_diff, y_diff);
 
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.width(), x_diff)), resized.width());
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.height(), y_diff)), resized.height());
+          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
 
           <opClass>.checkEquals(outer.minimumX(),  resized.minimumX());
           <opClass>.checkEquals(outer.minimumY(),  resized.minimumY());
@@ -1680,8 +1680,8 @@ public final class <className>
           final <areaType>\<Object\> resized =
             <areaOpsType>.scaleFromMaxYMinX(outer, x_diff, y_diff);
 
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.width(), x_diff)), resized.width());
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.height(), y_diff)), resized.height());
+          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
 
           <opClass>.checkEquals(outer.maximumX(),  resized.maximumX());
           <opClass>.checkEquals(outer.minimumY(),  resized.minimumY());
@@ -1710,8 +1710,8 @@ public final class <className>
           final <areaType>\<Object\> resized =
             <areaOpsType>.scaleFromCenter(outer, x_diff, y_diff);
 
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.width(), x_diff)), resized.width());
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.height(), y_diff)), resized.height());
+          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+          <opClass>.checkEquals(<opClass>.maximum(<opClass>.ZERO, <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
         }
       });
   }
@@ -1751,31 +1751,31 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> bound = <opClass>.add(outer.height(), <opClass>.ONE);
-          final <scalarType> height = <opClass>.randomBounded(bound);
+          final <scalarType> bound = <opClass>.add(outer.sizeY(), <opClass>.ONE);
+          final <scalarType> sizeY = <opClass>.randomBounded(bound);
 
           final <splitXType>\<Object, <areaType>\<Object\>\> pair =
-            <areaOpsType>.splitAlongParallelToX(outer, height);
+            <areaOpsType>.splitAlongParallelToX(outer, sizeY);
 
           final <areaType>\<Object\> lower = pair.lower();
           final <areaType>\<Object\> upper = pair.upper();
 
-          System.out.println("height: " + height);
+          System.out.println("sizeY: " + sizeY);
           System.out.println("lower:  " + lower);
           System.out.println("upper:  " + upper);
 
-          Assert.assertTrue(<opClass>.compare(lower.height(), outer.height()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(upper.height(), outer.height()) \<= 0);
-          <opClass>.checkEquals(outer.height(), <opClass>.add(lower.height(), upper.height()));
-          <opClass>.checkEquals(outer.width(),  lower.width());
-          <opClass>.checkEquals(outer.width(),  upper.width());
+          Assert.assertTrue(<opClass>.compare(lower.sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(upper.sizeY(), outer.sizeY()) \<= 0);
+          <opClass>.checkEquals(outer.sizeY(), <opClass>.add(lower.sizeY(), upper.sizeY()));
+          <opClass>.checkEquals(outer.sizeX(),  lower.sizeX());
+          <opClass>.checkEquals(outer.sizeX(),  upper.sizeX());
 
-          boolean height_over = <opClass>.compare(outer.height(), <opClass>.ZERO) \> 0;
-          boolean width_over = <opClass>.compare(outer.width(), <opClass>.ZERO) \> 0;
+          boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.ZERO) \> 0;
+          boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.ZERO) \> 0;
 
-          if (width_over && height_over) {
-            final boolean lower_ok = <opClass>.compare(lower.width(), <opClass>.ZERO) \> 0 && <opClass>.compare(lower.height(), <opClass>.ZERO) \> 0;
-            final boolean upper_ok = <opClass>.compare(upper.width(), <opClass>.ZERO) \> 0 && <opClass>.compare(upper.height(), <opClass>.ZERO) \> 0;
+          if (sizeX_over && sizeY_over) {
+            final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.ZERO) \> 0 && <opClass>.compare(lower.sizeY(), <opClass>.ZERO) \> 0;
+            final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.ZERO) \> 0 && <opClass>.compare(upper.sizeY(), <opClass>.ZERO) \> 0;
 
             if (lower_ok) {
               Assert.assertTrue(<areaOpsType>.overlaps(outer, lower));
@@ -1819,8 +1819,8 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.ZERO,  upper.minimumY());
     <opClass>.checkEquals(<opClass>.constant("5"),  upper.maximumY());
 
-    <opClass>.checkEquals(<opClass>.constant("5"),  lower.height());
-    <opClass>.checkEquals(<opClass>.constant("5"),  upper.height());
+    <opClass>.checkEquals(<opClass>.constant("5"),  lower.sizeY());
+    <opClass>.checkEquals(<opClass>.constant("5"),  upper.sizeY());
   }
 
   @Test
@@ -1845,8 +1845,8 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.ZERO,  upper.minimumY());
     <opClass>.checkEquals(<opClass>.constant("10"),  upper.maximumY());
 
-    <opClass>.checkEquals(<opClass>.ZERO,  lower.height());
-    <opClass>.checkEquals(<opClass>.constant("10"),  upper.height());
+    <opClass>.checkEquals(<opClass>.ZERO,  lower.sizeY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  upper.sizeY());
   }
 
   @Test
@@ -1871,8 +1871,8 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("5"),  upper.minimumX());
     <opClass>.checkEquals(<opClass>.constant("10"),  upper.maximumX());
 
-    <opClass>.checkEquals(<opClass>.constant("5"),  lower.width());
-    <opClass>.checkEquals(<opClass>.constant("5"),  upper.width());
+    <opClass>.checkEquals(<opClass>.constant("5"),  lower.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("5"),  upper.sizeX());
   }
 
   @Test
@@ -1897,8 +1897,8 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("10"),  upper.minimumX());
     <opClass>.checkEquals(<opClass>.constant("10"),  upper.maximumX());
 
-    <opClass>.checkEquals(<opClass>.constant("10"),  lower.width());
-    <opClass>.checkEquals(<opClass>.ZERO,  upper.width());
+    <opClass>.checkEquals(<opClass>.constant("10"),  lower.sizeX());
+    <opClass>.checkEquals(<opClass>.ZERO,  upper.sizeX());
   }
 
   @Test
@@ -1916,30 +1916,30 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> bound = <opClass>.add(outer.width(), <opClass>.ONE);
-          final <scalarType> width = <opClass>.randomBounded(bound);
+          final <scalarType> bound = <opClass>.add(outer.sizeX(), <opClass>.ONE);
+          final <scalarType> sizeX = <opClass>.randomBounded(bound);
           final <splitYType>\<Object, <areaType>\<Object\>\> pair =
-            <areaOpsType>.splitAlongParallelToY(outer, width);
+            <areaOpsType>.splitAlongParallelToY(outer, sizeX);
 
           final <areaType>\<Object\> lower = pair.lower();
           final <areaType>\<Object\> upper = pair.upper();
 
-          System.out.println("height: " + width);
+          System.out.println("sizeY: " + sizeX);
           System.out.println("lower:   " + lower);
           System.out.println("upper:  " + upper);
 
-          Assert.assertTrue(<opClass>.compare(lower.width(), outer.width()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(upper.width(), outer.width()) \<= 0);
-          <opClass>.checkEquals(outer.width(), <opClass>.add(lower.width(), upper.width()));
-          <opClass>.checkEquals(outer.height(), lower.height());
-          <opClass>.checkEquals(outer.height(), upper.height());
+          Assert.assertTrue(<opClass>.compare(lower.sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(upper.sizeX(), outer.sizeX()) \<= 0);
+          <opClass>.checkEquals(outer.sizeX(), <opClass>.add(lower.sizeX(), upper.sizeX()));
+          <opClass>.checkEquals(outer.sizeY(), lower.sizeY());
+          <opClass>.checkEquals(outer.sizeY(), upper.sizeY());
 
-          boolean height_over = <opClass>.compare(outer.height(), <opClass>.ZERO) \> 0;
-          boolean width_over = <opClass>.compare(outer.width(), <opClass>.ZERO) \> 0;
+          boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.ZERO) \> 0;
+          boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.ZERO) \> 0;
 
-          if (width_over && height_over) {
-            final boolean lower_ok = <opClass>.compare(lower.width(), <opClass>.ZERO) \> 0 && <opClass>.compare(lower.height(), <opClass>.ZERO) \> 0;
-            final boolean upper_ok = <opClass>.compare(upper.width(), <opClass>.ZERO) \> 0 && <opClass>.compare(upper.height(), <opClass>.ZERO) \> 0;
+          if (sizeX_over && sizeY_over) {
+            final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.ZERO) \> 0 && <opClass>.compare(lower.sizeY(), <opClass>.ZERO) \> 0;
+            final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.ZERO) \> 0 && <opClass>.compare(upper.sizeY(), <opClass>.ZERO) \> 0;
 
             if (lower_ok) {
               Assert.assertTrue(<areaOpsType>.overlaps(outer, lower));
@@ -1969,8 +1969,8 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          final <scalarType> x_bound = <opClass>.add(outer.width(), <opClass>.ONE);
-          final <scalarType> y_bound = <opClass>.add(outer.height(), <opClass>.ONE);
+          final <scalarType> x_bound = <opClass>.add(outer.sizeX(), <opClass>.ONE);
+          final <scalarType> y_bound = <opClass>.add(outer.sizeY(), <opClass>.ONE);
           final <scalarType> x = <opClass>.randomBounded(x_bound);
           final <scalarType> y = <opClass>.randomBounded(y_bound);
 
@@ -1988,15 +1988,15 @@ public final class <className>
           final <areaType>\<Object\> x0y1 = quadrants.x0y1();
           final <areaType>\<Object\> x1y1 = quadrants.x1y1();
 
-          Assert.assertTrue(<opClass>.compare(x0y0.height(), outer.height()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x1y0.height(), outer.height()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x0y1.height(), outer.height()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x1y1.height(), outer.height()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x0y0.sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x1y0.sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x0y1.sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x1y1.sizeY(), outer.sizeY()) \<= 0);
 
-          Assert.assertTrue(<opClass>.compare(x0y0.width(), outer.width()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x1y0.width(), outer.width()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x0y1.width(), outer.width()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x1y1.width(), outer.width()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x0y0.sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x1y0.sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x0y1.sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(x1y1.sizeX(), outer.sizeX()) \<= 0);
 
           <opClass>.checkEquals(x0y0.minimumX(), outer.minimumX());
           <opClass>.checkEquals(x0y0.minimumY(), outer.minimumY());
@@ -2018,11 +2018,11 @@ public final class <className>
           <opClass>.checkEquals(x1y1.maximumX(), outer.maximumX());
           <opClass>.checkEquals(x1y1.maximumY(), outer.maximumY());
 
-          <opClass>.checkEquals(outer.height(), <opClass>.add(x0y0.height(), x0y1.height()));
-          <opClass>.checkEquals(outer.height(), <opClass>.add(x1y0.height(), x1y1.height()));
+          <opClass>.checkEquals(outer.sizeY(), <opClass>.add(x0y0.sizeY(), x0y1.sizeY()));
+          <opClass>.checkEquals(outer.sizeY(), <opClass>.add(x1y0.sizeY(), x1y1.sizeY()));
 
-          <opClass>.checkEquals(outer.width(), <opClass>.add(x0y0.width(), x1y0.width()));
-          <opClass>.checkEquals(outer.width(), <opClass>.add(x0y1.width(), x1y1.width()));
+          <opClass>.checkEquals(outer.sizeX(), <opClass>.add(x0y0.sizeX(), x1y0.sizeX()));
+          <opClass>.checkEquals(outer.sizeX(), <opClass>.add(x0y1.sizeX(), x1y1.sizeX()));
         }
       });
   }
@@ -2079,8 +2079,8 @@ public final class <className>
           final <areaSizeType>\<Object\> s =
             <areaOpsType>.size(outer);
 
-          <opClass>.checkEquals(outer.width(), s.width());
-          <opClass>.checkEquals(outer.height(), s.height());
+          <opClass>.checkEquals(outer.sizeX(), s.sizeX());
+          <opClass>.checkEquals(outer.sizeY(), s.sizeY());
         }
       });
   }
