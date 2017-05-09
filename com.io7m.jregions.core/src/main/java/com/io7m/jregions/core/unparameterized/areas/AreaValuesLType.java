@@ -59,15 +59,15 @@ public interface AreaValuesLType extends AreaSizeValuesLType
   long maximumY();
 
   @Override
-  @Value.Lazy
-  default long width()
+  @Value.Derived
+  default long sizeX()
   {
     return Math.subtractExact(this.maximumX(), this.minimumX());
   }
 
   @Override
-  @Value.Lazy
-  default long height()
+  @Value.Derived
+  default long sizeY()
   {
     return Math.subtractExact(this.maximumY(), this.minimumY());
   }

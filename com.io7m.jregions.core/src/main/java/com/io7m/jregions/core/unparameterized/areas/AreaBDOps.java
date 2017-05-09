@@ -25,6 +25,8 @@ final class AreaBDOps
 {
   public static final BigDecimal ZERO = BigDecimal.ZERO;
 
+  public static final BigDecimal ONE = BigDecimal.ONE;
+
   private AreaBDOps()
   {
     throw new UnreachableCodeException();

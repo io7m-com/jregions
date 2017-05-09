@@ -30,11 +30,11 @@ public interface AreaSizeFType extends AreaSizeValuesFType
 {
   @Override
   @Value.Parameter(order = 0)
-  float width();
+  float sizeX();
 
   @Override
   @Value.Parameter(order = 1)
-  float height();
+  float sizeY();
 
   /**
    * Check preconditions for the type.
@@ -44,10 +44,55 @@ public interface AreaSizeFType extends AreaSizeValuesFType
   default void checkPreconditions()
   {
     Preconditions.checkPreconditionD(
-      (double) this.width(),
-      (double) this.width() >= 0.0, d -> "Width must be non-negative");
+      (double) this.sizeX(),
+      (double) this.sizeX() >= 0.0, d -> "Width must be non-negative");
     Preconditions.checkPreconditionD(
-      (double) this.height(),
-      (double) this.height() >= 0.0, d -> "Height must be non-negative");
+      (double) this.sizeY(),
+      (double) this.sizeY() >= 0.0, d -> "Height must be non-negative");
+  }
+
+  /**
+   * A builder for size values.
+   */
+
+  abstract class Builder
+  {
+    abstract AreaSizeF.Builder setSizeX(float size_x);
+
+    abstract AreaSizeF.Builder setSizeY(float size_y);
+
+    /**
+     * Set the width.
+     *
+     * @param width The width
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeX(float)}
+     */
+
+    @Deprecated
+    public AreaSizeF.Builder setWidth(
+      final float width)
+    {
+      return this.setSizeX(width);
+    }
+
+    /**
+     * Set the height.
+     *
+     * @param height The height
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeY(float)}
+     */
+
+    @Deprecated
+    public AreaSizeF.Builder setHeight(
+      final float height)
+    {
+      return this.setSizeY(height);
+    }
   }
 }

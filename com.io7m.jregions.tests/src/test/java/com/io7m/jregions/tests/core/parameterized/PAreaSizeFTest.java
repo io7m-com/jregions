@@ -35,8 +35,8 @@ public final class PAreaSizeFTest
   @Test
   public void testIdentities()
   {
-    Assert.assertEquals(10.0f, PAreaSizeF.of(10.0f, 0.0f).width(), 0.0f);
-    Assert.assertEquals(10.0f, PAreaSizeF.of(0.0f, 10.0f).height(), 0.0f);
+    Assert.assertEquals(10.0f, PAreaSizeF.of(10.0f, 0.0f).sizeX(), 0.0f);
+    Assert.assertEquals(10.0f, PAreaSizeF.of(0.0f, 10.0f).sizeY(), 0.0f);
   }
 
   @Test
@@ -45,8 +45,12 @@ public final class PAreaSizeFTest
     Assert.assertEquals(PAreaSizeF.of(10.0f, 0.0f), PAreaSizeF.of(10.0f, 0.0f));
     Assert.assertEquals(PAreaSizeF.of(0.0f, 10.0f), PAreaSizeF.of(0.0f, 10.0f));
 
-    Assert.assertNotEquals(PAreaSizeF.of(10.0f, 0.0f), PAreaSizeF.of(9.9f, 0.0f));
-    Assert.assertNotEquals(PAreaSizeF.of(0.0f, 10.0f), PAreaSizeF.of(0.0f, 9.9f));
+    Assert.assertNotEquals(
+      PAreaSizeF.of(10.0f, 0.0f),
+      PAreaSizeF.of(9.9f, 0.0f));
+    Assert.assertNotEquals(
+      PAreaSizeF.of(0.0f, 10.0f),
+      PAreaSizeF.of(0.0f, 9.9f));
     Assert.assertNotEquals(PAreaSizeF.of(0.0f, 10.0f), null);
     Assert.assertNotEquals(PAreaSizeF.of(0.0f, 10.0f), Integer.valueOf(23));
   }

@@ -40,8 +40,8 @@ public final class PAreaBITest
       new BigInteger("100"));
     Assert.assertEquals(BigInteger.ZERO, area.minimumX());
     Assert.assertEquals(BigInteger.ZERO, area.minimumY());
-    Assert.assertEquals(new BigInteger("100"), area.width());
-    Assert.assertEquals(new BigInteger("100"), area.height());
+    Assert.assertEquals(new BigInteger("100"), area.sizeX());
+    Assert.assertEquals(new BigInteger("100"), area.sizeY());
     Assert.assertEquals(new BigInteger("100"), area.maximumX());
     Assert.assertEquals(new BigInteger("100"), area.maximumY());
   }

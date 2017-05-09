@@ -51,8 +51,8 @@ public final class AreaSizesL
   {
     NullCheck.notNull(a, "Area A");
     NullCheck.notNull(b, "Area B");
-    return Long.compareUnsigned(b.width(), a.width()) <= 0
-      && Long.compareUnsigned(b.height(), a.height()) <= 0;
+    return Long.compareUnsigned(b.sizeX(), a.sizeX()) <= 0
+      && Long.compareUnsigned(b.sizeY(), a.sizeY()) <= 0;
   }
 
   /**
@@ -66,6 +66,6 @@ public final class AreaSizesL
   public static AreaL area(final AreaSizeL size)
   {
     NullCheck.notNull(size, "Size");
-    return AreaL.of(0L, size.width(), 0L, size.height());
+    return AreaL.of(0L, size.sizeX(), 0L, size.sizeY());
   }
 }

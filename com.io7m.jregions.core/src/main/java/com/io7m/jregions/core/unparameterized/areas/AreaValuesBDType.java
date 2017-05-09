@@ -61,15 +61,13 @@ public interface AreaValuesBDType extends AreaSizeValuesBDType
   BigDecimal maximumY();
 
   @Override
-  @Value.Lazy
-  default BigDecimal width()
+  default BigDecimal sizeX()
   {
     return this.maximumX().subtract(this.minimumX());
   }
 
   @Override
-  @Value.Lazy
-  default BigDecimal height()
+  default BigDecimal sizeY()
   {
     return this.maximumY().subtract(this.minimumY());
   }

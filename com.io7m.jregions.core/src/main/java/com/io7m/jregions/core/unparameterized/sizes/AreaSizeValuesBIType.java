@@ -27,16 +27,44 @@ import java.math.BigInteger;
 public interface AreaSizeValuesBIType
 {
   /**
-   * @return The width of an area
+   * @return The size of the area on the X axis
    */
 
   @Value.Parameter(order = 0)
-  BigInteger width();
+  BigInteger sizeX();
 
   /**
-   * @return The height of an area
+   * @return The size of the area on the Y axis
    */
 
   @Value.Parameter(order = 1)
-  BigInteger height();
+  BigInteger sizeY();
+
+  /**
+   * @return The width of the area
+   *
+   * @deprecated Use {@link #sizeX()}
+   */
+
+  @Deprecated
+  @Value.Derived
+  @Value.Auxiliary
+  default BigInteger width()
+  {
+    return this.sizeX();
+  }
+
+  /**
+   * @return The height of the area
+   *
+   * @deprecated Use {@link #sizeY()}
+   */
+
+  @Deprecated
+  @Value.Derived
+  @Value.Auxiliary
+  default BigInteger height()
+  {
+    return this.sizeY();
+  }
 }

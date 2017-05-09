@@ -55,7 +55,7 @@ public final class AreaSizeConversions
   public static <S> AreaSizeI toAreaSizeI(final PAreaSizeI<S> a)
   {
     NullCheck.notNull(a, "area size");
-    return AreaSizeI.of(a.width(), a.height());
+    return AreaSizeI.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -71,7 +71,7 @@ public final class AreaSizeConversions
   public static <S> AreaSizeL toAreaSizeL(final PAreaSizeL<S> a)
   {
     NullCheck.notNull(a, "area size");
-    return AreaSizeL.of(a.width(), a.height());
+    return AreaSizeL.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -87,7 +87,7 @@ public final class AreaSizeConversions
   public static <S> AreaSizeD toAreaSizeD(final PAreaSizeD<S> a)
   {
     NullCheck.notNull(a, "area size");
-    return AreaSizeD.of(a.width(), a.height());
+    return AreaSizeD.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -103,7 +103,7 @@ public final class AreaSizeConversions
   public static <S> AreaSizeF toAreaSizeF(final PAreaSizeF<S> a)
   {
     NullCheck.notNull(a, "area size");
-    return AreaSizeF.of(a.width(), a.height());
+    return AreaSizeF.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -119,7 +119,7 @@ public final class AreaSizeConversions
   public static <S> AreaSizeBD toAreaSizeBD(final PAreaSizeBD<S> a)
   {
     NullCheck.notNull(a, "area size");
-    return AreaSizeBD.of(a.width(), a.height());
+    return AreaSizeBD.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -135,7 +135,7 @@ public final class AreaSizeConversions
   public static <S> AreaSizeBI toAreaSizeBI(final PAreaSizeBI<S> a)
   {
     NullCheck.notNull(a, "area size");
-    return AreaSizeBI.of(a.width(), a.height());
+    return AreaSizeBI.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -151,7 +151,7 @@ public final class AreaSizeConversions
   public static <S> PAreaSizeI<S> toPAreaSizeI(final AreaSizeI a)
   {
     NullCheck.notNull(a, "area size");
-    return PAreaSizeI.of(a.width(), a.height());
+    return PAreaSizeI.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -167,7 +167,7 @@ public final class AreaSizeConversions
   public static <S> PAreaSizeL<S> toPAreaSizeL(final AreaSizeL a)
   {
     NullCheck.notNull(a, "area size");
-    return PAreaSizeL.of(a.width(), a.height());
+    return PAreaSizeL.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -183,7 +183,7 @@ public final class AreaSizeConversions
   public static <S> PAreaSizeD<S> toPAreaSizeD(final AreaSizeD a)
   {
     NullCheck.notNull(a, "area size");
-    return PAreaSizeD.of(a.width(), a.height());
+    return PAreaSizeD.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -199,7 +199,7 @@ public final class AreaSizeConversions
   public static <S> PAreaSizeF<S> toPAreaSizeF(final AreaSizeF a)
   {
     NullCheck.notNull(a, "area size");
-    return PAreaSizeF.of(a.width(), a.height());
+    return PAreaSizeF.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -215,7 +215,7 @@ public final class AreaSizeConversions
   public static <S> PAreaSizeBD<S> toPAreaSizeBD(final AreaSizeBD a)
   {
     NullCheck.notNull(a, "area size");
-    return PAreaSizeBD.of(a.width(), a.height());
+    return PAreaSizeBD.of(a.sizeX(), a.sizeY());
   }
 
   /**
@@ -231,6 +231,6 @@ public final class AreaSizeConversions
   public static <S> PAreaSizeBI<S> toPAreaSizeBI(final AreaSizeBI a)
   {
     NullCheck.notNull(a, "area size");
-    return PAreaSizeBI.of(a.width(), a.height());
+    return PAreaSizeBI.of(a.sizeX(), a.sizeY());
   }
 }

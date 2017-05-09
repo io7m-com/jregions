@@ -53,8 +53,8 @@ public final class AreaSizesBI
   {
     NullCheck.notNull(a, "Area A");
     NullCheck.notNull(b, "Area B");
-    return b.width().compareTo(a.width()) <= 0
-      && b.height().compareTo(a.height()) <= 0;
+    return b.sizeX().compareTo(a.sizeX()) <= 0
+      && b.sizeY().compareTo(a.sizeY()) <= 0;
   }
 
   /**
@@ -70,8 +70,8 @@ public final class AreaSizesBI
     NullCheck.notNull(size, "Size");
     return AreaBI.of(
       BigInteger.ZERO,
-      size.width(),
+      size.sizeX(),
       BigInteger.ZERO,
-      size.height());
+      size.sizeY());
   }
 }

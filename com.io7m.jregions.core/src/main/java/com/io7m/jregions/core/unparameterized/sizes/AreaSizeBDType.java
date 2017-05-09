@@ -32,11 +32,11 @@ public interface AreaSizeBDType extends AreaSizeValuesBDType
 {
   @Override
   @Value.Parameter(order = 0)
-  BigDecimal width();
+  BigDecimal sizeX();
 
   @Override
   @Value.Parameter(order = 1)
-  BigDecimal height();
+  BigDecimal sizeY();
 
   /**
    * Check preconditions for the type.
@@ -46,12 +46,57 @@ public interface AreaSizeBDType extends AreaSizeValuesBDType
   default void checkPreconditions()
   {
     Preconditions.checkPrecondition(
-      this.width(),
-      this.width().compareTo(BigDecimal.ZERO) >= 0,
+      this.sizeX(),
+      this.sizeX().compareTo(BigDecimal.ZERO) >= 0,
       d -> "Width must be non-negative");
     Preconditions.checkPrecondition(
-      this.height(),
-      this.height().compareTo(BigDecimal.ZERO) >= 0,
+      this.sizeY(),
+      this.sizeY().compareTo(BigDecimal.ZERO) >= 0,
       d -> "Height must be non-negative");
+  }
+
+  /**
+   * A builder for size values.
+   */
+
+  abstract class Builder
+  {
+    abstract AreaSizeBD.Builder setSizeX(BigDecimal size_x);
+
+    abstract AreaSizeBD.Builder setSizeY(BigDecimal size_y);
+
+    /**
+     * Set the width.
+     *
+     * @param width The width
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeX(BigDecimal)}
+     */
+
+    @Deprecated
+    public AreaSizeBD.Builder setWidth(
+      final BigDecimal width)
+    {
+      return this.setSizeX(width);
+    }
+
+    /**
+     * Set the height.
+     *
+     * @param height The height
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeY(BigDecimal)}
+     */
+
+    @Deprecated
+    public AreaSizeBD.Builder setHeight(
+      final BigDecimal height)
+    {
+      return this.setSizeY(height);
+    }
   }
 }

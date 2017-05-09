@@ -27,16 +27,44 @@ import java.math.BigDecimal;
 public interface AreaSizeValuesBDType
 {
   /**
-   * @return The width of an area
+   * @return The size of the area on the X axis
    */
 
   @Value.Parameter(order = 0)
-  BigDecimal width();
+  BigDecimal sizeX();
 
   /**
-   * @return The height of an area
+   * @return The size of the area on the Y axis
    */
 
   @Value.Parameter(order = 1)
-  BigDecimal height();
+  BigDecimal sizeY();
+
+  /**
+   * @return The width of the area
+   *
+   * @deprecated Use {@link #sizeX()}
+   */
+
+  @Deprecated
+  @Value.Derived
+  @Value.Auxiliary
+  default BigDecimal width()
+  {
+    return this.sizeX();
+  }
+
+  /**
+   * @return The height of the area
+   *
+   * @deprecated Use {@link #sizeY()}
+   */
+
+  @Deprecated
+  @Value.Derived
+  @Value.Auxiliary
+  default BigDecimal height()
+  {
+    return this.sizeY();
+  }
 }

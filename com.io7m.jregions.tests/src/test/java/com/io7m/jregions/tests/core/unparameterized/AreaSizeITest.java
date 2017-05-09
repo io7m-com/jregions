@@ -30,8 +30,8 @@ public final class AreaSizeITest
   @Test
   public void testIdentities()
   {
-    Assert.assertEquals(100L, (long) AreaSizeI.of(100, 0).width());
-    Assert.assertEquals(100L, (long) AreaSizeI.of(0, 100).height());
+    Assert.assertEquals(100L, (long) AreaSizeI.of(100, 0).sizeX());
+    Assert.assertEquals(100L, (long) AreaSizeI.of(0, 100).sizeY());
   }
 
   @Test
@@ -97,8 +97,8 @@ public final class AreaSizeITest
           throws Throwable
         {
           final AreaI s = AreaSizesI.area(a);
-          Assert.assertEquals((long) a.width(), (long) s.width());
-          Assert.assertEquals((long) a.height(), (long) s.height());
+          Assert.assertEquals((long) a.sizeX(), (long) s.sizeX());
+          Assert.assertEquals((long) a.sizeY(), (long) s.sizeY());
           Assert.assertEquals(0L, (long) s.minimumX());
           Assert.assertEquals(0L, (long) s.minimumY());
         }

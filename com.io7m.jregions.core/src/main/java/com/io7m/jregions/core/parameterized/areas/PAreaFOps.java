@@ -23,6 +23,8 @@ final class PAreaFOps
 {
   public static final float ZERO = 0.0f;
 
+  public static final float ONE = 1.0f;
+
   private PAreaFOps()
   {
     throw new UnreachableCodeException();

@@ -32,11 +32,11 @@ public interface AreaSizeBIType extends AreaSizeValuesBIType
 {
   @Override
   @Value.Parameter(order = 0)
-  BigInteger width();
+  BigInteger sizeX();
 
   @Override
   @Value.Parameter(order = 1)
-  BigInteger height();
+  BigInteger sizeY();
 
   /**
    * Check preconditions for the type.
@@ -46,12 +46,57 @@ public interface AreaSizeBIType extends AreaSizeValuesBIType
   default void checkPreconditions()
   {
     Preconditions.checkPrecondition(
-      this.width(),
-      this.width().compareTo(BigInteger.ZERO) >= 0,
+      this.sizeX(),
+      this.sizeX().compareTo(BigInteger.ZERO) >= 0,
       d -> "Width must be non-negative");
     Preconditions.checkPrecondition(
-      this.height(),
-      this.height().compareTo(BigInteger.ZERO) >= 0,
+      this.sizeY(),
+      this.sizeY().compareTo(BigInteger.ZERO) >= 0,
       d -> "Height must be non-negative");
+  }
+
+  /**
+   * A builder for size values.
+   */
+
+  abstract class Builder
+  {
+    abstract AreaSizeBI.Builder setSizeX(BigInteger size_x);
+
+    abstract AreaSizeBI.Builder setSizeY(BigInteger size_y);
+
+    /**
+     * Set the width.
+     *
+     * @param width The width
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeX(BigInteger)}
+     */
+
+    @Deprecated
+    public AreaSizeBI.Builder setWidth(
+      final BigInteger width)
+    {
+      return this.setSizeX(width);
+    }
+
+    /**
+     * Set the height.
+     *
+     * @param height The height
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeY(BigInteger)}
+     */
+
+    @Deprecated
+    public AreaSizeBI.Builder setHeight(
+      final BigInteger height)
+    {
+      return this.setSizeY(height);
+    }
   }
 }

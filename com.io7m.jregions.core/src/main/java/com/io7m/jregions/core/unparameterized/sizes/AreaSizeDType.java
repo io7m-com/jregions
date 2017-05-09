@@ -30,11 +30,11 @@ public interface AreaSizeDType extends AreaSizeValuesDType
 {
   @Override
   @Value.Parameter(order = 0)
-  double width();
+  double sizeX();
 
   @Override
   @Value.Parameter(order = 1)
-  double height();
+  double sizeY();
 
   /**
    * Check preconditions for the type.
@@ -44,8 +44,53 @@ public interface AreaSizeDType extends AreaSizeValuesDType
   default void checkPreconditions()
   {
     Preconditions.checkPreconditionD(
-      this.width(), this.width() >= 0.0, d -> "Width must be non-negative");
+      this.sizeX(), this.sizeX() >= 0.0, d -> "Width must be non-negative");
     Preconditions.checkPreconditionD(
-      this.height(), this.height() >= 0.0, d -> "Height must be non-negative");
+      this.sizeY(), this.sizeY() >= 0.0, d -> "Height must be non-negative");
+  }
+
+  /**
+   * A builder for size values.
+   */
+
+  abstract class Builder
+  {
+    abstract AreaSizeD.Builder setSizeX(double size_x);
+
+    abstract AreaSizeD.Builder setSizeY(double size_y);
+
+    /**
+     * Set the width.
+     *
+     * @param width The width
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeX(double)}
+     */
+
+    @Deprecated
+    public AreaSizeD.Builder setWidth(
+      final double width)
+    {
+      return this.setSizeX(width);
+    }
+
+    /**
+     * Set the height.
+     *
+     * @param height The height
+     *
+     * @return The builder
+     *
+     * @deprecated Use {@link #setSizeY(double)}
+     */
+
+    @Deprecated
+    public AreaSizeD.Builder setHeight(
+      final double height)
+    {
+      return this.setSizeY(height);
+    }
   }
 }

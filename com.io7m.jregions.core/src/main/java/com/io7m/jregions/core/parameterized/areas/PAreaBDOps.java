@@ -25,6 +25,8 @@ final class PAreaBDOps
 {
   public static final BigDecimal ZERO = BigDecimal.ZERO;
 
+  public static final BigDecimal ONE = BigDecimal.ONE;
+
   private PAreaBDOps()
   {
     throw new UnreachableCodeException();

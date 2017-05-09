@@ -34,8 +34,8 @@ public final class AreaITest
     final AreaI area = AreaI.of(0, 100, 0, 100);
     Assert.assertEquals(0L, (long) area.minimumX());
     Assert.assertEquals(0L, (long) area.minimumY());
-    Assert.assertEquals(100L, (long) area.width());
-    Assert.assertEquals(100L, (long) area.height());
+    Assert.assertEquals(100L, (long) area.sizeX());
+    Assert.assertEquals(100L, (long) area.sizeY());
     Assert.assertEquals(100L, (long) area.maximumX());
     Assert.assertEquals(100L, (long) area.maximumY());
   }

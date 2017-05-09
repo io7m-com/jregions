@@ -41,12 +41,12 @@ public final class PAreaSizeBITest
       new BigInteger("100"),
       PAreaSizeBI.of(
         new BigInteger("100"),
-        BigInteger.ZERO).width());
+        BigInteger.ZERO).sizeX());
     Assert.assertEquals(
       new BigInteger("100"),
       PAreaSizeBI.of(
         BigInteger.ZERO,
-        new BigInteger("100")).height());
+        new BigInteger("100")).sizeY());
   }
 
   @Test

@@ -29,6 +29,12 @@ import com.io7m.jregions.core.parameterized.sizes.PAreaSizesD;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizesF;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizesI;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizesL;
+import com.io7m.jregions.core.parameterized.volumes.PVolumesBD;
+import com.io7m.jregions.core.parameterized.volumes.PVolumesBI;
+import com.io7m.jregions.core.parameterized.volumes.PVolumesD;
+import com.io7m.jregions.core.parameterized.volumes.PVolumesF;
+import com.io7m.jregions.core.parameterized.volumes.PVolumesI;
+import com.io7m.jregions.core.parameterized.volumes.PVolumesL;
 import com.io7m.jregions.core.unparameterized.areas.AreasBD;
 import com.io7m.jregions.core.unparameterized.areas.AreasBI;
 import com.io7m.jregions.core.unparameterized.areas.AreasD;
@@ -41,6 +47,12 @@ import com.io7m.jregions.core.unparameterized.sizes.AreaSizesD;
 import com.io7m.jregions.core.unparameterized.sizes.AreaSizesF;
 import com.io7m.jregions.core.unparameterized.sizes.AreaSizesI;
 import com.io7m.jregions.core.unparameterized.sizes.AreaSizesL;
+import com.io7m.jregions.core.unparameterized.volumes.VolumesBD;
+import com.io7m.jregions.core.unparameterized.volumes.VolumesBI;
+import com.io7m.jregions.core.unparameterized.volumes.VolumesD;
+import com.io7m.jregions.core.unparameterized.volumes.VolumesF;
+import com.io7m.jregions.core.unparameterized.volumes.VolumesI;
+import com.io7m.jregions.core.unparameterized.volumes.VolumesL;
 import com.io7m.junreachable.UnreachableCodeException;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -49,7 +61,6 @@ import org.junit.rules.ExpectedException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 public final class UnreachableTest
 {
@@ -265,6 +276,102 @@ public final class UnreachableTest
     throws Throwable
   {
     this.checkUnreachable(AreasD.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testPVolumesL()
+    throws Throwable
+  {
+    this.checkUnreachable(PVolumesL.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testPVolumesBI()
+    throws Throwable
+  {
+    this.checkUnreachable(PVolumesBI.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testPVolumesBD()
+    throws Throwable
+  {
+    this.checkUnreachable(PVolumesBD.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testPVolumesI()
+    throws Throwable
+  {
+    this.checkUnreachable(PVolumesI.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testPVolumesF()
+    throws Throwable
+  {
+    this.checkUnreachable(PVolumesF.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testPVolumesD()
+    throws Throwable
+  {
+    this.checkUnreachable(PVolumesD.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testVolumesL()
+    throws Throwable
+  {
+    this.checkUnreachable(VolumesL.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testVolumesBI()
+    throws Throwable
+  {
+    this.checkUnreachable(VolumesBI.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testVolumesBD()
+    throws Throwable
+  {
+    this.checkUnreachable(VolumesBD.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testVolumesI()
+    throws Throwable
+  {
+    this.checkUnreachable(VolumesI.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testVolumesF()
+    throws Throwable
+  {
+    this.checkUnreachable(VolumesF.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testVolumesD()
+    throws Throwable
+  {
+    this.checkUnreachable(VolumesD.class);
     Assert.fail();
   }
 

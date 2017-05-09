@@ -34,8 +34,8 @@ public final class PAreaDTest
     final PAreaD<Object> area = PAreaD.of((double) 0, 100.0, (double) 0, 100.0);
     Assert.assertEquals(0.0, area.minimumX(), 0.0);
     Assert.assertEquals(0.0, area.minimumY(), 0.0);
-    Assert.assertEquals(100.0, area.width(), 0.0);
-    Assert.assertEquals(100.0, area.height(), 0.0);
+    Assert.assertEquals(100.0, area.sizeX(), 0.0);
+    Assert.assertEquals(100.0, area.sizeY(), 0.0);
     Assert.assertEquals(100.0, area.maximumX(), 0.0);
     Assert.assertEquals(100.0, area.maximumY(), 0.0);
   }

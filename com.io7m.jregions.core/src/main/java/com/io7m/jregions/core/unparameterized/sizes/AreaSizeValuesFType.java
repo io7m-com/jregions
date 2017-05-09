@@ -25,16 +25,44 @@ import org.immutables.value.Value;
 public interface AreaSizeValuesFType
 {
   /**
-   * @return The width of an area
+   * @return The size of the area on the X axis
    */
 
   @Value.Parameter(order = 0)
-  float width();
+  float sizeX();
 
   /**
-   * @return The height of an area
+   * @return The size of the area on the Y axis
    */
 
   @Value.Parameter(order = 1)
-  float height();
+  float sizeY();
+
+  /**
+   * @return The width of the area
+   *
+   * @deprecated Use {@link #sizeX()}
+   */
+
+  @Deprecated
+  @Value.Derived
+  @Value.Auxiliary
+  default float width()
+  {
+    return this.sizeX();
+  }
+
+  /**
+   * @return The height of the area
+   *
+   * @deprecated Use {@link #sizeY()}
+   */
+
+  @Deprecated
+  @Value.Derived
+  @Value.Auxiliary
+  default float height()
+  {
+    return this.sizeY();
+  }
 }

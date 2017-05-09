@@ -25,6 +25,8 @@ final class PAreaBIOps
 {
   public static final BigInteger ZERO = BigInteger.ZERO;
 
+  public static final BigInteger ONE = BigInteger.ONE;
+
   private PAreaBIOps()
   {
     throw new UnreachableCodeException();
