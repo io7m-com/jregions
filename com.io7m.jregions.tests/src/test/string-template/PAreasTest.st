@@ -34,59 +34,50 @@ import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
+import com.io7m.jregions.tests.rules.PercentagePassing;
+import com.io7m.jregions.tests.rules.PercentagePassRule;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.Assume;
+import org.junit.Ignore;
+import org.junit.Rule;
 
 import java.util.Objects;
 
 public final class <className>
 {
+  @Rule public PercentagePassRule percent =
+    new PercentagePassRule(com.io7m.jregions.tests.TestUtilities.TEST_ITERATIONS);
 
   @Test
+  @PercentagePassing
   public void testCreateAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> c =
-            <areaOpsType>.create(
-              outer.minimumX(),
-              outer.minimumY(),
-              outer.sizeX(),
-              outer.sizeY());
+    final <areaType>\<Object\> outer = generator.next();
 
-          <opClass>.checkEquals(outer.minimumX(), c.minimumX());
-          <opClass>.checkEquals(outer.minimumY(), c.minimumY());
-          <opClass>.checkEquals(outer.maximumX(), c.maximumX());
-          <opClass>.checkEquals(outer.maximumY(), c.maximumY());
-        }
-      });
+    final <areaType>\<Object\> c =
+      <areaOpsType>.create(
+        outer.minimumX(),
+        outer.minimumY(),
+        outer.sizeX(),
+        outer.sizeY());
+
+    <opClass>.checkEquals(outer.minimumX(), c.minimumX());
+    <opClass>.checkEquals(outer.minimumY(), c.minimumY());
+    <opClass>.checkEquals(outer.maximumX(), c.maximumX());
+    <opClass>.checkEquals(outer.maximumY(), c.maximumY());
   }
 
   @Test
+  @PercentagePassing
   public void testContainsSelfAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
-
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          Assert.assertTrue(<areaOpsType>.contains(outer, outer));
-        }
-      });
+    final <areaType>\<Object\> outer = generator.next();
+    Assert.assertTrue(<areaOpsType>.contains(outer, outer));
   }
 
   @Test
@@ -112,137 +103,99 @@ public final class <className>
   }
 
   @Test
+  @PercentagePassing
   public void testMoveRelative()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createWideScalarGenerator();
 
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> x = gen.next();
-          final <scalarType> y = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> x = gen.next();
+    final <scalarType> y = gen.next();
 
-          final <areaType>\<Object\> moved = <areaOpsType>.moveRelative(outer, x, y);
+    final <areaType>\<Object\> moved = <areaOpsType>.moveRelative(outer, x, y);
 
-          <opClass>.checkEquals(outer.sizeX(), moved.sizeX());
-          <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
-          <opClass>.checkEquals(<opClass>.absolute(x), <opClass>.absoluteDifference(outer.minimumX(), moved.minimumX()));
-          <opClass>.checkEquals(<opClass>.absolute(y), <opClass>.absoluteDifference(outer.minimumY(), moved.minimumY()));
-        }
-      });
+    <opClass>.checkEquals(outer.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
+    <opClass>.checkEquals(<opClass>.absolute(x), <opClass>.absoluteDifference(outer.minimumX(), moved.minimumX()));
+    <opClass>.checkEquals(<opClass>.absolute(y), <opClass>.absoluteDifference(outer.minimumY(), moved.minimumY()));
   }
 
   @Test
+  @PercentagePassing
   public void testMoveAbsolute()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createWideScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> x = gen.next();
-          final <scalarType> y = gen.next();
-          final <areaType>\<Object\> moved = <areaOpsType>.moveAbsolute(outer, x, y);
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> x = gen.next();
+    final <scalarType> y = gen.next();
+    final <areaType>\<Object\> moved = <areaOpsType>.moveAbsolute(outer, x, y);
 
-          <opClass>.checkEquals(outer.sizeX(), moved.sizeX());
-          <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
-          <opClass>.checkEquals(x, moved.minimumX());
-          <opClass>.checkEquals(y, moved.minimumY());
-        }
-      });
+    <opClass>.checkEquals(outer.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
+    <opClass>.checkEquals(x, moved.minimumX());
+    <opClass>.checkEquals(y, moved.minimumY());
   }
 
   @Test
+  @PercentagePassing
   public void testMoveToOrigin()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> moved = <areaOpsType>.moveToOrigin(outer);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> moved = <areaOpsType>.moveToOrigin(outer);
 
-          <opClass>.checkEquals(outer.sizeX(),  moved.sizeX());
-          <opClass>.checkEquals(outer.sizeY(),  moved.sizeY());
-          <opClass>.checkEquals(<opClass>.constant("0"),  moved.minimumX());
-          <opClass>.checkEquals(<opClass>.constant("0"),  moved.minimumY());
-        }
-      });
+    <opClass>.checkEquals(outer.sizeX(),  moved.sizeX());
+    <opClass>.checkEquals(outer.sizeY(),  moved.sizeY());
+    <opClass>.checkEquals(<opClass>.constant("0"),  moved.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("0"),  moved.minimumY());
   }
 
   @Test
+  @PercentagePassing
   public void testEqualsHashcode()
     throws Exception
   {
-    QuickCheck.forAll(
-      <opClass>.createGenerator(),
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> area)
-          throws Throwable
-        {
-          final <areaType>\<Object\> other =
-            <areaType>.of(
-              area.minimumX(),
-              area.maximumX(),
-              area.minimumY(),
-              area.maximumY());
-          Assert.assertEquals(area, area);
-          Assert.assertEquals(area, other);
-          Assert.assertEquals(other, area);
-          Assert.assertEquals((long) area.hashCode(), (long) other.hashCode());
+    final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
+    final <areaType>\<Object\> area = generator.next();
 
-          Assert.assertNotEquals(area, null);
-          Assert.assertNotEquals(area, Integer.valueOf(23));
-        }
-      });
+    final <areaType>\<Object\> other =
+      <areaType>.of(
+        area.minimumX(),
+        area.maximumX(),
+        area.minimumY(),
+        area.maximumY());
+    Assert.assertEquals(area, area);
+    Assert.assertEquals(area, other);
+    Assert.assertEquals(other, area);
+    Assert.assertEquals((long) area.hashCode(), (long) other.hashCode());
+
+    Assert.assertNotEquals(area, null);
+    Assert.assertNotEquals(area, Integer.valueOf(23));
   }
 
   @Test
+  @PercentagePassing
   public void testShowAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
+    final <areaType>\<Object\> any = generator.next();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> any)
-          throws Throwable
-        {
-          Assert.assertEquals(<areaOpsType>.show(any), <areaOpsType>.show(any));
+    Assert.assertEquals(<areaOpsType>.show(any), <areaOpsType>.show(any));
 
-          final <areaType>\<Object\> next = generator.next();
-          if (!Objects.equals(next, any)) {
-            Assert.assertNotEquals(<areaOpsType>.show(any), <areaOpsType>.show(next));
-          } else {
-            Assert.assertEquals(<areaOpsType>.show(any), <areaOpsType>.show(next));
-          }
-        }
-      });
+    final <areaType>\<Object\> next = generator.next();
+    if (!Objects.equals(next, any)) {
+      Assert.assertNotEquals(<areaOpsType>.show(any), <areaOpsType>.show(next));
+    } else {
+      Assert.assertEquals(<areaOpsType>.show(any), <areaOpsType>.show(next));
+    }
   }
 
   @Test
@@ -273,44 +226,32 @@ public final class <className>
   }
 
   @Test
+  @PercentagePassing
   public void testHollowOutSelfAll()
     throws Exception
   {
-    QuickCheck.forAll(
-      <opClass>.createGenerator(),
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> any)
-          throws Throwable
-        {
-          Assert.assertEquals(any, <areaOpsType>.hollowOut(any, <opClass>.constant("0"), <opClass>.constant("0"),  <opClass>.constant("0"), <opClass>.constant("0")));
-        }
-      });
+    final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
+    final <areaType>\<Object\> any = generator.next();
+
+    Assert.assertEquals(any, <areaOpsType>.hollowOut(any, <opClass>.constant("0"), <opClass>.constant("0"),  <opClass>.constant("0"), <opClass>.constant("0")));
   }
 
   @Test
+  @PercentagePassing
   public void testHollowOutEvenlyAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowNonNegativeScalarGenerator();
 
-    QuickCheck.forAll(
-      <opClass>.createGenerator(),
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> any)
-          throws Throwable
-        {
-          final <scalarType> offset = gen.next();
-          final <areaType>\<Object\> hollow0 =
-            <areaOpsType>.hollowOut(any, offset, offset, offset, offset);
-          final <areaType>\<Object\> hollow1 =
-            <areaOpsType>.hollowOutEvenly(any, offset);
-          Assert.assertEquals(hollow0, hollow1);
-        }
-      });
+    final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
+    final <areaType>\<Object\> any = generator.next();
+
+    final <scalarType> offset = gen.next();
+    final <areaType>\<Object\> hollow0 =
+      <areaOpsType>.hollowOut(any, offset, offset, offset, offset);
+    final <areaType>\<Object\> hollow1 =
+      <areaOpsType>.hollowOutEvenly(any, offset);
+    Assert.assertEquals(hollow0, hollow1);
   }
 
   @Test
@@ -408,158 +349,118 @@ public final class <className>
   }
 
   @Test
+  @PercentagePassing
   public void testAlignHorizontallyMinXAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned = <areaOpsType>.alignHorizontallyMinX(
-            outer,
-            inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned = <areaOpsType>.alignHorizontallyMinX(
+      outer,
+      inner);
 
-          <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
-          <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
-          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+    <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
+    <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
-          <opClass>.checkEquals(aligned.minimumX(), outer.minimumX());
-        }
-      });
+    <opClass>.checkEquals(aligned.minimumX(), outer.minimumX());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignHorizontallyMinXOffsetAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> offset = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> offset = gen.next();
 
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignHorizontallyMinXOffset(outer, inner, offset);
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignHorizontallyMinXOffset(outer, inner, offset);
 
-          <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
-          <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
-          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+    <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
+    <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
-          <opClass>.checkEquals(aligned.minimumX(), <opClass>.add(outer.minimumX(), offset));
-        }
-      });
+    <opClass>.checkEquals(aligned.minimumX(), <opClass>.add(outer.minimumX(), offset));
   }
 
   @Test
+  @PercentagePassing
   public void testAlignHorizontallyMaxXAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignHorizontallyMaxX(outer, inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignHorizontallyMaxX(outer, inner);
 
-          <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
-          <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
-          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+    <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
+    <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
-          <opClass>.checkEquals(aligned.maximumX(), outer.maximumX());
-        }
-      });
+    <opClass>.checkEquals(aligned.maximumX(), outer.maximumX());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignHorizontallyMaxXOffsetAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> offset = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> offset = gen.next();
 
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignHorizontallyMaxXOffset(outer, inner, offset);
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignHorizontallyMaxXOffset(outer, inner, offset);
 
-          <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
-          <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
-          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+    <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
+    <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
-          <opClass>.checkEquals(aligned.maximumX(), <opClass>.subtract(outer.maximumX(), offset));
-        }
-      });
+    <opClass>.checkEquals(aligned.maximumX(), <opClass>.subtract(outer.maximumX(), offset));
   }
 
   @Test
+  @PercentagePassing
   public void testAlignHorizontallyCenterAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignHorizontallyCenter(outer, inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignHorizontallyCenter(outer, inner);
 
-          <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
-          <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
-          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+    <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
+    <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
-          final <scalarType> diff_left =
-            <opClass>.absoluteDifference(
-              outer.minimumX(),
-              aligned.minimumX());
-          final <scalarType> diff_right =
-            <opClass>.absoluteDifference(
-              outer.maximumX(),
-              aligned.maximumX());
-          Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
-        }
-      });
+    final <scalarType> diff_left =
+      <opClass>.absoluteDifference(
+        outer.minimumX(),
+        aligned.minimumX());
+    final <scalarType> diff_right =
+      <opClass>.absoluteDifference(
+        outer.maximumX(),
+        aligned.maximumX());
+    Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
   }
 
   @Test
@@ -611,624 +512,472 @@ public final class <className>
   }
 
   @Test
+  @PercentagePassing
   public void testAlignVerticallyCenterAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignVerticallyCenter(outer, inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignVerticallyCenter(outer, inner);
 
-          <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
-          <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          final <scalarType> diff_top =
-            <opClass>.absoluteDifference(
-              outer.minimumY(),
-              aligned.minimumY());
-          final <scalarType> diff_bottom =
-            <opClass>.absoluteDifference(
-              outer.maximumY(),
-              aligned.maximumY());
-          final <scalarType> diff_diff =
-            <opClass>.absoluteDifference(diff_bottom, diff_top);
-          Assert.assertTrue(<opClass>.compare(diff_diff, <opClass>.constant("1")) \<= 0);
-        }
-      });
+    final <scalarType> diff_top =
+      <opClass>.absoluteDifference(
+        outer.minimumY(),
+        aligned.minimumY());
+    final <scalarType> diff_bottom =
+      <opClass>.absoluteDifference(
+        outer.maximumY(),
+        aligned.maximumY());
+    final <scalarType> diff_diff =
+      <opClass>.absoluteDifference(diff_bottom, diff_top);
+    Assert.assertTrue(<opClass>.compare(diff_diff, <opClass>.constant("1")) \<= 0);
   }
 
   @Test
+  @PercentagePassing
   public void testAlignVerticallyMinYAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignVerticallyMinY(outer, inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignVerticallyMinY(outer, inner);
 
-          <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
-          <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(aligned.minimumY(),  outer.minimumY());
-        }
-      });
+    <opClass>.checkEquals(aligned.minimumY(),  outer.minimumY());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignVerticallyMinYOffsetAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> offset = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> offset = gen.next();
 
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignVerticallyMinYOffset(outer, inner, offset);
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignVerticallyMinYOffset(outer, inner, offset);
 
-          <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
-          <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(aligned.minimumY(), <opClass>.add(outer.minimumY(), offset));
-        }
-      });
+    <opClass>.checkEquals(aligned.minimumY(), <opClass>.add(outer.minimumY(), offset));
   }
 
   @Test
+  @PercentagePassing
   public void testAlignVerticallyMaxYAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignVerticallyMaxY(outer, inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignVerticallyMaxY(outer, inner);
 
-          <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
-          <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(aligned.maximumY(),  outer.maximumY());
-        }
-      });
+    <opClass>.checkEquals(aligned.maximumY(),  outer.maximumY());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignVerticallyMaxYOffsetAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> offset = gen.next();
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignVerticallyMaxYOffset(outer, inner, offset);
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> offset = gen.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignVerticallyMaxYOffset(outer, inner, offset);
 
-          <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
-          <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(aligned.maximumY(), <opClass>.subtract(outer.maximumY(), offset));
-        }
-      });
+    <opClass>.checkEquals(aligned.maximumY(), <opClass>.subtract(outer.maximumY(), offset));
   }
 
   @Test
+  @PercentagePassing
   public void testAlignCenterAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignCenter(outer, inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignCenter(outer, inner);
 
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          final <scalarType> diff_left =
-            <opClass>.absoluteDifference(
-              outer.minimumX(),
-              aligned.minimumX());
-          final <scalarType> diff_right =
-            <opClass>.absoluteDifference(
-              outer.maximumX(),
-              aligned.maximumX());
-          final <scalarType> diff_top =
-            <opClass>.absoluteDifference(
-              outer.minimumY(),
-              aligned.minimumY());
-          final <scalarType> diff_bottom =
-            <opClass>.absoluteDifference(
-              outer.maximumY(),
-              aligned.maximumY());
+    final <scalarType> diff_left =
+      <opClass>.absoluteDifference(
+        outer.minimumX(),
+        aligned.minimumX());
+    final <scalarType> diff_right =
+      <opClass>.absoluteDifference(
+        outer.maximumX(),
+        aligned.maximumX());
+    final <scalarType> diff_top =
+      <opClass>.absoluteDifference(
+        outer.minimumY(),
+        aligned.minimumY());
+    final <scalarType> diff_bottom =
+      <opClass>.absoluteDifference(
+        outer.maximumY(),
+        aligned.maximumY());
 
-          Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_top, diff_bottom), <opClass>.constant("1")) \<= 0);
-          Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
-        }
-      });
+    Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_top, diff_bottom), <opClass>.constant("1")) \<= 0);
+    Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
   }
 
   @Test
+  @PercentagePassing
   public void testAlignMinYMinXAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignMinYMinX(outer, inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignMinYMinX(outer, inner);
 
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(outer.minimumX(),  aligned.minimumX());
-          <opClass>.checkEquals(outer.minimumY(),  aligned.minimumY());
-        }
-      });
+    <opClass>.checkEquals(outer.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(outer.minimumY(),  aligned.minimumY());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignMinYMinXOffsetAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> offset_top = gen.next();
-          final <scalarType> offset_left = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> offset_top = gen.next();
+    final <scalarType> offset_left = gen.next();
 
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignMinYMinXOffset(outer, inner, offset_left, offset_top);
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignMinYMinXOffset(outer, inner, offset_left, offset_top);
 
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(<opClass>.add(outer.minimumX(), offset_left), aligned.minimumX());
-          <opClass>.checkEquals(<opClass>.add(outer.minimumY(), offset_top), aligned.minimumY());
-        }
-      });
+    <opClass>.checkEquals(<opClass>.add(outer.minimumX(), offset_left), aligned.minimumX());
+    <opClass>.checkEquals(<opClass>.add(outer.minimumY(), offset_top), aligned.minimumY());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignMaxYMinXAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignMaxYMinX(outer, inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignMaxYMinX(outer, inner);
 
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(outer.minimumX(),  aligned.minimumX());
-          <opClass>.checkEquals(outer.maximumY(),  aligned.maximumY());
-        }
-      });
+    <opClass>.checkEquals(outer.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(outer.maximumY(),  aligned.maximumY());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignMaxYMinXOffsetAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> offset_bottom = gen.next();
-          final <scalarType> offset_left = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> offset_bottom = gen.next();
+    final <scalarType> offset_left = gen.next();
 
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignMaxYMinXOffset(
-              outer,
-              inner,
-              offset_left,
-              offset_bottom);
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignMaxYMinXOffset(
+        outer,
+        inner,
+        offset_left,
+        offset_bottom);
 
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(<opClass>.add(outer.minimumX(), offset_left), aligned.minimumX());
-          <opClass>.checkEquals(<opClass>.subtract(outer.maximumY(), offset_bottom), aligned.maximumY());
-        }
-      });
+    <opClass>.checkEquals(<opClass>.add(outer.minimumX(), offset_left), aligned.minimumX());
+    <opClass>.checkEquals(<opClass>.subtract(outer.maximumY(), offset_bottom), aligned.maximumY());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignMaxYMaxXAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignMaxYMaxX(outer, inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignMaxYMaxX(outer, inner);
 
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(outer.maximumX(),  aligned.maximumX());
-          <opClass>.checkEquals(outer.maximumY(),  aligned.maximumY());
-        }
-      });
+    <opClass>.checkEquals(outer.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(outer.maximumY(),  aligned.maximumY());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignMaxYMaxXOffsetAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> offset_bottom = gen.next();
-          final <scalarType> offset_right = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> offset_bottom = gen.next();
+    final <scalarType> offset_right = gen.next();
 
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignMaxYMaxXOffset(
-              outer,
-              inner,
-              offset_right,
-              offset_bottom);
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignMaxYMaxXOffset(
+        outer,
+        inner,
+        offset_right,
+        offset_bottom);
 
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(<opClass>.subtract(outer.maximumX(), offset_right), aligned.maximumX());
-          <opClass>.checkEquals(<opClass>.subtract(outer.maximumY(), offset_bottom), aligned.maximumY());
-        }
-      });
+    <opClass>.checkEquals(<opClass>.subtract(outer.maximumX(), offset_right), aligned.maximumX());
+    <opClass>.checkEquals(<opClass>.subtract(outer.maximumY(), offset_bottom), aligned.maximumY());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignMinYMaxXAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignMinYMaxX(outer, inner);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignMinYMaxX(outer, inner);
 
-          <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
 
-          <opClass>.checkEquals(outer.maximumX(), aligned.maximumX());
-          <opClass>.checkEquals(outer.minimumY(), aligned.minimumY());
-        }
-      });
+    <opClass>.checkEquals(outer.maximumX(), aligned.maximumX());
+    <opClass>.checkEquals(outer.minimumY(), aligned.minimumY());
   }
 
   @Test
+  @PercentagePassing
   public void testAlignMinYMaxXOffsetAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> offset_top = gen.next();
-          final <scalarType> offset_right = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> offset_top = gen.next();
+    final <scalarType> offset_right = gen.next();
 
-          final <areaType>\<Object\> inner = generator.next();
-          final <areaType>\<Object\> aligned =
-            <areaOpsType>.alignMinYMaxXOffset(
-              outer,
-              inner,
-              offset_right,
-              offset_top);
+    final <areaType>\<Object\> inner = generator.next();
+    final <areaType>\<Object\> aligned =
+      <areaOpsType>.alignMinYMaxXOffset(
+        outer,
+        inner,
+        offset_right,
+        offset_top);
 
-          <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
-          <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
 
-          <opClass>.checkEquals(<opClass>.subtract(outer.maximumX(), offset_right), aligned.maximumX());
-          <opClass>.checkEquals(<opClass>.add(outer.minimumY(), offset_top), aligned.minimumY());
-        }
-      });
+    <opClass>.checkEquals(<opClass>.subtract(outer.maximumX(), offset_right), aligned.maximumX());
+    <opClass>.checkEquals(<opClass>.add(outer.minimumY(), offset_top), aligned.minimumY());
   }
 
   @Test
+  @PercentagePassing
   public void testSetSizeFromMinYMinXAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowNonNegativeScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> expected_sizeX = gen.next();
-          final <scalarType> expected_sizeY = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> expected_sizeX = gen.next();
+    final <scalarType> expected_sizeY = gen.next();
 
-          final <areaType>\<Object\> resized =
-            <areaOpsType>.setSizeFromMinYMinX(
-              outer,
-              expected_sizeX,
-              expected_sizeY);
+    final <areaType>\<Object\> resized =
+      <areaOpsType>.setSizeFromMinYMinX(
+        outer,
+        expected_sizeX,
+        expected_sizeY);
 
-          <opClass>.checkEquals(outer.maximumX(), resized.maximumX());
-          <opClass>.checkEquals(outer.maximumY(), resized.maximumY());
-          <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
-          <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
-        }
-      });
+    <opClass>.checkEquals(outer.maximumX(), resized.maximumX());
+    <opClass>.checkEquals(outer.maximumY(), resized.maximumY());
+    <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+    <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
   }
 
   @Test
+  @PercentagePassing
   public void testSetSizeFromMinYMaxXAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowNonNegativeScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> expected_sizeX = gen.next();
-          final <scalarType> expected_sizeY = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> expected_sizeX = gen.next();
+    final <scalarType> expected_sizeY = gen.next();
 
-          final <areaType>\<Object\> resized =
-            <areaOpsType>.setSizeFromMinYMaxX(
-              outer,
-              expected_sizeX,
-              expected_sizeY);
+    final <areaType>\<Object\> resized =
+      <areaOpsType>.setSizeFromMinYMaxX(
+        outer,
+        expected_sizeX,
+        expected_sizeY);
 
-          <opClass>.checkEquals(outer.minimumX(), resized.minimumX());
-          <opClass>.checkEquals(outer.maximumY(), resized.maximumY());
-          <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
-          <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
-        }
-      });
+    <opClass>.checkEquals(outer.minimumX(), resized.minimumX());
+    <opClass>.checkEquals(outer.maximumY(), resized.maximumY());
+    <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+    <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
   }
 
   @Test
+  @PercentagePassing
   public void testSetSizeFromMaxYMinXAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowNonNegativeScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> expected_sizeX = gen.next();
-          final <scalarType> expected_sizeY = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> expected_sizeX = gen.next();
+    final <scalarType> expected_sizeY = gen.next();
 
-          final <areaType>\<Object\> resized =
-            <areaOpsType>.setSizeFromMaxYMinX(
-              outer,
-              expected_sizeX,
-              expected_sizeY);
+    final <areaType>\<Object\> resized =
+      <areaOpsType>.setSizeFromMaxYMinX(
+        outer,
+        expected_sizeX,
+        expected_sizeY);
 
-          <opClass>.checkEquals(outer.maximumX(), resized.maximumX());
-          <opClass>.checkEquals(outer.minimumY(), resized.minimumY());
-          <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
-          <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
-        }
-      });
+    <opClass>.checkEquals(outer.maximumX(), resized.maximumX());
+    <opClass>.checkEquals(outer.minimumY(), resized.minimumY());
+    <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+    <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
   }
 
   @Test
+  @PercentagePassing
   public void testSetSizeFromMaxYMaxXAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowNonNegativeScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> expected_sizeX = gen.next();
-          final <scalarType> expected_sizeY = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> expected_sizeX = gen.next();
+    final <scalarType> expected_sizeY = gen.next();
 
-          final <areaType>\<Object\> resized =
-            <areaOpsType>.setSizeFromMaxYMaxX(
-              outer,
-              expected_sizeX,
-              expected_sizeY);
+    final <areaType>\<Object\> resized =
+      <areaOpsType>.setSizeFromMaxYMaxX(
+        outer,
+        expected_sizeX,
+        expected_sizeY);
 
-          <opClass>.checkEquals(outer.minimumX(), resized.minimumX());
-          <opClass>.checkEquals(outer.minimumY(), resized.minimumY());
-          <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
-          <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
-        }
-      });
+    <opClass>.checkEquals(outer.minimumX(), resized.minimumX());
+    <opClass>.checkEquals(outer.minimumY(), resized.minimumY());
+    <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+    <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
   }
 
   @Test
+  @PercentagePassing
   public void testSetSizeFromCenterAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowNonNegativeScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> expected_sizeX = gen.next();
-          final <scalarType> expected_sizeY = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> expected_sizeX = gen.next();
+    final <scalarType> expected_sizeY = gen.next();
 
-          final <areaType>\<Object\> resized =
-            <areaOpsType>.setSizeFromCenter(outer, expected_sizeX, expected_sizeY);
+    final <areaType>\<Object\> resized =
+      <areaOpsType>.setSizeFromCenter(outer, expected_sizeX, expected_sizeY);
 
-          <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
-          <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
+    <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+    <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
 
-          final <scalarType> diff_left =
-            <opClass>.absoluteDifference(
-              outer.minimumX(),
-              resized.minimumX());
+    final <scalarType> diff_left =
+      <opClass>.absoluteDifference(
+        outer.minimumX(),
+        resized.minimumX());
 
-          final <scalarType> diff_right =
-            <opClass>.absoluteDifference(
-              outer.maximumX(),
-              resized.maximumX());
+    final <scalarType> diff_right =
+      <opClass>.absoluteDifference(
+        outer.maximumX(),
+        resized.maximumX());
 
-          final <scalarType> diff_top =
-            <opClass>.absoluteDifference(
-              outer.minimumY(),
-              resized.minimumY());
+    final <scalarType> diff_top =
+      <opClass>.absoluteDifference(
+        outer.minimumY(),
+        resized.minimumY());
 
-          final <scalarType> diff_bottom =
-            <opClass>.absoluteDifference(
-              outer.maximumY(),
-              resized.maximumY());
+    final <scalarType> diff_bottom =
+      <opClass>.absoluteDifference(
+        outer.maximumY(),
+        resized.maximumY());
 
-          Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_top, diff_bottom), <opClass>.constant("1")) \<= 0);
-          Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
-        }
-      });
+    Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_top, diff_bottom), <opClass>.constant("1")) \<= 0);
+    Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
   }
 
   @Test
@@ -1276,520 +1025,384 @@ public final class <className>
   }
 
   @Test
+  @PercentagePassing
   public void testOverlapsSelfAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          Assert.assertTrue(<areaOpsType>.overlaps(outer, outer));
-        }
-      });
+    final <areaType>\<Object\> outer = generator.next();
+    Assert.assertTrue(<areaOpsType>.overlaps(outer, outer));
   }
 
   @Test
+  @PercentagePassing
   public void testContainsTrueAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowNonNegativeScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> left_offset = gen.next();
-          final <scalarType> right_offset = gen.next();
-          final <scalarType> top_offset = gen.next();
-          final <scalarType> bottom_offset = gen.next();
-          final <areaType>\<Object\> inner =
-            <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> left_offset = gen.next();
+    final <scalarType> right_offset = gen.next();
+    final <scalarType> top_offset = gen.next();
+    final <scalarType> bottom_offset = gen.next();
+    final <areaType>\<Object\> inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
 
-          System.out.println("outer " + outer);
-          System.out.println("inner " + inner);
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
 
-          Assert.assertTrue(<areaOpsType>.contains(outer, inner));
-          Assert.assertFalse(<areaOpsType>.contains(inner, outer));
-        }
-      });
+    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
+    Assert.assertFalse(<areaOpsType>.contains(inner, outer));
   }
 
   @Test
+  @PercentagePassing
   public void testCouldFitInsideSelfAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          Assert.assertTrue(<areaOpsType>.couldFitInside(outer, outer));
-        }
-      });
+    final <areaType>\<Object\> outer = generator.next();
+    Assert.assertTrue(<areaOpsType>.couldFitInside(outer, outer));
   }
 
   @Test
+  @PercentagePassing
   public void testCouldFitInsideAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowNonNegativeScalarGenerator();
 
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> inner =
-          <areaOpsType>.hollowOutEvenly(outer, gen.next());
-          Assert.assertTrue(<areaOpsType>.couldFitInside(inner, outer));
-        }
-      });
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> inner =
+    <areaOpsType>.hollowOutEvenly(outer, gen.next());
+    Assert.assertTrue(<areaOpsType>.couldFitInside(inner, outer));
   }
 
   @Test
+  @PercentagePassing
   public void testContainsPointAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> w = <opClass>.maximum(<opClass>.constant("1"), outer.sizeX());
-          final <scalarType> h = <opClass>.maximum(<opClass>.constant("1"), outer.sizeY());
-          final <scalarType> px = <opClass>.randomBounded(w);
-          final <scalarType> py = <opClass>.randomBounded(h);
-          final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
-          final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> w = <opClass>.maximum(<opClass>.constant("1"), outer.sizeX());
+    final <scalarType> h = <opClass>.maximum(<opClass>.constant("1"), outer.sizeY());
+    final <scalarType> px = <opClass>.randomBounded(w);
+    final <scalarType> py = <opClass>.randomBounded(h);
+    final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
+    final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
 
-          System.out.println(outer);
-          System.out.println(ppx + " " + ppy);
+    System.out.println("outer: " + outer);
+    System.out.println("ppx:   " + ppx);
+    System.out.println("ppy:   " + ppy);
 
-          boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) \> 0;
-          boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) \> 0;
+    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) \> 0;
+    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) \> 0;
 
-          if (sizeX_over && sizeY_over) {
-            Assert.assertTrue(<areaOpsType>.containsPoint(outer, ppx, ppy));
-          } else {
-            Assert.assertFalse(<areaOpsType>.containsPoint(outer, ppx, ppy));
-          }
-        }
-      });
+    if (sizeX_over && sizeY_over) {
+      Assert.assertTrue(<areaOpsType>.containsPoint(outer, ppx, ppy));
+    } else {
+      Assert.assertFalse(<areaOpsType>.containsPoint(outer, ppx, ppy));
+    }
   }
 
   @Test
+  @PercentagePassing
   public void testContainingAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
-
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> a)
-          throws Throwable
-        {
-          final <areaType>\<Object\> b = generator.next();
-          final <areaType>\<Object\> c = <areaOpsType>.containing(a, b);
-          Assert.assertTrue(<opClass>.compare(c.sizeX(), a.sizeX()) >= 0);
-          Assert.assertTrue(<opClass>.compare(c.sizeY(), a.sizeY()) >= 0);
-          Assert.assertTrue(<opClass>.compare(c.sizeX(), b.sizeX()) >= 0);
-          Assert.assertTrue(<opClass>.compare(c.sizeY(), b.sizeY()) >= 0);
-          Assert.assertTrue(<areaOpsType>.contains(c, a));
-          Assert.assertTrue(<areaOpsType>.contains(c, b));
-        }
-      });
+    final <areaType>\<Object\> a = generator.next();
+    final <areaType>\<Object\> b = generator.next();
+    final <areaType>\<Object\> c = <areaOpsType>.containing(a, b);
+    Assert.assertTrue(<opClass>.compare(c.sizeX(), a.sizeX()) >= 0);
+    Assert.assertTrue(<opClass>.compare(c.sizeY(), a.sizeY()) >= 0);
+    Assert.assertTrue(<opClass>.compare(c.sizeX(), b.sizeX()) >= 0);
+    Assert.assertTrue(<opClass>.compare(c.sizeY(), b.sizeY()) >= 0);
+    Assert.assertTrue(<areaOpsType>.contains(c, a));
+    Assert.assertTrue(<areaOpsType>.contains(c, b));
   }
 
   @Test
+  @PercentagePassing
   public void testContainsZeroWidth()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> w = <opClass>.maximum(<opClass>.constant("1"), outer.sizeX());
-          final <scalarType> h = <opClass>.maximum(<opClass>.constant("1"), outer.sizeY());
-          final <scalarType> px = <opClass>.randomBounded(w);
-          final <scalarType> py = <opClass>.randomBounded(h);
-          final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
-          final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> w = <opClass>.maximum(<opClass>.constant("1"), outer.sizeX());
+    final <scalarType> h = <opClass>.maximum(<opClass>.constant("1"), outer.sizeY());
+    final <scalarType> px = <opClass>.randomBounded(w);
+    final <scalarType> py = <opClass>.randomBounded(h);
+    final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
+    final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
 
-          final <areaType>\<Object\> scaled = <areaOpsType>.create(
-            outer.minimumX(),
-            outer.minimumY(),
-            <opClass>.constant("0"),
-            outer.sizeY());
+    final <areaType>\<Object\> scaled = <areaOpsType>.create(
+      outer.minimumX(),
+      outer.minimumY(),
+      <opClass>.constant("0"),
+      outer.sizeY());
 
-          System.out.println(ppx + " " + ppy);
+    System.out.println(ppx + " " + ppy);
 
-          Assert.assertFalse(<areaOpsType>.containsPoint(scaled, ppx, ppy));
-        }
-      });
+    Assert.assertFalse(<areaOpsType>.containsPoint(scaled, ppx, ppy));
   }
 
   @Test
+  @PercentagePassing
   public void testContainsZeroHeight()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> w = <opClass>.maximum(<opClass>.constant("1"), outer.sizeX());
-          final <scalarType> h = <opClass>.maximum(<opClass>.constant("1"), outer.sizeY());
-          final <scalarType> px = <opClass>.randomBounded(w);
-          final <scalarType> py = <opClass>.randomBounded(h);
-          final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
-          final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> w = <opClass>.maximum(<opClass>.constant("1"), outer.sizeX());
+    final <scalarType> h = <opClass>.maximum(<opClass>.constant("1"), outer.sizeY());
+    final <scalarType> px = <opClass>.randomBounded(w);
+    final <scalarType> py = <opClass>.randomBounded(h);
+    final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
+    final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
 
-          final <areaType>\<Object\> scaled = <areaOpsType>.create(
-            outer.minimumX(),
-            outer.minimumY(),
-            outer.sizeX(),
-            <opClass>.constant("0"));
+    final <areaType>\<Object\> scaled = <areaOpsType>.create(
+      outer.minimumX(),
+      outer.minimumY(),
+      outer.sizeX(),
+      <opClass>.constant("0"));
 
-          System.out.println(ppx + " " + ppy);
+    System.out.println(ppx + " " + ppy);
 
-          Assert.assertFalse(<areaOpsType>.containsPoint(scaled, ppx, ppy));
-        }
-      });
+    Assert.assertFalse(<areaOpsType>.containsPoint(scaled, ppx, ppy));
   }
 
   @Test
+  @PercentagePassing
   public void testFitBetweenHorizontalAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> left = generator.next();
-          final <areaType>\<Object\> right = generator.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> left = generator.next();
+    final <areaType>\<Object\> right = generator.next();
 
-          final <scalarType> leftmost = <opClass>.minimum(
-            <opClass>.minimum(left.minimumX(), left.maximumX()),
-            <opClass>.minimum(right.minimumX(), right.maximumX()));
-          final <scalarType> rightmost = <opClass>.maximum(
-            <opClass>.maximum(left.minimumX(), left.maximumX()),
-            <opClass>.maximum(right.minimumX(), right.maximumX()));
+    final <scalarType> leftmost = <opClass>.minimum(
+      <opClass>.minimum(left.minimumX(), left.maximumX()),
+      <opClass>.minimum(right.minimumX(), right.maximumX()));
+    final <scalarType> rightmost = <opClass>.maximum(
+      <opClass>.maximum(left.minimumX(), left.maximumX()),
+      <opClass>.maximum(right.minimumX(), right.maximumX()));
 
-          final <areaType>\<Object\> fitted =
-            <areaOpsType>.fitBetweenHorizontal(outer, left, right);
+    final <areaType>\<Object\> fitted =
+      <areaOpsType>.fitBetweenHorizontal(outer, left, right);
 
-          Assert.assertTrue(<opClass>.compare(fitted.minimumX(), leftmost) >= 0);
-          Assert.assertTrue(<opClass>.compare(fitted.maximumX(), rightmost) \<= 0);
-          <opClass>.checkEquals(outer.minimumY(),  fitted.minimumY());
-          <opClass>.checkEquals(outer.maximumY(),  fitted.maximumY());
-        }
-      });
+    Assert.assertTrue(<opClass>.compare(fitted.minimumX(), leftmost) >= 0);
+    Assert.assertTrue(<opClass>.compare(fitted.maximumX(), rightmost) \<= 0);
+    <opClass>.checkEquals(outer.minimumY(),  fitted.minimumY());
+    <opClass>.checkEquals(outer.maximumY(),  fitted.maximumY());
   }
 
   @Test
+  @PercentagePassing
   public void testFitBetweenVerticalAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Object\> top = generator.next();
-          final <areaType>\<Object\> bottom = generator.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Object\> top = generator.next();
+    final <areaType>\<Object\> bottom = generator.next();
 
-          final <scalarType> topmost = <opClass>.minimum(
-            <opClass>.minimum(top.minimumY(), top.maximumY()),
-            <opClass>.minimum(bottom.minimumY(), bottom.maximumY()));
-          final <scalarType> bottommost = <opClass>.maximum(
-            <opClass>.maximum(top.minimumY(), top.maximumY()),
-            <opClass>.maximum(bottom.minimumY(), bottom.maximumY()));
+    final <scalarType> topmost = <opClass>.minimum(
+      <opClass>.minimum(top.minimumY(), top.maximumY()),
+      <opClass>.minimum(bottom.minimumY(), bottom.maximumY()));
+    final <scalarType> bottommost = <opClass>.maximum(
+      <opClass>.maximum(top.minimumY(), top.maximumY()),
+      <opClass>.maximum(bottom.minimumY(), bottom.maximumY()));
 
-          final <areaType>\<Object\> fitted =
-            <areaOpsType>.fitBetweenVertical(outer, top, bottom);
+    final <areaType>\<Object\> fitted =
+      <areaOpsType>.fitBetweenVertical(outer, top, bottom);
 
-          Assert.assertTrue(<opClass>.compare(fitted.minimumY(), topmost) >= 0);
-          Assert.assertTrue(<opClass>.compare(fitted.maximumY(), bottommost) \<= 0);
-          <opClass>.checkEquals(outer.minimumX(),  fitted.minimumX());
-          <opClass>.checkEquals(outer.maximumX(),  fitted.maximumX());
-        }
-      });
+    Assert.assertTrue(<opClass>.compare(fitted.minimumY(), topmost) >= 0);
+    Assert.assertTrue(<opClass>.compare(fitted.maximumY(), bottommost) \<= 0);
+    <opClass>.checkEquals(outer.minimumX(),  fitted.minimumX());
+    <opClass>.checkEquals(outer.maximumX(),  fitted.maximumX());
   }
 
   @Test
+  @PercentagePassing
   public void testScaleFromMinYMinXAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> x_diff = gen.next();
-          final <scalarType> y_diff = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> x_diff = gen.next();
+    final <scalarType> y_diff = gen.next();
 
-          final <areaType>\<Object\> resized =
-            <areaOpsType>.scaleFromMinYMinX(outer, x_diff, y_diff);
+    final <areaType>\<Object\> resized =
+      <areaOpsType>.scaleFromMinYMinX(outer, x_diff, y_diff);
 
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
 
-          <opClass>.checkEquals(outer.maximumX(),  resized.maximumX());
-          <opClass>.checkEquals(outer.maximumY(),  resized.maximumY());
-        }
-      });
+    <opClass>.checkEquals(outer.maximumX(),  resized.maximumX());
+    <opClass>.checkEquals(outer.maximumY(),  resized.maximumY());
   }
 
   @Test
+  @PercentagePassing
   public void testScaleFromMinYMaxXAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> x_diff = gen.next();
-          final <scalarType> y_diff = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> x_diff = gen.next();
+    final <scalarType> y_diff = gen.next();
 
-          final <areaType>\<Object\> resized =
-            <areaOpsType>.scaleFromMinYMaxX(outer, x_diff, y_diff);
+    final <areaType>\<Object\> resized =
+      <areaOpsType>.scaleFromMinYMaxX(outer, x_diff, y_diff);
 
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
 
-          <opClass>.checkEquals(outer.minimumX(),  resized.minimumX());
-          <opClass>.checkEquals(outer.maximumY(),  resized.maximumY());
-        }
-      });
+    <opClass>.checkEquals(outer.minimumX(),  resized.minimumX());
+    <opClass>.checkEquals(outer.maximumY(),  resized.maximumY());
   }
 
   @Test
+  @PercentagePassing
   public void testScaleFromMaxYMaxXAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> x_diff = gen.next();
-          final <scalarType> y_diff = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> x_diff = gen.next();
+    final <scalarType> y_diff = gen.next();
 
-          final <areaType>\<Object\> resized =
-            <areaOpsType>.scaleFromMaxYMaxX(outer, x_diff, y_diff);
+    final <areaType>\<Object\> resized =
+      <areaOpsType>.scaleFromMaxYMaxX(outer, x_diff, y_diff);
 
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
 
-          <opClass>.checkEquals(outer.minimumX(),  resized.minimumX());
-          <opClass>.checkEquals(outer.minimumY(),  resized.minimumY());
-        }
-      });
+    <opClass>.checkEquals(outer.minimumX(),  resized.minimumX());
+    <opClass>.checkEquals(outer.minimumY(),  resized.minimumY());
   }
 
   @Test
+  @PercentagePassing
   public void testScaleFromMaxYMinXAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> x_diff = gen.next();
-          final <scalarType> y_diff = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> x_diff = gen.next();
+    final <scalarType> y_diff = gen.next();
 
-          final <areaType>\<Object\> resized =
-            <areaOpsType>.scaleFromMaxYMinX(outer, x_diff, y_diff);
+    final <areaType>\<Object\> resized =
+      <areaOpsType>.scaleFromMaxYMinX(outer, x_diff, y_diff);
 
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
 
-          <opClass>.checkEquals(outer.maximumX(),  resized.maximumX());
-          <opClass>.checkEquals(outer.minimumY(),  resized.minimumY());
-        }
-      });
+    <opClass>.checkEquals(outer.maximumX(),  resized.maximumX());
+    <opClass>.checkEquals(outer.minimumY(),  resized.minimumY());
   }
 
   @Test
+  @PercentagePassing
   public void testScaleFromCenterAll()
     throws Exception
   {
     final <scalarGeneratorType> gen = <opClass>.createNarrowScalarGenerator();
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> x_diff = gen.next();
-          final <scalarType> y_diff = gen.next();
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> x_diff = gen.next();
+    final <scalarType> y_diff = gen.next();
 
-          final <areaType>\<Object\> resized =
-            <areaOpsType>.scaleFromCenter(outer, x_diff, y_diff);
+    final <areaType>\<Object\> resized =
+      <areaOpsType>.scaleFromCenter(outer, x_diff, y_diff);
 
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
-          <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
-        }
-      });
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
   }
 
   @Test
+  @PercentagePassing
   public void testCastAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaType>\<Integer\> other = <areaOpsType>.cast(outer);
-          Assert.assertSame(outer, other);
-        }
-      });
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaType>\<Integer\> other = <areaOpsType>.cast(outer);
+    Assert.assertSame(outer, other);
   }
 
   @Test
+  @PercentagePassing
   public void testSplitAlongXAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator =
       <opClass>.createParameterizedGenerator(<opClass>.createWideNonNegativeScalarGenerator());
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> bound = <opClass>.add(outer.sizeY(), <opClass>.constant("1"));
-          final <scalarType> sizeY = <opClass>.randomBounded(bound);
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> bound = <opClass>.add(outer.sizeY(), <opClass>.constant("1"));
+    final <scalarType> sizeY = <opClass>.randomBounded(bound);
 
-          final <splitXType>\<Object, <areaType>\<Object\>\> pair =
-            <areaOpsType>.splitAlongParallelToX(outer, sizeY);
+    final <splitXType>\<Object, <areaType>\<Object\>\> pair =
+      <areaOpsType>.splitAlongParallelToX(outer, sizeY);
 
-          final <areaType>\<Object\> lower = pair.lower();
-          final <areaType>\<Object\> upper = pair.upper();
+    final <areaType>\<Object\> lower = pair.lower();
+    final <areaType>\<Object\> upper = pair.upper();
 
-          System.out.println("sizeY: " + sizeY);
-          System.out.println("lower:  " + lower);
-          System.out.println("upper:  " + upper);
+    System.out.println("sizeY: " + sizeY);
+    System.out.println("lower:  " + lower);
+    System.out.println("upper:  " + upper);
 
-          Assert.assertTrue(<opClass>.compare(lower.sizeY(), outer.sizeY()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(upper.sizeY(), outer.sizeY()) \<= 0);
-          <opClass>.checkEquals(outer.sizeY(), <opClass>.add(lower.sizeY(), upper.sizeY()));
-          <opClass>.checkEquals(outer.sizeX(),  lower.sizeX());
-          <opClass>.checkEquals(outer.sizeX(),  upper.sizeX());
+    Assert.assertTrue(<opClass>.compare(lower.sizeY(), outer.sizeY()) \<= 0);
+    Assert.assertTrue(<opClass>.compare(upper.sizeY(), outer.sizeY()) \<= 0);
+    <opClass>.checkEquals(outer.sizeY(), <opClass>.add(lower.sizeY(), upper.sizeY()));
+    <opClass>.checkEquals(outer.sizeX(),  lower.sizeX());
+    <opClass>.checkEquals(outer.sizeX(),  upper.sizeX());
 
-          boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) \> 0;
-          boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) \> 0;
+    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) \> 0;
+    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) \> 0;
 
-          if (sizeX_over && sizeY_over) {
-            final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(lower.sizeY(), <opClass>.constant("0")) \> 0;
-            final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) \> 0;
+    if (sizeX_over && sizeY_over) {
+      final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(lower.sizeY(), <opClass>.constant("0")) \> 0;
+      final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) \> 0;
 
-            if (lower_ok) {
-              Assert.assertTrue(<areaOpsType>.overlaps(outer, lower));
-              Assert.assertTrue(<areaOpsType>.contains(outer, lower));
-              if (upper_ok) {
-                Assert.assertFalse(<areaOpsType>.overlaps(lower, upper));
-              }
-            }
-            if (upper_ok) {
-              Assert.assertTrue(<areaOpsType>.overlaps(outer, upper));
-              Assert.assertTrue(<areaOpsType>.contains(outer, upper));
-              if (lower_ok) {
-                Assert.assertFalse(<areaOpsType>.overlaps(lower, upper));
-              }
-            }
-          }
+      if (lower_ok) {
+        Assert.assertTrue(<areaOpsType>.overlaps(outer, lower));
+        Assert.assertTrue(<areaOpsType>.contains(outer, lower));
+        if (upper_ok) {
+          Assert.assertFalse(<areaOpsType>.overlaps(lower, upper));
         }
-      });
+      }
+      if (upper_ok) {
+        Assert.assertTrue(<areaOpsType>.overlaps(outer, upper));
+        Assert.assertTrue(<areaOpsType>.contains(outer, upper));
+        if (lower_ok) {
+          Assert.assertFalse(<areaOpsType>.overlaps(lower, upper));
+        }
+      }
+    }
   }
 
   @Test
@@ -1910,129 +1523,113 @@ public final class <className>
   }
 
   @Test
+  @PercentagePassing
   public void testSplitAlongYAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator =
       <opClass>.createParameterizedGenerator(<opClass>.createWideNonNegativeScalarGenerator());
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> bound = <opClass>.add(outer.sizeX(), <opClass>.constant("1"));
-          final <scalarType> sizeX = <opClass>.randomBounded(bound);
-          final <splitYType>\<Object, <areaType>\<Object\>\> pair =
-            <areaOpsType>.splitAlongParallelToY(outer, sizeX);
+    final <areaType>\<Object\> outer = generator.next();
+    final <scalarType> bound = <opClass>.add(outer.sizeX(), <opClass>.constant("1"));
+    final <scalarType> sizeX = <opClass>.randomBounded(bound);
+    final <splitYType>\<Object, <areaType>\<Object\>\> pair =
+      <areaOpsType>.splitAlongParallelToY(outer, sizeX);
 
-          final <areaType>\<Object\> lower = pair.lower();
-          final <areaType>\<Object\> upper = pair.upper();
+    final <areaType>\<Object\> lower = pair.lower();
+    final <areaType>\<Object\> upper = pair.upper();
 
-          System.out.println("sizeY: " + sizeX);
-          System.out.println("lower: " + lower);
-          System.out.println("upper: " + upper);
+    System.out.println("sizeY: " + sizeX);
+    System.out.println("lower: " + lower);
+    System.out.println("upper: " + upper);
 
-          Assert.assertTrue(<opClass>.compare(lower.sizeX(), outer.sizeX()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(upper.sizeX(), outer.sizeX()) \<= 0);
-          <opClass>.checkEquals(outer.sizeX(), <opClass>.add(lower.sizeX(), upper.sizeX()));
-          <opClass>.checkEquals(outer.sizeY(), lower.sizeY());
-          <opClass>.checkEquals(outer.sizeY(), upper.sizeY());
+    Assert.assertTrue(<opClass>.compare(lower.sizeX(), outer.sizeX()) \<= 0);
+    Assert.assertTrue(<opClass>.compare(upper.sizeX(), outer.sizeX()) \<= 0);
+    <opClass>.checkEquals(outer.sizeX(), <opClass>.add(lower.sizeX(), upper.sizeX()));
+    <opClass>.checkEquals(outer.sizeY(), lower.sizeY());
+    <opClass>.checkEquals(outer.sizeY(), upper.sizeY());
 
-          boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) \> 0;
-          boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) \> 0;
+    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) \> 0;
+    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) \> 0;
 
-          if (sizeX_over && sizeY_over) {
-            final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(lower.sizeY(), <opClass>.constant("0")) \> 0;
-            final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) \> 0;
+    if (sizeX_over && sizeY_over) {
+      final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(lower.sizeY(), <opClass>.constant("0")) \> 0;
+      final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) \> 0;
 
-            if (lower_ok) {
-              Assert.assertTrue(<areaOpsType>.overlaps(outer, lower));
-              Assert.assertTrue(<areaOpsType>.contains(outer, lower));
-            }
-            if (upper_ok) {
-              Assert.assertTrue(<areaOpsType>.overlaps(outer, upper));
-              Assert.assertTrue(<areaOpsType>.contains(outer, upper));
-            }
-          }
-        }
-      });
+      if (lower_ok) {
+        Assert.assertTrue(<areaOpsType>.overlaps(outer, lower));
+        Assert.assertTrue(<areaOpsType>.contains(outer, lower));
+      }
+      if (upper_ok) {
+        Assert.assertTrue(<areaOpsType>.overlaps(outer, upper));
+        Assert.assertTrue(<areaOpsType>.contains(outer, upper));
+      }
+    }
   }
 
   @Test
+  @PercentagePassing
   public void testSplitAlongXYAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator =
       <opClass>.createParameterizedGenerator(<opClass>.createWideNonNegativeScalarGenerator());
 
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <scalarType> x_bound = <opClass>.add(outer.sizeX(), <opClass>.constant("1"));
-          final <scalarType> y_bound = <opClass>.add(outer.sizeY(), <opClass>.constant("1"));
-          final <scalarType> x = <opClass>.randomBounded(x_bound);
-          final <scalarType> y = <opClass>.randomBounded(y_bound);
+      final <areaType>\<Object\> outer = generator.next();
+      final <scalarType> x_bound = <opClass>.add(outer.sizeX(), <opClass>.constant("1"));
+      final <scalarType> y_bound = <opClass>.add(outer.sizeY(), <opClass>.constant("1"));
+      final <scalarType> x = <opClass>.randomBounded(x_bound);
+      final <scalarType> y = <opClass>.randomBounded(y_bound);
 
-          System.out.println("outer:      " + outer);
-          System.out.println("x:          " + x);
-          System.out.println("y:          " + y);
+      System.out.println("outer:      " + outer);
+      System.out.println("x:          " + x);
+      System.out.println("y:          " + y);
 
-          final <splitXYType>\<Object, <areaType>\<Object\>\> quadrants =
-            <areaOpsType>.splitAlongXY(outer, x, y);
+      final <splitXYType>\<Object, <areaType>\<Object\>\> quadrants =
+        <areaOpsType>.splitAlongXY(outer, x, y);
 
-          System.out.println("quadrants: " + quadrants);
+      System.out.println("quadrants: " + quadrants);
 
-          final <areaType>\<Object\> x0y0 = quadrants.x0y0();
-          final <areaType>\<Object\> x1y0 = quadrants.x1y0();
-          final <areaType>\<Object\> x0y1 = quadrants.x0y1();
-          final <areaType>\<Object\> x1y1 = quadrants.x1y1();
+      final <areaType>\<Object\> x0y0 = quadrants.x0y0();
+      final <areaType>\<Object\> x1y0 = quadrants.x1y0();
+      final <areaType>\<Object\> x0y1 = quadrants.x0y1();
+      final <areaType>\<Object\> x1y1 = quadrants.x1y1();
 
-          Assert.assertTrue(<opClass>.compare(x0y0.sizeY(), outer.sizeY()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x1y0.sizeY(), outer.sizeY()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x0y1.sizeY(), outer.sizeY()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x1y1.sizeY(), outer.sizeY()) \<= 0);
+      Assert.assertTrue(<opClass>.compare(x0y0.sizeY(), outer.sizeY()) \<= 0);
+      Assert.assertTrue(<opClass>.compare(x1y0.sizeY(), outer.sizeY()) \<= 0);
+      Assert.assertTrue(<opClass>.compare(x0y1.sizeY(), outer.sizeY()) \<= 0);
+      Assert.assertTrue(<opClass>.compare(x1y1.sizeY(), outer.sizeY()) \<= 0);
 
-          Assert.assertTrue(<opClass>.compare(x0y0.sizeX(), outer.sizeX()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x1y0.sizeX(), outer.sizeX()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x0y1.sizeX(), outer.sizeX()) \<= 0);
-          Assert.assertTrue(<opClass>.compare(x1y1.sizeX(), outer.sizeX()) \<= 0);
+      Assert.assertTrue(<opClass>.compare(x0y0.sizeX(), outer.sizeX()) \<= 0);
+      Assert.assertTrue(<opClass>.compare(x1y0.sizeX(), outer.sizeX()) \<= 0);
+      Assert.assertTrue(<opClass>.compare(x0y1.sizeX(), outer.sizeX()) \<= 0);
+      Assert.assertTrue(<opClass>.compare(x1y1.sizeX(), outer.sizeX()) \<= 0);
 
-          <opClass>.checkEquals(x0y0.minimumX(), outer.minimumX());
-          <opClass>.checkEquals(x0y0.minimumY(), outer.minimumY());
-          <opClass>.checkEquals(x0y0.maximumX(), <opClass>.add(x0y0.minimumX(), x));
-          <opClass>.checkEquals(x0y0.maximumY(), <opClass>.add(x0y0.minimumY(), y));
+      <opClass>.checkEquals(x0y0.minimumX(), outer.minimumX());
+      <opClass>.checkEquals(x0y0.minimumY(), outer.minimumY());
+      <opClass>.checkEquals(x0y0.maximumX(), <opClass>.add(x0y0.minimumX(), x));
+      <opClass>.checkEquals(x0y0.maximumY(), <opClass>.add(x0y0.minimumY(), y));
 
-          <opClass>.checkEquals(x1y0.minimumX(), <opClass>.add(x0y0.minimumX(), x));
-          <opClass>.checkEquals(x1y0.minimumY(), outer.minimumY());
-          <opClass>.checkEquals(x1y0.maximumX(), outer.maximumX());
-          <opClass>.checkEquals(x1y0.maximumY(), <opClass>.add(x0y0.minimumY(), y));
+      <opClass>.checkEquals(x1y0.minimumX(), <opClass>.add(x0y0.minimumX(), x));
+      <opClass>.checkEquals(x1y0.minimumY(), outer.minimumY());
+      <opClass>.checkEquals(x1y0.maximumX(), outer.maximumX());
+      <opClass>.checkEquals(x1y0.maximumY(), <opClass>.add(x0y0.minimumY(), y));
 
-          <opClass>.checkEquals(x0y1.minimumX(), outer.minimumX());
-          <opClass>.checkEquals(x0y1.minimumY(), <opClass>.add(x0y0.minimumY(), y));
-          <opClass>.checkEquals(x0y1.maximumX(), <opClass>.add(x0y0.minimumX(), x));
-          <opClass>.checkEquals(x0y1.maximumY(), outer.maximumY());
+      <opClass>.checkEquals(x0y1.minimumX(), outer.minimumX());
+      <opClass>.checkEquals(x0y1.minimumY(), <opClass>.add(x0y0.minimumY(), y));
+      <opClass>.checkEquals(x0y1.maximumX(), <opClass>.add(x0y0.minimumX(), x));
+      <opClass>.checkEquals(x0y1.maximumY(), outer.maximumY());
 
-          <opClass>.checkEquals(x1y1.minimumX(), <opClass>.add(x0y0.minimumX(), x));
-          <opClass>.checkEquals(x1y1.minimumY(), <opClass>.add(x0y0.minimumY(), y));
-          <opClass>.checkEquals(x1y1.maximumX(), outer.maximumX());
-          <opClass>.checkEquals(x1y1.maximumY(), outer.maximumY());
+      <opClass>.checkEquals(x1y1.minimumX(), <opClass>.add(x0y0.minimumX(), x));
+      <opClass>.checkEquals(x1y1.minimumY(), <opClass>.add(x0y0.minimumY(), y));
+      <opClass>.checkEquals(x1y1.maximumX(), outer.maximumX());
+      <opClass>.checkEquals(x1y1.maximumY(), outer.maximumY());
 
-          <opClass>.checkEquals(outer.sizeY(), <opClass>.add(x0y0.sizeY(), x0y1.sizeY()));
-          <opClass>.checkEquals(outer.sizeY(), <opClass>.add(x1y0.sizeY(), x1y1.sizeY()));
+      <opClass>.checkEquals(outer.sizeY(), <opClass>.add(x0y0.sizeY(), x0y1.sizeY()));
+      <opClass>.checkEquals(outer.sizeY(), <opClass>.add(x1y0.sizeY(), x1y1.sizeY()));
 
-          <opClass>.checkEquals(outer.sizeX(), <opClass>.add(x0y0.sizeX(), x1y0.sizeX()));
-          <opClass>.checkEquals(outer.sizeX(), <opClass>.add(x0y1.sizeX(), x1y1.sizeX()));
-        }
-      });
+      <opClass>.checkEquals(outer.sizeX(), <opClass>.add(x0y0.sizeX(), x1y0.sizeX()));
+      <opClass>.checkEquals(outer.sizeX(), <opClass>.add(x0y1.sizeX(), x1y1.sizeX()));
   }
 
   @Test
@@ -2093,25 +1690,16 @@ public final class <className>
   }
 
   @Test
+  @PercentagePassing
   public void testSize()
     throws Exception
   {
     final Generator\<<areaType>\<Object\>\> generator = <opClass>.createGenerator();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic\<<areaType>\<Object\>\>()
-      {
-        @Override
-        protected void doSpecify(final <areaType>\<Object\> outer)
-          throws Throwable
-        {
-          final <areaSizeType>\<Object\> s =
-            <areaOpsType>.size(outer);
+    final <areaType>\<Object\> outer = generator.next();
+    final <areaSizeType>\<Object\> s = <areaOpsType>.size(outer);
 
-          <opClass>.checkEquals(outer.sizeX(), s.sizeX());
-          <opClass>.checkEquals(outer.sizeY(), s.sizeY());
-        }
-      });
+    <opClass>.checkEquals(outer.sizeX(), s.sizeX());
+    <opClass>.checkEquals(outer.sizeY(), s.sizeY());
   }
 }
 
