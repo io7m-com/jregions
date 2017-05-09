@@ -549,15 +549,7 @@ public final class <className>
         protected void doSpecify(final <volumeType> outer)
           throws Throwable
         {
-          boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.ZERO) \> 0;
-          boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.ZERO) \> 0;
-          boolean sizeZ_over = <opClass>.compare(outer.sizeX(), <opClass>.ZERO) \> 0;
-
-          if (sizeY_over && sizeX_over && sizeZ_over) {
-            Assert.assertTrue(<volumeOpsType>.overlaps(outer, outer));
-          } else {
-            Assert.assertFalse(<volumeOpsType>.overlaps(outer, outer));
-          }
+          Assert.assertTrue(<volumeOpsType>.overlaps(outer, outer));
         }
       });
   }

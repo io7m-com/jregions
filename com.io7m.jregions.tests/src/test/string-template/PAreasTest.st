@@ -1289,14 +1289,7 @@ public final class <className>
         protected void doSpecify(final <areaType>\<Object\> outer)
           throws Throwable
         {
-          boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) \> 0;
-          boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) \> 0;
-
-          if (sizeY_over && sizeX_over) {
-            Assert.assertTrue(<areaOpsType>.overlaps(outer, outer));
-          } else {
-            Assert.assertFalse(<areaOpsType>.overlaps(outer, outer));
-          }
+          Assert.assertTrue(<areaOpsType>.overlaps(outer, outer));
         }
       });
   }
