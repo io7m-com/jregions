@@ -891,6 +891,129 @@ public final class <className>
   }
 
   @Test
+  public void testSplitAtXYZAll()
+    throws Exception
+  {
+    final Generator\<<volumeType>\<Object\>\> generator =
+      <opClass>.createParameterizedGenerator(<opClass>.createWideNonNegativeScalarGenerator());
+
+    QuickCheck.forAll(
+      generator,
+      new AbstractCharacteristic\<<volumeType>\<Object\>\>()
+      {
+        @Override
+        protected void doSpecify(final <volumeType>\<Object\> outer)
+          throws Throwable
+        {
+          final <scalarType> x_bound = <opClass>.add(outer.sizeX(), <opClass>.constant("1"));
+          final <scalarType> y_bound = <opClass>.add(outer.sizeY(), <opClass>.constant("1"));
+          final <scalarType> z_bound = <opClass>.add(outer.sizeZ(), <opClass>.constant("1"));
+          final <scalarType> x = <opClass>.randomBounded(x_bound);
+          final <scalarType> y = <opClass>.randomBounded(y_bound);
+          final <scalarType> z = <opClass>.randomBounded(z_bound);
+
+          System.out.println("outer: " + outer);
+          System.out.println("x:     " + x);
+          System.out.println("y:     " + y);
+          System.out.println("z:     " + z);
+
+          final <volumeXYZSplitType>\<Object, <volumeType>\<Object\>\> s =
+            <volumeOpsType>.splitAtXYZ(outer, x, y, z);
+
+          System.out.println("octants x0y0z0: " + s.x0y0z0());
+          System.out.println("octants x1y0z0: " + s.x1y0z0());
+          System.out.println("octants x0y1z0: " + s.x0y1z0());
+          System.out.println("octants x1y1z0: " + s.x1y1z0());
+          System.out.println("octants x0y0z1: " + s.x0y0z1());
+          System.out.println("octants x1y0z1: " + s.x1y0z1());
+          System.out.println("octants x0y1z1: " + s.x0y1z1());
+          System.out.println("octants x1y1z1: " + s.x1y1z1());
+
+          Assert.assertTrue(<opClass>.compare(s.x0y0z0().sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y0z0().sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x0y1z0().sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y1z0().sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x0y0z1().sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y0z1().sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x0y1z1().sizeX(), outer.sizeX()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y1z1().sizeX(), outer.sizeX()) \<= 0);
+
+          Assert.assertTrue(<opClass>.compare(s.x0y0z0().sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y0z0().sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x0y1z0().sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y1z0().sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x0y0z1().sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y0z1().sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x0y1z1().sizeY(), outer.sizeY()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y1z1().sizeY(), outer.sizeY()) \<= 0);
+
+          Assert.assertTrue(<opClass>.compare(s.x0y0z0().sizeZ(), outer.sizeZ()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y0z0().sizeZ(), outer.sizeZ()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x0y1z0().sizeZ(), outer.sizeZ()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y1z0().sizeZ(), outer.sizeZ()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x0y0z1().sizeZ(), outer.sizeZ()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y0z1().sizeZ(), outer.sizeZ()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x0y1z1().sizeZ(), outer.sizeZ()) \<= 0);
+          Assert.assertTrue(<opClass>.compare(s.x1y1z1().sizeZ(), outer.sizeZ()) \<= 0);
+
+          <opClass>.checkEquals(s.x0y0z0().minimumX(), outer.minimumX());
+          <opClass>.checkEquals(s.x0y0z0().minimumY(), outer.minimumY());
+          <opClass>.checkEquals(s.x0y0z0().minimumZ(), outer.minimumZ());
+          <opClass>.checkEquals(s.x0y0z0().maximumX(), <opClass>.add(s.x0y0z0().minimumX(), x));
+          <opClass>.checkEquals(s.x0y0z0().maximumY(), <opClass>.add(s.x0y0z0().minimumY(), y));
+          <opClass>.checkEquals(s.x0y0z0().maximumZ(), <opClass>.add(s.x0y0z0().minimumZ(), z));
+
+          <opClass>.checkEquals(s.x1y0z0().minimumX(), <opClass>.add(s.x0y0z0().minimumX(), x));
+          <opClass>.checkEquals(s.x1y0z0().minimumY(), outer.minimumY());
+          <opClass>.checkEquals(s.x1y0z0().minimumZ(), outer.minimumZ());
+          <opClass>.checkEquals(s.x1y0z0().maximumX(), outer.maximumX());
+          <opClass>.checkEquals(s.x1y0z0().maximumY(), <opClass>.add(s.x0y0z0().minimumY(), y));
+          <opClass>.checkEquals(s.x1y0z0().maximumZ(), <opClass>.add(s.x0y0z0().minimumZ(), z));
+
+          <opClass>.checkEquals(s.x0y1z0().minimumX(), outer.minimumX());
+          <opClass>.checkEquals(s.x0y1z0().minimumY(), <opClass>.add(s.x0y0z0().minimumY(), y));
+          <opClass>.checkEquals(s.x0y1z0().minimumZ(), outer.minimumZ());
+          <opClass>.checkEquals(s.x0y1z0().maximumX(), <opClass>.add(s.x0y0z0().minimumX(), x));
+          <opClass>.checkEquals(s.x0y1z0().maximumY(), outer.maximumY());
+          <opClass>.checkEquals(s.x0y1z0().maximumZ(), <opClass>.add(s.x0y0z0().minimumZ(), z));
+
+          <opClass>.checkEquals(s.x1y1z0().minimumX(), <opClass>.add(s.x0y0z0().minimumX(), x));
+          <opClass>.checkEquals(s.x1y1z0().minimumY(), <opClass>.add(s.x0y0z0().minimumY(), y));
+          <opClass>.checkEquals(s.x1y1z0().minimumZ(), outer.minimumZ());
+          <opClass>.checkEquals(s.x1y1z0().maximumX(), outer.maximumX());
+          <opClass>.checkEquals(s.x1y1z0().maximumY(), outer.maximumY());
+          <opClass>.checkEquals(s.x1y1z0().maximumZ(), <opClass>.add(s.x0y0z0().minimumZ(), z));
+
+          Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y0z0()));
+          Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y0z0()));
+          Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y1z0()));
+          Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y1z0()));
+          Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y0z1()));
+          Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y0z1()));
+          Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y1z1()));
+          Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y1z1()));
+
+          Assert.assertTrue(<volumeOpsType>.contains(outer, s.x0y0z0()));
+          Assert.assertTrue(<volumeOpsType>.contains(outer, s.x1y0z0()));
+          Assert.assertTrue(<volumeOpsType>.contains(outer, s.x0y1z0()));
+          Assert.assertTrue(<volumeOpsType>.contains(outer, s.x1y1z0()));
+          Assert.assertTrue(<volumeOpsType>.contains(outer, s.x0y0z1()));
+          Assert.assertTrue(<volumeOpsType>.contains(outer, s.x1y0z1()));
+          Assert.assertTrue(<volumeOpsType>.contains(outer, s.x0y1z1()));
+          Assert.assertTrue(<volumeOpsType>.contains(outer, s.x1y1z1()));
+
+          Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z0()));
+          Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z0()));
+          Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z0()));
+          Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y0z1()));
+          Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z1()));
+          Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z1()));
+          Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z1()));
+        }
+      });
+  }
+
+  @Test
   public void testSplitXYZSpecific()
     throws Exception
   {

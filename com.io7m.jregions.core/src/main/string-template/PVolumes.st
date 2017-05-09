@@ -426,7 +426,7 @@ public final class <className>
     final <scalarType> lower_z_min = v.minimumZ();
     final <scalarType> lower_z_max = <opClass>.add(v.minimumZ(), clamped_sizeZ);
     final <scalarType> upper_z_min = lower_z_max;
-    final <scalarType> upper_z_max = <opClass>.maximum(v.maximumZ(), lower_y_max);
+    final <scalarType> upper_z_max = <opClass>.maximum(v.maximumZ(), lower_z_max);
 
     final <volumeType>\<S\> x0y0z0 = <volumeType>.of(
       lower_x_min, lower_x_max, lower_y_min, lower_y_max, lower_z_min, lower_z_max);
