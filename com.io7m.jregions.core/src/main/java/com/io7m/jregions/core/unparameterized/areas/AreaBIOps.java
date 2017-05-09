@@ -25,6 +25,8 @@ final class AreaBIOps
 {
   public static final BigInteger ZERO = BigInteger.ZERO;
 
+  public static final BigInteger ONE = BigInteger.ONE;
+
   private AreaBIOps()
   {
     throw new UnreachableCodeException();

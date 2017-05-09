@@ -25,6 +25,8 @@ final class VolumeBDOps
 {
   public static final BigDecimal ZERO = BigDecimal.ZERO;
 
+  public static final BigDecimal ONE = BigDecimal.ONE;
+
   private VolumeBDOps()
   {
     throw new UnreachableCodeException();

@@ -23,6 +23,8 @@ final class PVolumeLOps
 {
   public static final long ZERO = 0L;
 
+  public static final long ONE = 1L;
+
   private PVolumeLOps()
   {
     throw new UnreachableCodeException();

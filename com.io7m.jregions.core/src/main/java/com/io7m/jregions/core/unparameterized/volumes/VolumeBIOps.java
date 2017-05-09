@@ -25,6 +25,8 @@ final class VolumeBIOps
 {
   public static final BigInteger ZERO = BigInteger.ZERO;
 
+  public static final BigInteger ONE = BigInteger.ONE;
+
   private VolumeBIOps()
   {
     throw new UnreachableCodeException();

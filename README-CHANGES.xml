@@ -27,6 +27,7 @@
       <c:date>2017-05-08</c:date>
       <c:type-code-fix/>
       <c:ticket>12</c:ticket>
+      <c:ticket>14</c:ticket>
       <c:summary>Fix overlaps() for areas and volumes.</c:summary>
     </c:item>
     <c:item>

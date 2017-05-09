@@ -214,7 +214,7 @@ public final class <className>
    *
    * \<p\>Overlapping is reflexive: {@code overlaps(a, a) == true}.\</p\>
    *
-   * \<p\>Overlapping is symmetric: {@code overlaps(a, b) == contains(b, a)}.\</p\>
+   * \<p\>Overlapping is symmetric: {@code overlaps(a, b) == overlaps(b, a)}.\</p\>
    *
    * \<p\>Overlapping is not necessarily transitive.\</p\>
    *
@@ -231,18 +231,34 @@ public final class <className>
     <opClass>.notNullVolume(a, "a");
     <opClass>.notNullVolume(b, "b");
 
-    final <scalarType> a_x0 = a.minimumX();
-    final <scalarType> a_x1 = a.maximumX();
-    final <scalarType> a_y0 = a.minimumY();
-    final <scalarType> a_y1 = a.maximumY();
-    final <scalarType> a_z0 = a.minimumZ();
-    final <scalarType> a_z1 = a.maximumZ();
-    final <scalarType> b_x0 = b.minimumX();
-    final <scalarType> b_x1 = b.maximumX();
-    final <scalarType> b_y0 = b.minimumY();
-    final <scalarType> b_y1 = b.maximumY();
-    final <scalarType> b_z0 = b.minimumZ();
-    final <scalarType> b_z1 = b.maximumZ();
+    final <volumeType> cmp_a = create(
+      a.minimumX(),
+      a.minimumY(),
+      a.minimumZ(),
+      <opClass>.maximum(<opClass>.ONE, a.sizeX()),
+      <opClass>.maximum(<opClass>.ONE, a.sizeY()),
+      <opClass>.maximum(<opClass>.ONE, a.sizeZ()));
+
+    final <volumeType> cmp_b = create(
+      b.minimumX(),
+      b.minimumY(),
+      b.minimumZ(),
+      <opClass>.maximum(<opClass>.ONE, b.sizeX()),
+      <opClass>.maximum(<opClass>.ONE, b.sizeY()),
+      <opClass>.maximum(<opClass>.ONE, b.sizeZ()));
+
+    final <scalarType> a_x0 = cmp_a.minimumX();
+    final <scalarType> a_x1 = cmp_a.maximumX();
+    final <scalarType> a_y0 = cmp_a.minimumY();
+    final <scalarType> a_y1 = cmp_a.maximumY();
+    final <scalarType> a_z0 = cmp_a.minimumZ();
+    final <scalarType> a_z1 = cmp_a.maximumZ();
+    final <scalarType> b_x0 = cmp_b.minimumX();
+    final <scalarType> b_x1 = cmp_b.maximumX();
+    final <scalarType> b_y0 = cmp_b.minimumY();
+    final <scalarType> b_y1 = cmp_b.maximumY();
+    final <scalarType> b_z0 = cmp_b.minimumZ();
+    final <scalarType> b_z1 = cmp_b.maximumZ();
 
     final boolean c0 = <opClass>.compare(a_x0, b_x1) \< 0;
     final boolean c1 = <opClass>.compare(a_x1, b_x0) \> 0;

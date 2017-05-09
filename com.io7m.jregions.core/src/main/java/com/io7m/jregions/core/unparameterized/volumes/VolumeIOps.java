@@ -23,6 +23,8 @@ final class VolumeIOps
 {
   public static final int ZERO = 0;
 
+  public static final int ONE = 1;
+
   private VolumeIOps()
   {
     throw new UnreachableCodeException();

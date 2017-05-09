@@ -23,6 +23,8 @@ final class PAreaIOps
 {
   public static final int ZERO = 0;
 
+  public static final int ONE = 1;
+
   private PAreaIOps()
   {
     throw new UnreachableCodeException();

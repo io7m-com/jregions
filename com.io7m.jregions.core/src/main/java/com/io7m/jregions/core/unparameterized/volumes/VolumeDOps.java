@@ -23,6 +23,8 @@ final class VolumeDOps
 {
   public static final double ZERO = 0.0;
 
+  public static final double ONE = 1.0;
+
   private VolumeDOps()
   {
     throw new UnreachableCodeException();

@@ -23,6 +23,8 @@ final class VolumeLOps
 {
   public static final long ZERO = 0L;
 
+  public static final long ONE = 1L;
+
   private VolumeLOps()
   {
     throw new UnreachableCodeException();

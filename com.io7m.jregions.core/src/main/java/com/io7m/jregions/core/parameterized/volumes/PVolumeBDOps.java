@@ -25,6 +25,8 @@ final class PVolumeBDOps
 {
   public static final BigDecimal ZERO = BigDecimal.ZERO;
 
+  public static final BigDecimal ONE = BigDecimal.ONE;
+
   private PVolumeBDOps()
   {
     throw new UnreachableCodeException();

@@ -25,6 +25,8 @@ final class PVolumeBIOps
 {
   public static final BigInteger ZERO = BigInteger.ZERO;
 
+  public static final BigInteger ONE = BigInteger.ONE;
+
   private PVolumeBIOps()
   {
     throw new UnreachableCodeException();

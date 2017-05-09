@@ -23,6 +23,8 @@ final class AreaIOps
 {
   public static final int ZERO = 0;
 
+  public static final int ONE = 1;
+
   private AreaIOps()
   {
     throw new UnreachableCodeException();
