@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.generators;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.jregions.core.parameterized.volumes.PVolumeF;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
@@ -45,7 +45,7 @@ public final class PVolumeFGenerator<S> implements Generator<PVolumeF<S>>
   public PVolumeFGenerator(
     final Generator<Float> in_gen)
   {
-    this.gen = NullCheck.notNull(in_gen, "gen");
+    this.gen = Objects.requireNonNull(in_gen, "gen");
   }
 
   /**

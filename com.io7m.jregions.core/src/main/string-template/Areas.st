@@ -25,8 +25,9 @@ Areas(
 
 package com.io7m.jregions.core.unparameterized.areas;
 
+import java.util.Objects;
+
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jnull.NullCheck;
 import com.io7m.junreachable.UnreachableCodeException;
 
 /**
@@ -1647,7 +1648,7 @@ public final class <className>
     final StringBuilder sb)
   {
     <opClass>.notNullArea(area, "area");
-    NullCheck.notNull(sb, "sb");
+    Objects.requireNonNull(sb, "sb");
 
     sb.append(area.sizeX());
     sb.append("x");

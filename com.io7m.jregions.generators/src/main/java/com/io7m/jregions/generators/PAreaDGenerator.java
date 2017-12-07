@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.generators;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.jregions.core.parameterized.areas.PAreaD;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.support.DoubleGenerator;
@@ -45,7 +45,7 @@ public final class PAreaDGenerator<S> implements Generator<PAreaD<S>>
   public PAreaDGenerator(
     final Generator<Double> in_gen)
   {
-    this.gen = NullCheck.notNull(in_gen, "gen");
+    this.gen = Objects.requireNonNull(in_gen, "gen");
   }
 
   /**

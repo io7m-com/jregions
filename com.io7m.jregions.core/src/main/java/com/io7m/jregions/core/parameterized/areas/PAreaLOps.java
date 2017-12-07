@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.core.parameterized.areas;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.junreachable.UnreachableCodeException;
 
 final class PAreaLOps
@@ -82,7 +82,7 @@ final class PAreaLOps
     final Object expression,
     final String name)
   {
-    NullCheck.notNull(expression, name);
+    Objects.requireNonNull(expression, name);
   }
 
   public static void notNullScalar(

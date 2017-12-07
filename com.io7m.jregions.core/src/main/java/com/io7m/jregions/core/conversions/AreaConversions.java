@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.core.conversions;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.jregions.core.parameterized.areas.PAreaBD;
 import com.io7m.jregions.core.parameterized.areas.PAreaBI;
 import com.io7m.jregions.core.parameterized.areas.PAreaD;
@@ -54,7 +54,7 @@ public final class AreaConversions
 
   public static <S> AreaI toAreaI(final PAreaI<S> a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return AreaI.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -70,7 +70,7 @@ public final class AreaConversions
 
   public static <S> AreaL toAreaL(final PAreaL<S> a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return AreaL.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -86,7 +86,7 @@ public final class AreaConversions
 
   public static <S> AreaD toAreaD(final PAreaD<S> a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return AreaD.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -102,7 +102,7 @@ public final class AreaConversions
 
   public static <S> AreaF toAreaF(final PAreaF<S> a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return AreaF.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -118,7 +118,7 @@ public final class AreaConversions
 
   public static <S> AreaBD toAreaBD(final PAreaBD<S> a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return AreaBD.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -134,7 +134,7 @@ public final class AreaConversions
 
   public static <S> AreaBI toAreaBI(final PAreaBI<S> a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return AreaBI.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -150,7 +150,7 @@ public final class AreaConversions
 
   public static <S> PAreaI<S> toPAreaI(final AreaI a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return PAreaI.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -166,7 +166,7 @@ public final class AreaConversions
 
   public static <S> PAreaL<S> toPAreaL(final AreaL a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return PAreaL.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -182,7 +182,7 @@ public final class AreaConversions
 
   public static <S> PAreaD<S> toPAreaD(final AreaD a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return PAreaD.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -198,7 +198,7 @@ public final class AreaConversions
 
   public static <S> PAreaF<S> toPAreaF(final AreaF a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return PAreaF.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -214,7 +214,7 @@ public final class AreaConversions
 
   public static <S> PAreaBD<S> toPAreaBD(final AreaBD a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return PAreaBD.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 
@@ -230,7 +230,7 @@ public final class AreaConversions
 
   public static <S> PAreaBI<S> toPAreaBI(final AreaBI a)
   {
-    NullCheck.notNull(a, "area");
+    Objects.requireNonNull(a, "area");
     return PAreaBI.of(a.minimumX(), a.maximumX(), a.minimumY(), a.maximumY());
   }
 }

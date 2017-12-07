@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.generators;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.jregions.core.unparameterized.volumes.VolumeBI;
 import net.java.quickcheck.Generator;
 
@@ -43,7 +43,7 @@ public final class VolumeBIGenerator implements Generator<VolumeBI>
   public VolumeBIGenerator(
     final Generator<BigInteger> in_gen)
   {
-    this.gen = NullCheck.notNull(in_gen, "gen");
+    this.gen = Objects.requireNonNull(in_gen, "gen");
   }
 
   /**

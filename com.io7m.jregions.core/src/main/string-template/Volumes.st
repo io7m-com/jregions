@@ -23,8 +23,9 @@ Volumes(
 
 package com.io7m.jregions.core.unparameterized.volumes;
 
+import java.util.Objects;
+
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jnull.NullCheck;
 import com.io7m.junreachable.UnreachableCodeException;
 
 /**
@@ -466,7 +467,7 @@ public final class <className>
     final StringBuilder sb)
   {
     <opClass>.notNullVolume(volume, "volume");
-    NullCheck.notNull(sb, "sb");
+    Objects.requireNonNull(sb, "sb");
 
     sb.append(volume.sizeX());
     sb.append("x");

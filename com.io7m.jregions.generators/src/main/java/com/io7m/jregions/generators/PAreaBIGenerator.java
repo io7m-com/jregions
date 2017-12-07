@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.generators;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.jregions.core.parameterized.areas.PAreaBI;
 import net.java.quickcheck.Generator;
 
@@ -46,7 +46,7 @@ public final class PAreaBIGenerator<S> implements Generator<PAreaBI<S>>
   public PAreaBIGenerator(
     final Generator<BigInteger> in_gen)
   {
-    this.gen = NullCheck.notNull(in_gen, "gen");
+    this.gen = Objects.requireNonNull(in_gen, "gen");
   }
 
   /**

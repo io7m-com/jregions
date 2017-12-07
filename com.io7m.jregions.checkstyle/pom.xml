@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>1.1.0</version>
+    <version>2.0.0</version>
   </parent>
 
   <artifactId>com.io7m.jregions.checkstyle</artifactId>
@@ -18,18 +18,5 @@
   <name>com.io7m.jregions.checkstyle</name>
   <description>Area types (Checkstyle policy)</description>
   <url>http://github.com/io7m/jregions</url>
-
-  <scm>
-    <url>${project.parent.scm.url}</url>
-    <connection>${project.parent.scm.connection}</connection>
-    <developerConnection>${project.parent.scm.developerConnection}</developerConnection>
-  </scm>
-
-  <dependencies>
-    <dependency>
-      <groupId>com.io7m.jnull</groupId>
-      <artifactId>com.io7m.jnull.core</artifactId>
-    </dependency>
-  </dependencies>
 
 </project>

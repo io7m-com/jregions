@@ -15,9 +15,13 @@
  */
 
 /**
- * Parameterized types.
+ * Area types (QuickCheck generators)
  */
 
-@com.io7m.jnull.NonNullByDefault
-package com.io7m.jregions.core.parameterized;
+module com.io7m.jregions.generators
+{
+  requires com.io7m.jregions.core;
+  requires quickcheck;
 
+  exports com.io7m.jregions.generators;
+}
