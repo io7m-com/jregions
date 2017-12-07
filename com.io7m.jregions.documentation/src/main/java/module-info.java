@@ -15,9 +15,15 @@
  */
 
 /**
- * Non-parameterized types.
+ * Area types (Documentation)
  */
 
-@com.io7m.jnull.NonNullByDefault
-package com.io7m.jregions.core.unparameterized;
+module com.io7m.jregions.documentation
+{
+  requires static org.immutables.value;
 
+  requires com.io7m.jregions.core;
+  requires com.io7m.jregions.generators;
+
+  exports com.io7m.jregions.documentation;
+}

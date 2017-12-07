@@ -18,6 +18,5 @@
  * Functions to convert between parameterized and unparameterized types.
  */
 
-@com.io7m.jnull.NonNullByDefault
 package com.io7m.jregions.core.conversions;
 

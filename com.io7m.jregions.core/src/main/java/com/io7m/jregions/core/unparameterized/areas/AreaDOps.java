@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.core.unparameterized.areas;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.junreachable.UnreachableCodeException;
 
 final class AreaDOps
@@ -82,7 +82,7 @@ final class AreaDOps
     final Object expression,
     final String name)
   {
-    NullCheck.notNull(expression, name);
+    Objects.requireNonNull(expression, name);
   }
 
   public static void notNullScalar(

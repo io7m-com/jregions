@@ -18,6 +18,5 @@
  * Area sizes.
  */
 
-@com.io7m.jnull.NonNullByDefault
 package com.io7m.jregions.core.parameterized.sizes;
 

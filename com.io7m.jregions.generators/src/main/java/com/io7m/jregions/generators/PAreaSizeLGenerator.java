@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.generators;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizeL;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.support.LongGenerator;
@@ -41,7 +41,7 @@ public final class PAreaSizeLGenerator<S> implements Generator<PAreaSizeL<S>>
   public PAreaSizeLGenerator(
     final LongGenerator in_gen)
   {
-    this.gen = NullCheck.notNull(in_gen, "gen");
+    this.gen = Objects.requireNonNull(in_gen, "gen");
   }
 
   /**

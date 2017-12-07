@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.core.parameterized.sizes;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.junreachable.UnreachableCodeException;
 
 /**
@@ -50,8 +50,8 @@ public final class PAreaSizesBI
     final PAreaSizeBI<S> a,
     final PAreaSizeBI<S> b)
   {
-    NullCheck.notNull(a, "Area A");
-    NullCheck.notNull(b, "Area B");
+    Objects.requireNonNull(a, "Area A");
+    Objects.requireNonNull(b, "Area B");
     return b.sizeX().compareTo(a.sizeX()) <= 0
       && b.sizeY().compareTo(a.sizeY()) <= 0;
   }

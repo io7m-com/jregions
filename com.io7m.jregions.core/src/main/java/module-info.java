@@ -15,8 +15,21 @@
  */
 
 /**
- * Volume types.
+ * Area types (Core)
  */
 
-package com.io7m.jregions.core.parameterized.volumes;
+module com.io7m.jregions.core
+{
+  requires static org.immutables.value;
+  requires com.io7m.junreachable.core;
+  requires com.io7m.jaffirm.core;
 
+  exports com.io7m.jregions.core;
+  exports com.io7m.jregions.core.conversions;
+  exports com.io7m.jregions.core.parameterized.areas;
+  exports com.io7m.jregions.core.parameterized.sizes;
+  exports com.io7m.jregions.core.parameterized.volumes;
+  exports com.io7m.jregions.core.unparameterized.areas;
+  exports com.io7m.jregions.core.unparameterized.sizes;
+  exports com.io7m.jregions.core.unparameterized.volumes;
+}

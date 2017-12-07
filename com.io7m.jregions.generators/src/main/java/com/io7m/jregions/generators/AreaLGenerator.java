@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.generators;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.jregions.core.unparameterized.areas.AreaL;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.support.LongGenerator;
@@ -42,7 +42,7 @@ public final class AreaLGenerator implements Generator<AreaL>
   public AreaLGenerator(
     final Generator<Long> in_gen)
   {
-    this.gen = NullCheck.notNull(in_gen, "gen");
+    this.gen = Objects.requireNonNull(in_gen, "gen");
   }
 
   /**

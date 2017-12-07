@@ -26,7 +26,7 @@ VolumesTest(
 package com.io7m.jregions.tests.core.unparameterized;
 
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.junreachable.UnreachableCodeException;
 
 import net.java.quickcheck.Generator;

@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.generators;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizeBD;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.support.LongGenerator;
@@ -43,7 +43,7 @@ public final class PAreaSizeBDGenerator<S> implements Generator<PAreaSizeBD<S>>
   public PAreaSizeBDGenerator(
     final Generator<BigDecimal> in_gen)
   {
-    this.gen = NullCheck.notNull(in_gen, "gen");
+    this.gen = Objects.requireNonNull(in_gen, "gen");
   }
 
   /**

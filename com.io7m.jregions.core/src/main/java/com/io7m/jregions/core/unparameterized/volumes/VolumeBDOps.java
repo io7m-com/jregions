@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.core.unparameterized.volumes;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.junreachable.UnreachableCodeException;
 
 import java.math.BigDecimal;
@@ -84,13 +84,13 @@ final class VolumeBDOps
     final Object expression,
     final String name)
   {
-    NullCheck.notNull(expression, name);
+    Objects.requireNonNull(expression, name);
   }
 
   public static void notNullScalar(
     final BigDecimal expression,
     final String name)
   {
-    NullCheck.notNull(expression, name);
+    Objects.requireNonNull(expression, name);
   }
 }

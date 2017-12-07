@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.core.unparameterized.sizes;
 
-import com.io7m.jnull.NullCheck;
+import java.util.Objects;
 import com.io7m.jregions.core.unparameterized.areas.AreaD;
 import com.io7m.junreachable.UnreachableCodeException;
 
@@ -49,8 +49,8 @@ public final class AreaSizesD
     final AreaSizeD a,
     final AreaSizeD b)
   {
-    NullCheck.notNull(a, "Area A");
-    NullCheck.notNull(b, "Area B");
+    Objects.requireNonNull(a, "Area A");
+    Objects.requireNonNull(b, "Area B");
     return b.sizeX() <= a.sizeX() && b.sizeY() <= a.sizeY();
   }
 
@@ -64,7 +64,7 @@ public final class AreaSizesD
 
   public static AreaD area(final AreaSizeD size)
   {
-    NullCheck.notNull(size, "Size");
+    Objects.requireNonNull(size, "Size");
     return AreaD.of(0.0, size.sizeX(), 0.0, size.sizeY());
   }
 }
