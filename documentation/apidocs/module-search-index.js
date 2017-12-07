@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"com.io7m.jregions.core"},{"l":"com.io7m.jregions.documentation"},{"l":"com.io7m.jregions.generators"}]
