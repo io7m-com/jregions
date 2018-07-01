@@ -16,14 +16,14 @@
 
 package com.io7m.jregions.core.unparameterized.sizes;
 
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import org.immutables.value.Value;
 
 /**
  * The size of a volume with <tt>long</tt> coordinates.
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface VolumeSizeLType extends VolumeSizeValuesLType
 {

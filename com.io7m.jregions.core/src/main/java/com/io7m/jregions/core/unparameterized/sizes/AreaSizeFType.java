@@ -16,15 +16,15 @@
 
 package com.io7m.jregions.core.unparameterized.sizes;
 
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
 /**
  * The size of an area with <tt>float</tt> coordinates.
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface AreaSizeFType extends AreaSizeValuesFType
 {

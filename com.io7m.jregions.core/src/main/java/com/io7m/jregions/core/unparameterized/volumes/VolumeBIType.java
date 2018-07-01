@@ -16,8 +16,8 @@
 
 package com.io7m.jregions.core.unparameterized.volumes;
 
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
 import java.math.BigInteger;
@@ -31,7 +31,7 @@ import java.math.BigInteger;
  * the X axis. Likewise for the Y and Z axes.</p>
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface VolumeBIType extends VolumeValuesBIType
 {

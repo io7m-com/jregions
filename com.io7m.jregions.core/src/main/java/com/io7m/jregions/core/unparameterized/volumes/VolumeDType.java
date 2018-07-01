@@ -16,8 +16,8 @@
 
 package com.io7m.jregions.core.unparameterized.volumes;
 
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
 /**
@@ -29,7 +29,7 @@ import org.immutables.value.Value;
  * the X axis. Likewise for the Y and Z axes.</p>
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface VolumeDType extends VolumeValuesDType
 {

@@ -21,10 +21,11 @@
 module com.io7m.jregions.core
 {
   requires static org.immutables.value;
+  requires static com.io7m.immutables.style;
+
   requires com.io7m.junreachable.core;
   requires com.io7m.jaffirm.core;
 
-  exports com.io7m.jregions.core;
   exports com.io7m.jregions.core.conversions;
   exports com.io7m.jregions.core.parameterized.areas;
   exports com.io7m.jregions.core.parameterized.sizes;

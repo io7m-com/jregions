@@ -25,6 +25,8 @@ import java.lang.annotation.Target;
 
 /**
  * Style settings for generated immutable types.
+ *
+ * @deprecated Use {@link com.io7m.immutables.styles.ImmutablesStyleType}
  */
 
 @Target({ElementType.PACKAGE, ElementType.TYPE})
@@ -39,6 +41,7 @@ import java.lang.annotation.Target;
   build = "build",
   visibility = Value.Style.ImplementationVisibility.PUBLIC,
   defaults = @Value.Immutable(copy = false))
+@Deprecated(since = "2.1.0")
 public @interface JRegionsImmutableStyleType
 {
   // No value-level representation

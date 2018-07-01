@@ -9,11 +9,11 @@
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>com.io7m.jregions.core</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
 
   <name>com.io7m.jregions.core</name>
   <description>Area types (Core)</description>
@@ -32,6 +32,11 @@
     <dependency>
       <groupId>org.immutables</groupId>
       <artifactId>value</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.io7m.immutables.style</groupId>
+      <artifactId>com.io7m.immutables.style</artifactId>
       <scope>provided</scope>
     </dependency>
   </dependencies>
@@ -676,6 +681,12 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
       </plugin>
 
+      <!-- Analyze semantic versioning -->
+      <plugin>
+        <groupId>biz.aQute.bnd</groupId>
+        <artifactId>bnd-baseline-maven-plugin</artifactId>
+      </plugin>
+
       <!-- Process annotations -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -691,26 +702,23 @@
         </configuration>
       </plugin>
 
-      <!-- Produce OSGi bundle -->
+      <!-- Produce OSGi manifest -->
       <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
+        <groupId>biz.aQute.bnd</groupId>
+        <artifactId>bnd-maven-plugin</artifactId>
         <configuration>
-          <instructions>
-            <Export-Package>
-              com.io7m.jregions.core,
-              com.io7m.jregions.core.conversions,
-              com.io7m.jregions.core.parameterized,
-              com.io7m.jregions.core.parameterized.areas,
-              com.io7m.jregions.core.parameterized.volumes,
-              com.io7m.jregions.core.parameterized.sizes,
-              com.io7m.jregions.core.unparameterized,
-              com.io7m.jregions.core.unparameterized.areas,
-              com.io7m.jregions.core.unparameterized.volumes,
+          <bnd><![CDATA[
+            Export-Package: com.io7m.jregions.core,           \
+              com.io7m.jregions.core.conversions,             \
+              com.io7m.jregions.core.parameterized,           \
+              com.io7m.jregions.core.parameterized.areas,     \
+              com.io7m.jregions.core.parameterized.volumes,   \
+              com.io7m.jregions.core.parameterized.sizes,     \
+              com.io7m.jregions.core.unparameterized,         \
+              com.io7m.jregions.core.unparameterized.areas,   \
+              com.io7m.jregions.core.unparameterized.volumes, \
               com.io7m.jregions.core.unparameterized.sizes
-            </Export-Package>
-          </instructions>
+]]></bnd>
         </configuration>
       </plugin>
     </plugins>

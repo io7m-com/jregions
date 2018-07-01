@@ -16,8 +16,8 @@
 
 package com.io7m.jregions.core.unparameterized.sizes;
 
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
 import java.math.BigDecimal;
@@ -26,7 +26,7 @@ import java.math.BigDecimal;
  * The size of an area with <tt>BigDecimal</tt> coordinates.
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface AreaSizeBDType extends AreaSizeValuesBDType
 {

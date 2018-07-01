@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.core.parameterized.volumes;
 
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import org.immutables.value.Value;
 
 /**
@@ -27,7 +27,7 @@ import org.immutables.value.Value;
  * @param <T> The precise type of volume
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface PVolumeXYZSplitDType<S, T extends PVolumeDType<S>>
 {
