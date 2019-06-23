@@ -21,7 +21,7 @@ import com.io7m.jaffirm.core.Preconditions;
 import org.immutables.value.Value;
 
 /**
- * <p>A volume with <tt>float</tt> coordinates.</p>
+ * <p>A volume with {@code float} coordinates.</p>
  *
  * <p>The coordinates of the area are given in <i>half-closed</i> form. That is,
  * {@link #minimumX()} refers to the minimum <i>inclusive</i> value on the X

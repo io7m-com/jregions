@@ -21,7 +21,7 @@ import com.io7m.jaffirm.core.Preconditions;
 import org.immutables.value.Value;
 
 /**
- * The size of an area with <tt>float</tt> coordinates.
+ * The size of an area with {@code float} coordinates.
  */
 
 @ImmutablesStyleType

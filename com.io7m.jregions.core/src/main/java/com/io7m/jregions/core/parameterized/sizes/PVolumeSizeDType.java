@@ -21,7 +21,7 @@ import com.io7m.jregions.core.unparameterized.sizes.VolumeSizeValuesDType;
 import org.immutables.value.Value;
 
 /**
- * The size of a volume with <tt>double</tt> coordinates.
+ * The size of a volume with {@code double} coordinates.
  *
  * @param <S> A phantom type parameter indicating the coordinate space of the
  *            volume

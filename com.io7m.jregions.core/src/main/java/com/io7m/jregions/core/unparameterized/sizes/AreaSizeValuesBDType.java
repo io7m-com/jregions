@@ -21,7 +21,7 @@ import org.immutables.value.Value;
 import java.math.BigDecimal;
 
 /**
- * The size of an area with <tt>BigDecimal</tt> coordinates.
+ * The size of an area with {@code BigDecimal} coordinates.
  */
 
 public interface AreaSizeValuesBDType

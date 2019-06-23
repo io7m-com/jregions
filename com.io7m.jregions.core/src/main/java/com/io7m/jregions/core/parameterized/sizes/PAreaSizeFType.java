@@ -22,7 +22,7 @@ import com.io7m.jregions.core.unparameterized.sizes.AreaSizeValuesFType;
 import org.immutables.value.Value;
 
 /**
- * The size of an area with <tt>float</tt> coordinates.
+ * The size of an area with {@code float} coordinates.
  *
  * @param <S> A phantom type parameter indicating the coordinate space of the
  *            area

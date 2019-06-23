@@ -20,7 +20,7 @@ import com.io7m.immutables.styles.ImmutablesStyleType;
 import org.immutables.value.Value;
 
 /**
- * The size of an area with <tt>int</tt> coordinates.
+ * The size of an area with {@code int} coordinates.
  */
 
 @ImmutablesStyleType

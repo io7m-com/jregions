@@ -21,7 +21,7 @@ import org.immutables.value.Value;
 import java.math.BigInteger;
 
 /**
- * The size of an area with <tt>BigInteger</tt> coordinates.
+ * The size of an area with {@code BigInteger} coordinates.
  */
 
 public interface AreaSizeValuesBIType

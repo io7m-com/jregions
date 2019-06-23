@@ -21,7 +21,7 @@ import com.io7m.jregions.core.unparameterized.sizes.AreaSizeValuesLType;
 import org.immutables.value.Value;
 
 /**
- * The size of an area with <tt>long</tt> coordinates.
+ * The size of an area with {@code long} coordinates.
  *
  * @param <S> A phantom type parameter indicating the coordinate space of the
  *            area

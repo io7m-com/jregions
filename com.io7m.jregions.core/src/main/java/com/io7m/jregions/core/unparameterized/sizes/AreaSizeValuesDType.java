@@ -19,7 +19,7 @@ package com.io7m.jregions.core.unparameterized.sizes;
 import org.immutables.value.Value;
 
 /**
- * The size of an area with <tt>double</tt> coordinates.
+ * The size of an area with {@code double} coordinates.
  */
 
 public interface AreaSizeValuesDType

@@ -22,7 +22,7 @@ import org.immutables.value.Value;
 import java.math.BigInteger;
 
 /**
- * The size of a volume with <tt>BigInteger</tt> coordinates.
+ * The size of a volume with {@code BigInteger} coordinates.
  */
 
 @ImmutablesStyleType

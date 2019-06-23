@@ -22,7 +22,7 @@ import org.immutables.value.Value;
 import java.math.BigDecimal;
 
 /**
- * The size of a volume with <tt>BigDecimal</tt> coordinates.
+ * The size of a volume with {@code BigDecimal} coordinates.
  */
 
 @ImmutablesStyleType

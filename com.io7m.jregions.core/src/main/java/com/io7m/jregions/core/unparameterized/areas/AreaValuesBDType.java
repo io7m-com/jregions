@@ -22,7 +22,7 @@ import org.immutables.value.Value;
 import java.math.BigDecimal;
 
 /**
- * <p>An area with <tt>BigDecimal</tt> coordinates.</p>
+ * <p>An area with {@code BigDecimal} coordinates.</p>
  *
  * <p>The coordinates of the area are given in <i>half-closed</i> form. That is,
  * {@link #minimumX()} refers to the minimum <i>inclusive</i> value on the X
