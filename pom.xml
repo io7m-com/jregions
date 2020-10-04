@@ -77,8 +77,8 @@
   </distributionManagement>
 
   <ciManagement>
-    <system>Travis CI</system>
-    <url>https://travis-ci.org/io7m/jregions</url>
+    <system>GitHub Actions</system>
+    <url>https://github.com/jregions/actions</url>
   </ciManagement>
 
   <dependencyManagement>
