@@ -16,10 +16,10 @@
 
 package com.io7m.jregions.core.parameterized.areas;
 
-import java.util.Objects;
 import com.io7m.junreachable.UnreachableCodeException;
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 final class PAreaBIOps
 {

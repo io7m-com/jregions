@@ -16,8 +16,9 @@
 
 package com.io7m.jregions.core.parameterized.sizes;
 
-import java.util.Objects;
 import com.io7m.junreachable.UnreachableCodeException;
+
+import java.util.Objects;
 
 /**
  * Functions over area sizes.

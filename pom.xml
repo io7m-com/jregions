@@ -11,7 +11,7 @@
 
   <groupId>com.io7m.jregions</groupId>
   <artifactId>com.io7m.jregions</artifactId>
-  <version>2.1.0-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>com.io7m.jregions</name>
@@ -95,6 +95,16 @@
       </dependency>
 
       <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.annotation.versioning</artifactId>
+        <version>1.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.annotation.bundle</artifactId>
+        <version>1.1.0</version>
+      </dependency>
+      <dependency>
         <groupId>com.io7m.immutables.style</groupId>
         <artifactId>com.io7m.immutables.style</artifactId>
         <version>0.0.1</version>
@@ -153,14 +163,18 @@
           <version>1.1</version>
         </plugin>
 
-        <!-- Require JDK >= 11 -->
+        <!-- Process annotations -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
-            <source>11</source>
-            <target>11</target>
-            <release>11</release>
+            <annotationProcessorPaths>
+              <dependency>
+                <groupId>org.immutables</groupId>
+                <artifactId>value</artifactId>
+                <version>${io7m.org.immutables.version}</version>
+              </dependency>
+            </annotationProcessorPaths>
           </configuration>
         </plugin>
       </plugins>

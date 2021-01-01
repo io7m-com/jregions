@@ -44,10 +44,10 @@ public interface AreaSizeFType extends AreaSizeValuesFType
   default void checkPreconditions()
   {
     Preconditions.checkPreconditionD(
-      (double) this.sizeX(),
+      this.sizeX(),
       (double) this.sizeX() >= 0.0, d -> "Width must be non-negative");
     Preconditions.checkPreconditionD(
-      (double) this.sizeY(),
+      this.sizeY(),
       (double) this.sizeY() >= 0.0, d -> "Height must be non-negative");
   }
 

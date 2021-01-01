@@ -57,11 +57,11 @@ public interface AreaFType extends AreaValuesFType
   default void checkPreconditions()
   {
     Preconditions.checkPreconditionD(
-      (double) this.maximumX(),
+      this.maximumX(),
       this.maximumX() >= this.minimumX(),
       x -> "X maximum must be >= X minimum");
     Preconditions.checkPreconditionD(
-      (double) this.maximumY(),
+      this.maximumY(),
       this.maximumY() >= this.minimumY(),
       y -> "Y maximum must be >= Y minimum");
   }
