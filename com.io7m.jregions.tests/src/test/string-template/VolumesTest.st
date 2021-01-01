@@ -542,9 +542,9 @@ public final class <className>
 
     System.out.println(ppx + " " + ppy + " " + ppz);
 
-    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.ZERO) \> 0;
-    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.ZERO) \> 0;
-    boolean sizeZ_over = <opClass>.compare(outer.sizeZ(), <opClass>.ZERO) \> 0;
+    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.ZERO) > 0;
+    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.ZERO) > 0;
+    boolean sizeZ_over = <opClass>.compare(outer.sizeZ(), <opClass>.ZERO) > 0;
 
     if (sizeX_over && sizeY_over && sizeZ_over) {
       Assert.assertTrue(<volumeOpsType>.containsPoint(outer, ppx, ppy, ppz));

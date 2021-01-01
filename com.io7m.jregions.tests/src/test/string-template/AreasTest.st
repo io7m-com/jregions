@@ -1143,8 +1143,8 @@ public final class <className>
     System.out.println("ppx:   " + ppx);
     System.out.println("ppy:   " + ppy);
 
-    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) \> 0;
-    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) \> 0;
+    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) > 0;
+    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) > 0;
 
     if (sizeX_over && sizeY_over) {
       Assert.assertTrue(<areaOpsType>.containsPoint(outer, ppx, ppy));
@@ -1412,12 +1412,12 @@ public final class <className>
     <opClass>.checkEquals(outer.sizeX(),  lower.sizeX());
     <opClass>.checkEquals(outer.sizeX(),  upper.sizeX());
 
-    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) \> 0;
-    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) \> 0;
+    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) > 0;
+    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) > 0;
 
     if (sizeX_over && sizeY_over) {
-      final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(lower.sizeY(), <opClass>.constant("0")) \> 0;
-      final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) \> 0;
+      final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.constant("0")) > 0 && <opClass>.compare(lower.sizeY(), <opClass>.constant("0")) > 0;
+      final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) > 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) > 0;
 
       if (lower_ok) {
         Assert.assertTrue(<areaOpsType>.overlaps(outer, lower));
@@ -1581,12 +1581,12 @@ public final class <className>
     <opClass>.checkEquals(outer.sizeY(), lower.sizeY());
     <opClass>.checkEquals(outer.sizeY(), upper.sizeY());
 
-    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) \> 0;
-    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) \> 0;
+    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) > 0;
+    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) > 0;
 
     if (sizeX_over && sizeY_over) {
-      final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(lower.sizeY(), <opClass>.constant("0")) \> 0;
-      final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) \> 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) \> 0;
+      final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.constant("0")) > 0 && <opClass>.compare(lower.sizeY(), <opClass>.constant("0")) > 0;
+      final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) > 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) > 0;
 
       if (lower_ok) {
         Assert.assertTrue(<areaOpsType>.overlaps(outer, lower));
