@@ -132,6 +132,13 @@ final class PAreasBITestOps
     return () -> BigInteger.valueOf(base.next().longValue());
   }
 
+  public static Generator<BigInteger> createWidePositiveScalarGenerator()
+  {
+    final Generator<Long> base =
+      PrimitiveGenerators.longs(1L, 1_000_000L);
+    return () -> BigInteger.valueOf(base.next().longValue());
+  }
+
   public static Generator<PAreaBI<Object>> createGenerator()
   {
     return PAreaBIGenerator.create();

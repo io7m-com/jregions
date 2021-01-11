@@ -140,6 +140,7 @@ public final class <className>
 
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
+    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
 
     final var x = gen.next();
     final var moved = <areaOpsType>.moveRelativeClampedX(outer, inner, x);
@@ -147,7 +148,7 @@ public final class <className>
     <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
 
-    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
+    Assert.assertTrue(<areaOpsType>.contains(outer, moved));
   }
 
   @Test
@@ -229,6 +230,7 @@ public final class <className>
 
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
+    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
 
     final var y = gen.next();
     final var moved = <areaOpsType>.moveRelativeClampedY(outer, inner, y);
@@ -236,7 +238,7 @@ public final class <className>
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
 
-    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
+    Assert.assertTrue(<areaOpsType>.contains(outer, moved));
   }
 
   @Test

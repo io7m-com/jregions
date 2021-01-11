@@ -128,6 +128,13 @@ final class AreasITestOps
     return () -> Integer.valueOf(base.next().intValue());
   }
 
+  public static Generator<Integer> createWidePositiveScalarGenerator()
+  {
+    final Generator<Double> base =
+      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
+    return () -> Integer.valueOf(base.next().intValue());
+  }
+
   public static Generator<AreaI> createGenerator()
   {
     return AreaIGenerator.create();

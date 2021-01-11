@@ -128,6 +128,13 @@ final class PVolumesLTestOps
     return () -> Long.valueOf(base.next().longValue());
   }
 
+  public static Generator<Long> createWidePositiveScalarGenerator()
+  {
+    final Generator<Double> base =
+      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
+    return () -> Long.valueOf(base.next().longValue());
+  }
+
   public static Generator<PVolumeL<Object>> createGenerator()
   {
     return PVolumeLGenerator.create();

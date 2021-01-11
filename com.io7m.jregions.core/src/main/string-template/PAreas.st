@@ -248,11 +248,8 @@ public final class <className>
     final <scalarType> x,
     final <scalarType> y)
   {
-    return moveRelativeClampedY(
-      container,
-      moveRelativeClampedX(container, area, x),
-      y
-    );
+    final var m0 = moveRelativeClampedX(container, area, x);
+    return moveRelativeClampedY(container, m0, y);
   }
 
   /**

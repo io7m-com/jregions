@@ -133,6 +133,13 @@ final class VolumesBDTestOps
     return () -> BigDecimal.valueOf(base.next().doubleValue());
   }
 
+  public static Generator<BigDecimal> createWidePositiveScalarGenerator()
+  {
+    final Generator<Double> base =
+      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
+    return () -> BigDecimal.valueOf(base.next().doubleValue());
+  }
+
   public static Generator<VolumeBD> createGenerator()
   {
     return VolumeBDGenerator.create();

@@ -128,6 +128,13 @@ final class VolumesITestOps
     return () -> Integer.valueOf(base.next().intValue());
   }
 
+  public static Generator<Integer> createWidePositiveScalarGenerator()
+  {
+    final Generator<Double> base =
+      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
+    return () -> Integer.valueOf(base.next().intValue());
+  }
+
   public static Generator<VolumeI> createGenerator()
   {
     return VolumeIGenerator.create();
