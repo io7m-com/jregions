@@ -143,6 +143,119 @@ public final class <className>
   }
 
   /**
+   * Move the given area by {@code x}, without allowing {@code area}
+   * to leave {@code container}.
+   *
+   * @param container The container area
+   * @param area      The area
+   * @param x         The amount to move on the X axis
+   * @param \<S>  The coordinate space of the area
+   *
+   * @since 3.0.0
+   * @return A moved area
+   */
+
+  public static \<S> <areaType>\<S> moveRelativeClampedX(
+    final <areaType>\<S> container,
+    final <areaType>\<S> area,
+    final <scalarType> x)
+  {
+    <opClass>.notNullArea(container, "Container");
+    <opClass>.notNullArea(area, "Area");
+
+    Preconditions.checkPrecondition(
+      contains(container, area),
+      "Container must contain area");
+
+    final var sizeX = area.sizeX();
+    final var newMinY = area.minimumY();
+    final var newMaxY = area.maximumY();
+    final var movedOnX = moveRelative(area, x, <opClass>.ZERO);
+    if (!contains(container, movedOnX)) {
+      if (<opClass>.compare(x, <opClass>.ZERO) \< 0) {
+        final var newMinX = container.minimumX();
+        final var newMaxX = <opClass>.minimum(container.maximumX(), <opClass>.add(newMinX, sizeX));
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      } else {
+        final var newMinX = <opClass>.maximum(container.minimumX(), <opClass>.subtract(container.maximumX(), sizeX));
+        final var newMaxX = container.maximumX();
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      }
+    }
+    return movedOnX;
+  }
+
+  /**
+   * Move the given area by {@code y}, without allowing {@code area}
+   * to leave {@code container}.
+   *
+   * @param container The container area
+   * @param area      The area
+   * @param y         The amount to move on the Y axis
+   * @param \<S>  The coordinate space of the area
+   *
+   * @since 3.0.0
+   * @return A moved area
+   */
+
+  public static \<S> <areaType>\<S> moveRelativeClampedY(
+    final <areaType>\<S> container,
+    final <areaType>\<S> area,
+    final <scalarType> y)
+  {
+    <opClass>.notNullArea(container, "Container");
+    <opClass>.notNullArea(area, "Area");
+
+    Preconditions.checkPrecondition(
+      contains(container, area),
+      "Container must contain area");
+
+    final var sizeY = area.sizeY();
+    final var newMinX = area.minimumX();
+    final var newMaxX = area.maximumX();
+    final var movedOnY = moveRelative(area, <opClass>.ZERO, y);
+    if (!contains(container, movedOnY)) {
+      if (<opClass>.compare(y, <opClass>.ZERO) \< 0) {
+        final var newMinY = container.minimumY();
+        final var newMaxY = <opClass>.minimum(container.maximumY(), <opClass>.add(newMinY, sizeY));
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      } else {
+        final var newMinY = <opClass>.maximum(container.minimumY(), <opClass>.subtract(container.maximumY(), sizeY));
+        final var newMaxY = container.maximumY();
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      }
+    }
+    return movedOnY;
+  }
+
+  /**
+   * Move the given area by {@code (x, y)}, without allowing {@code area}
+   * to leave {@code container}.
+   *
+   * @param container The container area
+   * @param area      The area
+   * @param x         The amount to move on the X axis
+   * @param y         The amount to move on the Y axis
+   * @param \<S>      The coordinate space of the area
+   *
+   * @since 3.0.0
+   * @return A moved area
+   */
+
+  public static \<S> <areaType>\<S> moveRelativeClamped(
+    final <areaType>\<S> container,
+    final <areaType>\<S> area,
+    final <scalarType> x,
+    final <scalarType> y)
+  {
+    return moveRelativeClampedY(
+      container,
+      moveRelativeClampedX(container, area, x),
+      y
+    );
+  }
+
+  /**
    * Move the given area to {@code (x, y)}.
    *
    * @param area The area
