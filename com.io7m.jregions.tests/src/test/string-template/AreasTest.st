@@ -28,6 +28,7 @@ AreasTest(
 package com.io7m.jregions.tests.core.unparameterized;
 
 import com.io7m.jaffirm.core.Preconditions;
+import com.io7m.jaffirm.core.PreconditionViolationException;
 import java.util.Objects;
 import com.io7m.junreachable.UnreachableCodeException;
 
@@ -119,6 +120,215 @@ public final class <className>
     <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
     <opClass>.checkEquals(<opClass>.absolute(x), <opClass>.absoluteDifference(outer.minimumX(), moved.minimumX()));
     <opClass>.checkEquals(<opClass>.absolute(y), <opClass>.absoluteDifference(outer.minimumY(), moved.minimumY()));
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClampedX()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.next();
+
+    final var left_offset = gen.next();
+    final var right_offset = gen.next();
+    final var top_offset = gen.next();
+    final var bottom_offset = gen.next();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
+
+    final var x = gen.next();
+    final var moved = <areaOpsType>.moveRelativeClampedX(outer, inner, x);
+
+    <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+
+    Assert.assertTrue(<areaOpsType>.contains(outer, moved));
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClampedXZero()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.next();
+
+    final var left_offset = gen.next();
+    final var right_offset = gen.next();
+    final var top_offset = gen.next();
+    final var bottom_offset = gen.next();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    final var x = gen.next();
+    final var moved = <areaOpsType>.moveRelativeClampedX(outer, inner, <opClass>.ZERO);
+
+    Assert.assertEquals(inner, moved);
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClampedXNoContainment()
+    throws Exception
+  {
+    final var nnGen =
+      <opClass>.createWideNonNegativeScalarGenerator();
+    final var gen =
+      <opClass>.createWideScalarGenerator();
+    final var generator =
+      <opClass>.createGenerator();
+
+    final var outer = generator.next();
+
+    final var left_offset = nnGen.next();
+    final var right_offset = nnGen.next();
+    final var top_offset = nnGen.next();
+    final var bottom_offset = nnGen.next();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    Assert.assertFalse(<areaOpsType>.contains(inner, outer));
+
+    final var x = gen.next();
+
+    try {
+      <areaOpsType>.moveRelativeClampedX(inner, outer, x);
+      Assert.fail();
+    } catch (PreconditionViolationException e) {
+      // Good
+    }
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClampedY()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.next();
+
+    final var left_offset = gen.next();
+    final var right_offset = gen.next();
+    final var top_offset = gen.next();
+    final var bottom_offset = gen.next();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
+
+    final var y = gen.next();
+    final var moved = <areaOpsType>.moveRelativeClampedY(outer, inner, y);
+
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+
+    Assert.assertTrue(<areaOpsType>.contains(outer, moved));
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClampedYZero()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.next();
+
+    final var left_offset = gen.next();
+    final var right_offset = gen.next();
+    final var top_offset = gen.next();
+    final var bottom_offset = gen.next();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    final var x = gen.next();
+    final var moved = <areaOpsType>.moveRelativeClampedY(outer, inner, <opClass>.ZERO);
+
+    Assert.assertEquals(inner, moved);
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClampedYNoContainment()
+    throws Exception
+  {
+    final var nnGen =
+      <opClass>.createWideNonNegativeScalarGenerator();
+    final var gen =
+      <opClass>.createWideScalarGenerator();
+    final var generator =
+      <opClass>.createGenerator();
+
+    final var outer = generator.next();
+
+    final var left_offset = nnGen.next();
+    final var right_offset = nnGen.next();
+    final var top_offset = nnGen.next();
+    final var bottom_offset = nnGen.next();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    Assert.assertFalse(<areaOpsType>.contains(inner, outer));
+
+    final var y = gen.next();
+
+    try {
+      <areaOpsType>.moveRelativeClampedY(inner, outer, y);
+      Assert.fail();
+    } catch (PreconditionViolationException e) {
+      // Good
+    }
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClamped()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.next();
+
+    final var left_offset = gen.next();
+    final var right_offset = gen.next();
+    final var top_offset = gen.next();
+    final var bottom_offset = gen.next();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    final var x = gen.next();
+    final var y = gen.next();
+    final var moved = <areaOpsType>.moveRelativeClamped(outer, inner, x, y);
+
+    <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+
+    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
   }
 
   @Test

@@ -17,6 +17,7 @@
 package com.io7m.jregions.tests.core;
 
 import com.io7m.jregions.core.conversions.AreaConversions;
+import com.io7m.jregions.core.conversions.AreaSizeConversions;
 import com.io7m.jregions.core.parameterized.areas.PAreasBD;
 import com.io7m.jregions.core.parameterized.areas.PAreasBI;
 import com.io7m.jregions.core.parameterized.areas.PAreasD;
@@ -84,6 +85,14 @@ public final class UnreachableTest
     throws Throwable
   {
     this.checkUnreachable(AreaConversions.class);
+    Assert.fail();
+  }
+
+  @Test
+  public void testAreaSizeConversions()
+    throws Throwable
+  {
+    this.checkUnreachable(AreaSizeConversions.class);
     Assert.fail();
   }
 

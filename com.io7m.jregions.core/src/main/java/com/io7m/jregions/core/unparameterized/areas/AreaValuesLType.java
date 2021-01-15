@@ -59,6 +59,7 @@ public interface AreaValuesLType extends AreaSizeValuesLType
   long maximumY();
 
   @Override
+  @Value.Auxiliary
   @Value.Derived
   default long sizeX()
   {
@@ -66,6 +67,7 @@ public interface AreaValuesLType extends AreaSizeValuesLType
   }
 
   @Override
+  @Value.Auxiliary
   @Value.Derived
   default long sizeY()
   {

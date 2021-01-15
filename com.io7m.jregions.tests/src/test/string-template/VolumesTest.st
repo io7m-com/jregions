@@ -26,6 +26,7 @@ VolumesTest(
 package com.io7m.jregions.tests.core.unparameterized;
 
 import com.io7m.jaffirm.core.Preconditions;
+import com.io7m.jaffirm.core.PreconditionViolationException;
 import java.util.Objects;
 import com.io7m.junreachable.UnreachableCodeException;
 
@@ -286,6 +287,188 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.absolute(x), <opClass>.absoluteDifference(outer.minimumX(), moved.minimumX()));
     <opClass>.checkEquals(<opClass>.absolute(y), <opClass>.absoluteDifference(outer.minimumY(), moved.minimumY()));
     <opClass>.checkEquals(<opClass>.absolute(z), <opClass>.absoluteDifference(outer.minimumZ(), moved.minimumZ()));
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClampedX()
+    throws Exception
+  {
+    final var sGen =
+      <opClass>.createWideScalarGenerator();
+    final var gen =
+      <opClass>.createWidePositiveScalarGenerator();
+    final var generator =
+      <opClass>.createGenerator();
+    final var inner =
+      generator.next();
+
+    final var x0off = gen.next();
+    final var x1off = gen.next();
+    final var y0off = gen.next();
+    final var y1off = gen.next();
+    final var z0off = gen.next();
+    final var z1off = gen.next();
+
+    final var outer =
+      <volumeType>.of(
+        <opClass>.subtract(inner.minimumX(), x0off),
+        <opClass>.add(inner.maximumX(), x1off),
+        <opClass>.subtract(inner.minimumY(), y0off),
+        <opClass>.add(inner.maximumY(), y1off),
+        <opClass>.subtract(inner.minimumZ(), z0off),
+        <opClass>.add(inner.maximumZ(), z1off)
+      );
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+    Assert.assertTrue(<volumeOpsType>.contains(outer, inner));
+
+    final var x = sGen.next();
+    final var moved = <volumeOpsType>.moveRelativeClampedX(outer, inner, x);
+
+    <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+    <opClass>.checkEquals(inner.sizeZ(), moved.sizeZ());
+
+    Assert.assertTrue(<volumeOpsType>.contains(outer, moved));
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClampedY()
+    throws Exception
+  {
+    final var sGen =
+      <opClass>.createWideScalarGenerator();
+    final var gen =
+      <opClass>.createWidePositiveScalarGenerator();
+    final var generator =
+      <opClass>.createGenerator();
+    final var inner =
+      generator.next();
+
+    final var x0off = gen.next();
+    final var x1off = gen.next();
+    final var y0off = gen.next();
+    final var y1off = gen.next();
+    final var z0off = gen.next();
+    final var z1off = gen.next();
+
+    final var outer =
+      <volumeType>.of(
+        <opClass>.subtract(inner.minimumX(), x0off),
+        <opClass>.add(inner.maximumX(), x1off),
+        <opClass>.subtract(inner.minimumY(), y0off),
+        <opClass>.add(inner.maximumY(), y1off),
+        <opClass>.subtract(inner.minimumZ(), z0off),
+        <opClass>.add(inner.maximumZ(), z1off)
+      );
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+    Assert.assertTrue(<volumeOpsType>.contains(outer, inner));
+
+    final var y = sGen.next();
+    final var moved = <volumeOpsType>.moveRelativeClampedY(outer, inner, y);
+
+    <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+    <opClass>.checkEquals(inner.sizeZ(), moved.sizeZ());
+
+    Assert.assertTrue(<volumeOpsType>.contains(outer, moved));
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClampedZ()
+    throws Exception
+  {
+    final var sGen =
+      <opClass>.createWideScalarGenerator();
+    final var gen =
+      <opClass>.createWidePositiveScalarGenerator();
+    final var generator =
+      <opClass>.createGenerator();
+    final var inner =
+      generator.next();
+
+    final var x0off = gen.next();
+    final var x1off = gen.next();
+    final var y0off = gen.next();
+    final var y1off = gen.next();
+    final var z0off = gen.next();
+    final var z1off = gen.next();
+
+    final var outer =
+      <volumeType>.of(
+        <opClass>.subtract(inner.minimumX(), x0off),
+        <opClass>.add(inner.maximumX(), x1off),
+        <opClass>.subtract(inner.minimumY(), y0off),
+        <opClass>.add(inner.maximumY(), y1off),
+        <opClass>.subtract(inner.minimumZ(), z0off),
+        <opClass>.add(inner.maximumZ(), z1off)
+      );
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+    Assert.assertTrue(<volumeOpsType>.contains(outer, inner));
+
+    final var z = sGen.next();
+    final var moved = <volumeOpsType>.moveRelativeClampedZ(outer, inner, z);
+
+    <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+    <opClass>.checkEquals(inner.sizeZ(), moved.sizeZ());
+
+    Assert.assertTrue(<volumeOpsType>.contains(outer, moved));
+  }
+
+  @Test
+  @PercentagePassing
+  public void testMoveRelativeClamped()
+    throws Exception
+  {
+    final var sGen =
+      <opClass>.createWideScalarGenerator();
+    final var gen =
+      <opClass>.createWidePositiveScalarGenerator();
+    final var generator =
+      <opClass>.createGenerator();
+    final var inner =
+      generator.next();
+
+    final var x0off = gen.next();
+    final var x1off = gen.next();
+    final var y0off = gen.next();
+    final var y1off = gen.next();
+    final var z0off = gen.next();
+    final var z1off = gen.next();
+
+    final var outer =
+      <volumeType>.of(
+        <opClass>.subtract(inner.minimumX(), x0off),
+        <opClass>.add(inner.maximumX(), x1off),
+        <opClass>.subtract(inner.minimumY(), y0off),
+        <opClass>.add(inner.maximumY(), y1off),
+        <opClass>.subtract(inner.minimumZ(), z0off),
+        <opClass>.add(inner.maximumZ(), z1off)
+      );
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+    Assert.assertTrue(<volumeOpsType>.contains(outer, inner));
+
+    final var x = sGen.next();
+    final var y = sGen.next();
+    final var z = sGen.next();
+    final var moved = <volumeOpsType>.moveRelativeClamped(outer, inner, x, y, z);
+
+    <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+    <opClass>.checkEquals(inner.sizeZ(), moved.sizeZ());
+
+    Assert.assertTrue(<volumeOpsType>.contains(outer, moved));
   }
 
   @Test

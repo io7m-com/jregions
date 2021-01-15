@@ -129,6 +129,13 @@ final class PAreasFTestOps
     return () -> Float.valueOf(base.next().floatValue());
   }
 
+  public static Generator<Float> createWidePositiveScalarGenerator()
+  {
+    final Generator<Double> base =
+      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
+    return () -> Float.valueOf(base.next().floatValue());
+  }
+
   public static Generator<PAreaF<Object>> createGenerator()
   {
     return PAreaFGenerator.create();

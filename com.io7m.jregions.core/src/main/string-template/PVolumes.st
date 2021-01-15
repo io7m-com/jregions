@@ -161,13 +161,181 @@ public final class <className>
   }
 
   /**
+   * Move the given volume by {@code x}, without allowing {@code volume}
+   * to leave {@code container}.
+   *
+   * @param container The container volume
+   * @param volume    The volume
+   * @param x         The amount to move on the X axis
+   * @param \<S>      The coordinate space of the volume
+   *
+   * @since 3.0.0
+   * @return A moved volume
+   */
+
+  public static \<S> <volumeType>\<S> moveRelativeClampedX(
+    final <volumeType>\<S> container,
+    final <volumeType>\<S> volume,
+    final <scalarType> x)
+  {
+    <opClass>.notNullVolume(container, "Container");
+    <opClass>.notNullVolume(volume, "Volume");
+
+    Preconditions.checkPrecondition(
+      contains(container, volume),
+      "Container must contain volume");
+
+    final var sizeX = volume.sizeX();
+    final var newMinY = volume.minimumY();
+    final var newMaxY = volume.maximumY();
+    final var newMinZ = volume.minimumZ();
+    final var newMaxZ = volume.maximumZ();
+    final var movedOnX = moveRelative(volume, x, <opClass>.ZERO, <opClass>.ZERO);
+    if (!contains(container, movedOnX)) {
+      if (<opClass>.compare(x, <opClass>.ZERO) \< 0) {
+        final var newMinX = container.minimumX();
+        final var newMaxX = <opClass>.minimum(container.maximumX(), <opClass>.add(newMinX, sizeX));
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      } else {
+        final var newMinX = <opClass>.maximum(container.minimumX(), <opClass>.subtract(container.maximumX(), sizeX));
+        final var newMaxX = container.maximumX();
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      }
+    }
+    return movedOnX;
+  }
+
+  /**
+   * Move the given volume by {@code y}, without allowing {@code volume}
+   * to leave {@code container}.
+   *
+   * @param container The container volume
+   * @param volume    The volume
+   * @param y         The amount to move on the Y axis
+   * @param \<S>      The coordinate space of the volume
+   *
+   * @since 3.0.0
+   * @return A moved volume
+   */
+
+  public static \<S> <volumeType>\<S> moveRelativeClampedY(
+    final <volumeType>\<S> container,
+    final <volumeType>\<S> volume,
+    final <scalarType> y)
+  {
+    <opClass>.notNullVolume(container, "Container");
+    <opClass>.notNullVolume(volume, "Volume");
+
+    Preconditions.checkPrecondition(
+      contains(container, volume),
+      "Container must contain volume");
+
+    final var sizeY = volume.sizeY();
+    final var newMinX = volume.minimumX();
+    final var newMaxX = volume.maximumX();
+    final var newMinZ = volume.minimumZ();
+    final var newMaxZ = volume.maximumZ();
+    final var movedOnY = moveRelative(volume, <opClass>.ZERO, y, <opClass>.ZERO);
+    if (!contains(container, movedOnY)) {
+      if (<opClass>.compare(y, <opClass>.ZERO) \< 0) {
+        final var newMinY = container.minimumY();
+        final var newMaxY = <opClass>.minimum(container.maximumY(), <opClass>.add(newMinY, sizeY));
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      } else {
+        final var newMinY = <opClass>.maximum(container.minimumY(), <opClass>.subtract(container.maximumY(), sizeY));
+        final var newMaxY = container.maximumY();
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      }
+    }
+    return movedOnY;
+  }
+
+  /**
+   * Move the given volume by {@code z}, without allowing {@code volume}
+   * to leave {@code container}.
+   *
+   * @param container The container volume
+   * @param volume    The volume
+   * @param z         The amount to move on the Z axis
+   * @param \<S>      The coordinate space of the volume
+   *
+   * @since 3.0.0
+   * @return A moved volume
+   */
+
+  public static \<S> <volumeType>\<S> moveRelativeClampedZ(
+    final <volumeType>\<S> container,
+    final <volumeType>\<S> volume,
+    final <scalarType> z)
+  {
+    <opClass>.notNullVolume(container, "Container");
+    <opClass>.notNullVolume(volume, "Volume");
+
+    Preconditions.checkPrecondition(
+      contains(container, volume),
+      "Container must contain volume");
+
+    final var sizeZ = volume.sizeZ();
+    final var newMinX = volume.minimumX();
+    final var newMaxX = volume.maximumX();
+    final var newMinY = volume.minimumY();
+    final var newMaxY = volume.maximumY();
+    final var movedOnZ = moveRelative(volume, <opClass>.ZERO, <opClass>.ZERO, z);
+    if (!contains(container, movedOnZ)) {
+      if (<opClass>.compare(z, <opClass>.ZERO) \< 0) {
+        final var newMinZ = container.minimumZ();
+        final var newMaxZ = <opClass>.minimum(container.maximumZ(), <opClass>.add(newMinZ, sizeZ));
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      } else {
+        final var newMinZ = <opClass>.maximum(container.minimumZ(), <opClass>.subtract(container.maximumZ(), sizeZ));
+        final var newMaxZ = container.maximumZ();
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      }
+    }
+    return movedOnZ;
+  }
+
+  /**
+   * Move the given volume by {@code (x, y, z)}, without allowing {@code volume}
+   * to leave {@code container}.
+   *
+   * @param container The container volume
+   * @param volume    The volume
+   * @param x         The amount to move on the X axis
+   * @param y         The amount to move on the Y axis
+   * @param z         The amount to move on the Z axis
+   * @param \<S>      The coordinate space of the volume
+   * @since 3.0.0
+   * @return A moved volume
+   */
+
+  public static \<S> <volumeType>\<S> moveRelativeClamped(
+    final <volumeType>\<S> container,
+    final <volumeType>\<S> volume,
+    final <scalarType> x,
+    final <scalarType> y,
+    final <scalarType> z)
+  {
+    <opClass>.notNullVolume(container, "Container");
+    <opClass>.notNullVolume(volume, "Volume");
+
+    Preconditions.checkPrecondition(
+      contains(container, volume),
+      "Container must contain volume");
+
+    final var m0 = moveRelativeClampedX(container, volume, x);
+    final var m1 = moveRelativeClampedY(container, m0, y);
+    return moveRelativeClampedZ(container, m1, z);
+  }
+
+  /**
    * Move the given volume to {@code (x, y, z)}.
    *
    * @param volume The volume
    * @param x    The position to which to move on the X axis
    * @param y    The position to which to move on the Y axis
    * @param z    The position to which to move on the Z axis
-   * @param \<S>  The coordinate space of the volume
+   * @param \<S> The coordinate space of the volume
    *
    * @return A moved volume
    */
@@ -202,17 +370,6 @@ public final class <className>
       volume.sizeX(),
       volume.sizeY(),
       volume.sizeZ());
-  }
-
-  private static <scalarType> clamp(
-    final <scalarType> x,
-    final <scalarType> minimum,
-    final <scalarType> maximum)
-  {
-    Preconditions.checkPrecondition(
-      <opClass>.compare(maximum, minimum) >= 0,
-      "Maximum >= minimum");
-    return <opClass>.maximum(<opClass>.minimum(x, maximum), minimum);
   }
 
   /**
