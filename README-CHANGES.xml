@@ -96,11 +96,16 @@
         <c:change compatible="false" date="2017-12-07T00:00:00+00:00" summary="All modules are now Java 9 modules. JDK 9 is now required."/>
       </c:changes>
     </c:release>
-    <c:release date="2021-01-11T12:45:44+00:00" is-open="true" ticket-system="com.github.io7m.jregions" version="3.0.0">
+    <c:release date="2021-01-15T19:00:02+00:00" is-open="true" ticket-system="com.github.io7m.jregions" version="3.0.0">
       <c:changes>
-        <c:change date="2021-01-11T12:45:44+00:00" summary="Add moveRelativeClamped">
+        <c:change date="2021-01-11T00:00:00+00:00" summary="Add moveRelativeClamped">
           <c:tickets>
             <c:ticket id="16"/>
+          </c:tickets>
+        </c:change>
+        <c:change date="2021-01-15T19:00:02+00:00" summary="Upgrade to Junit 5">
+          <c:tickets>
+            <c:ticket id="18"/>
           </c:tickets>
         </c:change>
       </c:changes>
