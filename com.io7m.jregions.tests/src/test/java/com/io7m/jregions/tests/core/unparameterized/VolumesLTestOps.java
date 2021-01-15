@@ -21,7 +21,7 @@ import com.io7m.jregions.generators.VolumeLGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 final class VolumesLTestOps
 {
@@ -37,7 +37,7 @@ final class VolumesLTestOps
     final long expected,
     final long actual)
   {
-    Assert.assertEquals(expected, actual);
+    Assertions.assertEquals(expected, actual);
   }
 
   public static long constant(

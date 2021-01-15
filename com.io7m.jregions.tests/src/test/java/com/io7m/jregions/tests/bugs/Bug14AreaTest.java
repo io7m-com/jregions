@@ -28,8 +28,8 @@ import com.io7m.jregions.core.unparameterized.areas.AreasD;
 import com.io7m.jregions.core.unparameterized.areas.AreasF;
 import com.io7m.jregions.core.unparameterized.areas.AreasI;
 import com.io7m.jregions.core.unparameterized.areas.AreasL;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -51,8 +51,8 @@ public final class Bug14AreaTest
         0L,
         0L,
         0L);
-    Assert.assertTrue(AreasL.overlaps(area0, area1));
-    Assert.assertTrue(AreasL.overlaps(area1, area0));
+    Assertions.assertTrue(AreasL.overlaps(area0, area1));
+    Assertions.assertTrue(AreasL.overlaps(area1, area0));
   }
 
   @Test
@@ -70,8 +70,8 @@ public final class Bug14AreaTest
         0,
         0,
         0);
-    Assert.assertTrue(AreasI.overlaps(area0, area1));
-    Assert.assertTrue(AreasI.overlaps(area1, area0));
+    Assertions.assertTrue(AreasI.overlaps(area0, area1));
+    Assertions.assertTrue(AreasI.overlaps(area1, area0));
   }
 
   @Test
@@ -89,8 +89,8 @@ public final class Bug14AreaTest
         (double) 0L,
         (double) 0L,
         (double) 0L);
-    Assert.assertTrue(AreasD.overlaps(area0, area1));
-    Assert.assertTrue(AreasD.overlaps(area1, area0));
+    Assertions.assertTrue(AreasD.overlaps(area0, area1));
+    Assertions.assertTrue(AreasD.overlaps(area1, area0));
   }
 
   @Test
@@ -108,8 +108,8 @@ public final class Bug14AreaTest
         (float) 0L,
         (float) 0L,
         (float) 0L);
-    Assert.assertTrue(AreasF.overlaps(area0, area1));
-    Assert.assertTrue(AreasF.overlaps(area1, area0));
+    Assertions.assertTrue(AreasF.overlaps(area0, area1));
+    Assertions.assertTrue(AreasF.overlaps(area1, area0));
   }
 
   @Test
@@ -127,8 +127,8 @@ public final class Bug14AreaTest
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(AreasBI.overlaps(area0, area1));
-    Assert.assertTrue(AreasBI.overlaps(area1, area0));
+    Assertions.assertTrue(AreasBI.overlaps(area0, area1));
+    Assertions.assertTrue(AreasBI.overlaps(area1, area0));
   }
 
   @Test
@@ -146,8 +146,8 @@ public final class Bug14AreaTest
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(AreasBD.overlaps(area0, area1));
-    Assert.assertTrue(AreasBD.overlaps(area1, area0));
+    Assertions.assertTrue(AreasBD.overlaps(area0, area1));
+    Assertions.assertTrue(AreasBD.overlaps(area1, area0));
   }
 
   @Test
@@ -165,7 +165,7 @@ public final class Bug14AreaTest
         0L,
         0L,
         0L);
-    Assert.assertTrue(AreasL.contains(area0, area1));
+    Assertions.assertTrue(AreasL.contains(area0, area1));
   }
 
   @Test
@@ -183,7 +183,7 @@ public final class Bug14AreaTest
         0,
         0,
         0);
-    Assert.assertTrue(AreasI.contains(area0, area1));
+    Assertions.assertTrue(AreasI.contains(area0, area1));
   }
 
   @Test
@@ -201,7 +201,7 @@ public final class Bug14AreaTest
         0,
         0,
         0);
-    Assert.assertTrue(AreasD.contains(area0, area1));
+    Assertions.assertTrue(AreasD.contains(area0, area1));
   }
 
   @Test
@@ -219,7 +219,7 @@ public final class Bug14AreaTest
         0,
         0,
         0);
-    Assert.assertTrue(AreasF.contains(area0, area1));
+    Assertions.assertTrue(AreasF.contains(area0, area1));
   }
 
   @Test
@@ -237,7 +237,7 @@ public final class Bug14AreaTest
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(AreasBI.contains(area0, area1));
+    Assertions.assertTrue(AreasBI.contains(area0, area1));
   }
 
   @Test
@@ -255,6 +255,6 @@ public final class Bug14AreaTest
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(AreasBD.contains(area0, area1));
+    Assertions.assertTrue(AreasBD.contains(area0, area1));
   }
 }

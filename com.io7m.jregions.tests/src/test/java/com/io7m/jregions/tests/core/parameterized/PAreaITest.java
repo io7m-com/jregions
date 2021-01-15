@@ -18,41 +18,42 @@ package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
 import com.io7m.jregions.core.parameterized.areas.PAreaI;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public final class PAreaITest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   @Test
   public void testIdentities()
   {
     final PAreaI<Object> area = PAreaI.of(0, 100, 0, 100);
-    Assert.assertEquals(0L, (long) area.minimumX());
-    Assert.assertEquals(0L, (long) area.minimumY());
-    Assert.assertEquals(100L, (long) area.sizeX());
-    Assert.assertEquals(100L, (long) area.sizeY());
-    Assert.assertEquals(100L, (long) area.maximumX());
-    Assert.assertEquals(100L, (long) area.maximumY());
+    Assertions.assertEquals(0L, area.minimumX());
+    Assertions.assertEquals(0L, area.minimumY());
+    Assertions.assertEquals(100L, area.sizeX());
+    Assertions.assertEquals(100L, area.sizeY());
+    Assertions.assertEquals(100L, area.maximumX());
+    Assertions.assertEquals(100L, area.maximumY());
   }
 
   @Test
   public void testBadX()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("X"));
-    PAreaI.of(10, 9, 0, 100);
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        PAreaI.of(10, 9, 0, 100);
+      });
+    Assertions.assertTrue(e.getMessage().contains("X"));
   }
 
   @Test
   public void testBadY()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Y"));
-    PAreaI.of(0, 100, 10, 9);
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        PAreaI.of(0, 100, 10, 9);
+      });
+    Assertions.assertTrue(e.getMessage().contains("Y"));
   }
 }

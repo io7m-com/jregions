@@ -18,41 +18,43 @@ package com.io7m.jregions.tests.core.unparameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
 import com.io7m.jregions.core.unparameterized.areas.AreaD;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public final class AreaDTest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   @Test
   public void testIdentities()
   {
     final AreaD area = AreaD.of((double) 0, 100.0, (double) 0, 100.0);
-    Assert.assertEquals(0.0, area.minimumX(), 0.0);
-    Assert.assertEquals(0.0, area.minimumY(), 0.0);
-    Assert.assertEquals(100.0, area.sizeX(), 0.0);
-    Assert.assertEquals(100.0, area.sizeY(), 0.0);
-    Assert.assertEquals(100.0, area.maximumX(), 0.0);
-    Assert.assertEquals(100.0, area.maximumY(), 0.0);
+    Assertions.assertEquals(0.0, area.minimumX(), 0.0);
+    Assertions.assertEquals(0.0, area.minimumY(), 0.0);
+    Assertions.assertEquals(100.0, area.sizeX(), 0.0);
+    Assertions.assertEquals(100.0, area.sizeY(), 0.0);
+    Assertions.assertEquals(100.0, area.maximumX(), 0.0);
+    Assertions.assertEquals(100.0, area.maximumY(), 0.0);
   }
 
   @Test
   public void testBadX()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("X"));
-    AreaD.of(10.0, 9.0, 0.0, 100.0);
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        AreaD.of(10.0, 9.0, 0.0, 100.0);
+      });
+    Assertions.assertTrue(e.getMessage().contains("X"));
+
   }
 
   @Test
   public void testBadY()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Y"));
-    AreaD.of((double) 0, 100.0, 10.0, 9.0);
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        AreaD.of((double) 0, 100.0, 10.0, 9.0);
+      });
+    Assertions.assertTrue(e.getMessage().contains("Y"));
   }
 }

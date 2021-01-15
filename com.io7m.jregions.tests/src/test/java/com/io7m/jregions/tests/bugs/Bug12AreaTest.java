@@ -40,8 +40,8 @@ import com.io7m.jregions.core.unparameterized.areas.AreasD;
 import com.io7m.jregions.core.unparameterized.areas.AreasF;
 import com.io7m.jregions.core.unparameterized.areas.AreasI;
 import com.io7m.jregions.core.unparameterized.areas.AreasL;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -56,7 +56,7 @@ public final class Bug12AreaTest
     final AreaL area1 =
       AreaL.of(10L, 20L, 10L, 20L);
 
-    Assert.assertFalse(AreasL.overlaps(area0, area1));
+    Assertions.assertFalse(AreasL.overlaps(area0, area1));
   }
 
   @Test
@@ -67,7 +67,7 @@ public final class Bug12AreaTest
     final AreaI area1 =
       AreaI.of(10, 20, 10, 20);
 
-    Assert.assertFalse(AreasI.overlaps(area0, area1));
+    Assertions.assertFalse(AreasI.overlaps(area0, area1));
   }
 
   @Test
@@ -78,7 +78,7 @@ public final class Bug12AreaTest
     final AreaD area1 =
       AreaD.of(10.0, 20.0, 10.0, 20.0);
 
-    Assert.assertFalse(AreasD.overlaps(area0, area1));
+    Assertions.assertFalse(AreasD.overlaps(area0, area1));
   }
 
   @Test
@@ -89,7 +89,7 @@ public final class Bug12AreaTest
     final AreaF area1 =
       AreaF.of(10.0F, 20.0F, 10.0F, 20.0F);
 
-    Assert.assertFalse(AreasF.overlaps(area0, area1));
+    Assertions.assertFalse(AreasF.overlaps(area0, area1));
   }
 
   @Test
@@ -108,7 +108,7 @@ public final class Bug12AreaTest
         BigInteger.valueOf(10L),
         BigInteger.valueOf(20L));
 
-    Assert.assertFalse(AreasBI.overlaps(area0, area1));
+    Assertions.assertFalse(AreasBI.overlaps(area0, area1));
   }
 
   @Test
@@ -127,7 +127,7 @@ public final class Bug12AreaTest
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(20L));
 
-    Assert.assertFalse(AreasBD.overlaps(area0, area1));
+    Assertions.assertFalse(AreasBD.overlaps(area0, area1));
   }
 
   @Test
@@ -138,7 +138,7 @@ public final class Bug12AreaTest
     final PAreaL<Object> area1 =
       PAreaL.of(10L, 20L, 10L, 20L);
 
-    Assert.assertFalse(PAreasL.overlaps(area0, area1));
+    Assertions.assertFalse(PAreasL.overlaps(area0, area1));
   }
 
   @Test
@@ -149,7 +149,7 @@ public final class Bug12AreaTest
     final PAreaI<Object> area1 =
       PAreaI.of(10, 20, 10, 20);
 
-    Assert.assertFalse(PAreasI.overlaps(area0, area1));
+    Assertions.assertFalse(PAreasI.overlaps(area0, area1));
   }
 
   @Test
@@ -160,7 +160,7 @@ public final class Bug12AreaTest
     final PAreaD<Object> area1 =
       PAreaD.of(10.0, 20.0, 10.0, 20.0);
 
-    Assert.assertFalse(PAreasD.overlaps(area0, area1));
+    Assertions.assertFalse(PAreasD.overlaps(area0, area1));
   }
 
   @Test
@@ -171,7 +171,7 @@ public final class Bug12AreaTest
     final PAreaF<Object> area1 =
       PAreaF.of(10.0F, 20.0F, 10.0F, 20.0F);
 
-    Assert.assertFalse(PAreasF.overlaps(area0, area1));
+    Assertions.assertFalse(PAreasF.overlaps(area0, area1));
   }
 
   @Test
@@ -190,7 +190,7 @@ public final class Bug12AreaTest
         BigInteger.valueOf(10L),
         BigInteger.valueOf(20L));
 
-    Assert.assertFalse(PAreasBI.overlaps(area0, area1));
+    Assertions.assertFalse(PAreasBI.overlaps(area0, area1));
   }
 
   @Test
@@ -209,6 +209,6 @@ public final class Bug12AreaTest
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(20L));
 
-    Assert.assertFalse(PAreasBD.overlaps(area0, area1));
+    Assertions.assertFalse(PAreasBD.overlaps(area0, area1));
   }
 }

@@ -18,18 +18,13 @@ package com.io7m.jregions.tests.core.unparameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
 import com.io7m.jregions.core.unparameterized.areas.AreaBI;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
 
 public final class AreaBITest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   @Test
   public void testIdentities()
   {
@@ -38,35 +33,41 @@ public final class AreaBITest
       new BigInteger("100"),
       BigInteger.ZERO,
       new BigInteger("100"));
-    Assert.assertEquals(BigInteger.ZERO, area.minimumX());
-    Assert.assertEquals(BigInteger.ZERO, area.minimumY());
-    Assert.assertEquals(new BigInteger("100"), area.sizeX());
-    Assert.assertEquals(new BigInteger("100"), area.sizeY());
-    Assert.assertEquals(new BigInteger("100"), area.maximumX());
-    Assert.assertEquals(new BigInteger("100"), area.maximumY());
+    Assertions.assertEquals(BigInteger.ZERO, area.minimumX());
+    Assertions.assertEquals(BigInteger.ZERO, area.minimumY());
+    Assertions.assertEquals(new BigInteger("100"), area.sizeX());
+    Assertions.assertEquals(new BigInteger("100"), area.sizeY());
+    Assertions.assertEquals(new BigInteger("100"), area.maximumX());
+    Assertions.assertEquals(new BigInteger("100"), area.maximumY());
   }
 
   @Test
   public void testBadX()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("X"));
-    AreaBI.of(
-      BigInteger.TEN,
-      new BigInteger("9"),
-      BigInteger.ZERO,
-      new BigInteger("100"));
+    var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        AreaBI.of(
+          BigInteger.TEN,
+          new BigInteger("9"),
+          BigInteger.ZERO,
+          new BigInteger("100"));
+      });
+    Assertions.assertTrue(e.getMessage().contains("X"));
   }
 
   @Test
   public void testBadY()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Y"));
-    AreaBI.of(
-      BigInteger.ZERO,
-      new BigInteger("100"),
-      BigInteger.TEN,
-      new BigInteger("9"));
+    var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        AreaBI.of(
+          BigInteger.ZERO,
+          new BigInteger("100"),
+          BigInteger.TEN,
+          new BigInteger("9"));
+      });
+    Assertions.assertTrue(e.getMessage().contains("Y"));
   }
 }

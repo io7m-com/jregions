@@ -21,7 +21,7 @@ import com.io7m.jregions.generators.PVolumeLGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 final class PVolumesLTestOps
 {
@@ -37,7 +37,7 @@ final class PVolumesLTestOps
     final long expected,
     final long actual)
   {
-    Assert.assertEquals(expected, actual);
+    Assertions.assertEquals(expected, actual);
   }
 
   public static long constant(

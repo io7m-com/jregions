@@ -113,7 +113,7 @@ import com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitI;
 import com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitL;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -221,7 +221,7 @@ public class BruteForceEqualityTest
       VolumeXYZSplitL.class
     );
 
-    for (var clazz : classes) {
+    for (final var clazz : classes) {
       EqualsVerifier.forClass(clazz)
         .suppress(Warning.NULL_FIELDS)
         .verify();

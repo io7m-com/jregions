@@ -21,7 +21,7 @@ import com.io7m.jregions.generators.AreaDGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 final class AreasDTestOps
 {
@@ -37,7 +37,7 @@ final class AreasDTestOps
     final double expected,
     final double actual)
   {
-    Assert.assertEquals(expected, actual, 0.0000001);
+    Assertions.assertEquals(expected, actual, 0.0000001);
   }
 
   public static double constant(

@@ -22,33 +22,32 @@ import com.io7m.jregions.core.parameterized.sizes.PAreaSizesD;
 import com.io7m.jregions.generators.PAreaSizeDGenerator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public final class PAreaSizeDTest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   @Test
   public void testIdentities()
   {
-    Assert.assertEquals(10.0, PAreaSizeD.of(10.0, 0.0).sizeX(), 0.0);
-    Assert.assertEquals(10.0, PAreaSizeD.of(0.0, 10.0).sizeY(), 0.0);
+    Assertions.assertEquals(10.0, PAreaSizeD.of(10.0, 0.0).sizeX(), 0.0);
+    Assertions.assertEquals(10.0, PAreaSizeD.of(0.0, 10.0).sizeY(), 0.0);
   }
 
   @Test
   public void testEquals()
   {
-    Assert.assertEquals(PAreaSizeD.of(10.0, 0.0), PAreaSizeD.of(10.0, 0.0));
-    Assert.assertEquals(PAreaSizeD.of(0.0, 10.0), PAreaSizeD.of(0.0, 10.0));
+    Assertions.assertEquals(PAreaSizeD.of(10.0, 0.0), PAreaSizeD.of(10.0, 0.0));
+    Assertions.assertEquals(PAreaSizeD.of(0.0, 10.0), PAreaSizeD.of(0.0, 10.0));
 
-    Assert.assertNotEquals(PAreaSizeD.of(10.0, 0.0), PAreaSizeD.of(9.9, 0.0));
-    Assert.assertNotEquals(PAreaSizeD.of(0.0, 10.0), PAreaSizeD.of(0.0, 9.9));
-    Assert.assertNotEquals(PAreaSizeD.of(0.0, 10.0), null);
-    Assert.assertNotEquals(PAreaSizeD.of(0.0, 10.0), Integer.valueOf(23));
+    Assertions.assertNotEquals(
+      PAreaSizeD.of(10.0, 0.0),
+      PAreaSizeD.of(9.9, 0.0));
+    Assertions.assertNotEquals(
+      PAreaSizeD.of(0.0, 10.0),
+      PAreaSizeD.of(0.0, 9.9));
+    Assertions.assertNotEquals(PAreaSizeD.of(0.0, 10.0), null);
+    Assertions.assertNotEquals(PAreaSizeD.of(0.0, 10.0), Integer.valueOf(23));
   }
 
   @Test
@@ -62,7 +61,7 @@ public final class PAreaSizeDTest
         protected void doSpecify(final PAreaSizeD<Object> area)
           throws Throwable
         {
-          Assert.assertTrue(PAreaSizesD.includes(area, area));
+          Assertions.assertTrue(PAreaSizesD.includes(area, area));
         }
       });
   }
@@ -83,7 +82,7 @@ public final class PAreaSizeDTest
           final PAreaSizeD<Object> c = generator.next();
 
           if (PAreaSizesD.includes(a, b) && PAreaSizesD.includes(b, c)) {
-            Assert.assertTrue(PAreaSizesD.includes(a, c));
+            Assertions.assertTrue(PAreaSizesD.includes(a, c));
           }
         }
       });
@@ -92,33 +91,37 @@ public final class PAreaSizeDTest
   @Test
   public void testNegativeWidth()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Width"));
-    PAreaSizeD.of(-1.0, 0.0);
+    final var ex =
+      Assertions.assertThrows(PreconditionViolationException.class, () -> {
+        PAreaSizeD.of(-1.0, 0.0);
+      });
+    Assertions.assertTrue(ex.getMessage().contains("Width"));
   }
 
   @Test
   public void testNegativeHeight()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Height"));
-    PAreaSizeD.of(0.0, -1.0);
+    final var ex =
+      Assertions.assertThrows(PreconditionViolationException.class, () -> {
+        PAreaSizeD.of(0.0, -1.0);
+      });
+    Assertions.assertTrue(ex.getMessage().contains("Height"));
   }
 
   @Test
   public void testToString()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeD.of(10.0, 0.0).toString(),
       PAreaSizeD.of(10.0, 0.0).toString());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeD.of(0.0, 10.0).toString(),
       PAreaSizeD.of(0.0, 10.0).toString());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeD.of(10.0, 0.0).toString(),
       PAreaSizeD.of(9.9, 0.0).toString());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeD.of(0.0, 10.0).toString(),
       PAreaSizeD.of(0.0, 9.9).toString());
   }
@@ -126,17 +129,17 @@ public final class PAreaSizeDTest
   @Test
   public void testHashCode()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) PAreaSizeD.of(10.0, 0.0).hashCode(),
       (long) PAreaSizeD.of(10.0, 0.0).hashCode());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) PAreaSizeD.of(0.0, 10.0).hashCode(),
       (long) PAreaSizeD.of(0.0, 10.0).hashCode());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) PAreaSizeD.of(10.0, 0.0).hashCode(),
       (long) PAreaSizeD.of(9.9, 0.0).hashCode());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) PAreaSizeD.of(0.0, 10.0).hashCode(),
       (long) PAreaSizeD.of(0.0, 9.9).hashCode());
   }

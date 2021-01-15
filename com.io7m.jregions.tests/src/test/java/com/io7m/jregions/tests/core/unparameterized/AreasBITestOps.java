@@ -21,7 +21,7 @@ import com.io7m.jregions.generators.AreaBIGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.math.BigInteger;
 
@@ -39,9 +39,13 @@ final class AreasBITestOps
     final BigInteger expected,
     final BigInteger actual)
   {
-    Assert.assertTrue(
-      String.format("expected %s == actual %s", expected, actual),
-      expected.compareTo(actual) == 0);
+    Assertions.assertEquals(
+      expected.compareTo(actual),
+      0,
+      String.format(
+        "expected %s == actual %s",
+        expected,
+        actual));
   }
 
   public static BigInteger constant(

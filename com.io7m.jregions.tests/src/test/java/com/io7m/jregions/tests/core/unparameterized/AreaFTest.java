@@ -17,22 +17,22 @@
 package com.io7m.jregions.tests.core.unparameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
-import com.io7m.jregions.core.unparameterized.areas.AreaL;
+import com.io7m.jregions.core.unparameterized.areas.AreaF;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public final class AreaLTest
+public final class AreaFTest
 {
   @Test
   public void testIdentities()
   {
-    final AreaL area = AreaL.of(0L, 100L, 0L, 100L);
-    Assertions.assertEquals(0L, area.minimumX());
-    Assertions.assertEquals(0L, area.minimumY());
-    Assertions.assertEquals(100L, area.sizeX());
-    Assertions.assertEquals(100L, area.sizeY());
-    Assertions.assertEquals(100L, area.maximumX());
-    Assertions.assertEquals(100L, area.maximumY());
+    final AreaF area = AreaF.of(0.0f, 100.0f, 0, 100.0f);
+    Assertions.assertEquals(0.0, area.minimumX(), 0.0);
+    Assertions.assertEquals(0.0, area.minimumY(), 0.0);
+    Assertions.assertEquals(100.0, area.sizeX(), 0.0);
+    Assertions.assertEquals(100.0, area.sizeY(), 0.0);
+    Assertions.assertEquals(100.0, area.maximumX(), 0.0);
+    Assertions.assertEquals(100.0, area.maximumY(), 0.0);
   }
 
   @Test
@@ -41,9 +41,10 @@ public final class AreaLTest
     final var e = Assertions.assertThrows(
       PreconditionViolationException.class,
       () -> {
-        AreaL.of(10L, 9L, 0L, 100L);
+        AreaF.of(10.0f, 9.0f, 0.0f, 100.0f);
       });
     Assertions.assertTrue(e.getMessage().contains("X"));
+
   }
 
   @Test
@@ -52,7 +53,7 @@ public final class AreaLTest
     final var e = Assertions.assertThrows(
       PreconditionViolationException.class,
       () -> {
-        AreaL.of(0L, 100L, 10L, 9L);
+        AreaF.of(0f, 100.0f, 10.0f, 9.0f);
       });
     Assertions.assertTrue(e.getMessage().contains("Y"));
   }

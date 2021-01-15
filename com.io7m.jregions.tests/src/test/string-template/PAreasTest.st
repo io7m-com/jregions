@@ -35,23 +35,22 @@ import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
-import com.io7m.jregions.tests.rules.PercentagePassing;
-import com.io7m.jregions.tests.rules.PercentagePassRule;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Assume;
-import org.junit.Ignore;
-import org.junit.Rule;
+
+import com.io7m.jregions.tests.percentage_pass.PercentPassing;
+import com.io7m.jregions.tests.percentage_pass.PercentPassExtension;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Objects;
 
+@ExtendWith(PercentPassExtension.class)
 public final class <className>
 {
-  @Rule public PercentagePassRule percent =
-    new PercentagePassRule(com.io7m.jregions.tests.TestUtilities.TEST_ITERATIONS);
-
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testCreateAll()
     throws Exception
   {
@@ -71,14 +70,13 @@ public final class <className>
     <opClass>.checkEquals(outer.maximumY(), c.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainsSelfAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object>\> generator = <opClass>.createGenerator();
     final <areaType>\<Object> outer = generator.next();
-    Assert.assertTrue(<areaOpsType>.contains(outer, outer));
+    Assertions.assertTrue(<areaOpsType>.contains(outer, outer));
   }
 
   @Test
@@ -92,19 +90,18 @@ public final class <className>
     final <areaType>\<Object> top = <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("-10"), <opClass>.constant("-1"));
     final <areaType>\<Object> bottom = <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("11"), <opClass>.constant("20"));
 
-    Assert.assertFalse(<areaOpsType>.contains(area, left));
-    Assert.assertFalse(<areaOpsType>.contains(area, right));
-    Assert.assertFalse(<areaOpsType>.contains(area, top));
-    Assert.assertFalse(<areaOpsType>.contains(area, bottom));
+    Assertions.assertFalse(<areaOpsType>.contains(area, left));
+    Assertions.assertFalse(<areaOpsType>.contains(area, right));
+    Assertions.assertFalse(<areaOpsType>.contains(area, top));
+    Assertions.assertFalse(<areaOpsType>.contains(area, bottom));
 
-    Assert.assertFalse(<areaOpsType>.contains(left, area));
-    Assert.assertFalse(<areaOpsType>.contains(right, area));
-    Assert.assertFalse(<areaOpsType>.contains(top, area));
-    Assert.assertFalse(<areaOpsType>.contains(bottom, area));
+    Assertions.assertFalse(<areaOpsType>.contains(left, area));
+    Assertions.assertFalse(<areaOpsType>.contains(right, area));
+    Assertions.assertFalse(<areaOpsType>.contains(top, area));
+    Assertions.assertFalse(<areaOpsType>.contains(bottom, area));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelative()
     throws Exception
   {
@@ -123,8 +120,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.absolute(y), <opClass>.absoluteDifference(outer.minimumY(), moved.minimumY()));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelativeClampedX()
     throws Exception
   {
@@ -141,7 +137,7 @@ public final class <className>
 
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
-    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
+    Assertions.assertTrue(<areaOpsType>.contains(outer, inner));
 
     final var x = gen.next();
     final var moved = <areaOpsType>.moveRelativeClampedX(outer, inner, x);
@@ -149,11 +145,10 @@ public final class <className>
     <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
 
-    Assert.assertTrue(<areaOpsType>.contains(outer, moved));
+    Assertions.assertTrue(<areaOpsType>.contains(outer, moved));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelativeClampedXNoContainment()
     throws Exception
   {
@@ -176,20 +171,19 @@ public final class <className>
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
 
-    Assert.assertFalse(<areaOpsType>.contains(inner, outer));
+    Assertions.assertFalse(<areaOpsType>.contains(inner, outer));
 
     final var x = gen.next();
 
     try {
       <areaOpsType>.moveRelativeClampedX(inner, outer, x);
-      Assert.fail();
+      Assertions.fail();
     } catch (PreconditionViolationException e) {
       // Good
     }
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelativeClampedY()
     throws Exception
   {
@@ -206,7 +200,7 @@ public final class <className>
 
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
-    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
+    Assertions.assertTrue(<areaOpsType>.contains(outer, inner));
 
     final var y = gen.next();
     final var moved = <areaOpsType>.moveRelativeClampedY(outer, inner, y);
@@ -214,11 +208,10 @@ public final class <className>
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
 
-    Assert.assertTrue(<areaOpsType>.contains(outer, moved));
+    Assertions.assertTrue(<areaOpsType>.contains(outer, moved));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelativeClampedYNoContainment()
     throws Exception
   {
@@ -241,20 +234,19 @@ public final class <className>
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
 
-    Assert.assertFalse(<areaOpsType>.contains(inner, outer));
+    Assertions.assertFalse(<areaOpsType>.contains(inner, outer));
 
     final var y = gen.next();
 
     try {
       <areaOpsType>.moveRelativeClampedY(inner, outer, y);
-      Assert.fail();
+      Assertions.fail();
     } catch (PreconditionViolationException e) {
       // Good
     }
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelativeClamped()
     throws Exception
   {
@@ -279,11 +271,10 @@ public final class <className>
     <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
 
-    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
+    Assertions.assertTrue(<areaOpsType>.contains(outer, inner));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveAbsolute()
     throws Exception
   {
@@ -301,8 +292,7 @@ public final class <className>
     <opClass>.checkEquals(y, moved.minimumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveToOrigin()
     throws Exception
   {
@@ -317,8 +307,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("0"),  moved.minimumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testEqualsHashcode()
     throws Exception
   {
@@ -331,30 +320,29 @@ public final class <className>
         area.maximumX(),
         area.minimumY(),
         area.maximumY());
-    Assert.assertEquals(area, area);
-    Assert.assertEquals(area, other);
-    Assert.assertEquals(other, area);
-    Assert.assertEquals((long) area.hashCode(), (long) other.hashCode());
+    Assertions.assertEquals(area, area);
+    Assertions.assertEquals(area, other);
+    Assertions.assertEquals(other, area);
+    Assertions.assertEquals((long) area.hashCode(), (long) other.hashCode());
 
-    Assert.assertNotEquals(area, null);
-    Assert.assertNotEquals(area, Integer.valueOf(23));
+    Assertions.assertNotEquals(area, null);
+    Assertions.assertNotEquals(area, Integer.valueOf(23));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testShowAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object>\> generator = <opClass>.createGenerator();
     final <areaType>\<Object> any = generator.next();
 
-    Assert.assertEquals(<areaOpsType>.show(any), <areaOpsType>.show(any));
+    Assertions.assertEquals(<areaOpsType>.show(any), <areaOpsType>.show(any));
 
     final <areaType>\<Object> next = generator.next();
     if (!Objects.equals(next, any)) {
-      Assert.assertNotEquals(<areaOpsType>.show(any), <areaOpsType>.show(next));
+      Assertions.assertNotEquals(<areaOpsType>.show(any), <areaOpsType>.show(next));
     } else {
-      Assert.assertEquals(<areaOpsType>.show(any), <areaOpsType>.show(next));
+      Assertions.assertEquals(<areaOpsType>.show(any), <areaOpsType>.show(next));
     }
   }
 
@@ -385,19 +373,17 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.subtract(<opClass>.constant("99"), <opClass>.constant("40")),  inner.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testHollowOutSelfAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object>\> generator = <opClass>.createGenerator();
     final <areaType>\<Object> any = generator.next();
 
-    Assert.assertEquals(any, <areaOpsType>.hollowOut(any, <opClass>.constant("0"), <opClass>.constant("0"),  <opClass>.constant("0"), <opClass>.constant("0")));
+    Assertions.assertEquals(any, <areaOpsType>.hollowOut(any, <opClass>.constant("0"), <opClass>.constant("0"),  <opClass>.constant("0"), <opClass>.constant("0")));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testHollowOutEvenlyAll()
     throws Exception
   {
@@ -411,7 +397,7 @@ public final class <className>
       <areaOpsType>.hollowOut(any, offset, offset, offset, offset);
     final <areaType>\<Object> hollow1 =
       <areaOpsType>.hollowOutEvenly(any, offset);
-    Assert.assertEquals(hollow0, hollow1);
+    Assertions.assertEquals(hollow0, hollow1);
   }
 
   @Test
@@ -508,8 +494,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("55"),  aligned.maximumX());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignHorizontallyMinXAll()
     throws Exception
   {
@@ -529,8 +514,7 @@ public final class <className>
     <opClass>.checkEquals(aligned.minimumX(), outer.minimumX());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignHorizontallyMinXOffsetAll()
     throws Exception
   {
@@ -552,8 +536,7 @@ public final class <className>
     <opClass>.checkEquals(aligned.minimumX(), <opClass>.add(outer.minimumX(), offset));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignHorizontallyMaxXAll()
     throws Exception
   {
@@ -572,8 +555,7 @@ public final class <className>
     <opClass>.checkEquals(aligned.maximumX(), outer.maximumX());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignHorizontallyMaxXOffsetAll()
     throws Exception
   {
@@ -595,8 +577,7 @@ public final class <className>
     <opClass>.checkEquals(aligned.maximumX(), <opClass>.subtract(outer.maximumX(), offset));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignHorizontallyCenterAll()
     throws Exception
   {
@@ -620,7 +601,7 @@ public final class <className>
       <opClass>.absoluteDifference(
         outer.maximumX(),
         aligned.maximumX());
-    Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
   }
 
   @Test
@@ -671,8 +652,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("13"),  aligned.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignVerticallyCenterAll()
     throws Exception
   {
@@ -698,11 +678,10 @@ public final class <className>
         aligned.maximumY());
     final <scalarType> diff_diff =
       <opClass>.absoluteDifference(diff_bottom, diff_top);
-    Assert.assertTrue(<opClass>.compare(diff_diff, <opClass>.constant("1")) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(diff_diff, <opClass>.constant("1")) \<= 0);
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignVerticallyMinYAll()
     throws Exception
   {
@@ -721,8 +700,7 @@ public final class <className>
     <opClass>.checkEquals(aligned.minimumY(),  outer.minimumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignVerticallyMinYOffsetAll()
     throws Exception
   {
@@ -744,8 +722,7 @@ public final class <className>
     <opClass>.checkEquals(aligned.minimumY(), <opClass>.add(outer.minimumY(), offset));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignVerticallyMaxYAll()
     throws Exception
   {
@@ -764,8 +741,7 @@ public final class <className>
     <opClass>.checkEquals(aligned.maximumY(),  outer.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignVerticallyMaxYOffsetAll()
     throws Exception
   {
@@ -786,8 +762,7 @@ public final class <className>
     <opClass>.checkEquals(aligned.maximumY(), <opClass>.subtract(outer.maximumY(), offset));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignCenterAll()
     throws Exception
   {
@@ -818,12 +793,11 @@ public final class <className>
         outer.maximumY(),
         aligned.maximumY());
 
-    Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_top, diff_bottom), <opClass>.constant("1")) \<= 0);
-    Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_top, diff_bottom), <opClass>.constant("1")) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignMinYMinXAll()
     throws Exception
   {
@@ -841,8 +815,7 @@ public final class <className>
     <opClass>.checkEquals(outer.minimumY(),  aligned.minimumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignMinYMinXOffsetAll()
     throws Exception
   {
@@ -864,8 +837,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.add(outer.minimumY(), offset_top), aligned.minimumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignMaxYMinXAll()
     throws Exception
   {
@@ -883,8 +855,7 @@ public final class <className>
     <opClass>.checkEquals(outer.maximumY(),  aligned.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignMaxYMinXOffsetAll()
     throws Exception
   {
@@ -910,8 +881,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.subtract(outer.maximumY(), offset_bottom), aligned.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignMaxYMaxXAll()
     throws Exception
   {
@@ -929,8 +899,7 @@ public final class <className>
     <opClass>.checkEquals(outer.maximumY(),  aligned.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignMaxYMaxXOffsetAll()
     throws Exception
   {
@@ -956,8 +925,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.subtract(outer.maximumY(), offset_bottom), aligned.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignMinYMaxXAll()
     throws Exception
   {
@@ -975,8 +943,7 @@ public final class <className>
     <opClass>.checkEquals(outer.minimumY(), aligned.minimumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testAlignMinYMaxXOffsetAll()
     throws Exception
   {
@@ -1002,8 +969,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.add(outer.minimumY(), offset_top), aligned.minimumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSetSizeFromMinYMinXAll()
     throws Exception
   {
@@ -1026,8 +992,7 @@ public final class <className>
     <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSetSizeFromMinYMaxXAll()
     throws Exception
   {
@@ -1050,8 +1015,7 @@ public final class <className>
     <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSetSizeFromMaxYMinXAll()
     throws Exception
   {
@@ -1074,8 +1038,7 @@ public final class <className>
     <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSetSizeFromMaxYMaxXAll()
     throws Exception
   {
@@ -1098,8 +1061,7 @@ public final class <className>
     <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSetSizeFromCenterAll()
     throws Exception
   {
@@ -1136,8 +1098,8 @@ public final class <className>
         outer.maximumY(),
         resized.maximumY());
 
-    Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_top, diff_bottom), <opClass>.constant("1")) \<= 0);
-    Assert.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_top, diff_bottom), <opClass>.constant("1")) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
   }
 
   @Test
@@ -1151,15 +1113,15 @@ public final class <className>
     final <areaType>\<Object> top = <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("-10"), <opClass>.constant("-1"));
     final <areaType>\<Object> bottom = <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("11"), <opClass>.constant("20"));
 
-    Assert.assertFalse(<areaOpsType>.overlaps(area, left));
-    Assert.assertFalse(<areaOpsType>.overlaps(area, right));
-    Assert.assertFalse(<areaOpsType>.overlaps(area, top));
-    Assert.assertFalse(<areaOpsType>.overlaps(area, bottom));
+    Assertions.assertFalse(<areaOpsType>.overlaps(area, left));
+    Assertions.assertFalse(<areaOpsType>.overlaps(area, right));
+    Assertions.assertFalse(<areaOpsType>.overlaps(area, top));
+    Assertions.assertFalse(<areaOpsType>.overlaps(area, bottom));
 
-    Assert.assertFalse(<areaOpsType>.overlaps(left, area));
-    Assert.assertFalse(<areaOpsType>.overlaps(right, area));
-    Assert.assertFalse(<areaOpsType>.overlaps(top, area));
-    Assert.assertFalse(<areaOpsType>.overlaps(bottom, area));
+    Assertions.assertFalse(<areaOpsType>.overlaps(left, area));
+    Assertions.assertFalse(<areaOpsType>.overlaps(right, area));
+    Assertions.assertFalse(<areaOpsType>.overlaps(top, area));
+    Assertions.assertFalse(<areaOpsType>.overlaps(bottom, area));
   }
 
   @Test
@@ -1173,30 +1135,28 @@ public final class <className>
     final <areaType>\<Object> top = <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("-10"), <opClass>.constant("1"));
     final <areaType>\<Object> bottom = <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("9"), <opClass>.constant("20"));
 
-    Assert.assertTrue(<areaOpsType>.overlaps(area, left));
-    Assert.assertTrue(<areaOpsType>.overlaps(area, right));
-    Assert.assertTrue(<areaOpsType>.overlaps(area, top));
-    Assert.assertTrue(<areaOpsType>.overlaps(area, bottom));
+    Assertions.assertTrue(<areaOpsType>.overlaps(area, left));
+    Assertions.assertTrue(<areaOpsType>.overlaps(area, right));
+    Assertions.assertTrue(<areaOpsType>.overlaps(area, top));
+    Assertions.assertTrue(<areaOpsType>.overlaps(area, bottom));
 
-    Assert.assertTrue(<areaOpsType>.overlaps(left, area));
-    Assert.assertTrue(<areaOpsType>.overlaps(right, area));
-    Assert.assertTrue(<areaOpsType>.overlaps(top, area));
-    Assert.assertTrue(<areaOpsType>.overlaps(bottom, area));
+    Assertions.assertTrue(<areaOpsType>.overlaps(left, area));
+    Assertions.assertTrue(<areaOpsType>.overlaps(right, area));
+    Assertions.assertTrue(<areaOpsType>.overlaps(top, area));
+    Assertions.assertTrue(<areaOpsType>.overlaps(bottom, area));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testOverlapsSelfAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object>\> generator = <opClass>.createGenerator();
 
     final <areaType>\<Object> outer = generator.next();
-    Assert.assertTrue(<areaOpsType>.overlaps(outer, outer));
+    Assertions.assertTrue(<areaOpsType>.overlaps(outer, outer));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainsTrueAll()
     throws Exception
   {
@@ -1214,22 +1174,20 @@ public final class <className>
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
 
-    Assert.assertTrue(<areaOpsType>.contains(outer, inner));
-    Assert.assertFalse(<areaOpsType>.contains(inner, outer));
+    Assertions.assertTrue(<areaOpsType>.contains(outer, inner));
+    Assertions.assertFalse(<areaOpsType>.contains(inner, outer));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testCouldFitInsideSelfAll()
     throws Exception
   {
     final Generator\<<areaType>\<Object>\> generator = <opClass>.createGenerator();
     final <areaType>\<Object> outer = generator.next();
-    Assert.assertTrue(<areaOpsType>.couldFitInside(outer, outer));
+    Assertions.assertTrue(<areaOpsType>.couldFitInside(outer, outer));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testCouldFitInsideAll()
     throws Exception
   {
@@ -1239,11 +1197,10 @@ public final class <className>
     final <areaType>\<Object> outer = generator.next();
     final <areaType>\<Object> inner =
     <areaOpsType>.hollowOutEvenly(outer, gen.next());
-    Assert.assertTrue(<areaOpsType>.couldFitInside(inner, outer));
+    Assertions.assertTrue(<areaOpsType>.couldFitInside(inner, outer));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainsPointAll()
     throws Exception
   {
@@ -1265,14 +1222,13 @@ public final class <className>
     boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) > 0;
 
     if (sizeX_over && sizeY_over) {
-      Assert.assertTrue(<areaOpsType>.containsPoint(outer, ppx, ppy));
+      Assertions.assertTrue(<areaOpsType>.containsPoint(outer, ppx, ppy));
     } else {
-      Assert.assertFalse(<areaOpsType>.containsPoint(outer, ppx, ppy));
+      Assertions.assertFalse(<areaOpsType>.containsPoint(outer, ppx, ppy));
     }
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainingAll()
     throws Exception
   {
@@ -1280,16 +1236,15 @@ public final class <className>
     final <areaType>\<Object> a = generator.next();
     final <areaType>\<Object> b = generator.next();
     final <areaType>\<Object> c = <areaOpsType>.containing(a, b);
-    Assert.assertTrue(<opClass>.compare(c.sizeX(), a.sizeX()) >= 0);
-    Assert.assertTrue(<opClass>.compare(c.sizeY(), a.sizeY()) >= 0);
-    Assert.assertTrue(<opClass>.compare(c.sizeX(), b.sizeX()) >= 0);
-    Assert.assertTrue(<opClass>.compare(c.sizeY(), b.sizeY()) >= 0);
-    Assert.assertTrue(<areaOpsType>.contains(c, a));
-    Assert.assertTrue(<areaOpsType>.contains(c, b));
+    Assertions.assertTrue(<opClass>.compare(c.sizeX(), a.sizeX()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeY(), a.sizeY()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeX(), b.sizeX()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeY(), b.sizeY()) >= 0);
+    Assertions.assertTrue(<areaOpsType>.contains(c, a));
+    Assertions.assertTrue(<areaOpsType>.contains(c, b));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainsZeroWidth()
     throws Exception
   {
@@ -1311,11 +1266,10 @@ public final class <className>
 
     System.out.println(ppx + " " + ppy);
 
-    Assert.assertFalse(<areaOpsType>.containsPoint(scaled, ppx, ppy));
+    Assertions.assertFalse(<areaOpsType>.containsPoint(scaled, ppx, ppy));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainsZeroHeight()
     throws Exception
   {
@@ -1337,11 +1291,10 @@ public final class <className>
 
     System.out.println(ppx + " " + ppy);
 
-    Assert.assertFalse(<areaOpsType>.containsPoint(scaled, ppx, ppy));
+    Assertions.assertFalse(<areaOpsType>.containsPoint(scaled, ppx, ppy));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testFitBetweenHorizontalAll()
     throws Exception
   {
@@ -1361,14 +1314,13 @@ public final class <className>
     final <areaType>\<Object> fitted =
       <areaOpsType>.fitBetweenHorizontal(outer, left, right);
 
-    Assert.assertTrue(<opClass>.compare(fitted.minimumX(), leftmost) >= 0);
-    Assert.assertTrue(<opClass>.compare(fitted.maximumX(), rightmost) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(fitted.minimumX(), leftmost) >= 0);
+    Assertions.assertTrue(<opClass>.compare(fitted.maximumX(), rightmost) \<= 0);
     <opClass>.checkEquals(outer.minimumY(),  fitted.minimumY());
     <opClass>.checkEquals(outer.maximumY(),  fitted.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testFitBetweenVerticalAll()
     throws Exception
   {
@@ -1388,14 +1340,13 @@ public final class <className>
     final <areaType>\<Object> fitted =
       <areaOpsType>.fitBetweenVertical(outer, top, bottom);
 
-    Assert.assertTrue(<opClass>.compare(fitted.minimumY(), topmost) >= 0);
-    Assert.assertTrue(<opClass>.compare(fitted.maximumY(), bottommost) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(fitted.minimumY(), topmost) >= 0);
+    Assertions.assertTrue(<opClass>.compare(fitted.maximumY(), bottommost) \<= 0);
     <opClass>.checkEquals(outer.minimumX(),  fitted.minimumX());
     <opClass>.checkEquals(outer.maximumX(),  fitted.maximumX());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testScaleFromMinYMinXAll()
     throws Exception
   {
@@ -1416,8 +1367,7 @@ public final class <className>
     <opClass>.checkEquals(outer.maximumY(),  resized.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testScaleFromMinYMaxXAll()
     throws Exception
   {
@@ -1438,8 +1388,7 @@ public final class <className>
     <opClass>.checkEquals(outer.maximumY(),  resized.maximumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testScaleFromMaxYMaxXAll()
     throws Exception
   {
@@ -1460,8 +1409,7 @@ public final class <className>
     <opClass>.checkEquals(outer.minimumY(),  resized.minimumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testScaleFromMaxYMinXAll()
     throws Exception
   {
@@ -1482,8 +1430,7 @@ public final class <className>
     <opClass>.checkEquals(outer.minimumY(),  resized.minimumY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testScaleFromCenterAll()
     throws Exception
   {
@@ -1501,8 +1448,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testCastAll()
     throws Exception
   {
@@ -1510,11 +1456,10 @@ public final class <className>
 
     final <areaType>\<Object> outer = generator.next();
     final <areaType>\<Integer> other = <areaOpsType>.cast(outer);
-    Assert.assertSame(outer, other);
+    Assertions.assertSame(outer, other);
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSplitAlongXAll()
     throws Exception
   {
@@ -1535,8 +1480,8 @@ public final class <className>
     System.out.println("lower:  " + lower);
     System.out.println("upper:  " + upper);
 
-    Assert.assertTrue(<opClass>.compare(lower.sizeY(), outer.sizeY()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(upper.sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(lower.sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(upper.sizeY(), outer.sizeY()) \<= 0);
     <opClass>.checkEquals(outer.sizeY(), <opClass>.add(lower.sizeY(), upper.sizeY()));
     <opClass>.checkEquals(outer.sizeX(),  lower.sizeX());
     <opClass>.checkEquals(outer.sizeX(),  upper.sizeX());
@@ -1549,17 +1494,17 @@ public final class <className>
       final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) > 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) > 0;
 
       if (lower_ok) {
-        Assert.assertTrue(<areaOpsType>.overlaps(outer, lower));
-        Assert.assertTrue(<areaOpsType>.contains(outer, lower));
+        Assertions.assertTrue(<areaOpsType>.overlaps(outer, lower));
+        Assertions.assertTrue(<areaOpsType>.contains(outer, lower));
         if (upper_ok) {
-          Assert.assertFalse(<areaOpsType>.overlaps(lower, upper));
+          Assertions.assertFalse(<areaOpsType>.overlaps(lower, upper));
         }
       }
       if (upper_ok) {
-        Assert.assertTrue(<areaOpsType>.overlaps(outer, upper));
-        Assert.assertTrue(<areaOpsType>.contains(outer, upper));
+        Assertions.assertTrue(<areaOpsType>.overlaps(outer, upper));
+        Assertions.assertTrue(<areaOpsType>.contains(outer, upper));
         if (lower_ok) {
-          Assert.assertFalse(<areaOpsType>.overlaps(lower, upper));
+          Assertions.assertFalse(<areaOpsType>.overlaps(lower, upper));
         }
       }
     }
@@ -1591,11 +1536,11 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("5"),  lower.sizeY());
     <opClass>.checkEquals(<opClass>.constant("5"),  upper.sizeY());
 
-    Assert.assertTrue(<areaOpsType>.contains(box, upper));
-    Assert.assertTrue(<areaOpsType>.contains(box, lower));
-    Assert.assertFalse(<areaOpsType>.overlaps(upper, lower));
-    Assert.assertTrue(<areaOpsType>.overlaps(box, lower));
-    Assert.assertTrue(<areaOpsType>.overlaps(box, upper));
+    Assertions.assertTrue(<areaOpsType>.contains(box, upper));
+    Assertions.assertTrue(<areaOpsType>.contains(box, lower));
+    Assertions.assertFalse(<areaOpsType>.overlaps(upper, lower));
+    Assertions.assertTrue(<areaOpsType>.overlaps(box, lower));
+    Assertions.assertTrue(<areaOpsType>.overlaps(box, upper));
   }
 
   @Test
@@ -1649,11 +1594,11 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("5"),  lower.sizeX());
     <opClass>.checkEquals(<opClass>.constant("5"),  upper.sizeX());
 
-    Assert.assertTrue(<areaOpsType>.contains(box, upper));
-    Assert.assertTrue(<areaOpsType>.contains(box, lower));
-    Assert.assertFalse(<areaOpsType>.overlaps(upper, lower));
-    Assert.assertTrue(<areaOpsType>.overlaps(box, lower));
-    Assert.assertTrue(<areaOpsType>.overlaps(box, upper));
+    Assertions.assertTrue(<areaOpsType>.contains(box, upper));
+    Assertions.assertTrue(<areaOpsType>.contains(box, lower));
+    Assertions.assertFalse(<areaOpsType>.overlaps(upper, lower));
+    Assertions.assertTrue(<areaOpsType>.overlaps(box, lower));
+    Assertions.assertTrue(<areaOpsType>.overlaps(box, upper));
   }
 
   @Test
@@ -1682,8 +1627,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("0"),  upper.sizeX());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSplitAlongYAll()
     throws Exception
   {
@@ -1703,8 +1647,8 @@ public final class <className>
     System.out.println("lower: " + lower);
     System.out.println("upper: " + upper);
 
-    Assert.assertTrue(<opClass>.compare(lower.sizeX(), outer.sizeX()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(upper.sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(lower.sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(upper.sizeX(), outer.sizeX()) \<= 0);
     <opClass>.checkEquals(outer.sizeX(), <opClass>.add(lower.sizeX(), upper.sizeX()));
     <opClass>.checkEquals(outer.sizeY(), lower.sizeY());
     <opClass>.checkEquals(outer.sizeY(), upper.sizeY());
@@ -1717,18 +1661,17 @@ public final class <className>
       final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) > 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) > 0;
 
       if (lower_ok) {
-        Assert.assertTrue(<areaOpsType>.overlaps(outer, lower));
-        Assert.assertTrue(<areaOpsType>.contains(outer, lower));
+        Assertions.assertTrue(<areaOpsType>.overlaps(outer, lower));
+        Assertions.assertTrue(<areaOpsType>.contains(outer, lower));
       }
       if (upper_ok) {
-        Assert.assertTrue(<areaOpsType>.overlaps(outer, upper));
-        Assert.assertTrue(<areaOpsType>.contains(outer, upper));
+        Assertions.assertTrue(<areaOpsType>.overlaps(outer, upper));
+        Assertions.assertTrue(<areaOpsType>.contains(outer, upper));
       }
     }
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSplitAlongXYAll()
     throws Exception
   {
@@ -1755,15 +1698,15 @@ public final class <className>
       final <areaType>\<Object> x0y1 = quadrants.x0y1();
       final <areaType>\<Object> x1y1 = quadrants.x1y1();
 
-      Assert.assertTrue(<opClass>.compare(x0y0.sizeY(), outer.sizeY()) \<= 0);
-      Assert.assertTrue(<opClass>.compare(x1y0.sizeY(), outer.sizeY()) \<= 0);
-      Assert.assertTrue(<opClass>.compare(x0y1.sizeY(), outer.sizeY()) \<= 0);
-      Assert.assertTrue(<opClass>.compare(x1y1.sizeY(), outer.sizeY()) \<= 0);
+      Assertions.assertTrue(<opClass>.compare(x0y0.sizeY(), outer.sizeY()) \<= 0);
+      Assertions.assertTrue(<opClass>.compare(x1y0.sizeY(), outer.sizeY()) \<= 0);
+      Assertions.assertTrue(<opClass>.compare(x0y1.sizeY(), outer.sizeY()) \<= 0);
+      Assertions.assertTrue(<opClass>.compare(x1y1.sizeY(), outer.sizeY()) \<= 0);
 
-      Assert.assertTrue(<opClass>.compare(x0y0.sizeX(), outer.sizeX()) \<= 0);
-      Assert.assertTrue(<opClass>.compare(x1y0.sizeX(), outer.sizeX()) \<= 0);
-      Assert.assertTrue(<opClass>.compare(x0y1.sizeX(), outer.sizeX()) \<= 0);
-      Assert.assertTrue(<opClass>.compare(x1y1.sizeX(), outer.sizeX()) \<= 0);
+      Assertions.assertTrue(<opClass>.compare(x0y0.sizeX(), outer.sizeX()) \<= 0);
+      Assertions.assertTrue(<opClass>.compare(x1y0.sizeX(), outer.sizeX()) \<= 0);
+      Assertions.assertTrue(<opClass>.compare(x0y1.sizeX(), outer.sizeX()) \<= 0);
+      Assertions.assertTrue(<opClass>.compare(x1y1.sizeX(), outer.sizeX()) \<= 0);
 
       <opClass>.checkEquals(x0y0.minimumX(), outer.minimumX());
       <opClass>.checkEquals(x0y0.minimumY(), outer.minimumY());
@@ -1827,30 +1770,29 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("5"), x1y1.minimumY());
     <opClass>.checkEquals(<opClass>.constant("10"), x1y1.maximumY());
 
-    Assert.assertTrue(<areaOpsType>.contains(box, x0y0));
-    Assert.assertTrue(<areaOpsType>.contains(box, x1y0));
-    Assert.assertTrue(<areaOpsType>.contains(box, x0y1));
-    Assert.assertTrue(<areaOpsType>.contains(box, x1y1));
+    Assertions.assertTrue(<areaOpsType>.contains(box, x0y0));
+    Assertions.assertTrue(<areaOpsType>.contains(box, x1y0));
+    Assertions.assertTrue(<areaOpsType>.contains(box, x0y1));
+    Assertions.assertTrue(<areaOpsType>.contains(box, x1y1));
 
-    Assert.assertFalse(<areaOpsType>.overlaps(x0y0, x1y0));
-    Assert.assertFalse(<areaOpsType>.overlaps(x0y0, x0y1));
-    Assert.assertFalse(<areaOpsType>.overlaps(x0y0, x1y1));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y0, x1y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y0, x0y1));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y0, x1y1));
 
-    Assert.assertFalse(<areaOpsType>.overlaps(x1y0, x0y0));
-    Assert.assertFalse(<areaOpsType>.overlaps(x1y0, x0y1));
-    Assert.assertFalse(<areaOpsType>.overlaps(x1y0, x1y1));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y0, x0y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y0, x0y1));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y0, x1y1));
 
-    Assert.assertFalse(<areaOpsType>.overlaps(x0y1, x0y0));
-    Assert.assertFalse(<areaOpsType>.overlaps(x0y1, x1y0));
-    Assert.assertFalse(<areaOpsType>.overlaps(x0y1, x1y1));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y1, x0y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y1, x1y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y1, x1y1));
 
-    Assert.assertFalse(<areaOpsType>.overlaps(x1y1, x0y0));
-    Assert.assertFalse(<areaOpsType>.overlaps(x1y1, x1y0));
-    Assert.assertFalse(<areaOpsType>.overlaps(x1y1, x0y1));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y1, x0y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y1, x1y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y1, x0y1));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSize()
     throws Exception
   {

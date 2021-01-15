@@ -21,7 +21,7 @@ import com.io7m.jregions.generators.PAreaBDGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -40,9 +40,13 @@ final class PAreasBDTestOps
     final BigDecimal expected,
     final BigDecimal actual)
   {
-    Assert.assertTrue(
-      String.format("expected %s == actual %s", expected, actual),
-      expected.compareTo(actual) == 0);
+    Assertions.assertEquals(
+      expected.compareTo(actual),
+      0,
+      String.format(
+        "expected %s == actual %s",
+        expected,
+        actual));
   }
 
   public static BigDecimal constant(

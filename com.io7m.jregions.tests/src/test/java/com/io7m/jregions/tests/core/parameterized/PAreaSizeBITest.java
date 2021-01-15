@@ -22,27 +22,22 @@ import com.io7m.jregions.core.parameterized.sizes.PAreaSizesBI;
 import com.io7m.jregions.generators.PAreaSizeBIGenerator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
 
 public final class PAreaSizeBITest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   @Test
   public void testIdentities()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       new BigInteger("100"),
       PAreaSizeBI.of(
         new BigInteger("100"),
         BigInteger.ZERO).sizeX());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       new BigInteger("100"),
       PAreaSizeBI.of(
         BigInteger.ZERO,
@@ -61,7 +56,7 @@ public final class PAreaSizeBITest
         protected void doSpecify(final PAreaSizeBI<Object> area)
           throws Throwable
         {
-          Assert.assertTrue(PAreaSizesBI.includes(area, area));
+          Assertions.assertTrue(PAreaSizesBI.includes(area, area));
         }
       });
   }
@@ -82,7 +77,7 @@ public final class PAreaSizeBITest
           final PAreaSizeBI<Object> c = generator.next();
 
           if (PAreaSizesBI.includes(a, b) && PAreaSizesBI.includes(b, c)) {
-            Assert.assertTrue(PAreaSizesBI.includes(a, c));
+            Assertions.assertTrue(PAreaSizesBI.includes(a, c));
           }
         }
       });
@@ -91,47 +86,51 @@ public final class PAreaSizeBITest
   @Test
   public void testNegativeWidth()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Width"));
-    PAreaSizeBI.of(new BigInteger("-1"), BigInteger.ZERO);
+    final var ex =
+      Assertions.assertThrows(PreconditionViolationException.class, () -> {
+        PAreaSizeBI.of(new BigInteger("-1"), BigInteger.ZERO);
+      });
+    Assertions.assertTrue(ex.getMessage().contains("Width"));
   }
 
   @Test
   public void testNegativeHeight()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Height"));
-    PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("-1"));
+    final var ex =
+      Assertions.assertThrows(PreconditionViolationException.class, () -> {
+        PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("-1"));
+      });
+    Assertions.assertTrue(ex.getMessage().contains("Height"));
   }
 
   @Test
   public void testEquals()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeBI.of(new BigInteger("100"), BigInteger.ZERO),
       PAreaSizeBI.of(new BigInteger("100"), BigInteger.ZERO));
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("100")),
       PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("100")));
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeBI.of(
         new BigInteger("100"),
         BigInteger.ZERO),
       PAreaSizeBI.of(
         new BigInteger("99"),
         BigInteger.ZERO));
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeBI.of(
         BigInteger.ZERO,
         new BigInteger("100")),
       PAreaSizeBI.of(
         BigInteger.ZERO,
         new BigInteger("99")));
-    Assert.assertNotEquals(PAreaSizeBI.of(
+    Assertions.assertNotEquals(PAreaSizeBI.of(
       BigInteger.ZERO,
       new BigInteger("100")), null);
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeBI.of(
         BigInteger.ZERO,
         new BigInteger("100")),
@@ -141,17 +140,17 @@ public final class PAreaSizeBITest
   @Test
   public void testToString()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeBI.of(new BigInteger("100"), BigInteger.ZERO).toString(),
       PAreaSizeBI.of(new BigInteger("100"), BigInteger.ZERO).toString());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("100")).toString(),
       PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("100")).toString());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeBI.of(new BigInteger("100"), BigInteger.ZERO).toString(),
       PAreaSizeBI.of(new BigInteger("99"), BigInteger.ZERO).toString());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("100")).toString(),
       PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("99")).toString());
   }
@@ -159,17 +158,17 @@ public final class PAreaSizeBITest
   @Test
   public void testHashCode()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) PAreaSizeBI.of(new BigInteger("100"), BigInteger.ZERO).hashCode(),
       (long) PAreaSizeBI.of(new BigInteger("100"), BigInteger.ZERO).hashCode());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("100")).hashCode(),
       (long) PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("100")).hashCode());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) PAreaSizeBI.of(new BigInteger("100"), BigInteger.ZERO).hashCode(),
       (long) PAreaSizeBI.of(new BigInteger("99"), BigInteger.ZERO).hashCode());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("100")).hashCode(),
       (long) PAreaSizeBI.of(BigInteger.ZERO, new BigInteger("99")).hashCode());
   }

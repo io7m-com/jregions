@@ -33,21 +33,21 @@ import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
-import com.io7m.jregions.tests.rules.PercentagePassing;
-import com.io7m.jregions.tests.rules.PercentagePassRule;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Assume;
-import org.junit.Ignore;
-import org.junit.Rule;
+
+import com.io7m.jregions.tests.percentage_pass.PercentPassing;
+import com.io7m.jregions.tests.percentage_pass.PercentPassExtension;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Objects;
 
+@ExtendWith(PercentPassExtension.class)
 public final class <className>
 {
-  @Rule public PercentagePassRule percent =
-    new PercentagePassRule(com.io7m.jregions.tests.TestUtilities.TEST_ITERATIONS);
-
   @Test
   public void testCouldFitInsideFalseSpecificX0()
     throws Exception
@@ -64,7 +64,7 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
+    Assertions.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
   }
 
   @Test
@@ -83,7 +83,7 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
+    Assertions.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
   }
 
   @Test
@@ -102,7 +102,7 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
+    Assertions.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
   }
 
   @Test
@@ -121,7 +121,7 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
+    Assertions.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
   }
 
   @Test
@@ -140,7 +140,7 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
+    Assertions.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
   }
 
   @Test
@@ -159,11 +159,10 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
+    Assertions.assertFalse(<volumeOpsType>.couldFitInside(v0, v1));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testCreateAll()
     throws Exception
   {
@@ -187,8 +186,7 @@ public final class <className>
     <opClass>.checkEquals(outer.maximumZ(), c.maximumZ());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainsSelfAll()
     throws Exception
   {
@@ -202,7 +200,7 @@ public final class <className>
         protected void doSpecify(final <volumeType> outer)
           throws Throwable
         {
-          Assert.assertTrue(<volumeOpsType>.contains(outer, outer));
+          Assertions.assertTrue(<volumeOpsType>.contains(outer, outer));
         }
       });
   }
@@ -250,23 +248,22 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("11"), <opClass>.constant("21"));
 
-    Assert.assertFalse(<volumeOpsType>.contains(volume, out_x_lo));
-    Assert.assertFalse(<volumeOpsType>.contains(volume, out_x_hi));
-    Assert.assertFalse(<volumeOpsType>.contains(volume, out_y_lo));
-    Assert.assertFalse(<volumeOpsType>.contains(volume, out_y_hi));
-    Assert.assertFalse(<volumeOpsType>.contains(volume, out_z_lo));
-    Assert.assertFalse(<volumeOpsType>.contains(volume, out_z_hi));
+    Assertions.assertFalse(<volumeOpsType>.contains(volume, out_x_lo));
+    Assertions.assertFalse(<volumeOpsType>.contains(volume, out_x_hi));
+    Assertions.assertFalse(<volumeOpsType>.contains(volume, out_y_lo));
+    Assertions.assertFalse(<volumeOpsType>.contains(volume, out_y_hi));
+    Assertions.assertFalse(<volumeOpsType>.contains(volume, out_z_lo));
+    Assertions.assertFalse(<volumeOpsType>.contains(volume, out_z_hi));
 
-    Assert.assertFalse(<volumeOpsType>.contains(out_x_lo, volume));
-    Assert.assertFalse(<volumeOpsType>.contains(out_x_hi, volume));
-    Assert.assertFalse(<volumeOpsType>.contains(out_y_lo, volume));
-    Assert.assertFalse(<volumeOpsType>.contains(out_y_hi, volume));
-    Assert.assertFalse(<volumeOpsType>.contains(out_z_lo, volume));
-    Assert.assertFalse(<volumeOpsType>.contains(out_z_hi, volume));
+    Assertions.assertFalse(<volumeOpsType>.contains(out_x_lo, volume));
+    Assertions.assertFalse(<volumeOpsType>.contains(out_x_hi, volume));
+    Assertions.assertFalse(<volumeOpsType>.contains(out_y_lo, volume));
+    Assertions.assertFalse(<volumeOpsType>.contains(out_y_hi, volume));
+    Assertions.assertFalse(<volumeOpsType>.contains(out_z_lo, volume));
+    Assertions.assertFalse(<volumeOpsType>.contains(out_z_hi, volume));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelative()
     throws Exception
   {
@@ -289,8 +286,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.absolute(z), <opClass>.absoluteDifference(outer.minimumZ(), moved.minimumZ()));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelativeClampedX()
     throws Exception
   {
@@ -322,7 +318,7 @@ public final class <className>
 
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
-    Assert.assertTrue(<volumeOpsType>.contains(outer, inner));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, inner));
 
     final var x = sGen.next();
     final var moved = <volumeOpsType>.moveRelativeClampedX(outer, inner, x);
@@ -331,11 +327,10 @@ public final class <className>
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
     <opClass>.checkEquals(inner.sizeZ(), moved.sizeZ());
 
-    Assert.assertTrue(<volumeOpsType>.contains(outer, moved));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, moved));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelativeClampedY()
     throws Exception
   {
@@ -367,7 +362,7 @@ public final class <className>
 
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
-    Assert.assertTrue(<volumeOpsType>.contains(outer, inner));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, inner));
 
     final var y = sGen.next();
     final var moved = <volumeOpsType>.moveRelativeClampedY(outer, inner, y);
@@ -376,11 +371,10 @@ public final class <className>
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
     <opClass>.checkEquals(inner.sizeZ(), moved.sizeZ());
 
-    Assert.assertTrue(<volumeOpsType>.contains(outer, moved));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, moved));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelativeClampedZ()
     throws Exception
   {
@@ -412,7 +406,7 @@ public final class <className>
 
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
-    Assert.assertTrue(<volumeOpsType>.contains(outer, inner));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, inner));
 
     final var z = sGen.next();
     final var moved = <volumeOpsType>.moveRelativeClampedZ(outer, inner, z);
@@ -421,11 +415,10 @@ public final class <className>
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
     <opClass>.checkEquals(inner.sizeZ(), moved.sizeZ());
 
-    Assert.assertTrue(<volumeOpsType>.contains(outer, moved));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, moved));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveRelativeClamped()
     throws Exception
   {
@@ -457,7 +450,7 @@ public final class <className>
 
     System.out.println("outer " + outer);
     System.out.println("inner " + inner);
-    Assert.assertTrue(<volumeOpsType>.contains(outer, inner));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, inner));
 
     final var x = sGen.next();
     final var y = sGen.next();
@@ -468,11 +461,10 @@ public final class <className>
     <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
     <opClass>.checkEquals(inner.sizeZ(), moved.sizeZ());
 
-    Assert.assertTrue(<volumeOpsType>.contains(outer, moved));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, moved));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveAbsolute()
     throws Exception
   {
@@ -493,8 +485,7 @@ public final class <className>
     <opClass>.checkEquals(z, moved.minimumZ());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testMoveToOrigin()
     throws Exception
   {
@@ -511,8 +502,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.ZERO,  moved.minimumZ());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testEqualsHashcode()
     throws Exception
   {
@@ -527,30 +517,29 @@ public final class <className>
         volume.maximumY(),
         volume.minimumZ(),
         volume.maximumZ());
-    Assert.assertEquals(volume, volume);
-    Assert.assertEquals(volume, other);
-    Assert.assertEquals(other, volume);
-    Assert.assertEquals((long) volume.hashCode(), (long) other.hashCode());
+    Assertions.assertEquals(volume, volume);
+    Assertions.assertEquals(volume, other);
+    Assertions.assertEquals(other, volume);
+    Assertions.assertEquals((long) volume.hashCode(), (long) other.hashCode());
 
-    Assert.assertNotEquals(volume, null);
-    Assert.assertNotEquals(volume, Integer.valueOf(23));
+    Assertions.assertNotEquals(volume, null);
+    Assertions.assertNotEquals(volume, Integer.valueOf(23));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testShowAll()
     throws Exception
   {
     final Generator\<<volumeType>\> generator = <opClass>.createGenerator();
     final <volumeType> any = generator.next();
 
-    Assert.assertEquals(<volumeOpsType>.show(any), <volumeOpsType>.show(any));
+    Assertions.assertEquals(<volumeOpsType>.show(any), <volumeOpsType>.show(any));
 
     final <volumeType> next = generator.next();
     if (!Objects.equals(next, any)) {
-      Assert.assertNotEquals(<volumeOpsType>.show(any), <volumeOpsType>.show(next));
+      Assertions.assertNotEquals(<volumeOpsType>.show(any), <volumeOpsType>.show(next));
     } else {
-      Assert.assertEquals(<volumeOpsType>.show(any), <volumeOpsType>.show(next));
+      Assertions.assertEquals(<volumeOpsType>.show(any), <volumeOpsType>.show(next));
     }
   }
 
@@ -610,19 +599,19 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("11"), <opClass>.constant("21"));
 
-    Assert.assertFalse(<volumeOpsType>.overlaps(volume, out_x_lo));
-    Assert.assertFalse(<volumeOpsType>.overlaps(volume, out_x_hi));
-    Assert.assertFalse(<volumeOpsType>.overlaps(volume, out_y_lo));
-    Assert.assertFalse(<volumeOpsType>.overlaps(volume, out_y_hi));
-    Assert.assertFalse(<volumeOpsType>.overlaps(volume, out_z_lo));
-    Assert.assertFalse(<volumeOpsType>.overlaps(volume, out_z_hi));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(volume, out_x_lo));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(volume, out_x_hi));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(volume, out_y_lo));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(volume, out_y_hi));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(volume, out_z_lo));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(volume, out_z_hi));
 
-    Assert.assertFalse(<volumeOpsType>.overlaps(out_x_lo, volume));
-    Assert.assertFalse(<volumeOpsType>.overlaps(out_x_hi, volume));
-    Assert.assertFalse(<volumeOpsType>.overlaps(out_y_lo, volume));
-    Assert.assertFalse(<volumeOpsType>.overlaps(out_y_hi, volume));
-    Assert.assertFalse(<volumeOpsType>.overlaps(out_z_lo, volume));
-    Assert.assertFalse(<volumeOpsType>.overlaps(out_z_hi, volume));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(out_x_lo, volume));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(out_x_hi, volume));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(out_y_lo, volume));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(out_y_hi, volume));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(out_z_lo, volume));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(out_z_hi, volume));
   }
 
   @Test
@@ -668,45 +657,42 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("9"), <opClass>.constant("21"));
 
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, out_x_lo));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, out_x_hi));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, out_y_lo));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, out_y_hi));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, out_z_lo));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, out_z_hi));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, out_x_lo));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, out_x_hi));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, out_y_lo));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, out_y_hi));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, out_z_lo));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, out_z_hi));
 
-    Assert.assertTrue(<volumeOpsType>.overlaps(out_x_lo, volume));
-    Assert.assertTrue(<volumeOpsType>.overlaps(out_x_hi, volume));
-    Assert.assertTrue(<volumeOpsType>.overlaps(out_y_lo, volume));
-    Assert.assertTrue(<volumeOpsType>.overlaps(out_y_hi, volume));
-    Assert.assertTrue(<volumeOpsType>.overlaps(out_z_lo, volume));
-    Assert.assertTrue(<volumeOpsType>.overlaps(out_z_hi, volume));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(out_x_lo, volume));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(out_x_hi, volume));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(out_y_lo, volume));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(out_y_hi, volume));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(out_z_lo, volume));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(out_z_hi, volume));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testOverlapsSelfAll()
     throws Exception
   {
     final Generator\<<volumeType>\> generator = <opClass>.createGenerator();
     final <volumeType> outer = generator.next();
 
-    Assert.assertTrue(<volumeOpsType>.overlaps(outer, outer));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, outer));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testCouldFitInsideSelfAll()
     throws Exception
   {
     final Generator\<<volumeType>\> generator = <opClass>.createGenerator();
     final <volumeType> outer = generator.next();
 
-    Assert.assertTrue(<volumeOpsType>.couldFitInside(outer, outer));
+    Assertions.assertTrue(<volumeOpsType>.couldFitInside(outer, outer));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainsPointAll()
     throws Exception
   {
@@ -730,14 +716,13 @@ public final class <className>
     boolean sizeZ_over = <opClass>.compare(outer.sizeZ(), <opClass>.ZERO) > 0;
 
     if (sizeX_over && sizeY_over && sizeZ_over) {
-      Assert.assertTrue(<volumeOpsType>.containsPoint(outer, ppx, ppy, ppz));
+      Assertions.assertTrue(<volumeOpsType>.containsPoint(outer, ppx, ppy, ppz));
     } else {
-      Assert.assertFalse(<volumeOpsType>.containsPoint(outer, ppx, ppy, ppz));
+      Assertions.assertFalse(<volumeOpsType>.containsPoint(outer, ppx, ppy, ppz));
     }
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainingAll()
     throws Exception
   {
@@ -745,18 +730,17 @@ public final class <className>
     final <volumeType> a = generator.next();
     final <volumeType> b = generator.next();
     final <volumeType> c = <volumeOpsType>.containing(a, b);
-    Assert.assertTrue(<opClass>.compare(c.sizeX(), a.sizeX()) >= 0);
-    Assert.assertTrue(<opClass>.compare(c.sizeY(), a.sizeY()) >= 0);
-    Assert.assertTrue(<opClass>.compare(c.sizeZ(), a.sizeZ()) >= 0);
-    Assert.assertTrue(<opClass>.compare(c.sizeX(), b.sizeX()) >= 0);
-    Assert.assertTrue(<opClass>.compare(c.sizeY(), b.sizeY()) >= 0);
-    Assert.assertTrue(<opClass>.compare(c.sizeZ(), b.sizeZ()) >= 0);
-    Assert.assertTrue(<volumeOpsType>.contains(c, a));
-    Assert.assertTrue(<volumeOpsType>.contains(c, b));
+    Assertions.assertTrue(<opClass>.compare(c.sizeX(), a.sizeX()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeY(), a.sizeY()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeZ(), a.sizeZ()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeX(), b.sizeX()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeY(), b.sizeY()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeZ(), b.sizeZ()) >= 0);
+    Assertions.assertTrue(<volumeOpsType>.contains(c, a));
+    Assertions.assertTrue(<volumeOpsType>.contains(c, b));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainsZeroSizeX()
     throws Exception
   {
@@ -785,11 +769,10 @@ public final class <className>
 
     System.out.println(ppx + " " + ppy);
 
-    Assert.assertFalse(<volumeOpsType>.containsPoint(scaled, ppx, ppy, ppz));
+    Assertions.assertFalse(<volumeOpsType>.containsPoint(scaled, ppx, ppy, ppz));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainsZeroSizeY()
     throws Exception
   {
@@ -818,11 +801,10 @@ public final class <className>
 
     System.out.println(ppx + " " + ppy + " " + ppz);
 
-    Assert.assertFalse(<volumeOpsType>.containsPoint(scaled, ppx, ppy, ppz));
+    Assertions.assertFalse(<volumeOpsType>.containsPoint(scaled, ppx, ppy, ppz));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testContainsZeroSizeZ()
     throws Exception
   {
@@ -851,7 +833,7 @@ public final class <className>
 
     System.out.println(ppx + " " + ppy + " " + ppz);
 
-    Assert.assertFalse(<volumeOpsType>.containsPoint(scaled, ppx, ppy, ppz));
+    Assertions.assertFalse(<volumeOpsType>.containsPoint(scaled, ppx, ppy, ppz));
   }
 
   @Test
@@ -864,7 +846,7 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("-1"), <opClass>.constant("5"), <opClass>.constant("5")));
+    Assertions.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("-1"), <opClass>.constant("5"), <opClass>.constant("5")));
   }
 
   @Test
@@ -877,7 +859,7 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("10"), <opClass>.constant("5"), <opClass>.constant("5")));
+    Assertions.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("10"), <opClass>.constant("5"), <opClass>.constant("5")));
   }
 
   @Test
@@ -890,7 +872,7 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("5"), <opClass>.constant("-1"), <opClass>.constant("5")));
+    Assertions.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("5"), <opClass>.constant("-1"), <opClass>.constant("5")));
   }
 
   @Test
@@ -903,7 +885,7 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("5"), <opClass>.constant("10"), <opClass>.constant("5")));
+    Assertions.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("5"), <opClass>.constant("10"), <opClass>.constant("5")));
   }
 
   @Test
@@ -916,7 +898,7 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("5"), <opClass>.constant("5"), <opClass>.constant("-1")));
+    Assertions.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("5"), <opClass>.constant("5"), <opClass>.constant("-1")));
   }
 
   @Test
@@ -929,11 +911,10 @@ public final class <className>
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    Assert.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("5"), <opClass>.constant("5"), <opClass>.constant("10")));
+    Assertions.assertFalse(<volumeOpsType>.containsPoint(volume, <opClass>.constant("5"), <opClass>.constant("5"), <opClass>.constant("10")));
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSize()
     throws Exception
   {
@@ -946,8 +927,7 @@ public final class <className>
     <opClass>.checkEquals(outer.sizeZ(), s.sizeZ());
   }
 
-  @Test
-  @PercentagePassing
+  @PercentPassing
   public void testSplitAtXYZAll()
     throws Exception
   {
@@ -979,32 +959,32 @@ public final class <className>
     System.out.println("octants x0y1z1: " + s.x0y1z1());
     System.out.println("octants x1y1z1: " + s.x1y1z1());
 
-    Assert.assertTrue(<opClass>.compare(s.x0y0z0().sizeX(), outer.sizeX()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y0z0().sizeX(), outer.sizeX()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x0y1z0().sizeX(), outer.sizeX()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y1z0().sizeX(), outer.sizeX()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x0y0z1().sizeX(), outer.sizeX()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y0z1().sizeX(), outer.sizeX()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x0y1z1().sizeX(), outer.sizeX()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y1z1().sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y0z0().sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y0z0().sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y1z0().sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y1z0().sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y0z1().sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y0z1().sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y1z1().sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y1z1().sizeX(), outer.sizeX()) \<= 0);
 
-    Assert.assertTrue(<opClass>.compare(s.x0y0z0().sizeY(), outer.sizeY()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y0z0().sizeY(), outer.sizeY()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x0y1z0().sizeY(), outer.sizeY()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y1z0().sizeY(), outer.sizeY()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x0y0z1().sizeY(), outer.sizeY()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y0z1().sizeY(), outer.sizeY()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x0y1z1().sizeY(), outer.sizeY()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y1z1().sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y0z0().sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y0z0().sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y1z0().sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y1z0().sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y0z1().sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y0z1().sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y1z1().sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y1z1().sizeY(), outer.sizeY()) \<= 0);
 
-    Assert.assertTrue(<opClass>.compare(s.x0y0z0().sizeZ(), outer.sizeZ()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y0z0().sizeZ(), outer.sizeZ()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x0y1z0().sizeZ(), outer.sizeZ()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y1z0().sizeZ(), outer.sizeZ()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x0y0z1().sizeZ(), outer.sizeZ()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y0z1().sizeZ(), outer.sizeZ()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x0y1z1().sizeZ(), outer.sizeZ()) \<= 0);
-    Assert.assertTrue(<opClass>.compare(s.x1y1z1().sizeZ(), outer.sizeZ()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y0z0().sizeZ(), outer.sizeZ()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y0z0().sizeZ(), outer.sizeZ()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y1z0().sizeZ(), outer.sizeZ()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y1z0().sizeZ(), outer.sizeZ()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y0z1().sizeZ(), outer.sizeZ()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y0z1().sizeZ(), outer.sizeZ()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x0y1z1().sizeZ(), outer.sizeZ()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(s.x1y1z1().sizeZ(), outer.sizeZ()) \<= 0);
 
     <opClass>.checkEquals(s.x0y0z0().minimumX(), outer.minimumX());
     <opClass>.checkEquals(s.x0y0z0().minimumY(), outer.minimumY());
@@ -1034,31 +1014,31 @@ public final class <className>
     <opClass>.checkEquals(s.x1y1z0().maximumY(), outer.maximumY());
     <opClass>.checkEquals(s.x1y1z0().maximumZ(), <opClass>.add(s.x0y0z0().minimumZ(), z));
 
-    Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y0z0()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y0z0()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y1z0()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y1z0()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y0z1()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y0z1()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y1z1()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y1z1()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y0z0()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y0z0()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y1z0()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y1z0()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y0z1()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y0z1()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y1z1()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y1z1()));
 
-    Assert.assertTrue(<volumeOpsType>.contains(outer, s.x0y0z0()));
-    Assert.assertTrue(<volumeOpsType>.contains(outer, s.x1y0z0()));
-    Assert.assertTrue(<volumeOpsType>.contains(outer, s.x0y1z0()));
-    Assert.assertTrue(<volumeOpsType>.contains(outer, s.x1y1z0()));
-    Assert.assertTrue(<volumeOpsType>.contains(outer, s.x0y0z1()));
-    Assert.assertTrue(<volumeOpsType>.contains(outer, s.x1y0z1()));
-    Assert.assertTrue(<volumeOpsType>.contains(outer, s.x0y1z1()));
-    Assert.assertTrue(<volumeOpsType>.contains(outer, s.x1y1z1()));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x0y0z0()));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x1y0z0()));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x0y1z0()));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x1y1z0()));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x0y0z1()));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x1y0z1()));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x0y1z1()));
+    Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x1y1z1()));
 
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z0()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z0()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z0()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y0z1()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z1()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z1()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z1()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z0()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z0()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z0()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y0z1()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z1()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z1()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z1()));
   }
 
   @Test
@@ -1163,31 +1143,31 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("5"), s.x0y1z1().sizeZ());
     <opClass>.checkEquals(<opClass>.constant("5"), s.x1y1z1().sizeZ());
 
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y0z0()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y0z0()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y1z0()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y1z0()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y0z1()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y0z1()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y1z1()));
-    Assert.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y1z1()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y0z0()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y0z0()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y1z0()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y1z0()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y0z1()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y0z1()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, s.x0y1z1()));
+    Assertions.assertTrue(<volumeOpsType>.overlaps(volume, s.x1y1z1()));
 
-    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x0y0z0()));
-    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x1y0z0()));
-    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x0y1z0()));
-    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x1y1z0()));
-    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x0y0z1()));
-    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x1y0z1()));
-    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x0y1z1()));
-    Assert.assertTrue(<volumeOpsType>.contains(volume, s.x1y1z1()));
+    Assertions.assertTrue(<volumeOpsType>.contains(volume, s.x0y0z0()));
+    Assertions.assertTrue(<volumeOpsType>.contains(volume, s.x1y0z0()));
+    Assertions.assertTrue(<volumeOpsType>.contains(volume, s.x0y1z0()));
+    Assertions.assertTrue(<volumeOpsType>.contains(volume, s.x1y1z0()));
+    Assertions.assertTrue(<volumeOpsType>.contains(volume, s.x0y0z1()));
+    Assertions.assertTrue(<volumeOpsType>.contains(volume, s.x1y0z1()));
+    Assertions.assertTrue(<volumeOpsType>.contains(volume, s.x0y1z1()));
+    Assertions.assertTrue(<volumeOpsType>.contains(volume, s.x1y1z1()));
 
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z0()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z0()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z0()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y0z1()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z1()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z1()));
-    Assert.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z1()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z0()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z0()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z0()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y0z1()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z1()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z1()));
+    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z1()));
   }
 }
 

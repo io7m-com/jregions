@@ -29,8 +29,8 @@ import com.io7m.jregions.core.unparameterized.volumes.VolumesD;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesF;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesI;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesL;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -56,8 +56,8 @@ public final class Bug14VolumeTest
         0L,
         0L,
         0L);
-    Assert.assertTrue(VolumesL.overlaps(area0, area1));
-    Assert.assertTrue(VolumesL.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesL.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesL.overlaps(area1, area0));
   }
 
   @Test
@@ -79,8 +79,8 @@ public final class Bug14VolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(VolumesI.overlaps(area0, area1));
-    Assert.assertTrue(VolumesI.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesI.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesI.overlaps(area1, area0));
   }
 
   @Test
@@ -102,8 +102,8 @@ public final class Bug14VolumeTest
         (double) 0L,
         (double) 0L,
         (double) 0L);
-    Assert.assertTrue(VolumesD.overlaps(area0, area1));
-    Assert.assertTrue(VolumesD.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesD.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesD.overlaps(area1, area0));
   }
 
   @Test
@@ -125,8 +125,8 @@ public final class Bug14VolumeTest
         (float) 0L,
         (float) 0L,
         (float) 0L);
-    Assert.assertTrue(VolumesF.overlaps(area0, area1));
-    Assert.assertTrue(VolumesF.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesF.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesF.overlaps(area1, area0));
   }
 
   @Test
@@ -148,8 +148,8 @@ public final class Bug14VolumeTest
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(VolumesBI.overlaps(area0, area1));
-    Assert.assertTrue(VolumesBI.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesBI.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesBI.overlaps(area1, area0));
   }
 
   @Test
@@ -171,8 +171,8 @@ public final class Bug14VolumeTest
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(VolumesBD.overlaps(area0, area1));
-    Assert.assertTrue(VolumesBD.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesBD.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesBD.overlaps(area1, area0));
   }
 
   @Test
@@ -194,7 +194,7 @@ public final class Bug14VolumeTest
         0L,
         0L,
         0L);
-    Assert.assertTrue(VolumesL.contains(area0, area1));
+    Assertions.assertTrue(VolumesL.contains(area0, area1));
   }
 
   @Test
@@ -216,7 +216,7 @@ public final class Bug14VolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(VolumesI.contains(area0, area1));
+    Assertions.assertTrue(VolumesI.contains(area0, area1));
   }
 
   @Test
@@ -238,7 +238,7 @@ public final class Bug14VolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(VolumesD.contains(area0, area1));
+    Assertions.assertTrue(VolumesD.contains(area0, area1));
   }
 
   @Test
@@ -260,7 +260,7 @@ public final class Bug14VolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(VolumesF.contains(area0, area1));
+    Assertions.assertTrue(VolumesF.contains(area0, area1));
   }
 
   @Test
@@ -282,7 +282,7 @@ public final class Bug14VolumeTest
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(VolumesBI.contains(area0, area1));
+    Assertions.assertTrue(VolumesBI.contains(area0, area1));
   }
 
   @Test
@@ -304,6 +304,6 @@ public final class Bug14VolumeTest
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(VolumesBD.contains(area0, area1));
+    Assertions.assertTrue(VolumesBD.contains(area0, area1));
   }
 }

@@ -28,8 +28,8 @@ import com.io7m.jregions.core.parameterized.volumes.PVolumesD;
 import com.io7m.jregions.core.parameterized.volumes.PVolumesF;
 import com.io7m.jregions.core.parameterized.volumes.PVolumesI;
 import com.io7m.jregions.core.parameterized.volumes.PVolumesL;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -55,8 +55,8 @@ public final class Bug14PVolumeTest
         0L,
         0L,
         0L);
-    Assert.assertTrue(PVolumesL.overlaps(area0, area1));
-    Assert.assertTrue(PVolumesL.overlaps(area1, area0));
+    Assertions.assertTrue(PVolumesL.overlaps(area0, area1));
+    Assertions.assertTrue(PVolumesL.overlaps(area1, area0));
   }
 
   @Test
@@ -78,8 +78,8 @@ public final class Bug14PVolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(PVolumesI.overlaps(area0, area1));
-    Assert.assertTrue(PVolumesI.overlaps(area1, area0));
+    Assertions.assertTrue(PVolumesI.overlaps(area0, area1));
+    Assertions.assertTrue(PVolumesI.overlaps(area1, area0));
   }
 
   @Test
@@ -101,8 +101,8 @@ public final class Bug14PVolumeTest
         (double) 0L,
         (double) 0L,
         (double) 0L);
-    Assert.assertTrue(PVolumesD.overlaps(area0, area1));
-    Assert.assertTrue(PVolumesD.overlaps(area1, area0));
+    Assertions.assertTrue(PVolumesD.overlaps(area0, area1));
+    Assertions.assertTrue(PVolumesD.overlaps(area1, area0));
   }
 
   @Test
@@ -124,8 +124,8 @@ public final class Bug14PVolumeTest
         (float) 0L,
         (float) 0L,
         (float) 0L);
-    Assert.assertTrue(PVolumesF.overlaps(area0, area1));
-    Assert.assertTrue(PVolumesF.overlaps(area1, area0));
+    Assertions.assertTrue(PVolumesF.overlaps(area0, area1));
+    Assertions.assertTrue(PVolumesF.overlaps(area1, area0));
   }
 
   @Test
@@ -147,8 +147,8 @@ public final class Bug14PVolumeTest
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(PVolumesBI.overlaps(area0, area1));
-    Assert.assertTrue(PVolumesBI.overlaps(area1, area0));
+    Assertions.assertTrue(PVolumesBI.overlaps(area0, area1));
+    Assertions.assertTrue(PVolumesBI.overlaps(area1, area0));
   }
 
   @Test
@@ -170,8 +170,8 @@ public final class Bug14PVolumeTest
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(PVolumesBD.overlaps(area0, area1));
-    Assert.assertTrue(PVolumesBD.overlaps(area1, area0));
+    Assertions.assertTrue(PVolumesBD.overlaps(area0, area1));
+    Assertions.assertTrue(PVolumesBD.overlaps(area1, area0));
   }
 
   @Test
@@ -193,7 +193,7 @@ public final class Bug14PVolumeTest
         0L,
         0L,
         0L);
-    Assert.assertTrue(PVolumesL.contains(area0, area1));
+    Assertions.assertTrue(PVolumesL.contains(area0, area1));
   }
 
   @Test
@@ -215,7 +215,7 @@ public final class Bug14PVolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(PVolumesI.contains(area0, area1));
+    Assertions.assertTrue(PVolumesI.contains(area0, area1));
   }
 
   @Test
@@ -237,7 +237,7 @@ public final class Bug14PVolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(PVolumesD.contains(area0, area1));
+    Assertions.assertTrue(PVolumesD.contains(area0, area1));
   }
 
   @Test
@@ -259,7 +259,7 @@ public final class Bug14PVolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(PVolumesF.contains(area0, area1));
+    Assertions.assertTrue(PVolumesF.contains(area0, area1));
   }
 
   @Test
@@ -281,7 +281,7 @@ public final class Bug14PVolumeTest
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(PVolumesBI.contains(area0, area1));
+    Assertions.assertTrue(PVolumesBI.contains(area0, area1));
   }
 
   @Test
@@ -303,6 +303,6 @@ public final class Bug14PVolumeTest
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(PVolumesBD.contains(area0, area1));
+    Assertions.assertTrue(PVolumesBD.contains(area0, area1));
   }
 }

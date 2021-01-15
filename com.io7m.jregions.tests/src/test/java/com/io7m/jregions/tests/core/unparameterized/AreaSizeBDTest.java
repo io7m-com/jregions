@@ -23,27 +23,22 @@ import com.io7m.jregions.core.unparameterized.sizes.AreaSizesBD;
 import com.io7m.jregions.generators.AreaSizeBDGenerator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
 public final class AreaSizeBDTest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   @Test
   public void testIdentities()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       new BigDecimal(100),
       AreaSizeBD.of(
         new BigDecimal(100),
         BigDecimal.ZERO).sizeX());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       new BigDecimal(100),
       AreaSizeBD.of(
         BigDecimal.ZERO,
@@ -61,7 +56,7 @@ public final class AreaSizeBDTest
         protected void doSpecify(final AreaSizeBD area)
           throws Throwable
         {
-          Assert.assertTrue(AreaSizesBD.includes(area, area));
+          Assertions.assertTrue(AreaSizesBD.includes(area, area));
         }
       });
   }
@@ -82,7 +77,7 @@ public final class AreaSizeBDTest
           final AreaSizeBD c = generator.next();
 
           if (AreaSizesBD.includes(a, b) && AreaSizesBD.includes(b, c)) {
-            Assert.assertTrue(AreaSizesBD.includes(a, c));
+            Assertions.assertTrue(AreaSizesBD.includes(a, c));
           }
         }
       });
@@ -101,10 +96,10 @@ public final class AreaSizeBDTest
           throws Throwable
         {
           final AreaBD s = AreaSizesBD.area(a);
-          Assert.assertEquals(a.sizeX(), s.sizeX());
-          Assert.assertEquals(a.sizeY(), s.sizeY());
-          Assert.assertEquals(BigDecimal.ZERO, s.minimumX());
-          Assert.assertEquals(BigDecimal.ZERO, s.minimumY());
+          Assertions.assertEquals(a.sizeX(), s.sizeX());
+          Assertions.assertEquals(a.sizeY(), s.sizeY());
+          Assertions.assertEquals(BigDecimal.ZERO, s.minimumX());
+          Assertions.assertEquals(BigDecimal.ZERO, s.minimumY());
         }
       });
   }
@@ -112,47 +107,51 @@ public final class AreaSizeBDTest
   @Test
   public void testNegativeWidth()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Width"));
-    AreaSizeBD.of(new BigDecimal(-1), BigDecimal.ZERO);
+    final var ex =
+      Assertions.assertThrows(PreconditionViolationException.class, () -> {
+        AreaSizeBD.of(new BigDecimal(-1), BigDecimal.ZERO);
+      });
+    Assertions.assertTrue(ex.getMessage().contains("Width"));
   }
 
   @Test
   public void testNegativeHeight()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Height"));
-    AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(-1));
+    final var ex =
+      Assertions.assertThrows(PreconditionViolationException.class, () -> {
+        AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(-1));
+      });
+    Assertions.assertTrue(ex.getMessage().contains("Height"));
   }
 
   @Test
   public void testEquals()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       AreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO),
       AreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO));
-    Assert.assertEquals(
+    Assertions.assertEquals(
       AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)),
       AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)));
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       AreaSizeBD.of(
         new BigDecimal(100),
         BigDecimal.ZERO),
       AreaSizeBD.of(
         new BigDecimal(99),
         BigDecimal.ZERO));
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       AreaSizeBD.of(
         BigDecimal.ZERO,
         new BigDecimal(100)),
       AreaSizeBD.of(
         BigDecimal.ZERO,
         new BigDecimal(99)));
-    Assert.assertNotEquals(AreaSizeBD.of(
+    Assertions.assertNotEquals(AreaSizeBD.of(
       BigDecimal.ZERO,
       new BigDecimal(100)), null);
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       AreaSizeBD.of(
         BigDecimal.ZERO,
         new BigDecimal(100)),
@@ -162,17 +161,17 @@ public final class AreaSizeBDTest
   @Test
   public void testToString()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       AreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).toString(),
       AreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).toString());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).toString(),
       AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).toString());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       AreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).toString(),
       AreaSizeBD.of(new BigDecimal(99), BigDecimal.ZERO).toString());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).toString(),
       AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(99)).toString());
   }
@@ -180,17 +179,17 @@ public final class AreaSizeBDTest
   @Test
   public void testHashCode()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) AreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).hashCode(),
       (long) AreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).hashCode());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).hashCode(),
       (long) AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).hashCode());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) AreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).hashCode(),
       (long) AreaSizeBD.of(new BigDecimal(99), BigDecimal.ZERO).hashCode());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).hashCode(),
       (long) AreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(99)).hashCode());
   }

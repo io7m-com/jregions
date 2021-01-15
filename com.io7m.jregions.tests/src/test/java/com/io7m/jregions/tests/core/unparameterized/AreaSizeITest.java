@@ -22,28 +22,28 @@ import com.io7m.jregions.core.unparameterized.sizes.AreaSizesI;
 import com.io7m.jregions.generators.AreaSizeIGenerator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public final class AreaSizeITest
 {
   @Test
   public void testIdentities()
   {
-    Assert.assertEquals(100L, (long) AreaSizeI.of(100, 0).sizeX());
-    Assert.assertEquals(100L, (long) AreaSizeI.of(0, 100).sizeY());
+    Assertions.assertEquals(100L, (long) AreaSizeI.of(100, 0).sizeX());
+    Assertions.assertEquals(100L, (long) AreaSizeI.of(0, 100).sizeY());
   }
 
   @Test
   public void testEquals()
   {
-    Assert.assertEquals(AreaSizeI.of(100, 0), AreaSizeI.of(100, 0));
-    Assert.assertEquals(AreaSizeI.of(0, 100), AreaSizeI.of(0, 100));
+    Assertions.assertEquals(AreaSizeI.of(100, 0), AreaSizeI.of(100, 0));
+    Assertions.assertEquals(AreaSizeI.of(0, 100), AreaSizeI.of(0, 100));
 
-    Assert.assertNotEquals(AreaSizeI.of(100, 0), AreaSizeI.of(99, 0));
-    Assert.assertNotEquals(AreaSizeI.of(0, 100), AreaSizeI.of(0, 99));
-    Assert.assertNotEquals(AreaSizeI.of(0, 100), null);
-    Assert.assertNotEquals(AreaSizeI.of(0, 100), Integer.valueOf(23));
+    Assertions.assertNotEquals(AreaSizeI.of(100, 0), AreaSizeI.of(99, 0));
+    Assertions.assertNotEquals(AreaSizeI.of(0, 100), AreaSizeI.of(0, 99));
+    Assertions.assertNotEquals(AreaSizeI.of(0, 100), null);
+    Assertions.assertNotEquals(AreaSizeI.of(0, 100), Integer.valueOf(23));
   }
 
   @Test
@@ -57,7 +57,7 @@ public final class AreaSizeITest
         protected void doSpecify(final AreaSizeI area)
           throws Throwable
         {
-          Assert.assertTrue(AreaSizesI.includes(area, area));
+          Assertions.assertTrue(AreaSizesI.includes(area, area));
         }
       });
   }
@@ -78,7 +78,7 @@ public final class AreaSizeITest
           final AreaSizeI c = generator.next();
 
           if (AreaSizesI.includes(a, b) && AreaSizesI.includes(b, c)) {
-            Assert.assertTrue(AreaSizesI.includes(a, c));
+            Assertions.assertTrue(AreaSizesI.includes(a, c));
           }
         }
       });
@@ -97,10 +97,10 @@ public final class AreaSizeITest
           throws Throwable
         {
           final AreaI s = AreaSizesI.area(a);
-          Assert.assertEquals((long) a.sizeX(), (long) s.sizeX());
-          Assert.assertEquals((long) a.sizeY(), (long) s.sizeY());
-          Assert.assertEquals(0L, (long) s.minimumX());
-          Assert.assertEquals(0L, (long) s.minimumY());
+          Assertions.assertEquals((long) a.sizeX(), (long) s.sizeX());
+          Assertions.assertEquals((long) a.sizeY(), (long) s.sizeY());
+          Assertions.assertEquals(0L, (long) s.minimumX());
+          Assertions.assertEquals(0L, (long) s.minimumY());
         }
       });
   }
@@ -108,17 +108,17 @@ public final class AreaSizeITest
   @Test
   public void testToString()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       AreaSizeI.of(100, 0).toString(),
       AreaSizeI.of(100, 0).toString());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       AreaSizeI.of(0, 100).toString(),
       AreaSizeI.of(0, 100).toString());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       AreaSizeI.of(100, 0).toString(),
       AreaSizeI.of(99, 0).toString());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       AreaSizeI.of(0, 100).toString(),
       AreaSizeI.of(0, 99).toString());
   }
@@ -126,17 +126,17 @@ public final class AreaSizeITest
   @Test
   public void testHashCode()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) AreaSizeI.of(100, 0).hashCode(),
       (long) AreaSizeI.of(100, 0).hashCode());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) AreaSizeI.of(0, 100).hashCode(),
       (long) AreaSizeI.of(0, 100).hashCode());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) AreaSizeI.of(100, 0).hashCode(),
       (long) AreaSizeI.of(99, 0).hashCode());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) AreaSizeI.of(0, 100).hashCode(),
       (long) AreaSizeI.of(0, 99).hashCode());
   }

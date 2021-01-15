@@ -22,7 +22,7 @@ import com.io7m.jregions.generators.AreaFGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 final class AreasFTestOps
 {
@@ -39,7 +39,7 @@ final class AreasFTestOps
     final float actual)
   {
     // Single precision floats are subject to quite serious precision problems
-    Assert.assertEquals(expected, actual, 0.1f);
+    Assertions.assertEquals(expected, actual, 0.1f);
   }
 
   public static float constant(

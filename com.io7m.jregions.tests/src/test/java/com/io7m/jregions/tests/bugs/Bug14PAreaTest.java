@@ -28,8 +28,8 @@ import com.io7m.jregions.core.parameterized.areas.PAreasD;
 import com.io7m.jregions.core.parameterized.areas.PAreasF;
 import com.io7m.jregions.core.parameterized.areas.PAreasI;
 import com.io7m.jregions.core.parameterized.areas.PAreasL;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -51,8 +51,8 @@ public final class Bug14PAreaTest
         0L,
         0L,
         0L);
-    Assert.assertTrue(PAreasL.overlaps(area0, area1));
-    Assert.assertTrue(PAreasL.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasL.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasL.overlaps(area1, area0));
   }
 
   @Test
@@ -70,8 +70,8 @@ public final class Bug14PAreaTest
         0,
         0,
         0);
-    Assert.assertTrue(PAreasI.overlaps(area0, area1));
-    Assert.assertTrue(PAreasI.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasI.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasI.overlaps(area1, area0));
   }
 
   @Test
@@ -89,8 +89,8 @@ public final class Bug14PAreaTest
         (double) 0L,
         (double) 0L,
         (double) 0L);
-    Assert.assertTrue(PAreasD.overlaps(area0, area1));
-    Assert.assertTrue(PAreasD.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasD.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasD.overlaps(area1, area0));
   }
 
   @Test
@@ -108,8 +108,8 @@ public final class Bug14PAreaTest
         (float) 0L,
         (float) 0L,
         (float) 0L);
-    Assert.assertTrue(PAreasF.overlaps(area0, area1));
-    Assert.assertTrue(PAreasF.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasF.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasF.overlaps(area1, area0));
   }
 
   @Test
@@ -127,8 +127,8 @@ public final class Bug14PAreaTest
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(PAreasBI.overlaps(area0, area1));
-    Assert.assertTrue(PAreasBI.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasBI.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasBI.overlaps(area1, area0));
   }
 
   @Test
@@ -146,8 +146,8 @@ public final class Bug14PAreaTest
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(PAreasBD.overlaps(area0, area1));
-    Assert.assertTrue(PAreasBD.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasBD.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasBD.overlaps(area1, area0));
   }
 
   @Test
@@ -165,7 +165,7 @@ public final class Bug14PAreaTest
         0L,
         0L,
         0L);
-    Assert.assertTrue(PAreasL.contains(area0, area1));
+    Assertions.assertTrue(PAreasL.contains(area0, area1));
   }
 
   @Test
@@ -183,7 +183,7 @@ public final class Bug14PAreaTest
         0,
         0,
         0);
-    Assert.assertTrue(PAreasI.contains(area0, area1));
+    Assertions.assertTrue(PAreasI.contains(area0, area1));
   }
 
   @Test
@@ -201,7 +201,7 @@ public final class Bug14PAreaTest
         0,
         0,
         0);
-    Assert.assertTrue(PAreasD.contains(area0, area1));
+    Assertions.assertTrue(PAreasD.contains(area0, area1));
   }
 
   @Test
@@ -219,7 +219,7 @@ public final class Bug14PAreaTest
         0,
         0,
         0);
-    Assert.assertTrue(PAreasF.contains(area0, area1));
+    Assertions.assertTrue(PAreasF.contains(area0, area1));
   }
 
   @Test
@@ -237,7 +237,7 @@ public final class Bug14PAreaTest
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(PAreasBI.contains(area0, area1));
+    Assertions.assertTrue(PAreasBI.contains(area0, area1));
   }
 
   @Test
@@ -255,6 +255,6 @@ public final class Bug14PAreaTest
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(PAreasBD.contains(area0, area1));
+    Assertions.assertTrue(PAreasBD.contains(area0, area1));
   }
 }

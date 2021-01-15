@@ -40,8 +40,8 @@ import com.io7m.jregions.core.unparameterized.volumes.VolumesD;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesF;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesI;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesL;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -56,7 +56,7 @@ public final class Bug12VolumeTest
     final VolumeL area1 =
       VolumeL.of(10L, 20L, 10L, 20L, 10L, 20L);
 
-    Assert.assertFalse(VolumesL.overlaps(area0, area1));
+    Assertions.assertFalse(VolumesL.overlaps(area0, area1));
   }
 
   @Test
@@ -67,7 +67,7 @@ public final class Bug12VolumeTest
     final VolumeI area1 =
       VolumeI.of(10, 20, 10, 20, 10, 20);
 
-    Assert.assertFalse(VolumesI.overlaps(area0, area1));
+    Assertions.assertFalse(VolumesI.overlaps(area0, area1));
   }
 
   @Test
@@ -78,7 +78,7 @@ public final class Bug12VolumeTest
     final VolumeD area1 =
       VolumeD.of(10.0, 20.0, 10.0, 20.0, 10.0, 20.0);
 
-    Assert.assertFalse(VolumesD.overlaps(area0, area1));
+    Assertions.assertFalse(VolumesD.overlaps(area0, area1));
   }
 
   @Test
@@ -89,7 +89,7 @@ public final class Bug12VolumeTest
     final VolumeF area1 =
       VolumeF.of(10.0F, 20.0F, 10.0F, 20.0F, 10.0F, 20.0F);
 
-    Assert.assertFalse(VolumesF.overlaps(area0, area1));
+    Assertions.assertFalse(VolumesF.overlaps(area0, area1));
   }
 
   @Test
@@ -112,7 +112,7 @@ public final class Bug12VolumeTest
         BigInteger.valueOf(10L),
         BigInteger.valueOf(20L));
 
-    Assert.assertFalse(VolumesBI.overlaps(area0, area1));
+    Assertions.assertFalse(VolumesBI.overlaps(area0, area1));
   }
 
   @Test
@@ -135,7 +135,7 @@ public final class Bug12VolumeTest
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(20L));
 
-    Assert.assertFalse(VolumesBD.overlaps(area0, area1));
+    Assertions.assertFalse(VolumesBD.overlaps(area0, area1));
   }
 
   @Test
@@ -146,7 +146,7 @@ public final class Bug12VolumeTest
     final PVolumeL<Object> area1 =
       PVolumeL.of(10L, 20L, 10L, 20L, 10L, 20L);
 
-    Assert.assertFalse(PVolumesL.overlaps(area0, area1));
+    Assertions.assertFalse(PVolumesL.overlaps(area0, area1));
   }
 
   @Test
@@ -157,7 +157,7 @@ public final class Bug12VolumeTest
     final PVolumeI<Object> area1 =
       PVolumeI.of(10, 20, 10, 20, 10, 20);
 
-    Assert.assertFalse(PVolumesI.overlaps(area0, area1));
+    Assertions.assertFalse(PVolumesI.overlaps(area0, area1));
   }
 
   @Test
@@ -168,7 +168,7 @@ public final class Bug12VolumeTest
     final PVolumeD<Object> area1 =
       PVolumeD.of(10.0, 20.0, 10.0, 20.0, 10.0, 20.0);
 
-    Assert.assertFalse(PVolumesD.overlaps(area0, area1));
+    Assertions.assertFalse(PVolumesD.overlaps(area0, area1));
   }
 
   @Test
@@ -179,7 +179,7 @@ public final class Bug12VolumeTest
     final PVolumeF<Object> area1 =
       PVolumeF.of(10.0F, 20.0F, 10.0F, 20.0F, 10.0F, 20.0F);
 
-    Assert.assertFalse(PVolumesF.overlaps(area0, area1));
+    Assertions.assertFalse(PVolumesF.overlaps(area0, area1));
   }
 
   @Test
@@ -202,7 +202,7 @@ public final class Bug12VolumeTest
         BigInteger.valueOf(10L),
         BigInteger.valueOf(20L));
 
-    Assert.assertFalse(PVolumesBI.overlaps(area0, area1));
+    Assertions.assertFalse(PVolumesBI.overlaps(area0, area1));
   }
 
   @Test
@@ -225,6 +225,6 @@ public final class Bug12VolumeTest
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(20L));
 
-    Assert.assertFalse(PVolumesBD.overlaps(area0, area1));
+    Assertions.assertFalse(PVolumesBD.overlaps(area0, area1));
   }
 }
