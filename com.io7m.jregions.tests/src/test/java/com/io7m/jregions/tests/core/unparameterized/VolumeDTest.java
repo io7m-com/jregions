@@ -14,25 +14,28 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.io7m.jregions.tests.core.parameterized;
+package com.io7m.jregions.tests.core.unparameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
-import com.io7m.jregions.core.parameterized.areas.PAreaL;
+import com.io7m.jregions.core.unparameterized.volumes.VolumeD;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public final class PAreaLTest
+public final class VolumeDTest
 {
   @Test
   public void testIdentities()
   {
-    final var area = PAreaL.of(0L, 100L, 0L, 100L);
-    Assertions.assertEquals(0L, area.minimumX());
-    Assertions.assertEquals(0L, area.minimumY());
-    Assertions.assertEquals(100L, area.sizeX());
-    Assertions.assertEquals(100L, area.sizeY());
-    Assertions.assertEquals(100L, area.maximumX());
-    Assertions.assertEquals(100L, area.maximumY());
+    final var volume = VolumeD.of(0L, 100L, 0L, 100L, 0L, 100L);
+    Assertions.assertEquals(0L, volume.minimumX());
+    Assertions.assertEquals(0L, volume.minimumY());
+    Assertions.assertEquals(0L, volume.minimumZ());
+    Assertions.assertEquals(100L, volume.sizeX());
+    Assertions.assertEquals(100L, volume.sizeY());
+    Assertions.assertEquals(100L, volume.sizeZ());
+    Assertions.assertEquals(100L, volume.maximumX());
+    Assertions.assertEquals(100L, volume.maximumY());
+    Assertions.assertEquals(100L, volume.maximumZ());
   }
 
   @Test
@@ -41,7 +44,7 @@ public final class PAreaLTest
     final var e = Assertions.assertThrows(
       PreconditionViolationException.class,
       () -> {
-        PAreaL.of(10L, 9L, 0L, 100L);
+        VolumeD.of(10L, 9L, 0L, 100L, 0L, 100L);
       });
     Assertions.assertTrue(e.getMessage().contains("X"));
   }
@@ -52,8 +55,19 @@ public final class PAreaLTest
     final var e = Assertions.assertThrows(
       PreconditionViolationException.class,
       () -> {
-        PAreaL.of(0L, 100L, 10L, 9L);
+        VolumeD.of(0L, 100L, 10L, 9L, 0L, 100L);
       });
     Assertions.assertTrue(e.getMessage().contains("Y"));
+  }
+
+  @Test
+  public void testBadZ()
+  {
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        VolumeD.of(0L, 100L, 0L, 100L, 10L, 9L);
+      });
+    Assertions.assertTrue(e.getMessage().contains("Z"));
   }
 }

@@ -39,13 +39,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugOverlapsL()
   {
-    final AreaL area0 =
+    final var area0 =
       AreaL.of(
         0L,
         10L,
         0L,
         10L);
-    final AreaL area1 =
+    final var area1 =
       AreasL.create(
         0L,
         0L,
@@ -58,13 +58,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugOverlapsI()
   {
-    final AreaI area0 =
+    final var area0 =
       AreaI.of(
         0,
         10,
         0,
         10);
-    final AreaI area1 =
+    final var area1 =
       AreasI.create(
         0,
         0,
@@ -77,13 +77,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugOverlapsD()
   {
-    final AreaD area0 =
+    final var area0 =
       AreaD.of(
         (double) 0L,
         10.0,
         (double) 0L,
         10.0);
-    final AreaD area1 =
+    final var area1 =
       AreasD.create(
         (double) 0L,
         (double) 0L,
@@ -96,13 +96,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugOverlapsF()
   {
-    final AreaF area0 =
+    final var area0 =
       AreaF.of(
         (float) 0L,
         10.0F,
         (float) 0L,
         10.0F);
-    final AreaF area1 =
+    final var area1 =
       AreasF.create(
         (float) 0L,
         (float) 0L,
@@ -115,13 +115,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugOverlapsBI()
   {
-    final AreaBI area0 =
+    final var area0 =
       AreaBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final AreaBI area1 =
+    final var area1 =
       AreasBI.create(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
@@ -134,13 +134,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugOverlapsBD()
   {
-    final AreaBD area0 =
+    final var area0 =
       AreaBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final AreaBD area1 =
+    final var area1 =
       AreasBD.create(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
@@ -153,13 +153,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugContainsL()
   {
-    final AreaL area0 =
+    final var area0 =
       AreaL.of(
         0L,
         10L,
         0L,
         10L);
-    final AreaL area1 =
+    final var area1 =
       AreasL.create(
         0L,
         0L,
@@ -171,13 +171,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugContainsI()
   {
-    final AreaI area0 =
+    final var area0 =
       AreaI.of(
         0,
         10,
         0,
         10);
-    final AreaI area1 =
+    final var area1 =
       AreasI.create(
         0,
         0,
@@ -189,13 +189,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugContainsD()
   {
-    final AreaD area0 =
+    final var area0 =
       AreaD.of(
         0,
         10,
         0,
         10);
-    final AreaD area1 =
+    final var area1 =
       AreasD.create(
         0,
         0,
@@ -207,13 +207,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugContainsF()
   {
-    final AreaF area0 =
+    final var area0 =
       AreaF.of(
         0,
         10,
         0,
         10);
-    final AreaF area1 =
+    final var area1 =
       AreasF.create(
         0,
         0,
@@ -225,13 +225,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugContainsBI()
   {
-    final AreaBI area0 =
+    final var area0 =
       AreaBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final AreaBI area1 =
+    final var area1 =
       AreasBI.create(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
@@ -243,13 +243,13 @@ public final class Bug14AreaTest
   @Test
   public void testBugContainsBD()
   {
-    final AreaBD area0 =
+    final var area0 =
       AreaBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final AreaBD area1 =
+    final var area1 =
       AreasBD.create(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),

@@ -26,7 +26,7 @@ public final class AreaLTest
   @Test
   public void testIdentities()
   {
-    final AreaL area = AreaL.of(0L, 100L, 0L, 100L);
+    final var area = AreaL.of(0L, 100L, 0L, 100L);
     Assertions.assertEquals(0L, area.minimumX());
     Assertions.assertEquals(0L, area.minimumY());
     Assertions.assertEquals(100L, area.sizeX());

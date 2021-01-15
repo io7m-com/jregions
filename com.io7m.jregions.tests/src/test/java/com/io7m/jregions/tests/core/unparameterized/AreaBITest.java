@@ -28,7 +28,7 @@ public final class AreaBITest
   @Test
   public void testIdentities()
   {
-    final AreaBI area = AreaBI.of(
+    final var area = AreaBI.of(
       BigInteger.ZERO,
       new BigInteger("100"),
       BigInteger.ZERO,

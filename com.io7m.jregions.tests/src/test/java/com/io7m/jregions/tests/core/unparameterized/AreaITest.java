@@ -26,7 +26,7 @@ public final class AreaITest
   @Test
   public void testIdentities()
   {
-    final AreaI area = AreaI.of(0, 100, 0, 100);
+    final var area = AreaI.of(0, 100, 0, 100);
     Assertions.assertEquals(0L, (long) area.minimumX());
     Assertions.assertEquals(0L, (long) area.minimumY());
     Assertions.assertEquals(100L, (long) area.sizeX());

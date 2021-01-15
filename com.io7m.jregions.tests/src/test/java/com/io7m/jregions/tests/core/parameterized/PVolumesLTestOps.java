@@ -102,35 +102,35 @@ final class PVolumesLTestOps
 
   public static Generator<Long> createWideScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(-1_000_000.0, 1_000_000.0);
     return () -> Long.valueOf(base.next().longValue());
   }
 
   public static Generator<Long> createNarrowScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(-400.0, 400.0);
     return () -> Long.valueOf(base.next().longValue());
   }
 
   public static Generator<Long> createNarrowNonNegativeScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(0.0, 400.0);
     return () -> Long.valueOf(base.next().longValue());
   }
 
   public static Generator<Long> createWideNonNegativeScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(0.0, 1_000_000.0);
     return () -> Long.valueOf(base.next().longValue());
   }
 
   public static Generator<Long> createWidePositiveScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(1.0, 1_000_000.0);
     return () -> Long.valueOf(base.next().longValue());
   }

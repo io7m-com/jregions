@@ -39,7 +39,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugOverlapsL()
   {
-    final PVolumeL<Object> area0 =
+    final var area0 =
       PVolumeL.of(
         0L,
         10L,
@@ -47,7 +47,7 @@ public final class Bug14PVolumeTest
         10L,
         0L,
         10L);
-    final PVolumeL<Object> area1 =
+    final var area1 =
       PVolumesL.create(
         0L,
         0L,
@@ -62,7 +62,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugOverlapsI()
   {
-    final PVolumeI<Object> area0 =
+    final var area0 =
       PVolumeI.of(
         0,
         10,
@@ -70,7 +70,7 @@ public final class Bug14PVolumeTest
         10,
         0,
         10);
-    final PVolumeI<Object> area1 =
+    final var area1 =
       PVolumesI.create(
         0,
         0,
@@ -85,7 +85,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugOverlapsD()
   {
-    final PVolumeD<Object> area0 =
+    final var area0 =
       PVolumeD.of(
         (double) 0L,
         10.0,
@@ -93,7 +93,7 @@ public final class Bug14PVolumeTest
         10.0,
         (double) 0L,
         10.0);
-    final PVolumeD<Object> area1 =
+    final var area1 =
       PVolumesD.create(
         (double) 0L,
         (double) 0L,
@@ -108,7 +108,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugOverlapsF()
   {
-    final PVolumeF<Object> area0 =
+    final var area0 =
       PVolumeF.of(
         (float) 0L,
         10.0F,
@@ -116,7 +116,7 @@ public final class Bug14PVolumeTest
         10.0F,
         (float) 0L,
         10.0F);
-    final PVolumeF<Object> area1 =
+    final var area1 =
       PVolumesF.create(
         (float) 0L,
         (float) 0L,
@@ -131,7 +131,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugOverlapsBI()
   {
-    final PVolumeBI<Object> area0 =
+    final var area0 =
       PVolumeBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
@@ -139,7 +139,7 @@ public final class Bug14PVolumeTest
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final PVolumeBI<Object> area1 =
+    final var area1 =
       PVolumesBI.create(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
@@ -154,7 +154,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugOverlapsBD()
   {
-    final PVolumeBD<Object> area0 =
+    final var area0 =
       PVolumeBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
@@ -162,7 +162,7 @@ public final class Bug14PVolumeTest
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final PVolumeBD<Object> area1 =
+    final var area1 =
       PVolumesBD.create(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
@@ -177,7 +177,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugContainsL()
   {
-    final PVolumeL<Object> area0 =
+    final var area0 =
       PVolumeL.of(
         0L,
         10L,
@@ -185,7 +185,7 @@ public final class Bug14PVolumeTest
         10L,
         0L,
         10L);
-    final PVolumeL<Object> area1 =
+    final var area1 =
       PVolumesL.create(
         0L,
         0L,
@@ -199,7 +199,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugContainsI()
   {
-    final PVolumeI<Object> area0 =
+    final var area0 =
       PVolumeI.of(
         0,
         10,
@@ -207,7 +207,7 @@ public final class Bug14PVolumeTest
         10,
         0,
         10);
-    final PVolumeI<Object> area1 =
+    final var area1 =
       PVolumesI.create(
         0,
         0,
@@ -221,7 +221,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugContainsD()
   {
-    final PVolumeD<Object> area0 =
+    final var area0 =
       PVolumeD.of(
         0,
         10,
@@ -229,7 +229,7 @@ public final class Bug14PVolumeTest
         10,
         0,
         10);
-    final PVolumeD<Object> area1 =
+    final var area1 =
       PVolumesD.create(
         0,
         0,
@@ -243,7 +243,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugContainsF()
   {
-    final PVolumeF<Object> area0 =
+    final var area0 =
       PVolumeF.of(
         0,
         10,
@@ -251,7 +251,7 @@ public final class Bug14PVolumeTest
         10,
         0,
         10);
-    final PVolumeF<Object> area1 =
+    final var area1 =
       PVolumesF.create(
         0,
         0,
@@ -265,7 +265,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugContainsBI()
   {
-    final PVolumeBI<Object> area0 =
+    final var area0 =
       PVolumeBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
@@ -273,7 +273,7 @@ public final class Bug14PVolumeTest
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final PVolumeBI<Object> area1 =
+    final var area1 =
       PVolumesBI.create(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
@@ -287,7 +287,7 @@ public final class Bug14PVolumeTest
   @Test
   public void testBugContainsBD()
   {
-    final PVolumeBD<Object> area0 =
+    final var area0 =
       PVolumeBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
@@ -295,7 +295,7 @@ public final class Bug14PVolumeTest
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final PVolumeBD<Object> area1 =
+    final var area1 =
       PVolumesBD.create(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),

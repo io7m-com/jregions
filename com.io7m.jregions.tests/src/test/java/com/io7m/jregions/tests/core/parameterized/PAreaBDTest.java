@@ -29,7 +29,7 @@ public final class PAreaBDTest
   @Test
   public void testIdentities()
   {
-    final PAreaBD<Object> area = PAreaBD.of(
+    final var area = PAreaBD.of(
       BigDecimal.ZERO,
       new BigDecimal("100"),
       BigDecimal.ZERO,

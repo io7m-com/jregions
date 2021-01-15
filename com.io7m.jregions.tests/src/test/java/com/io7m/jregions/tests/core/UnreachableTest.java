@@ -70,7 +70,7 @@ public final class UnreachableTest
     throws Throwable
   {
     try {
-      final Constructor<?> constructor = c.getDeclaredConstructors()[0];
+      final var constructor = c.getDeclaredConstructors()[0];
       constructor.setAccessible(true);
       constructor.newInstance();
     } catch (final InvocationTargetException e) {

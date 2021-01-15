@@ -47,7 +47,7 @@ public final class PAreaSizeBDTest
   @Test
   public void testIncludesReflexive()
   {
-    final PAreaSizeBDGenerator<Object> gen = PAreaSizeBDGenerator.create();
+    final var gen = PAreaSizeBDGenerator.create();
     QuickCheck.forAll(
       gen,
       new AbstractCharacteristic<PAreaSizeBD<Object>>()
@@ -64,7 +64,7 @@ public final class PAreaSizeBDTest
   @Test
   public void testIncludesTransitive()
   {
-    final PAreaSizeBDGenerator<Object> generator = PAreaSizeBDGenerator.create();
+    final var generator = PAreaSizeBDGenerator.create();
     QuickCheck.forAll(
       generator,
       new AbstractCharacteristic<PAreaSizeBD<Object>>()
@@ -73,8 +73,8 @@ public final class PAreaSizeBDTest
         protected void doSpecify(final PAreaSizeBD<Object> a)
           throws Throwable
         {
-          final PAreaSizeBD<Object> b = generator.next();
-          final PAreaSizeBD<Object> c = generator.next();
+          final var b = generator.next();
+          final var c = generator.next();
 
           if (PAreaSizesBD.includes(a, b) && PAreaSizesBD.includes(b, c)) {
             Assertions.assertTrue(PAreaSizesBD.includes(a, c));

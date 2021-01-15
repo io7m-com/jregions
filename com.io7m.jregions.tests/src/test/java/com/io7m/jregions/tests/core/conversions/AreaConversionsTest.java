@@ -46,85 +46,85 @@ public final class AreaConversionsTest
   @PercentPassing
   public void testIdentityL0()
   {
-    final PAreaLGenerator<Object> generator = PAreaLGenerator.create();
+    final var generator = PAreaLGenerator.create();
 
-    final PAreaL<Object> a0 = generator.next();
-    final AreaL a1 = AreaConversions.toAreaL(a0);
+    final var a0 = generator.next();
+    final var a1 = AreaConversions.toAreaL(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX());
     Assertions.assertEquals(a0.minimumY(), a1.minimumY());
     Assertions.assertEquals(a0.maximumX(), a1.maximumX());
     Assertions.assertEquals(a0.maximumY(), a1.maximumY());
-    final PAreaL<Object> a2 = AreaConversions.toPAreaL(a1);
+    final var a2 = AreaConversions.toPAreaL(a1);
     Assertions.assertEquals(a0, a2);
   }
 
   @PercentPassing
   public void testIdentityI0()
   {
-    final PAreaIGenerator<Object> generator = PAreaIGenerator.create();
-    final PAreaI<Object> a0 = generator.next();
-    final AreaI a1 = AreaConversions.toAreaI(a0);
+    final var generator = PAreaIGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaConversions.toAreaI(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX());
     Assertions.assertEquals(a0.minimumY(), a1.minimumY());
     Assertions.assertEquals(a0.maximumX(), a1.maximumX());
     Assertions.assertEquals(a0.maximumY(), a1.maximumY());
-    final PAreaI<Object> a2 = AreaConversions.toPAreaI(a1);
+    final var a2 = AreaConversions.toPAreaI(a1);
     Assertions.assertEquals(a0, a2);
   }
 
   @PercentPassing
   public void testIdentityBD0()
   {
-    final PAreaBDGenerator<Object> generator = PAreaBDGenerator.create();
-    final PAreaBD<Object> a0 = generator.next();
-    final AreaBD a1 = AreaConversions.toAreaBD(a0);
+    final var generator = PAreaBDGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaConversions.toAreaBD(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX());
     Assertions.assertEquals(a0.minimumY(), a1.minimumY());
     Assertions.assertEquals(a0.maximumX(), a1.maximumX());
     Assertions.assertEquals(a0.maximumY(), a1.maximumY());
-    final PAreaBD<Object> a2 = AreaConversions.toPAreaBD(a1);
+    final var a2 = AreaConversions.toPAreaBD(a1);
     Assertions.assertEquals(a0, a2);
   }
 
   @PercentPassing
   public void testIdentityBI0()
   {
-    final PAreaBIGenerator<Object> generator = PAreaBIGenerator.create();
-    final PAreaBI<Object> a0 = generator.next();
-    final AreaBI a1 = AreaConversions.toAreaBI(a0);
+    final var generator = PAreaBIGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaConversions.toAreaBI(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX());
     Assertions.assertEquals(a0.minimumY(), a1.minimumY());
     Assertions.assertEquals(a0.maximumX(), a1.maximumX());
     Assertions.assertEquals(a0.maximumY(), a1.maximumY());
-    final PAreaBI<Object> a2 = AreaConversions.toPAreaBI(a1);
+    final var a2 = AreaConversions.toPAreaBI(a1);
     Assertions.assertEquals(a0, a2);
   }
 
   @PercentPassing
   public void testIdentityD0()
   {
-    final PAreaDGenerator<Object> generator = PAreaDGenerator.create();
-    final PAreaD<Object> a0 = generator.next();
-    final AreaD a1 = AreaConversions.toAreaD(a0);
+    final var generator = PAreaDGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaConversions.toAreaD(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX(), 0.0);
     Assertions.assertEquals(a0.minimumY(), a1.minimumY(), 0.0);
     Assertions.assertEquals(a0.maximumX(), a1.maximumX(), 0.0);
     Assertions.assertEquals(a0.maximumY(), a1.maximumY(), 0.0);
-    final PAreaD<Object> a2 = AreaConversions.toPAreaD(a1);
+    final var a2 = AreaConversions.toPAreaD(a1);
     Assertions.assertEquals(a0, a2);
   }
 
   @PercentPassing
   public void testIdentityF0()
   {
-    final PAreaFGenerator<Object> generator = PAreaFGenerator.create();
-    final PAreaF<Object> a0 = generator.next();
-    final AreaF a1 = AreaConversions.toAreaF(a0);
+    final var generator = PAreaFGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaConversions.toAreaF(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX(), 0.0);
     Assertions.assertEquals(a0.minimumY(), a1.minimumY(), 0.0);
     Assertions.assertEquals(a0.maximumX(), a1.maximumX(), 0.0);
     Assertions.assertEquals(a0.maximumY(), a1.maximumY(), 0.0);
-    final PAreaF<Object> a2 = AreaConversions.toPAreaF(a1);
+    final var a2 = AreaConversions.toPAreaF(a1);
     Assertions.assertEquals(a0, a2);
   }
 }

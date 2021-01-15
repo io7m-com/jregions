@@ -66,7 +66,7 @@ public final class AreaSizeDTest
   @Test
   public void testIncludesTransitive()
   {
-    final AreaSizeDGenerator generator = AreaSizeDGenerator.create();
+    final var generator = AreaSizeDGenerator.create();
     QuickCheck.forAll(
       generator,
       new AbstractCharacteristic<AreaSizeD>()
@@ -75,8 +75,8 @@ public final class AreaSizeDTest
         protected void doSpecify(final AreaSizeD a)
           throws Throwable
         {
-          final AreaSizeD b = generator.next();
-          final AreaSizeD c = generator.next();
+          final var b = generator.next();
+          final var c = generator.next();
 
           if (AreaSizesD.includes(a, b) && AreaSizesD.includes(b, c)) {
             Assertions.assertTrue(AreaSizesD.includes(a, c));
@@ -88,7 +88,7 @@ public final class AreaSizeDTest
   @Test
   public void testAreaIdentity()
   {
-    final AreaSizeDGenerator generator = AreaSizeDGenerator.create();
+    final var generator = AreaSizeDGenerator.create();
     QuickCheck.forAll(
       generator,
       new AbstractCharacteristic<AreaSizeD>()
@@ -97,7 +97,7 @@ public final class AreaSizeDTest
         protected void doSpecify(final AreaSizeD a)
           throws Throwable
         {
-          final AreaD s = AreaSizesD.area(a);
+          final var s = AreaSizesD.area(a);
           Assertions.assertEquals(a.sizeX(), s.sizeX(), 0.0);
           Assertions.assertEquals(a.sizeY(), s.sizeY(), 0.0);
           Assertions.assertEquals(0.0, s.minimumX(), 0.0);

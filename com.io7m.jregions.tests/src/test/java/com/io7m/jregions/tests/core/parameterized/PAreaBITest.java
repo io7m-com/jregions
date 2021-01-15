@@ -28,7 +28,7 @@ public final class PAreaBITest
   @Test
   public void testIdentities()
   {
-    final PAreaBI<Object> area = PAreaBI.of(
+    final var area = PAreaBI.of(
       BigInteger.ZERO,
       new BigInteger("100"),
       BigInteger.ZERO,

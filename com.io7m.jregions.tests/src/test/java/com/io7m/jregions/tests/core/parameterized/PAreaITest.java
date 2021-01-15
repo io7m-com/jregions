@@ -26,7 +26,7 @@ public final class PAreaITest
   @Test
   public void testIdentities()
   {
-    final PAreaI<Object> area = PAreaI.of(0, 100, 0, 100);
+    final var area = PAreaI.of(0, 100, 0, 100);
     Assertions.assertEquals(0L, area.minimumX());
     Assertions.assertEquals(0L, area.minimumY());
     Assertions.assertEquals(100L, area.sizeX());

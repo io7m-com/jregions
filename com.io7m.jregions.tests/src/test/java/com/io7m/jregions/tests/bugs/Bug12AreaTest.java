@@ -51,9 +51,9 @@ public final class Bug12AreaTest
   @Test
   public void testBug12L()
   {
-    final AreaL area0 =
+    final var area0 =
       AreaL.of(0L, 10L, 0L, 10L);
-    final AreaL area1 =
+    final var area1 =
       AreaL.of(10L, 20L, 10L, 20L);
 
     Assertions.assertFalse(AreasL.overlaps(area0, area1));
@@ -62,9 +62,9 @@ public final class Bug12AreaTest
   @Test
   public void testBug12I()
   {
-    final AreaI area0 =
+    final var area0 =
       AreaI.of(0, 10, 0, 10);
-    final AreaI area1 =
+    final var area1 =
       AreaI.of(10, 20, 10, 20);
 
     Assertions.assertFalse(AreasI.overlaps(area0, area1));
@@ -73,9 +73,9 @@ public final class Bug12AreaTest
   @Test
   public void testBug12D()
   {
-    final AreaD area0 =
+    final var area0 =
       AreaD.of(0.0, 10.0, 0.0, 10.0);
-    final AreaD area1 =
+    final var area1 =
       AreaD.of(10.0, 20.0, 10.0, 20.0);
 
     Assertions.assertFalse(AreasD.overlaps(area0, area1));
@@ -84,9 +84,9 @@ public final class Bug12AreaTest
   @Test
   public void testBug12F()
   {
-    final AreaF area0 =
+    final var area0 =
       AreaF.of(0.0F, 10.0F, 0.0F, 10.0F);
-    final AreaF area1 =
+    final var area1 =
       AreaF.of(10.0F, 20.0F, 10.0F, 20.0F);
 
     Assertions.assertFalse(AreasF.overlaps(area0, area1));
@@ -95,13 +95,13 @@ public final class Bug12AreaTest
   @Test
   public void testBug12BI()
   {
-    final AreaBI area0 =
+    final var area0 =
       AreaBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final AreaBI area1 =
+    final var area1 =
       AreaBI.of(
         BigInteger.valueOf(10L),
         BigInteger.valueOf(20L),
@@ -114,13 +114,13 @@ public final class Bug12AreaTest
   @Test
   public void testBug12BD()
   {
-    final AreaBD area0 =
+    final var area0 =
       AreaBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final AreaBD area1 =
+    final var area1 =
       AreaBD.of(
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(20L),
@@ -133,9 +133,9 @@ public final class Bug12AreaTest
   @Test
   public void testBugP12L()
   {
-    final PAreaL<Object> area0 =
+    final var area0 =
       PAreaL.of(0L, 10L, 0L, 10L);
-    final PAreaL<Object> area1 =
+    final var area1 =
       PAreaL.of(10L, 20L, 10L, 20L);
 
     Assertions.assertFalse(PAreasL.overlaps(area0, area1));
@@ -144,9 +144,9 @@ public final class Bug12AreaTest
   @Test
   public void testBugP12I()
   {
-    final PAreaI<Object> area0 =
+    final var area0 =
       PAreaI.of(0, 10, 0, 10);
-    final PAreaI<Object> area1 =
+    final var area1 =
       PAreaI.of(10, 20, 10, 20);
 
     Assertions.assertFalse(PAreasI.overlaps(area0, area1));
@@ -155,9 +155,9 @@ public final class Bug12AreaTest
   @Test
   public void testBugP12D()
   {
-    final PAreaD<Object> area0 =
+    final var area0 =
       PAreaD.of(0.0, 10.0, 0.0, 10.0);
-    final PAreaD<Object> area1 =
+    final var area1 =
       PAreaD.of(10.0, 20.0, 10.0, 20.0);
 
     Assertions.assertFalse(PAreasD.overlaps(area0, area1));
@@ -166,9 +166,9 @@ public final class Bug12AreaTest
   @Test
   public void testBugP12F()
   {
-    final PAreaF<Object> area0 =
+    final var area0 =
       PAreaF.of(0.0F, 10.0F, 0.0F, 10.0F);
-    final PAreaF<Object> area1 =
+    final var area1 =
       PAreaF.of(10.0F, 20.0F, 10.0F, 20.0F);
 
     Assertions.assertFalse(PAreasF.overlaps(area0, area1));
@@ -177,13 +177,13 @@ public final class Bug12AreaTest
   @Test
   public void testBugP12BI()
   {
-    final PAreaBI<Object> area0 =
+    final var area0 =
       PAreaBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final PAreaBI<Object> area1 =
+    final var area1 =
       PAreaBI.of(
         BigInteger.valueOf(10L),
         BigInteger.valueOf(20L),
@@ -196,13 +196,13 @@ public final class Bug12AreaTest
   @Test
   public void testBugP12BD()
   {
-    final PAreaBD<Object> area0 =
+    final var area0 =
       PAreaBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final PAreaBD<Object> area1 =
+    final var area1 =
       PAreaBD.of(
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(20L),

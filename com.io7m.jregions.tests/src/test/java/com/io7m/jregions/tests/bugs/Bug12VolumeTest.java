@@ -51,9 +51,9 @@ public final class Bug12VolumeTest
   @Test
   public void testBug12L()
   {
-    final VolumeL area0 =
+    final var area0 =
       VolumeL.of(0L, 10L, 0L, 10L, 0L, 10L);
-    final VolumeL area1 =
+    final var area1 =
       VolumeL.of(10L, 20L, 10L, 20L, 10L, 20L);
 
     Assertions.assertFalse(VolumesL.overlaps(area0, area1));
@@ -62,9 +62,9 @@ public final class Bug12VolumeTest
   @Test
   public void testBug12I()
   {
-    final VolumeI area0 =
+    final var area0 =
       VolumeI.of(0, 10, 0, 10, 0, 10);
-    final VolumeI area1 =
+    final var area1 =
       VolumeI.of(10, 20, 10, 20, 10, 20);
 
     Assertions.assertFalse(VolumesI.overlaps(area0, area1));
@@ -73,9 +73,9 @@ public final class Bug12VolumeTest
   @Test
   public void testBug12D()
   {
-    final VolumeD area0 =
+    final var area0 =
       VolumeD.of(0.0, 10.0, 0.0, 10.0, 0.0, 10.0);
-    final VolumeD area1 =
+    final var area1 =
       VolumeD.of(10.0, 20.0, 10.0, 20.0, 10.0, 20.0);
 
     Assertions.assertFalse(VolumesD.overlaps(area0, area1));
@@ -84,9 +84,9 @@ public final class Bug12VolumeTest
   @Test
   public void testBug12F()
   {
-    final VolumeF area0 =
+    final var area0 =
       VolumeF.of(0.0F, 10.0F, 0.0F, 10.0F, 0.0F, 10.0F);
-    final VolumeF area1 =
+    final var area1 =
       VolumeF.of(10.0F, 20.0F, 10.0F, 20.0F, 10.0F, 20.0F);
 
     Assertions.assertFalse(VolumesF.overlaps(area0, area1));
@@ -95,7 +95,7 @@ public final class Bug12VolumeTest
   @Test
   public void testBug12BI()
   {
-    final VolumeBI area0 =
+    final var area0 =
       VolumeBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
@@ -103,7 +103,7 @@ public final class Bug12VolumeTest
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final VolumeBI area1 =
+    final var area1 =
       VolumeBI.of(
         BigInteger.valueOf(10L),
         BigInteger.valueOf(20L),
@@ -118,7 +118,7 @@ public final class Bug12VolumeTest
   @Test
   public void testBug12BD()
   {
-    final VolumeBD area0 =
+    final var area0 =
       VolumeBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
@@ -126,7 +126,7 @@ public final class Bug12VolumeTest
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final VolumeBD area1 =
+    final var area1 =
       VolumeBD.of(
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(20L),
@@ -141,9 +141,9 @@ public final class Bug12VolumeTest
   @Test
   public void testBugP12L()
   {
-    final PVolumeL<Object> area0 =
+    final var area0 =
       PVolumeL.of(0L, 10L, 0L, 10L, 0L, 10L);
-    final PVolumeL<Object> area1 =
+    final var area1 =
       PVolumeL.of(10L, 20L, 10L, 20L, 10L, 20L);
 
     Assertions.assertFalse(PVolumesL.overlaps(area0, area1));
@@ -152,9 +152,9 @@ public final class Bug12VolumeTest
   @Test
   public void testBugP12I()
   {
-    final PVolumeI<Object> area0 =
+    final var area0 =
       PVolumeI.of(0, 10, 0, 10, 0, 10);
-    final PVolumeI<Object> area1 =
+    final var area1 =
       PVolumeI.of(10, 20, 10, 20, 10, 20);
 
     Assertions.assertFalse(PVolumesI.overlaps(area0, area1));
@@ -163,9 +163,9 @@ public final class Bug12VolumeTest
   @Test
   public void testBugP12D()
   {
-    final PVolumeD<Object> area0 =
+    final var area0 =
       PVolumeD.of(0.0, 10.0, 0.0, 10.0, 0.0, 10.0);
-    final PVolumeD<Object> area1 =
+    final var area1 =
       PVolumeD.of(10.0, 20.0, 10.0, 20.0, 10.0, 20.0);
 
     Assertions.assertFalse(PVolumesD.overlaps(area0, area1));
@@ -174,9 +174,9 @@ public final class Bug12VolumeTest
   @Test
   public void testBugP12F()
   {
-    final PVolumeF<Object> area0 =
+    final var area0 =
       PVolumeF.of(0.0F, 10.0F, 0.0F, 10.0F, 0.0F, 10.0F);
-    final PVolumeF<Object> area1 =
+    final var area1 =
       PVolumeF.of(10.0F, 20.0F, 10.0F, 20.0F, 10.0F, 20.0F);
 
     Assertions.assertFalse(PVolumesF.overlaps(area0, area1));
@@ -185,7 +185,7 @@ public final class Bug12VolumeTest
   @Test
   public void testBugP12BI()
   {
-    final PVolumeBI<Object> area0 =
+    final var area0 =
       PVolumeBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
@@ -193,7 +193,7 @@ public final class Bug12VolumeTest
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final PVolumeBI<Object> area1 =
+    final var area1 =
       PVolumeBI.of(
         BigInteger.valueOf(10L),
         BigInteger.valueOf(20L),
@@ -208,7 +208,7 @@ public final class Bug12VolumeTest
   @Test
   public void testBugP12BD()
   {
-    final PVolumeBD<Object> area0 =
+    final var area0 =
       PVolumeBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
@@ -216,7 +216,7 @@ public final class Bug12VolumeTest
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final PVolumeBD<Object> area1 =
+    final var area1 =
       PVolumeBD.of(
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(20L),

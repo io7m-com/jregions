@@ -26,7 +26,7 @@ public final class PAreaFTest
   @Test
   public void testIdentities()
   {
-    final PAreaF<Object> area = PAreaF.of(0, 100.0f, 0, 100.0f);
+    final var area = PAreaF.of(0, 100.0f, 0, 100.0f);
     Assertions.assertEquals(0.0, area.minimumX(), 0.0);
     Assertions.assertEquals(0.0, area.minimumY(), 0.0);
     Assertions.assertEquals(100.0, area.sizeX(), 0.0);

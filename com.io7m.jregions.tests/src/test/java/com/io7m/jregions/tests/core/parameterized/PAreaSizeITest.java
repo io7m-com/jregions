@@ -64,7 +64,7 @@ public final class PAreaSizeITest
   @Test
   public void testIncludesTransitive()
   {
-    final PAreaSizeIGenerator<Object> generator = PAreaSizeIGenerator.create();
+    final var generator = PAreaSizeIGenerator.create();
     QuickCheck.forAll(
       generator,
       new AbstractCharacteristic<PAreaSizeI<Object>>()
@@ -73,8 +73,8 @@ public final class PAreaSizeITest
         protected void doSpecify(final PAreaSizeI<Object> a)
           throws Throwable
         {
-          final PAreaSizeI<Object> b = generator.next();
-          final PAreaSizeI<Object> c = generator.next();
+          final var b = generator.next();
+          final var c = generator.next();
 
           if (PAreaSizesI.includes(a, b) && PAreaSizesI.includes(b, c)) {
             Assertions.assertTrue(PAreaSizesI.includes(a, c));

@@ -17,22 +17,25 @@
 package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
-import com.io7m.jregions.core.parameterized.areas.PAreaL;
+import com.io7m.jregions.core.parameterized.volumes.PVolumeI;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public final class PAreaLTest
+public final class PVolumeITest
 {
   @Test
   public void testIdentities()
   {
-    final var area = PAreaL.of(0L, 100L, 0L, 100L);
-    Assertions.assertEquals(0L, area.minimumX());
-    Assertions.assertEquals(0L, area.minimumY());
-    Assertions.assertEquals(100L, area.sizeX());
-    Assertions.assertEquals(100L, area.sizeY());
-    Assertions.assertEquals(100L, area.maximumX());
-    Assertions.assertEquals(100L, area.maximumY());
+    final var volume = PVolumeI.of(0, 100, 0, 100, 0, 100);
+    Assertions.assertEquals(0, volume.minimumX());
+    Assertions.assertEquals(0, volume.minimumY());
+    Assertions.assertEquals(0, volume.minimumZ());
+    Assertions.assertEquals(100, volume.sizeX());
+    Assertions.assertEquals(100, volume.sizeY());
+    Assertions.assertEquals(100, volume.sizeZ());
+    Assertions.assertEquals(100, volume.maximumX());
+    Assertions.assertEquals(100, volume.maximumY());
+    Assertions.assertEquals(100, volume.maximumZ());
   }
 
   @Test
@@ -41,7 +44,7 @@ public final class PAreaLTest
     final var e = Assertions.assertThrows(
       PreconditionViolationException.class,
       () -> {
-        PAreaL.of(10L, 9L, 0L, 100L);
+        PVolumeI.of(10, 9, 0, 100, 0, 100);
       });
     Assertions.assertTrue(e.getMessage().contains("X"));
   }
@@ -52,8 +55,19 @@ public final class PAreaLTest
     final var e = Assertions.assertThrows(
       PreconditionViolationException.class,
       () -> {
-        PAreaL.of(0L, 100L, 10L, 9L);
+        PVolumeI.of(0, 100, 10, 9, 0, 100);
       });
     Assertions.assertTrue(e.getMessage().contains("Y"));
+  }
+
+  @Test
+  public void testBadZ()
+  {
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        PVolumeI.of(0, 100, 0, 100, 10, 9);
+      });
+    Assertions.assertTrue(e.getMessage().contains("Z"));
   }
 }

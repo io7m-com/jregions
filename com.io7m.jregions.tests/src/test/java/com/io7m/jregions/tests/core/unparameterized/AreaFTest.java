@@ -26,7 +26,7 @@ public final class AreaFTest
   @Test
   public void testIdentities()
   {
-    final AreaF area = AreaF.of(0.0f, 100.0f, 0, 100.0f);
+    final var area = AreaF.of(0.0f, 100.0f, 0, 100.0f);
     Assertions.assertEquals(0.0, area.minimumX(), 0.0);
     Assertions.assertEquals(0.0, area.minimumY(), 0.0);
     Assertions.assertEquals(100.0, area.sizeX(), 0.0);

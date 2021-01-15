@@ -28,7 +28,7 @@ public final class AreaBDTest
   @Test
   public void testIdentities()
   {
-    final AreaBD area = AreaBD.of(
+    final var area = AreaBD.of(
       BigDecimal.ZERO,
       new BigDecimal("100"),
       BigDecimal.ZERO,

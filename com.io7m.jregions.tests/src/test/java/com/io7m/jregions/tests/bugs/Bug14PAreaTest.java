@@ -39,13 +39,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugOverlapsL()
   {
-    final PAreaL<Object> area0 =
+    final var area0 =
       PAreaL.of(
         0L,
         10L,
         0L,
         10L);
-    final PAreaL<Object> area1 =
+    final var area1 =
       PAreasL.create(
         0L,
         0L,
@@ -58,13 +58,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugOverlapsI()
   {
-    final PAreaI<Object> area0 =
+    final var area0 =
       PAreaI.of(
         0,
         10,
         0,
         10);
-    final PAreaI<Object> area1 =
+    final var area1 =
       PAreasI.create(
         0,
         0,
@@ -77,13 +77,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugOverlapsD()
   {
-    final PAreaD<Object> area0 =
+    final var area0 =
       PAreaD.of(
         (double) 0L,
         10.0,
         (double) 0L,
         10.0);
-    final PAreaD<Object> area1 =
+    final var area1 =
       PAreasD.create(
         (double) 0L,
         (double) 0L,
@@ -96,13 +96,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugOverlapsF()
   {
-    final PAreaF<Object> area0 =
+    final var area0 =
       PAreaF.of(
         (float) 0L,
         10.0F,
         (float) 0L,
         10.0F);
-    final PAreaF<Object> area1 =
+    final var area1 =
       PAreasF.create(
         (float) 0L,
         (float) 0L,
@@ -115,13 +115,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugOverlapsBI()
   {
-    final PAreaBI<Object> area0 =
+    final var area0 =
       PAreaBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final PAreaBI<Object> area1 =
+    final var area1 =
       PAreasBI.create(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
@@ -134,13 +134,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugOverlapsBD()
   {
-    final PAreaBD<Object> area0 =
+    final var area0 =
       PAreaBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final PAreaBD<Object> area1 =
+    final var area1 =
       PAreasBD.create(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
@@ -153,13 +153,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugContainsL()
   {
-    final PAreaL<Object> area0 =
+    final var area0 =
       PAreaL.of(
         0L,
         10L,
         0L,
         10L);
-    final PAreaL<Object> area1 =
+    final var area1 =
       PAreasL.create(
         0L,
         0L,
@@ -171,13 +171,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugContainsI()
   {
-    final PAreaI<Object> area0 =
+    final var area0 =
       PAreaI.of(
         0,
         10,
         0,
         10);
-    final PAreaI<Object> area1 =
+    final var area1 =
       PAreasI.create(
         0,
         0,
@@ -189,13 +189,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugContainsD()
   {
-    final PAreaD<Object> area0 =
+    final var area0 =
       PAreaD.of(
         0,
         10,
         0,
         10);
-    final PAreaD<Object> area1 =
+    final var area1 =
       PAreasD.create(
         0,
         0,
@@ -207,13 +207,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugContainsF()
   {
-    final PAreaF<Object> area0 =
+    final var area0 =
       PAreaF.of(
         0,
         10,
         0,
         10);
-    final PAreaF<Object> area1 =
+    final var area1 =
       PAreasF.create(
         0,
         0,
@@ -225,13 +225,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugContainsBI()
   {
-    final PAreaBI<Object> area0 =
+    final var area0 =
       PAreaBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final PAreaBI<Object> area1 =
+    final var area1 =
       PAreasBI.create(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
@@ -243,13 +243,13 @@ public final class Bug14PAreaTest
   @Test
   public void testBugContainsBD()
   {
-    final PAreaBD<Object> area0 =
+    final var area0 =
       PAreaBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final PAreaBD<Object> area1 =
+    final var area1 =
       PAreasBD.create(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),

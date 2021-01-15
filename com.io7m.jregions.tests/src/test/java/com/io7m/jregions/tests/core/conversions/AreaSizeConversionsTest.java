@@ -46,72 +46,72 @@ public final class AreaSizeConversionsTest
   @PercentPassing
   public void testIdentityL0()
   {
-    final PAreaSizeLGenerator<Object> generator = PAreaSizeLGenerator.create();
-    final PAreaSizeL<Object> a0 = generator.next();
-    final AreaSizeL a1 = AreaSizeConversions.toAreaSizeL(a0);
+    final var generator = PAreaSizeLGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaSizeConversions.toAreaSizeL(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX());
     Assertions.assertEquals(a0.sizeY(), a1.sizeY());
-    final PAreaSizeL<Object> a2 = AreaSizeConversions.toPAreaSizeL(a1);
+    final var a2 = AreaSizeConversions.toPAreaSizeL(a1);
     Assertions.assertEquals(a0, a2);
   }
 
   @PercentPassing
   public void testIdentityI0()
   {
-    final PAreaSizeIGenerator<Object> generator = PAreaSizeIGenerator.create();
-    final PAreaSizeI<Object> a0 = generator.next();
-    final AreaSizeI a1 = AreaSizeConversions.toAreaSizeI(a0);
+    final var generator = PAreaSizeIGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaSizeConversions.toAreaSizeI(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX());
     Assertions.assertEquals(a0.sizeY(), a1.sizeY());
-    final PAreaSizeI<Object> a2 = AreaSizeConversions.toPAreaSizeI(a1);
+    final var a2 = AreaSizeConversions.toPAreaSizeI(a1);
     Assertions.assertEquals(a0, a2);
   }
 
   @PercentPassing
   public void testIdentityBD0()
   {
-    final PAreaSizeBDGenerator<Object> generator = PAreaSizeBDGenerator.create();
-    final PAreaSizeBD<Object> a0 = generator.next();
-    final AreaSizeBD a1 = AreaSizeConversions.toAreaSizeBD(a0);
+    final var generator = PAreaSizeBDGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaSizeConversions.toAreaSizeBD(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX());
     Assertions.assertEquals(a0.sizeY(), a1.sizeY());
-    final PAreaSizeBD<Object> a2 = AreaSizeConversions.toPAreaSizeBD(a1);
+    final var a2 = AreaSizeConversions.toPAreaSizeBD(a1);
     Assertions.assertEquals(a0, a2);
   }
 
   @PercentPassing
   public void testIdentityBI0()
   {
-    final PAreaSizeBIGenerator<Object> generator = PAreaSizeBIGenerator.create();
-    final PAreaSizeBI<Object> a0 = generator.next();
-    final AreaSizeBI a1 = AreaSizeConversions.toAreaSizeBI(a0);
+    final var generator = PAreaSizeBIGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaSizeConversions.toAreaSizeBI(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX());
     Assertions.assertEquals(a0.sizeY(), a1.sizeY());
-    final PAreaSizeBI<Object> a2 = AreaSizeConversions.toPAreaSizeBI(a1);
+    final var a2 = AreaSizeConversions.toPAreaSizeBI(a1);
     Assertions.assertEquals(a0, a2);
   }
 
   @PercentPassing
   public void testIdentityD0()
   {
-    final PAreaSizeDGenerator<Object> generator = PAreaSizeDGenerator.create();
-    final PAreaSizeD<Object> a0 = generator.next();
-    final AreaSizeD a1 = AreaSizeConversions.toAreaSizeD(a0);
+    final var generator = PAreaSizeDGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaSizeConversions.toAreaSizeD(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX(), 0.0);
     Assertions.assertEquals(a0.sizeY(), a1.sizeY(), 0.0);
-    final PAreaSizeD<Object> a2 = AreaSizeConversions.toPAreaSizeD(a1);
+    final var a2 = AreaSizeConversions.toPAreaSizeD(a1);
     Assertions.assertEquals(a0, a2);
   }
 
   @PercentPassing
   public void testIdentityF0()
   {
-    final PAreaSizeFGenerator<Object> generator = PAreaSizeFGenerator.create();
-    final PAreaSizeF<Object> a0 = generator.next();
-    final AreaSizeF a1 = AreaSizeConversions.toAreaSizeF(a0);
+    final var generator = PAreaSizeFGenerator.create();
+    final var a0 = generator.next();
+    final var a1 = AreaSizeConversions.toAreaSizeF(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX(), 0.0);
     Assertions.assertEquals(a0.sizeY(), a1.sizeY(), 0.0);
-    final PAreaSizeF<Object> a2 = AreaSizeConversions.toPAreaSizeF(a1);
+    final var a2 = AreaSizeConversions.toPAreaSizeF(a1);
     Assertions.assertEquals(a0, a2);
   }
 }
