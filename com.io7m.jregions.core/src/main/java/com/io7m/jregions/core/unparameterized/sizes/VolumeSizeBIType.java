@@ -16,16 +16,16 @@
 
 package com.io7m.jregions.core.unparameterized.sizes;
 
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import org.immutables.value.Value;
 
 import java.math.BigInteger;
 
 /**
- * The size of a volume with <tt>BigInteger</tt> coordinates.
+ * The size of a volume with {@code BigInteger} coordinates.
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface VolumeSizeBIType extends VolumeSizeValuesBIType
 {

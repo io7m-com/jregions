@@ -9,11 +9,11 @@
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
   </parent>
 
   <artifactId>com.io7m.jregions.core</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
 
   <name>com.io7m.jregions.core</name>
   <description>Area types (Core)</description>
@@ -30,8 +30,23 @@
     </dependency>
 
     <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.annotation.versioning</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.annotation.bundle</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.immutables</groupId>
       <artifactId>value</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.io7m.immutables.style</groupId>
+      <artifactId>com.io7m.immutables.style</artifactId>
       <scope>provided</scope>
     </dependency>
   </dependencies>
@@ -40,7 +55,7 @@
     <plugins>
       <!-- Generate sources -->
       <plugin>
-        <groupId>com.webguys</groupId>
+        <groupId>com.io7m.stmp</groupId>
         <artifactId>string-template-maven-plugin</artifactId>
         <executions>
 
@@ -668,50 +683,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-
-      <!-- Check style -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-      </plugin>
-
-      <!-- Process annotations -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <annotationProcessorPaths>
-            <dependency>
-              <groupId>org.immutables</groupId>
-              <artifactId>value</artifactId>
-              <version>${io7m.org.immutables.version}</version>
-            </dependency>
-          </annotationProcessorPaths>
-        </configuration>
-      </plugin>
-
-      <!-- Produce OSGi bundle -->
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Export-Package>
-              com.io7m.jregions.core,
-              com.io7m.jregions.core.conversions,
-              com.io7m.jregions.core.parameterized,
-              com.io7m.jregions.core.parameterized.areas,
-              com.io7m.jregions.core.parameterized.volumes,
-              com.io7m.jregions.core.parameterized.sizes,
-              com.io7m.jregions.core.unparameterized,
-              com.io7m.jregions.core.unparameterized.areas,
-              com.io7m.jregions.core.unparameterized.volumes,
-              com.io7m.jregions.core.unparameterized.sizes
-            </Export-Package>
-          </instructions>
-        </configuration>
       </plugin>
     </plugins>
   </build>

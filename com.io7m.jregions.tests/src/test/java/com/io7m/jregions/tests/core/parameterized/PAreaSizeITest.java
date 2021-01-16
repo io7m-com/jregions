@@ -21,28 +21,28 @@ import com.io7m.jregions.core.parameterized.sizes.PAreaSizesI;
 import com.io7m.jregions.generators.PAreaSizeIGenerator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public final class PAreaSizeITest
 {
   @Test
   public void testIdentities()
   {
-    Assert.assertEquals(100L, (long) PAreaSizeI.of(100, 0).sizeX());
-    Assert.assertEquals(100L, (long) PAreaSizeI.of(0, 100).sizeY());
+    Assertions.assertEquals(100L, (long) PAreaSizeI.of(100, 0).sizeX());
+    Assertions.assertEquals(100L, (long) PAreaSizeI.of(0, 100).sizeY());
   }
 
   @Test
   public void testEquals()
   {
-    Assert.assertEquals(PAreaSizeI.of(100, 0), PAreaSizeI.of(100, 0));
-    Assert.assertEquals(PAreaSizeI.of(0, 100), PAreaSizeI.of(0, 100));
+    Assertions.assertEquals(PAreaSizeI.of(100, 0), PAreaSizeI.of(100, 0));
+    Assertions.assertEquals(PAreaSizeI.of(0, 100), PAreaSizeI.of(0, 100));
 
-    Assert.assertNotEquals(PAreaSizeI.of(100, 0), PAreaSizeI.of(99, 0));
-    Assert.assertNotEquals(PAreaSizeI.of(0, 100), PAreaSizeI.of(0, 99));
-    Assert.assertNotEquals(PAreaSizeI.of(0, 100), null);
-    Assert.assertNotEquals(PAreaSizeI.of(0, 100), Integer.valueOf(23));
+    Assertions.assertNotEquals(PAreaSizeI.of(100, 0), PAreaSizeI.of(99, 0));
+    Assertions.assertNotEquals(PAreaSizeI.of(0, 100), PAreaSizeI.of(0, 99));
+    Assertions.assertNotEquals(PAreaSizeI.of(0, 100), null);
+    Assertions.assertNotEquals(PAreaSizeI.of(0, 100), Integer.valueOf(23));
   }
 
   @Test
@@ -56,7 +56,7 @@ public final class PAreaSizeITest
         protected void doSpecify(final PAreaSizeI<Object> area)
           throws Throwable
         {
-          Assert.assertTrue(PAreaSizesI.includes(area, area));
+          Assertions.assertTrue(PAreaSizesI.includes(area, area));
         }
       });
   }
@@ -64,7 +64,7 @@ public final class PAreaSizeITest
   @Test
   public void testIncludesTransitive()
   {
-    final PAreaSizeIGenerator<Object> generator = PAreaSizeIGenerator.create();
+    final var generator = PAreaSizeIGenerator.create();
     QuickCheck.forAll(
       generator,
       new AbstractCharacteristic<PAreaSizeI<Object>>()
@@ -73,11 +73,11 @@ public final class PAreaSizeITest
         protected void doSpecify(final PAreaSizeI<Object> a)
           throws Throwable
         {
-          final PAreaSizeI<Object> b = generator.next();
-          final PAreaSizeI<Object> c = generator.next();
+          final var b = generator.next();
+          final var c = generator.next();
 
           if (PAreaSizesI.includes(a, b) && PAreaSizesI.includes(b, c)) {
-            Assert.assertTrue(PAreaSizesI.includes(a, c));
+            Assertions.assertTrue(PAreaSizesI.includes(a, c));
           }
         }
       });
@@ -86,17 +86,17 @@ public final class PAreaSizeITest
   @Test
   public void testToString()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeI.of(100, 0).toString(),
       PAreaSizeI.of(100, 0).toString());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeI.of(0, 100).toString(),
       PAreaSizeI.of(0, 100).toString());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeI.of(100, 0).toString(),
       PAreaSizeI.of(99, 0).toString());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeI.of(0, 100).toString(),
       PAreaSizeI.of(0, 99).toString());
   }
@@ -104,17 +104,17 @@ public final class PAreaSizeITest
   @Test
   public void testHashCode()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) PAreaSizeI.of(100, 0).hashCode(),
       (long) PAreaSizeI.of(100, 0).hashCode());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) PAreaSizeI.of(0, 100).hashCode(),
       (long) PAreaSizeI.of(0, 100).hashCode());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) PAreaSizeI.of(100, 0).hashCode(),
       (long) PAreaSizeI.of(99, 0).hashCode());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) PAreaSizeI.of(0, 100).hashCode(),
       (long) PAreaSizeI.of(0, 99).hashCode());
   }

@@ -19,7 +19,7 @@ package com.io7m.jregions.core.unparameterized.sizes;
 import org.immutables.value.Value;
 
 /**
- * The size of an area with <tt>long</tt> coordinates.
+ * The size of an area with {@code long} coordinates.
  */
 
 public interface AreaSizeValuesLType

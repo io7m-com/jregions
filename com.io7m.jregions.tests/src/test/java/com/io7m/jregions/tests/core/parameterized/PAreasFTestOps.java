@@ -21,7 +21,7 @@ import com.io7m.jregions.generators.PAreaFGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 final class PAreasFTestOps
 {
@@ -38,7 +38,7 @@ final class PAreasFTestOps
     final float actual)
   {
     // Single precision floats are subject to quite serious precision problems
-    Assert.assertEquals(expected, actual, 0.1f);
+    Assertions.assertEquals(expected, actual, 0.1f);
   }
 
   public static float constant(
@@ -103,29 +103,36 @@ final class PAreasFTestOps
 
   public static Generator<Float> createWideScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(-1_000_000.0, 1_000_000.0);
     return () -> Float.valueOf(base.next().floatValue());
   }
 
   public static Generator<Float> createNarrowScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(-400.0, 400.0);
     return () -> Float.valueOf(base.next().floatValue());
   }
 
   public static Generator<Float> createNarrowNonNegativeScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(0.0, 400.0);
     return () -> Float.valueOf(base.next().floatValue());
   }
 
   public static Generator<Float> createWideNonNegativeScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(0.0, 1_000_000.0);
+    return () -> Float.valueOf(base.next().floatValue());
+  }
+
+  public static Generator<Float> createWidePositiveScalarGenerator()
+  {
+    final var base =
+      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
     return () -> Float.valueOf(base.next().floatValue());
   }
 

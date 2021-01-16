@@ -14,24 +14,30 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.io7m.jregions.tests.rules;
+package com.io7m.jregions.tests.percentage_pass;
 
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.TestTemplate;
 
-public final class PercentagePassTest
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD})
+@TestTemplate
+public @interface PercentPassing
 {
-  @Rule public PercentagePassRule percent = new PercentagePassRule(1000);
+  /**
+   * @return The number of executions of each test
+   */
 
-  @Test
-  @PercentagePassing(passPercent = 50.0)
-  public void testOne()
-  {
-    System.out.println("Testing");
+  int executionCount() default 100;
 
-    if (Math.random() > 0.8) {
-      Assert.fail();
-    }
-  }
+  /**
+   * @return The minimum percentage of iterations that must pass for a given
+   * test
+   */
+
+  double passPercent() default 98.0;
 }

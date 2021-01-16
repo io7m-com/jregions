@@ -31,12 +31,12 @@ import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.junreachable.UnreachableCodeException;
 
 /**
- * \<p\>Functions over areas.\</p\>
+ * \<p>Functions over areas.\</p>
  *
- * \<p\>These functions operate using the concepts of \<i\>minimum-x\</i\>,
- * \<i\>maximum-x\</i\>, \<i\>minimum-y\</i\>, and \<i\>maximum-y\</i\> edges. It is up to
+ * \<p>These functions operate using the concepts of \<i>minimum-x\</i>,
+ * \<i>maximum-x\</i>, \<i>minimum-y\</i>, and \<i>maximum-y\</i> edges. It is up to
  * individual applications to assign meaning to these edges such as "left" for
- * \<i\>minimum-x\</i\> and "top" for \<i\>minimum-y\</i\>.\</p\>
+ * \<i>minimum-x\</i> and "top" for \<i>minimum-y\</i>.\</p>
  */
 
 public final class <className>
@@ -54,11 +54,11 @@ public final class <className>
    * @param y      The Y value of the minimum corner
    * @param size_x The size of the area on the X axis
    * @param size_y The size of the area on the Y axis
-   * @param \<S\> The coordinate space of the areas
+   * @param \<S> The coordinate space of the areas
    * @return An area
    */
 
-  public static \<S\> <areaType>\<S\> create(
+  public static \<S> <areaType>\<S> create(
     final <scalarType> x,
     final <scalarType> y,
     final <scalarType> size_x,
@@ -77,25 +77,25 @@ public final class <className>
   }
 
   /**
-   * \<p\>Determine whether or not one area contains another.\</p\>
+   * \<p>Determine whether or not one area contains another.\</p>
    *
-   * \<p\>Containing is reflexive: {@code contains(a, a) == true}.\</p\>
+   * \<p>Containing is reflexive: {@code contains(a, a) == true}.\</p>
    *
-   * \<p\>Containing is transitive: {@code contains(a, b) → contains(b, c) →
-   * contains(a, c)}.\</p\>
+   * \<p>Containing is transitive: {@code contains(a, b) → contains(b, c) →
+   * contains(a, c)}.\</p>
    *
-   * \<p\>Containing is not necessarily symmetric.\</p\>
+   * \<p>Containing is not necessarily symmetric.\</p>
    *
    * @param a   Area A
    * @param b   Area B
-   * @param \<S\> The coordinate space of the areas
+   * @param \<S> The coordinate space of the areas
    *
    * @return {@code true} iff {@code a} contains {@code b}
    */
 
-  public static \<S\> boolean contains(
-    final <areaType>\<S\> a,
-    final <areaType>\<S\> b)
+  public static \<S> boolean contains(
+    final <areaType>\<S> a,
+    final <areaType>\<S> b)
   {
     <opClass>.notNullArea(a, "Area A");
     <opClass>.notNullArea(b, "Area B");
@@ -109,9 +109,9 @@ public final class <className>
     final <scalarType> b_y0 = b.minimumY();
     final <scalarType> b_y1 = b.maximumY();
 
-    final boolean c0 = <opClass>.compare(b_x0, a_x0) \>= 0;
+    final boolean c0 = <opClass>.compare(b_x0, a_x0) >= 0;
     final boolean c1 = <opClass>.compare(b_x1, a_x1) \<= 0;
-    final boolean c2 = <opClass>.compare(b_y0, a_y0) \>= 0;
+    final boolean c2 = <opClass>.compare(b_y0, a_y0) >= 0;
     final boolean c3 = <opClass>.compare(b_y1, a_y1) \<= 0;
 
     return c0 && c1 && c2 && c3;
@@ -123,13 +123,13 @@ public final class <className>
    * @param area The area
    * @param x    The amount to move on the X axis
    * @param y    The amount to move on the Y axis
-   * @param \<S\>  The coordinate space of the area
+   * @param \<S>  The coordinate space of the area
    *
    * @return A moved area
    */
 
-  public static \<S\> <areaType>\<S\> moveRelative(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> moveRelative(
+    final <areaType>\<S> area,
     final <scalarType> x,
     final <scalarType> y)
   {
@@ -143,18 +143,128 @@ public final class <className>
   }
 
   /**
+   * Move the given area by {@code x}, without allowing {@code area}
+   * to leave {@code container}.
+   *
+   * @param container The container area
+   * @param area      The area
+   * @param x         The amount to move on the X axis
+   * @param \<S>  The coordinate space of the area
+   *
+   * @since 3.0.0
+   * @return A moved area
+   */
+
+  public static \<S> <areaType>\<S> moveRelativeClampedX(
+    final <areaType>\<S> container,
+    final <areaType>\<S> area,
+    final <scalarType> x)
+  {
+    <opClass>.notNullArea(container, "Container");
+    <opClass>.notNullArea(area, "Area");
+
+    Preconditions.checkPrecondition(
+      contains(container, area),
+      "Container must contain area");
+
+    final var sizeX = area.sizeX();
+    final var newMinY = area.minimumY();
+    final var newMaxY = area.maximumY();
+    final var movedOnX = moveRelative(area, x, <opClass>.ZERO);
+    if (!contains(container, movedOnX)) {
+      if (<opClass>.compare(x, <opClass>.ZERO) \< 0) {
+        final var newMinX = container.minimumX();
+        final var newMaxX = <opClass>.minimum(container.maximumX(), <opClass>.add(newMinX, sizeX));
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      } else {
+        final var newMinX = <opClass>.maximum(container.minimumX(), <opClass>.subtract(container.maximumX(), sizeX));
+        final var newMaxX = container.maximumX();
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      }
+    }
+    return movedOnX;
+  }
+
+  /**
+   * Move the given area by {@code y}, without allowing {@code area}
+   * to leave {@code container}.
+   *
+   * @param container The container area
+   * @param area      The area
+   * @param y         The amount to move on the Y axis
+   * @param \<S>  The coordinate space of the area
+   *
+   * @since 3.0.0
+   * @return A moved area
+   */
+
+  public static \<S> <areaType>\<S> moveRelativeClampedY(
+    final <areaType>\<S> container,
+    final <areaType>\<S> area,
+    final <scalarType> y)
+  {
+    <opClass>.notNullArea(container, "Container");
+    <opClass>.notNullArea(area, "Area");
+
+    Preconditions.checkPrecondition(
+      contains(container, area),
+      "Container must contain area");
+
+    final var sizeY = area.sizeY();
+    final var newMinX = area.minimumX();
+    final var newMaxX = area.maximumX();
+    final var movedOnY = moveRelative(area, <opClass>.ZERO, y);
+    if (!contains(container, movedOnY)) {
+      if (<opClass>.compare(y, <opClass>.ZERO) \< 0) {
+        final var newMinY = container.minimumY();
+        final var newMaxY = <opClass>.minimum(container.maximumY(), <opClass>.add(newMinY, sizeY));
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      } else {
+        final var newMinY = <opClass>.maximum(container.minimumY(), <opClass>.subtract(container.maximumY(), sizeY));
+        final var newMaxY = container.maximumY();
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      }
+    }
+    return movedOnY;
+  }
+
+  /**
+   * Move the given area by {@code (x, y)}, without allowing {@code area}
+   * to leave {@code container}.
+   *
+   * @param container The container area
+   * @param area      The area
+   * @param x         The amount to move on the X axis
+   * @param y         The amount to move on the Y axis
+   * @param \<S>      The coordinate space of the area
+   *
+   * @since 3.0.0
+   * @return A moved area
+   */
+
+  public static \<S> <areaType>\<S> moveRelativeClamped(
+    final <areaType>\<S> container,
+    final <areaType>\<S> area,
+    final <scalarType> x,
+    final <scalarType> y)
+  {
+    final var m0 = moveRelativeClampedX(container, area, x);
+    return moveRelativeClampedY(container, m0, y);
+  }
+
+  /**
    * Move the given area to {@code (x, y)}.
    *
    * @param area The area
    * @param x    The position to which to move on the X axis
    * @param y    The position to which to move on the Y axis
-   * @param \<S\>  The coordinate space of the area
+   * @param \<S>  The coordinate space of the area
    *
    * @return A moved area
    */
 
-  public static \<S\> <areaType>\<S\> moveAbsolute(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> moveAbsolute(
+    final <areaType>\<S> area,
     final <scalarType> x,
     final <scalarType> y)
   {
@@ -166,13 +276,13 @@ public final class <className>
    * Move the given area to {@code (0, 0)}.
    *
    * @param area The area
-   * @param \<S\>  The coordinate space of the area
+   * @param \<S>  The coordinate space of the area
    *
    * @return A moved area
    */
 
-  public static \<S\> <areaType>\<S\> moveToOrigin(
-    final <areaType>\<S\> area)
+  public static \<S> <areaType>\<S> moveToOrigin(
+    final <areaType>\<S> area)
   {
     <opClass>.notNullArea(area, "Area");
     return create(
@@ -188,8 +298,8 @@ public final class <className>
     final <scalarType> maximum)
   {
     Preconditions.checkPrecondition(
-      <opClass>.compare(maximum, minimum) \>= 0,
-      "Maximum \>= minimum");
+      <opClass>.compare(maximum, minimum) >= 0,
+      "Maximum >= minimum");
     return <opClass>.maximum(<opClass>.minimum(x, maximum), minimum);
   }
 
@@ -199,18 +309,18 @@ public final class <className>
    * Use at your own risk.
    *
    * @param area An area
-   * @param \<S\>  The starting coordinate space
-   * @param \<T\>  The resulting coordinate space
+   * @param \<S>  The starting coordinate space
+   * @param \<T>  The resulting coordinate space
    *
    * @return {@code area}
    */
 
   @SuppressWarnings("unchecked")
-  public static \<S, T\> <areaType>\<T\> cast(
-    final <areaType>\<S\> area)
+  public static \<S, T> <areaType>\<T> cast(
+    final <areaType>\<S> area)
   {
     <opClass>.notNullArea(area, "area");
-    return (<areaType>\<T\>) area;
+    return (<areaType>\<T>) area;
   }
 
 
@@ -226,15 +336,15 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @deprecated Use {@link #alignOnXCenter(<areaType>, <areaType>)}
    * @return An aligned area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> alignHorizontallyCenter(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignHorizontallyCenter(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignOnXCenter(outer, inner);
   }
@@ -245,15 +355,15 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @deprecated Use {@link #alignOnXMinX(<areaType>, <areaType>)}
    * @return An aligned area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> alignHorizontallyMinX(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignHorizontallyMinX(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignOnXMinXOffset(outer, inner, <opClass>.ZERO);
   }
@@ -266,15 +376,15 @@ public final class <className>
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * @param \<S\>    The coordinate space of the areas
+   * @param \<S>    The coordinate space of the areas
    * @deprecated Use {@link #alignOnXMinXOffset(<areaType>, <areaType>, <scalarType>)}
    * @return An aligned area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> alignHorizontallyMinXOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignHorizontallyMinXOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset)
   {
     return alignOnXMinXOffset(outer, inner, offset);
@@ -286,15 +396,15 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @deprecated Use {@link #alignOnXMaxX(<areaType>, <areaType>)}
    * @return An aligned area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> alignHorizontallyMaxX(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignHorizontallyMaxX(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignOnXMaxXOffset(outer, inner, <opClass>.ZERO);
   }
@@ -307,15 +417,15 @@ public final class <className>
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * @param \<S\>    The coordinate space of the areas
+   * @param \<S>    The coordinate space of the areas
    * @deprecated Use {@link #alignOnXMaxXOffset(<areaType>, <areaType>, <scalarType>)}
    * @return An aligned area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> alignHorizontallyMaxXOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignHorizontallyMaxXOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset)
   {
     return alignOnXMaxXOffset(outer, inner, offset);
@@ -327,15 +437,15 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @deprecated Use {@link #alignOnYMinY(<areaType>, <areaType>)}
    * @return An aligned area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> alignVerticallyMinY(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignVerticallyMinY(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignOnYMinYOffset(outer, inner, <opClass>.ZERO);
   }
@@ -348,15 +458,15 @@ public final class <className>
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * @param \<S\>    The coordinate space of the areas
+   * @param \<S>    The coordinate space of the areas
    * @deprecated Use {@link #alignOnYMinYOffset(<areaType>, <areaType>, <scalarType>)}
    * @return An aligned area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> alignVerticallyMinYOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignVerticallyMinYOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset)
   {
     return alignOnYMinYOffset(outer, inner, offset);
@@ -368,15 +478,15 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @deprecated Use {@link #alignOnYMaxY(<areaType>, <areaType>)}
    * @return An aligned area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> alignVerticallyMaxY(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignVerticallyMaxY(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignOnYMaxYOffset(outer, inner, <opClass>.ZERO);
   }
@@ -389,15 +499,15 @@ public final class <className>
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * @param \<S\>    The coordinate space of the areas
+   * @param \<S>    The coordinate space of the areas
    * @deprecated Use {@link #alignOnYMaxYOffset(<areaType>, <areaType>, <scalarType>)}
    * @return An aligned area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> alignVerticallyMaxYOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignVerticallyMaxYOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset)
   {
     return alignOnYMaxYOffset(outer, inner, offset);
@@ -408,15 +518,15 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @deprecated Use {@link #alignOnYCenter(<areaType>, <areaType>)}
    * @return An aligned area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> alignVerticallyCenter(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignVerticallyCenter(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignOnYCenter(outer, inner);
   }
@@ -433,14 +543,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @since 1.1.0
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignOnXCenter(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignOnXCenter(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     <opClass>.notNullArea(outer, "outer");
     <opClass>.notNullArea(inner, "inner");
@@ -460,14 +570,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @since 1.1.0
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignOnXMinX(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignOnXMinX(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignOnXMinXOffset(outer, inner, <opClass>.ZERO);
   }
@@ -480,14 +590,14 @@ public final class <className>
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * @param \<S\>    The coordinate space of the areas
+   * @param \<S>    The coordinate space of the areas
    * @since 1.1.0
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignOnXMinXOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignOnXMinXOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset)
   {
     <opClass>.notNullArea(outer, "outer");
@@ -504,14 +614,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @since 1.1.0
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignOnXMaxX(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignOnXMaxX(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignOnXMaxXOffset(outer, inner, <opClass>.ZERO);
   }
@@ -524,14 +634,14 @@ public final class <className>
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * @param \<S\>    The coordinate space of the areas
+   * @param \<S>    The coordinate space of the areas
    * @since 1.1.0
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignOnXMaxXOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignOnXMaxXOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset)
   {
     <opClass>.notNullArea(outer, "outer");
@@ -549,14 +659,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @since 1.1.0
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignOnYMinY(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignOnYMinY(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignOnYMinYOffset(outer, inner, <opClass>.ZERO);
   }
@@ -569,14 +679,14 @@ public final class <className>
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * @param \<S\>    The coordinate space of the areas
+   * @param \<S>    The coordinate space of the areas
    * @since 1.1.0
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignOnYMinYOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignOnYMinYOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset)
   {
     <opClass>.notNullArea(outer, "outer");
@@ -594,14 +704,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @since 1.1.0
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignOnYMaxY(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignOnYMaxY(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignOnYMaxYOffset(outer, inner, <opClass>.ZERO);
   }
@@ -614,14 +724,14 @@ public final class <className>
    * @param outer  The outer area
    * @param inner  The inner area
    * @param offset The offset from the edge
-   * @param \<S\>    The coordinate space of the areas
+   * @param \<S>    The coordinate space of the areas
    * @since 1.1.0
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignOnYMaxYOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignOnYMaxYOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset)
   {
     <opClass>.notNullArea(outer, "outer");
@@ -638,14 +748,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    * @since 1.1.0
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignOnYCenter(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignOnYCenter(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     <opClass>.notNullArea(outer, "outer");
     <opClass>.notNullArea(inner, "inner");
@@ -674,14 +784,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    *
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignMinYMinX(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignMinYMinX(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignMinYMinXOffset(outer, inner, <opClass>.ZERO, <opClass>.ZERO);
   }
@@ -696,14 +806,14 @@ public final class <className>
    * @param inner    The inner area
    * @param offset_x The offset from the minimum-x edge
    * @param offset_y The offset from the minimum-y edge
-   * @param \<S\>      The coordinate space of the areas
+   * @param \<S>      The coordinate space of the areas
    *
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignMinYMinXOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignMinYMinXOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset_x,
     final <scalarType> offset_y)
   {
@@ -725,14 +835,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    *
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignMinYMaxX(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignMinYMaxX(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignMinYMaxXOffset(outer, inner, <opClass>.ZERO, <opClass>.ZERO);
   }
@@ -747,14 +857,14 @@ public final class <className>
    * @param inner    The inner area
    * @param offset_x The offset from the maximum-x edge
    * @param offset_y The offset from the minimum-y edge
-   * @param \<S\>      The coordinate space of the areas
+   * @param \<S>      The coordinate space of the areas
    *
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignMinYMaxXOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignMinYMaxXOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset_x,
     final <scalarType> offset_y)
   {
@@ -776,14 +886,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    *
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignMaxYMinX(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignMaxYMinX(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignMaxYMinXOffset(outer, inner, <opClass>.ZERO, <opClass>.ZERO);
   }
@@ -798,14 +908,14 @@ public final class <className>
    * @param inner    The inner area
    * @param offset_x The offset from the minimum-x edge
    * @param offset_y The offset from the maximum-y edge
-   * @param \<S\>      The coordinate space of the areas
+   * @param \<S>      The coordinate space of the areas
    *
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignMaxYMinXOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignMaxYMinXOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset_x,
     final <scalarType> offset_y)
   {
@@ -827,14 +937,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    *
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignMaxYMaxX(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignMaxYMaxX(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     return alignMaxYMaxXOffset(outer, inner, <opClass>.ZERO, <opClass>.ZERO);
   }
@@ -849,14 +959,14 @@ public final class <className>
    * @param inner    The inner area
    * @param offset_x The offset from the maximum-x edge
    * @param offset_y The offset from the maximum-y edge
-   * @param \<S\>      The coordinate space of the areas
+   * @param \<S>      The coordinate space of the areas
    *
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignMaxYMaxXOffset(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner,
+  public static \<S> <areaType>\<S> alignMaxYMaxXOffset(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner,
     final <scalarType> offset_x,
     final <scalarType> offset_y)
   {
@@ -878,14 +988,14 @@ public final class <className>
    *
    * @param outer The outer area
    * @param inner The inner area
-   * @param \<S\>   The coordinate space of the areas
+   * @param \<S>   The coordinate space of the areas
    *
    * @return An aligned area
    */
 
-  public static \<S\> <areaType>\<S\> alignCenter(
-    final <areaType>\<S\> outer,
-    final <areaType>\<S\> inner)
+  public static \<S> <areaType>\<S> alignCenter(
+    final <areaType>\<S> outer,
+    final <areaType>\<S> inner)
   {
     <opClass>.notNullArea(outer, "outer");
     <opClass>.notNullArea(inner, "inner");
@@ -907,13 +1017,13 @@ public final class <className>
    *                     non-negative)
    * @param max_y_offset The offset from the maximum-y edge (must be
    *                     non-negative)
-   * @param \<S\>          The coordinate space of the areas
+   * @param \<S>          The coordinate space of the areas
    *
    * @return A new area
    */
 
-  public static \<S\> <areaType>\<S\> hollowOut(
-    final <areaType>\<S\> outer,
+  public static \<S> <areaType>\<S> hollowOut(
+    final <areaType>\<S> outer,
     final <scalarType> min_x_offset,
     final <scalarType> max_x_offset,
     final <scalarType> min_y_offset,
@@ -958,34 +1068,34 @@ public final class <className>
    *
    * @param outer  The containing area
    * @param offset The offset from each edge (must be non-negative)
-   * @param \<S\>    The coordinate space of the areas
+   * @param \<S>    The coordinate space of the areas
    *
    * @return A new area
    */
 
-  public static \<S\> <areaType>\<S\> hollowOutEvenly(
-    final <areaType>\<S\> outer,
+  public static \<S> <areaType>\<S> hollowOutEvenly(
+    final <areaType>\<S> outer,
     final <scalarType> offset)
   {
     return hollowOut(outer, offset, offset, offset, offset);
   }
 
   /**
-   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
-   * sizeY}, respectively.\</p\>
+   * \<p>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p>
    *
-   * \<p\>The area is resized from its own center.\</p\>
+   * \<p>The area is resized from its own center.\</p>
    *
    * @param area   The area
    * @param sizeX  The new sizeX (must be non-negative)
    * @param sizeY The new sizeY (must be non-negative)
-   * @param \<S\>    The coordinate space of the area
+   * @param \<S>    The coordinate space of the area
    *
    * @return A resized area
    */
 
-  public static \<S\> <areaType>\<S\> setSizeFromCenter(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> setSizeFromCenter(
+    final <areaType>\<S> area,
     final <scalarType> sizeX,
     final <scalarType> sizeY)
   {
@@ -1001,21 +1111,21 @@ public final class <className>
   }
 
   /**
-   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
-   * sizeY}, respectively.\</p\>
+   * \<p>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p>
    *
-   * \<p\>The area is resized by moving its minimum-y-minimum-x corner.\</p\>
+   * \<p>The area is resized by moving its minimum-y-minimum-x corner.\</p>
    *
    * @param area   The area
    * @param sizeX  The new sizeX (must be non-negative)
    * @param sizeY The new sizeY (must be non-negative)
-   * @param \<S\>    The coordinate space of the area
+   * @param \<S>    The coordinate space of the area
    *
    * @return A resized area
    */
 
-  public static \<S\> <areaType>\<S\> setSizeFromMinYMinX(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> setSizeFromMinYMinX(
+    final <areaType>\<S> area,
     final <scalarType> sizeX,
     final <scalarType> sizeY)
   {
@@ -1031,21 +1141,21 @@ public final class <className>
   }
 
   /**
-   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
-   * sizeY}, respectively.\</p\>
+   * \<p>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p>
    *
-   * \<p\>The area is resized by moving its minimum-y-maximum-x corner.\</p\>
+   * \<p>The area is resized by moving its minimum-y-maximum-x corner.\</p>
    *
    * @param area   The area
    * @param sizeX  The new sizeX (must be non-negative)
    * @param sizeY The new sizeY (must be non-negative)
-   * @param \<S\>    The coordinate space of the area
+   * @param \<S>    The coordinate space of the area
    *
    * @return A resized area
    */
 
-  public static \<S\> <areaType>\<S\> setSizeFromMinYMaxX(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> setSizeFromMinYMaxX(
+    final <areaType>\<S> area,
     final <scalarType> sizeX,
     final <scalarType> sizeY)
   {
@@ -1061,21 +1171,21 @@ public final class <className>
   }
 
   /**
-   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
-   * sizeY}, respectively.\</p\>
+   * \<p>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p>
    *
-   * \<p\>The area is resized by moving its maximum-y-maximum-x corner.\</p\>
+   * \<p>The area is resized by moving its maximum-y-maximum-x corner.\</p>
    *
    * @param area   The area
    * @param sizeX  The new sizeX (must be non-negative)
    * @param sizeY The new sizeY (must be non-negative)
-   * @param \<S\>    The coordinate space of the area
+   * @param \<S>    The coordinate space of the area
    *
    * @return A resized area
    */
 
-  public static \<S\> <areaType>\<S\> setSizeFromMaxYMaxX(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> setSizeFromMaxYMaxX(
+    final <areaType>\<S> area,
     final <scalarType> sizeX,
     final <scalarType> sizeY)
   {
@@ -1091,21 +1201,21 @@ public final class <className>
   }
 
   /**
-   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
-   * sizeY}, respectively.\</p\>
+   * \<p>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p>
    *
-   * \<p\>The area is resized by moving its maximum-y-minimum-x corner.\</p\>
+   * \<p>The area is resized by moving its maximum-y-minimum-x corner.\</p>
    *
    * @param area   The area
    * @param sizeX  The new sizeX (must be non-negative)
    * @param sizeY The new sizeY (must be non-negative)
-   * @param \<S\>    The coordinate space of the area
+   * @param \<S>    The coordinate space of the area
    *
    * @return A resized area
    */
 
-  public static \<S\> <areaType>\<S\> setSizeFromMaxYMinX(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> setSizeFromMaxYMinX(
+    final <areaType>\<S> area,
     final <scalarType> sizeX,
     final <scalarType> sizeY)
   {
@@ -1121,22 +1231,22 @@ public final class <className>
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * \<p>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
    * y_diff} to the sizeY. The size of the resulting area is clamped so that
-   * its sizeX and sizeY are always non-negative.\</p\>
+   * its sizeX and sizeY are always non-negative.\</p>
    *
-   * \<p\>The area is resized by moving its minimum-y-minimum-x corner.\</p\>
+   * \<p>The area is resized by moving its minimum-y-minimum-x corner.\</p>
    *
    * @param area   The area
    * @param x_diff The X difference
    * @param y_diff The Y difference
-   * @param \<S\>    The coordinate space of the area
+   * @param \<S>    The coordinate space of the area
    *
    * @return A resized area
    */
 
-  public static \<S\> <areaType>\<S\> scaleFromMinYMinX(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> scaleFromMinYMinX(
+    final <areaType>\<S> area,
     final <scalarType> x_diff,
     final <scalarType> y_diff)
   {
@@ -1152,22 +1262,22 @@ public final class <className>
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * \<p>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
    * y_diff} to the sizeY. The size of the resulting area is clamped so that
-   * its sizeX and sizeY are always non-negative.\</p\>
+   * its sizeX and sizeY are always non-negative.\</p>
    *
-   * \<p\>The area is resized by moving its minimum-y-maximum-x corner.\</p\>
+   * \<p>The area is resized by moving its minimum-y-maximum-x corner.\</p>
    *
    * @param area   The area
    * @param x_diff The X difference
    * @param y_diff The Y difference
-   * @param \<S\>    The coordinate space of the area
+   * @param \<S>    The coordinate space of the area
    *
    * @return A resized area
    */
 
-  public static \<S\> <areaType>\<S\> scaleFromMinYMaxX(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> scaleFromMinYMaxX(
+    final <areaType>\<S> area,
     final <scalarType> x_diff,
     final <scalarType> y_diff)
   {
@@ -1183,22 +1293,22 @@ public final class <className>
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * \<p>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
    * y_diff} to the sizeY. The size of the resulting area is clamped so that
-   * its sizeX and sizeY are always non-negative.\</p\>
+   * its sizeX and sizeY are always non-negative.\</p>
    *
-   * \<p\>The area is resized by moving its maximum-y-minimum-x corner.\</p\>
+   * \<p>The area is resized by moving its maximum-y-minimum-x corner.\</p>
    *
    * @param area   The area
    * @param x_diff The X difference
    * @param y_diff The Y difference
-   * @param \<S\>    The coordinate space of the area
+   * @param \<S>    The coordinate space of the area
    *
    * @return A resized area
    */
 
-  public static \<S\> <areaType>\<S\> scaleFromMaxYMinX(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> scaleFromMaxYMinX(
+    final <areaType>\<S> area,
     final <scalarType> x_diff,
     final <scalarType> y_diff)
   {
@@ -1214,22 +1324,22 @@ public final class <className>
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * \<p>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
    * y_diff} to the sizeY. The size of the resulting area is clamped so that
-   * its sizeX and sizeY are always non-negative.\</p\>
+   * its sizeX and sizeY are always non-negative.\</p>
    *
-   * \<p\>The area is resized by moving its maximum-y-maximum-x corner.\</p\>
+   * \<p>The area is resized by moving its maximum-y-maximum-x corner.\</p>
    *
    * @param area   The area
    * @param x_diff The X difference
    * @param y_diff The Y difference
-   * @param \<S\>    The coordinate space of the area
+   * @param \<S>    The coordinate space of the area
    *
    * @return A resized area
    */
 
-  public static \<S\> <areaType>\<S\> scaleFromMaxYMaxX(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> scaleFromMaxYMaxX(
+    final <areaType>\<S> area,
     final <scalarType> x_diff,
     final <scalarType> y_diff)
   {
@@ -1245,22 +1355,22 @@ public final class <className>
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * \<p>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
    * y_diff} to the sizeY. The size of the resulting area is clamped so that
-   * its sizeX and sizeY are always non-negative.\</p\>
+   * its sizeX and sizeY are always non-negative.\</p>
    *
-   * \<p\>The area is resized from its own center.\</p\>
+   * \<p>The area is resized from its own center.\</p>
    *
    * @param area   The area
    * @param x_diff The X difference
    * @param y_diff The Y difference
-   * @param \<S\>    The coordinate space of the area
+   * @param \<S>    The coordinate space of the area
    *
    * @return A resized area
    */
 
-  public static \<S\> <areaType>\<S\> scaleFromCenter(
-    final <areaType>\<S\> area,
+  public static \<S> <areaType>\<S> scaleFromCenter(
+    final <areaType>\<S> area,
     final <scalarType> x_diff,
     final <scalarType> y_diff)
   {
@@ -1276,35 +1386,35 @@ public final class <className>
   }
 
   /**
-   * \<p\>Determine whether or not two areas overlap.\</p\>
+   * \<p>Determine whether or not two areas overlap.\</p>
    *
-   * \<p\>Overlapping is reflexive: {@code overlaps(a, a) == true}.\</p\>
+   * \<p>Overlapping is reflexive: {@code overlaps(a, a) == true}.\</p>
    *
-   * \<p\>Overlapping is symmetric: {@code overlaps(a, b) == overlaps(b, a)}.\</p\>
+   * \<p>Overlapping is symmetric: {@code overlaps(a, b) == overlaps(b, a)}.\</p>
    *
-   * \<p\>Overlapping is not necessarily transitive.\</p\>
+   * \<p>Overlapping is not necessarily transitive.\</p>
    *
    * @param a   An area
    * @param b   An area
-   * @param \<S\> The coordinate space of the areas
+   * @param \<S> The coordinate space of the areas
    *
    * @return {@code true} iff {@code a} overlaps {@code b}
    */
 
-  public static \<S\> boolean overlaps(
-    final <areaType>\<S\> a,
-    final <areaType>\<S\> b)
+  public static \<S> boolean overlaps(
+    final <areaType>\<S> a,
+    final <areaType>\<S> b)
   {
     <opClass>.notNullArea(a, "a");
     <opClass>.notNullArea(b, "b");
 
-    final <areaType>\<S\> cmp_a = create(
+    final <areaType>\<S> cmp_a = create(
       a.minimumX(),
       a.minimumY(),
       <opClass>.maximum(<opClass>.ONE, a.sizeX()),
       <opClass>.maximum(<opClass>.ONE, a.sizeY()));
 
-    final <areaType>\<S\> cmp_b = create(
+    final <areaType>\<S> cmp_b = create(
       b.minimumX(),
       b.minimumY(),
       <opClass>.maximum(<opClass>.ONE, b.sizeX()),
@@ -1320,33 +1430,33 @@ public final class <className>
     final <scalarType> b_y1 = cmp_b.maximumY();
 
     final boolean c0 = <opClass>.compare(a_x0, b_x1) \< 0;
-    final boolean c1 = <opClass>.compare(a_x1, b_x0) \> 0;
+    final boolean c1 = <opClass>.compare(a_x1, b_x0) > 0;
     final boolean c2 = <opClass>.compare(a_y0, b_y1) \< 0;
-    final boolean c3 = <opClass>.compare(a_y1, b_y0) \> 0;
+    final boolean c3 = <opClass>.compare(a_y1, b_y0) > 0;
 
     return c0 && c1 && c2 && c3;
   }
 
   /**
-   * \<p\>Determine whether or not one area could fit inside another.\</p\>
+   * \<p>Determine whether or not one area could fit inside another.\</p>
    *
-   * \<p\>Fitting is reflexive: {@code couldFitInside(a, a) == true}.\</p\>
+   * \<p>Fitting is reflexive: {@code couldFitInside(a, a) == true}.\</p>
    *
-   * \<p\>Fitting is transitive: {@code couldFitInside(a, b) → couldFitInside(b,
-   * c) → couldFitInside(a, c)}.\</p\>
+   * \<p>Fitting is transitive: {@code couldFitInside(a, b) → couldFitInside(b,
+   * c) → couldFitInside(a, c)}.\</p>
    *
-   * \<p\>Fitting is not necessarily symmetric.\</p\>
+   * \<p>Fitting is not necessarily symmetric.\</p>
    *
    * @param a   An area
    * @param b   An area
-   * @param \<S\> The coordinate space of the areas
+   * @param \<S> The coordinate space of the areas
    *
    * @return {@code true} iff {@code a} could fit inside {@code b}
    */
 
-  public static \<S\> boolean couldFitInside(
-    final <areaType>\<S\> a,
-    final <areaType>\<S\> b)
+  public static \<S> boolean couldFitInside(
+    final <areaType>\<S> a,
+    final <areaType>\<S> b)
   {
     <opClass>.notNullArea(a, "a");
     <opClass>.notNullArea(b, "b");
@@ -1363,14 +1473,14 @@ public final class <className>
    *
    * @param a   An area
    * @param b   An area
-   * @param \<S\> The coordinate space of the areas
+   * @param \<S> The coordinate space of the areas
    *
    * @return An area containing {@code a} and {@code b}
    */
 
-  public static \<S\> <areaType>\<S\> containing(
-    final <areaType>\<S\> a,
-    final <areaType>\<S\> b)
+  public static \<S> <areaType>\<S> containing(
+    final <areaType>\<S> a,
+    final <areaType>\<S> b)
   {
     <opClass>.notNullArea(a, "a");
     <opClass>.notNullArea(b, "b");
@@ -1383,18 +1493,18 @@ public final class <className>
   }
 
   /**
-   * \<p\>Determine whether or not a area contains a given point.\</p\>
+   * \<p>Determine whether or not a area contains a given point.\</p>
    *
    * @param a   An area
    * @param x   The X coordinate of the point
    * @param y   The Y coordinate of the point
-   * @param \<S\> The coordinate space of the area
+   * @param \<S> The coordinate space of the area
    *
    * @return {@code true} iff {@code a} contains {@code (x, y)}
    */
 
-  public static \<S\> boolean containsPoint(
-    final <areaType>\<S\> a,
+  public static \<S> boolean containsPoint(
+    final <areaType>\<S> a,
     final <scalarType> x,
     final <scalarType> y)
   {
@@ -1403,9 +1513,9 @@ public final class <className>
     <opClass>.notNullScalar(y, "y");
 
     final boolean contain_x =
-      <opClass>.compare(x, a.minimumX()) \>= 0 && <opClass>.compare(x, a.maximumX()) \< 0;
+      <opClass>.compare(x, a.minimumX()) >= 0 && <opClass>.compare(x, a.maximumX()) \< 0;
     final boolean contain_y =
-      <opClass>.compare(y, a.minimumY()) \>= 0 && <opClass>.compare(y, a.maximumY()) \< 0;
+      <opClass>.compare(y, a.minimumY()) >= 0 && <opClass>.compare(y, a.maximumY()) \< 0;
     return contain_x && contain_y;
   }
 
@@ -1423,16 +1533,16 @@ public final class <className>
    * @param fit The area to be fitted
    * @param a   An area
    * @param b   An area
-   * @param \<S\> The coordinate space of the areas
+   * @param \<S> The coordinate space of the areas
    * @deprecated Use {@link #fitBetweenOnX(<areaType>, <areaType>, <areaType>)}
    * @return A fitted area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> fitBetweenHorizontal(
-    final <areaType>\<S\> fit,
-    final <areaType>\<S\> a,
-    final <areaType>\<S\> b)
+  public static \<S> <areaType>\<S> fitBetweenHorizontal(
+    final <areaType>\<S> fit,
+    final <areaType>\<S> a,
+    final <areaType>\<S> b)
   {
     return fitBetweenOnX(fit, a, b);
   }
@@ -1443,16 +1553,16 @@ public final class <className>
    * @param fit The area to be fitted
    * @param a   An area
    * @param b   An area
-   * @param \<S\> The coordinate space of the areas
+   * @param \<S> The coordinate space of the areas
    * @deprecated Use {@link #fitBetweenOnY(<areaType>, <areaType>, <areaType>)}
    * @return A fitted area
    */
 
   @Deprecated
-  public static \<S\> <areaType>\<S\> fitBetweenVertical(
-    final <areaType>\<S\> fit,
-    final <areaType>\<S\> a,
-    final <areaType>\<S\> b)
+  public static \<S> <areaType>\<S> fitBetweenVertical(
+    final <areaType>\<S> fit,
+    final <areaType>\<S> a,
+    final <areaType>\<S> b)
   {
     return fitBetweenOnY(fit, a, b);
   }
@@ -1470,15 +1580,15 @@ public final class <className>
    * @param fit The area to be fitted
    * @param a   An area
    * @param b   An area
-   * @param \<S\> The coordinate space of the areas
+   * @param \<S> The coordinate space of the areas
    *
    * @return A fitted area
    */
 
-  public static \<S\> <areaType>\<S\> fitBetweenOnX(
-    final <areaType>\<S\> fit,
-    final <areaType>\<S\> a,
-    final <areaType>\<S\> b)
+  public static \<S> <areaType>\<S> fitBetweenOnX(
+    final <areaType>\<S> fit,
+    final <areaType>\<S> a,
+    final <areaType>\<S> b)
   {
     <opClass>.notNullArea(fit, "fit");
     <opClass>.notNullArea(a, "a");
@@ -1497,15 +1607,15 @@ public final class <className>
    * @param fit The area to be fitted
    * @param a   An area
    * @param b   An area
-   * @param \<S\> The coordinate space of the areas
+   * @param \<S> The coordinate space of the areas
    *
    * @return A fitted area
    */
 
-  public static \<S\> <areaType>\<S\> fitBetweenOnY(
-    final <areaType>\<S\> fit,
-    final <areaType>\<S\> a,
-    final <areaType>\<S\> b)
+  public static \<S> <areaType>\<S> fitBetweenOnY(
+    final <areaType>\<S> fit,
+    final <areaType>\<S> a,
+    final <areaType>\<S> b)
   {
     <opClass>.notNullArea(fit, "fit");
     <opClass>.notNullArea(a, "a");
@@ -1531,13 +1641,13 @@ public final class <className>
    *
    * @param area The area to be split
    * @param y    The relative Y coordinate of the splitting edge
-   * @param \<S\>  The coordinate space of the areas
+   * @param \<S>  The coordinate space of the areas
    *
    * @return A pair of areas
    */
 
-  public static \<S\> <splitXType>\<S, <areaType>\<S\>\> splitAlongParallelToX(
-    final <areaType>\<S\> area,
+  public static \<S> <splitXType>\<S, <areaType>\<S>\> splitAlongParallelToX(
+    final <areaType>\<S> area,
     final <scalarType> y)
   {
     <opClass>.notNullArea(area, "area");
@@ -1549,9 +1659,9 @@ public final class <className>
     final <scalarType> lower_y_min = upper_y_max;
     final <scalarType> lower_y_max = area.maximumY();
 
-    final <areaType>\<S\> lower = <areaType>.of(
+    final <areaType>\<S> lower = <areaType>.of(
       area.minimumX(), area.maximumX(), lower_y_min, lower_y_max);
-    final <areaType>\<S\> upper = <areaType>.of(
+    final <areaType>\<S> upper = <areaType>.of(
       area.minimumX(), area.maximumX(), upper_y_min, upper_y_max);
 
     return <splitXType>.of(lower, upper);
@@ -1563,13 +1673,13 @@ public final class <className>
    *
    * @param area The area to be split
    * @param x    The relative X coordinate of the splitting edge
-   * @param \<S\>  The coordinate space of the areas
+   * @param \<S>  The coordinate space of the areas
    *
    * @return A pair of areas
    */
 
-  public static \<S\> <splitYType>\<S, <areaType>\<S\>\> splitAlongParallelToY(
-    final <areaType>\<S\> area,
+  public static \<S> <splitYType>\<S, <areaType>\<S>\> splitAlongParallelToY(
+    final <areaType>\<S> area,
     final <scalarType> x)
   {
     <opClass>.notNullArea(area, "area");
@@ -1581,9 +1691,9 @@ public final class <className>
     final <scalarType> upper_x_min = lower_x_max;
     final <scalarType> upper_x_max = area.maximumX();
 
-    final <areaType>\<S\> lower = <areaType>.of(
+    final <areaType>\<S> lower = <areaType>.of(
       lower_x_min, lower_x_max, area.minimumY(), area.maximumY());
-    final <areaType>\<S\> upper = <areaType>.of(
+    final <areaType>\<S> upper = <areaType>.of(
       upper_x_min, upper_x_max, area.minimumY(), area.maximumY());
 
     return <splitYType>.of(lower, upper);
@@ -1595,14 +1705,14 @@ public final class <className>
    * @param area The area to be split
    * @param x    The relative X coordinate of the splitting edge
    * @param y    The relative Y coordinate of the splitting edge
-   * @param \<S\>  The coordinate space of the areas
+   * @param \<S>  The coordinate space of the areas
    *
    * @return The four resulting quadrants
    * @since 1.1.0
    */
 
-  public static \<S\> <splitXYType>\<S, <areaType>\<S\>\> splitAlongXY(
-    final <areaType>\<S\> area,
+  public static \<S> <splitXYType>\<S, <areaType>\<S>\> splitAlongXY(
+    final <areaType>\<S> area,
     final <scalarType> x,
     final <scalarType> y)
   {
@@ -1622,13 +1732,13 @@ public final class <className>
     final <scalarType> upper_y_min = lower_y_max;
     final <scalarType> upper_y_max = <opClass>.maximum(area.maximumY(), lower_y_max);
 
-    final <areaType>\<S\> x0y0 = <areaType>.of(
+    final <areaType>\<S> x0y0 = <areaType>.of(
       lower_x_min, lower_x_max, lower_y_min, lower_y_max);
-    final <areaType>\<S\> x0y1 = <areaType>.of(
+    final <areaType>\<S> x0y1 = <areaType>.of(
       lower_x_min, lower_x_max, upper_y_min, upper_y_max);
-    final <areaType>\<S\> x1y0 = <areaType>.of(
+    final <areaType>\<S> x1y0 = <areaType>.of(
       upper_x_min, upper_x_max, lower_y_min, lower_y_max);
-    final <areaType>\<S\> x1y1 = <areaType>.of(
+    final <areaType>\<S> x1y1 = <areaType>.of(
       upper_x_min, upper_x_max, upper_y_min, upper_y_max);
 
     return <splitXYType>.of(x0y0, x1y0, x0y1, x1y1);
@@ -1636,13 +1746,13 @@ public final class <className>
 
   /**
    * @param area The area
-   * @param \<S\>  The coordinate space of the area
+   * @param \<S>  The coordinate space of the area
    *
    * @return A terse string describing the position and size of the area
    */
 
-  public static \<S\> String show(
-    final <areaType>\<S\> area)
+  public static \<S> String show(
+    final <areaType>\<S> area)
   {
     <opClass>.notNullArea(area, "area");
 
@@ -1652,12 +1762,12 @@ public final class <className>
 
   /**
    * @param area The area
-   * @param \<S\>  The coordinate space of the area
+   * @param \<S>  The coordinate space of the area
    * @return The size of the area
    */
 
-  public static \<S\> <areaSizeType>\<S\> size(
-    final <areaType>\<S\> area)
+  public static \<S> <areaSizeType>\<S> size(
+    final <areaType>\<S> area)
   {
     <opClass>.notNullArea(area, "area");
     return <areaSizeType>.of(area.sizeX(), area.sizeY());
@@ -1666,13 +1776,13 @@ public final class <className>
   /**
    * @param area The area
    * @param sb   A string builder
-   * @param \<S\>  The coordinate space of the area
+   * @param \<S>  The coordinate space of the area
    *
    * @return A terse string describing the position and size of the area
    */
 
-  public static \<S\> String showToBuilder(
-    final <areaType>\<S\> area,
+  public static \<S> String showToBuilder(
+    final <areaType>\<S> area,
     final StringBuilder sb)
   {
     <opClass>.notNullArea(area, "area");

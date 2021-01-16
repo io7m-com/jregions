@@ -18,41 +18,42 @@ package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
 import com.io7m.jregions.core.parameterized.areas.PAreaD;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public final class PAreaDTest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   @Test
   public void testIdentities()
   {
-    final PAreaD<Object> area = PAreaD.of((double) 0, 100.0, (double) 0, 100.0);
-    Assert.assertEquals(0.0, area.minimumX(), 0.0);
-    Assert.assertEquals(0.0, area.minimumY(), 0.0);
-    Assert.assertEquals(100.0, area.sizeX(), 0.0);
-    Assert.assertEquals(100.0, area.sizeY(), 0.0);
-    Assert.assertEquals(100.0, area.maximumX(), 0.0);
-    Assert.assertEquals(100.0, area.maximumY(), 0.0);
+    final var area = PAreaD.of(0, 100.0, 0, 100.0);
+    Assertions.assertEquals(0.0, area.minimumX(), 0.0);
+    Assertions.assertEquals(0.0, area.minimumY(), 0.0);
+    Assertions.assertEquals(100.0, area.sizeX(), 0.0);
+    Assertions.assertEquals(100.0, area.sizeY(), 0.0);
+    Assertions.assertEquals(100.0, area.maximumX(), 0.0);
+    Assertions.assertEquals(100.0, area.maximumY(), 0.0);
   }
 
   @Test
   public void testBadX()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("X"));
-    PAreaD.of(10.0, 9.0, 0.0, 100.0);
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        PAreaD.of(10.0, 9.0, 0.0, 100.0);
+      });
+    Assertions.assertTrue(e.getMessage().contains("X"));
   }
 
   @Test
   public void testBadY()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Y"));
-    PAreaD.of((double) 0, 100.0, 10.0, 9.0);
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        PAreaD.of(0, 100.0, 10.0, 9.0);
+      });
+    Assertions.assertTrue(e.getMessage().contains("Y"));
   }
 }

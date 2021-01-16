@@ -20,7 +20,7 @@ import com.io7m.jregions.core.unparameterized.sizes.AreaSizeValuesFType;
 import org.immutables.value.Value;
 
 /**
- * <p>An area with <tt>float</tt> coordinates.</p>
+ * <p>An area with {@code float} coordinates.</p>
  *
  * <p>The coordinates of the area are given in <i>half-closed</i> form. That is,
  * {@link #minimumX()} refers to the minimum <i>inclusive</i> value on the X

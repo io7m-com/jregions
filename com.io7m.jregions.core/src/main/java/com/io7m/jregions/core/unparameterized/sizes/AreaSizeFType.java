@@ -16,15 +16,15 @@
 
 package com.io7m.jregions.core.unparameterized.sizes;
 
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
 /**
- * The size of an area with <tt>float</tt> coordinates.
+ * The size of an area with {@code float} coordinates.
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface AreaSizeFType extends AreaSizeValuesFType
 {
@@ -44,10 +44,10 @@ public interface AreaSizeFType extends AreaSizeValuesFType
   default void checkPreconditions()
   {
     Preconditions.checkPreconditionD(
-      (double) this.sizeX(),
+      this.sizeX(),
       (double) this.sizeX() >= 0.0, d -> "Width must be non-negative");
     Preconditions.checkPreconditionD(
-      (double) this.sizeY(),
+      this.sizeY(),
       (double) this.sizeY() >= 0.0, d -> "Height must be non-negative");
   }
 

@@ -16,16 +16,16 @@
 
 package com.io7m.jregions.core.unparameterized.sizes;
 
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import org.immutables.value.Value;
 
 import java.math.BigDecimal;
 
 /**
- * The size of a volume with <tt>BigDecimal</tt> coordinates.
+ * The size of a volume with {@code BigDecimal} coordinates.
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface VolumeSizeBDType extends VolumeSizeValuesBDType
 {

@@ -16,9 +16,10 @@
 
 package com.io7m.jregions.core.unparameterized.sizes;
 
-import java.util.Objects;
 import com.io7m.jregions.core.unparameterized.areas.AreaD;
 import com.io7m.junreachable.UnreachableCodeException;
+
+import java.util.Objects;
 
 /**
  * Functions over area sizes.

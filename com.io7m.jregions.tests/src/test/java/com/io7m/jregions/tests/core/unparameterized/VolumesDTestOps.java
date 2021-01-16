@@ -21,7 +21,7 @@ import com.io7m.jregions.generators.VolumeDGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 final class VolumesDTestOps
 {
@@ -37,7 +37,7 @@ final class VolumesDTestOps
     final double expected,
     final double actual)
   {
-    Assert.assertEquals(expected, actual, 0.0000001);
+    Assertions.assertEquals(expected, actual, 0.0000001);
   }
 
   public static double constant(
@@ -102,29 +102,36 @@ final class VolumesDTestOps
 
   public static Generator<Double> createWideScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(-1_000_000.0, 1_000_000.0);
     return () -> Double.valueOf(base.next().doubleValue());
   }
 
   public static Generator<Double> createNarrowScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(-400.0, 400.0);
     return () -> Double.valueOf(base.next().doubleValue());
   }
 
   public static Generator<Double> createNarrowNonNegativeScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(0.0, 400.0);
     return () -> Double.valueOf(base.next().doubleValue());
   }
 
   public static Generator<Double> createWideNonNegativeScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(0.0, 1_000_000.0);
+    return () -> Double.valueOf(base.next().doubleValue());
+  }
+
+  public static Generator<Double> createWidePositiveScalarGenerator()
+  {
+    final var base =
+      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
     return () -> Double.valueOf(base.next().doubleValue());
   }
 

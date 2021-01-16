@@ -20,11 +20,14 @@
 
 module com.io7m.jregions.core
 {
+  requires static com.io7m.immutables.style;
   requires static org.immutables.value;
+  requires static org.osgi.annotation.bundle;
+  requires static org.osgi.annotation.versioning;
+
   requires com.io7m.junreachable.core;
   requires com.io7m.jaffirm.core;
 
-  exports com.io7m.jregions.core;
   exports com.io7m.jregions.core.conversions;
   exports com.io7m.jregions.core.parameterized.areas;
   exports com.io7m.jregions.core.parameterized.sizes;

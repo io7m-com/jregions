@@ -28,8 +28,8 @@ import com.io7m.jregions.core.parameterized.areas.PAreasD;
 import com.io7m.jregions.core.parameterized.areas.PAreasF;
 import com.io7m.jregions.core.parameterized.areas.PAreasI;
 import com.io7m.jregions.core.parameterized.areas.PAreasL;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -39,222 +39,222 @@ public final class Bug14PAreaTest
   @Test
   public void testBugOverlapsL()
   {
-    final PAreaL<Object> area0 =
+    final var area0 =
       PAreaL.of(
         0L,
         10L,
         0L,
         10L);
-    final PAreaL<Object> area1 =
+    final var area1 =
       PAreasL.create(
         0L,
         0L,
         0L,
         0L);
-    Assert.assertTrue(PAreasL.overlaps(area0, area1));
-    Assert.assertTrue(PAreasL.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasL.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasL.overlaps(area1, area0));
   }
 
   @Test
   public void testBugOverlapsI()
   {
-    final PAreaI<Object> area0 =
+    final var area0 =
       PAreaI.of(
         0,
         10,
         0,
         10);
-    final PAreaI<Object> area1 =
+    final var area1 =
       PAreasI.create(
         0,
         0,
         0,
         0);
-    Assert.assertTrue(PAreasI.overlaps(area0, area1));
-    Assert.assertTrue(PAreasI.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasI.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasI.overlaps(area1, area0));
   }
 
   @Test
   public void testBugOverlapsD()
   {
-    final PAreaD<Object> area0 =
+    final var area0 =
       PAreaD.of(
         (double) 0L,
         10.0,
         (double) 0L,
         10.0);
-    final PAreaD<Object> area1 =
+    final var area1 =
       PAreasD.create(
         (double) 0L,
         (double) 0L,
         (double) 0L,
         (double) 0L);
-    Assert.assertTrue(PAreasD.overlaps(area0, area1));
-    Assert.assertTrue(PAreasD.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasD.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasD.overlaps(area1, area0));
   }
 
   @Test
   public void testBugOverlapsF()
   {
-    final PAreaF<Object> area0 =
+    final var area0 =
       PAreaF.of(
         (float) 0L,
         10.0F,
         (float) 0L,
         10.0F);
-    final PAreaF<Object> area1 =
+    final var area1 =
       PAreasF.create(
         (float) 0L,
         (float) 0L,
         (float) 0L,
         (float) 0L);
-    Assert.assertTrue(PAreasF.overlaps(area0, area1));
-    Assert.assertTrue(PAreasF.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasF.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasF.overlaps(area1, area0));
   }
 
   @Test
   public void testBugOverlapsBI()
   {
-    final PAreaBI<Object> area0 =
+    final var area0 =
       PAreaBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final PAreaBI<Object> area1 =
+    final var area1 =
       PAreasBI.create(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(PAreasBI.overlaps(area0, area1));
-    Assert.assertTrue(PAreasBI.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasBI.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasBI.overlaps(area1, area0));
   }
 
   @Test
   public void testBugOverlapsBD()
   {
-    final PAreaBD<Object> area0 =
+    final var area0 =
       PAreaBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final PAreaBD<Object> area1 =
+    final var area1 =
       PAreasBD.create(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(PAreasBD.overlaps(area0, area1));
-    Assert.assertTrue(PAreasBD.overlaps(area1, area0));
+    Assertions.assertTrue(PAreasBD.overlaps(area0, area1));
+    Assertions.assertTrue(PAreasBD.overlaps(area1, area0));
   }
 
   @Test
   public void testBugContainsL()
   {
-    final PAreaL<Object> area0 =
+    final var area0 =
       PAreaL.of(
         0L,
         10L,
         0L,
         10L);
-    final PAreaL<Object> area1 =
+    final var area1 =
       PAreasL.create(
         0L,
         0L,
         0L,
         0L);
-    Assert.assertTrue(PAreasL.contains(area0, area1));
+    Assertions.assertTrue(PAreasL.contains(area0, area1));
   }
 
   @Test
   public void testBugContainsI()
   {
-    final PAreaI<Object> area0 =
+    final var area0 =
       PAreaI.of(
         0,
         10,
         0,
         10);
-    final PAreaI<Object> area1 =
+    final var area1 =
       PAreasI.create(
         0,
         0,
         0,
         0);
-    Assert.assertTrue(PAreasI.contains(area0, area1));
+    Assertions.assertTrue(PAreasI.contains(area0, area1));
   }
 
   @Test
   public void testBugContainsD()
   {
-    final PAreaD<Object> area0 =
+    final var area0 =
       PAreaD.of(
         0,
         10,
         0,
         10);
-    final PAreaD<Object> area1 =
+    final var area1 =
       PAreasD.create(
         0,
         0,
         0,
         0);
-    Assert.assertTrue(PAreasD.contains(area0, area1));
+    Assertions.assertTrue(PAreasD.contains(area0, area1));
   }
 
   @Test
   public void testBugContainsF()
   {
-    final PAreaF<Object> area0 =
+    final var area0 =
       PAreaF.of(
         0,
         10,
         0,
         10);
-    final PAreaF<Object> area1 =
+    final var area1 =
       PAreasF.create(
         0,
         0,
         0,
         0);
-    Assert.assertTrue(PAreasF.contains(area0, area1));
+    Assertions.assertTrue(PAreasF.contains(area0, area1));
   }
 
   @Test
   public void testBugContainsBI()
   {
-    final PAreaBI<Object> area0 =
+    final var area0 =
       PAreaBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final PAreaBI<Object> area1 =
+    final var area1 =
       PAreasBI.create(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(PAreasBI.contains(area0, area1));
+    Assertions.assertTrue(PAreasBI.contains(area0, area1));
   }
 
   @Test
   public void testBugContainsBD()
   {
-    final PAreaBD<Object> area0 =
+    final var area0 =
       PAreaBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final PAreaBD<Object> area1 =
+    final var area1 =
       PAreasBD.create(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(PAreasBD.contains(area0, area1));
+    Assertions.assertTrue(PAreasBD.contains(area0, area1));
   }
 }

@@ -18,41 +18,42 @@ package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
 import com.io7m.jregions.core.parameterized.areas.PAreaL;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public final class PAreaLTest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   @Test
   public void testIdentities()
   {
-    final PAreaL<Object> area = PAreaL.of(0L, 100L, 0L, 100L);
-    Assert.assertEquals(0L, area.minimumX());
-    Assert.assertEquals(0L, area.minimumY());
-    Assert.assertEquals(100L, area.sizeX());
-    Assert.assertEquals(100L, area.sizeY());
-    Assert.assertEquals(100L, area.maximumX());
-    Assert.assertEquals(100L, area.maximumY());
+    final var area = PAreaL.of(0L, 100L, 0L, 100L);
+    Assertions.assertEquals(0L, area.minimumX());
+    Assertions.assertEquals(0L, area.minimumY());
+    Assertions.assertEquals(100L, area.sizeX());
+    Assertions.assertEquals(100L, area.sizeY());
+    Assertions.assertEquals(100L, area.maximumX());
+    Assertions.assertEquals(100L, area.maximumY());
   }
 
   @Test
   public void testBadX()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("X"));
-    PAreaL.of(10L, 9L, 0L, 100L);
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        PAreaL.of(10L, 9L, 0L, 100L);
+      });
+    Assertions.assertTrue(e.getMessage().contains("X"));
   }
 
   @Test
   public void testBadY()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Y"));
-    PAreaL.of(0L, 100L, 10L, 9L);
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        PAreaL.of(0L, 100L, 10L, 9L);
+      });
+    Assertions.assertTrue(e.getMessage().contains("Y"));
   }
 }

@@ -22,27 +22,22 @@ import com.io7m.jregions.core.parameterized.sizes.PAreaSizesBD;
 import com.io7m.jregions.generators.PAreaSizeBDGenerator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
 public final class PAreaSizeBDTest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   @Test
   public void testIdentities()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       new BigDecimal(100),
       PAreaSizeBD.of(
         new BigDecimal(100),
         BigDecimal.ZERO).sizeX());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       new BigDecimal(100),
       PAreaSizeBD.of(
         BigDecimal.ZERO,
@@ -52,7 +47,7 @@ public final class PAreaSizeBDTest
   @Test
   public void testIncludesReflexive()
   {
-    final PAreaSizeBDGenerator<Object> gen = PAreaSizeBDGenerator.create();
+    final var gen = PAreaSizeBDGenerator.create();
     QuickCheck.forAll(
       gen,
       new AbstractCharacteristic<PAreaSizeBD<Object>>()
@@ -61,7 +56,7 @@ public final class PAreaSizeBDTest
         protected void doSpecify(final PAreaSizeBD<Object> area)
           throws Throwable
         {
-          Assert.assertTrue(PAreaSizesBD.includes(area, area));
+          Assertions.assertTrue(PAreaSizesBD.includes(area, area));
         }
       });
   }
@@ -69,7 +64,7 @@ public final class PAreaSizeBDTest
   @Test
   public void testIncludesTransitive()
   {
-    final PAreaSizeBDGenerator<Object> generator = PAreaSizeBDGenerator.create();
+    final var generator = PAreaSizeBDGenerator.create();
     QuickCheck.forAll(
       generator,
       new AbstractCharacteristic<PAreaSizeBD<Object>>()
@@ -78,11 +73,11 @@ public final class PAreaSizeBDTest
         protected void doSpecify(final PAreaSizeBD<Object> a)
           throws Throwable
         {
-          final PAreaSizeBD<Object> b = generator.next();
-          final PAreaSizeBD<Object> c = generator.next();
+          final var b = generator.next();
+          final var c = generator.next();
 
           if (PAreaSizesBD.includes(a, b) && PAreaSizesBD.includes(b, c)) {
-            Assert.assertTrue(PAreaSizesBD.includes(a, c));
+            Assertions.assertTrue(PAreaSizesBD.includes(a, c));
           }
         }
       });
@@ -91,47 +86,51 @@ public final class PAreaSizeBDTest
   @Test
   public void testNegativeWidth()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Width"));
-    PAreaSizeBD.of(new BigDecimal("-1"), BigDecimal.ZERO);
+    final var ex =
+      Assertions.assertThrows(PreconditionViolationException.class, () -> {
+        PAreaSizeBD.of(new BigDecimal("-1"), BigDecimal.ZERO);
+      });
+    Assertions.assertTrue(ex.getMessage().contains("Width"));
   }
 
   @Test
   public void testNegativeHeight()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Height"));
-    PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal("-1"));
+    final var ex =
+      Assertions.assertThrows(PreconditionViolationException.class, () -> {
+        PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal("-1"));
+      });
+    Assertions.assertTrue(ex.getMessage().contains("Height"));
   }
 
   @Test
   public void testEquals()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO),
       PAreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO));
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)),
       PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)));
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeBD.of(
         new BigDecimal(100),
         BigDecimal.ZERO),
       PAreaSizeBD.of(
         new BigDecimal("99"),
         BigDecimal.ZERO));
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeBD.of(
         BigDecimal.ZERO,
         new BigDecimal(100)),
       PAreaSizeBD.of(
         BigDecimal.ZERO,
         new BigDecimal("99")));
-    Assert.assertNotEquals(PAreaSizeBD.of(
+    Assertions.assertNotEquals(PAreaSizeBD.of(
       BigDecimal.ZERO,
       new BigDecimal(100)), null);
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeBD.of(
         BigDecimal.ZERO,
         new BigDecimal(100)),
@@ -141,17 +140,17 @@ public final class PAreaSizeBDTest
   @Test
   public void testToString()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).toString(),
       PAreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).toString());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).toString(),
       PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).toString());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).toString(),
       PAreaSizeBD.of(new BigDecimal("99"), BigDecimal.ZERO).toString());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).toString(),
       PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal("99")).toString());
   }
@@ -159,17 +158,17 @@ public final class PAreaSizeBDTest
   @Test
   public void testHashCode()
   {
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) PAreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).hashCode(),
       (long) PAreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).hashCode());
-    Assert.assertEquals(
+    Assertions.assertEquals(
       (long) PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).hashCode(),
       (long) PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).hashCode());
 
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) PAreaSizeBD.of(new BigDecimal(100), BigDecimal.ZERO).hashCode(),
       (long) PAreaSizeBD.of(new BigDecimal("99"), BigDecimal.ZERO).hashCode());
-    Assert.assertNotEquals(
+    Assertions.assertNotEquals(
       (long) PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal(100)).hashCode(),
       (long) PAreaSizeBD.of(BigDecimal.ZERO, new BigDecimal("99")).hashCode());
   }

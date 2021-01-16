@@ -16,18 +16,18 @@
 
 package com.io7m.jregions.core.parameterized.sizes;
 
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import com.io7m.jregions.core.unparameterized.sizes.AreaSizeValuesIType;
 import org.immutables.value.Value;
 
 /**
- * The size of an area with <tt>int</tt> coordinates.
+ * The size of an area with {@code int} coordinates.
  *
  * @param <S> A phantom type parameter indicating the coordinate space of the
  *            area
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface PAreaSizeIType<S> extends AreaSizeValuesIType
 {

@@ -16,7 +16,6 @@
 
 package com.io7m.jregions.core.conversions;
 
-import java.util.Objects;
 import com.io7m.jregions.core.parameterized.areas.PAreaBD;
 import com.io7m.jregions.core.parameterized.areas.PAreaBI;
 import com.io7m.jregions.core.parameterized.areas.PAreaD;
@@ -30,6 +29,8 @@ import com.io7m.jregions.core.unparameterized.areas.AreaF;
 import com.io7m.jregions.core.unparameterized.areas.AreaI;
 import com.io7m.jregions.core.unparameterized.areas.AreaL;
 import com.io7m.junreachable.UnreachableCodeException;
+
+import java.util.Objects;
 
 /**
  * Functions to convert between area types.

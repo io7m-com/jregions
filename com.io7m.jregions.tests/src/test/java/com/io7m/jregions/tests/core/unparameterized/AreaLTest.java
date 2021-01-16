@@ -18,41 +18,42 @@ package com.io7m.jregions.tests.core.unparameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
 import com.io7m.jregions.core.unparameterized.areas.AreaL;
-import org.hamcrest.core.StringContains;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public final class AreaLTest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   @Test
   public void testIdentities()
   {
-    final AreaL area = AreaL.of(0L, 100L, 0L, 100L);
-    Assert.assertEquals(0L, area.minimumX());
-    Assert.assertEquals(0L, area.minimumY());
-    Assert.assertEquals(100L, area.sizeX());
-    Assert.assertEquals(100L, area.sizeY());
-    Assert.assertEquals(100L, area.maximumX());
-    Assert.assertEquals(100L, area.maximumY());
+    final var area = AreaL.of(0L, 100L, 0L, 100L);
+    Assertions.assertEquals(0L, area.minimumX());
+    Assertions.assertEquals(0L, area.minimumY());
+    Assertions.assertEquals(100L, area.sizeX());
+    Assertions.assertEquals(100L, area.sizeY());
+    Assertions.assertEquals(100L, area.maximumX());
+    Assertions.assertEquals(100L, area.maximumY());
   }
 
   @Test
   public void testBadX()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("X"));
-    AreaL.of(10L, 9L, 0L, 100L);
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        AreaL.of(10L, 9L, 0L, 100L);
+      });
+    Assertions.assertTrue(e.getMessage().contains("X"));
   }
 
   @Test
   public void testBadY()
   {
-    this.expected.expect(PreconditionViolationException.class);
-    this.expected.expectMessage(StringContains.containsString("Y"));
-    AreaL.of(0L, 100L, 10L, 9L);
+    final var e = Assertions.assertThrows(
+      PreconditionViolationException.class,
+      () -> {
+        AreaL.of(0L, 100L, 10L, 9L);
+      });
+    Assertions.assertTrue(e.getMessage().contains("Y"));
   }
 }

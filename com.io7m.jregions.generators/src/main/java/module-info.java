@@ -20,6 +20,9 @@
 
 module com.io7m.jregions.generators
 {
+  requires static org.osgi.annotation.bundle;
+  requires static org.osgi.annotation.versioning;
+
   requires com.io7m.jregions.core;
   requires quickcheck;
 

@@ -21,7 +21,7 @@ import com.io7m.jregions.generators.VolumeBDGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -40,9 +40,13 @@ final class VolumesBDTestOps
     final BigDecimal expected,
     final BigDecimal actual)
   {
-    Assert.assertTrue(
-      String.format("expected %s == actual %s", expected, actual),
-      expected.compareTo(actual) == 0);
+    Assertions.assertEquals(
+      expected.compareTo(actual),
+      0,
+      String.format(
+        "expected %s == actual %s",
+        expected,
+        actual));
   }
 
   public static BigDecimal constant(
@@ -107,29 +111,36 @@ final class VolumesBDTestOps
 
   public static Generator<BigDecimal> createWideScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(-1_000_000.0, 1_000_000.0);
     return () -> BigDecimal.valueOf(base.next().doubleValue());
   }
 
   public static Generator<BigDecimal> createNarrowScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(-400.0, 400.0);
     return () -> BigDecimal.valueOf(base.next().doubleValue());
   }
 
   public static Generator<BigDecimal> createNarrowNonNegativeScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(0.0, 400.0);
     return () -> BigDecimal.valueOf(base.next().doubleValue());
   }
 
   public static Generator<BigDecimal> createWideNonNegativeScalarGenerator()
   {
-    final Generator<Double> base =
+    final var base =
       PrimitiveGenerators.doubles(0.0, 1_000_000.0);
+    return () -> BigDecimal.valueOf(base.next().doubleValue());
+  }
+
+  public static Generator<BigDecimal> createWidePositiveScalarGenerator()
+  {
+    final var base =
+      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
     return () -> BigDecimal.valueOf(base.next().doubleValue());
   }
 

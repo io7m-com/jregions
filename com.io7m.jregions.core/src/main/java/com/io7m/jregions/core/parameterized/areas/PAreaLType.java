@@ -16,13 +16,13 @@
 
 package com.io7m.jregions.core.parameterized.areas;
 
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import com.io7m.jregions.core.unparameterized.areas.AreaValuesLType;
 import org.immutables.value.Value;
 
 /**
- * <p>An area with <tt>long</tt> coordinates.</p>
+ * <p>An area with {@code long} coordinates.</p>
  *
  * <p>The coordinates of the area are given in <i>half-closed</i> form. That is,
  * {@link #minimumX()} refers to the minimum <i>inclusive</i> value on the X
@@ -33,7 +33,7 @@ import org.immutables.value.Value;
  *            area
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface PAreaLType<S> extends AreaValuesLType
 {

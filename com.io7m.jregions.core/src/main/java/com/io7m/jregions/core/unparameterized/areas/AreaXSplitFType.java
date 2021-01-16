@@ -16,7 +16,7 @@
 
 package com.io7m.jregions.core.unparameterized.areas;
 
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import org.immutables.value.Value;
 
 /**
@@ -25,7 +25,7 @@ import org.immutables.value.Value;
  * @param <T> The precise type of area
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface AreaXSplitFType<T extends AreaFType>
 {

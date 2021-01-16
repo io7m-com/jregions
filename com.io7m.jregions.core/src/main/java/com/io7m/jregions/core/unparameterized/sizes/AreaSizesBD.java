@@ -16,11 +16,11 @@
 
 package com.io7m.jregions.core.unparameterized.sizes;
 
-import java.util.Objects;
 import com.io7m.jregions.core.unparameterized.areas.AreaBD;
 import com.io7m.junreachable.UnreachableCodeException;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * Functions over area sizes.

@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><c:changelog xmlns:c="urn:com.io7m.changelog:4.0" project="com.io7m.jregions">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<c:changelog project="com.io7m.jregions" xmlns:c="urn:com.io7m.changelog:4.0">
   <c:releases>
-    <c:release date="2017-03-08T00:00:00+00:00" ticket-system="com.github.io7m.jregions" version="0.0.1">
+    <c:release date="2017-03-08T00:00:00+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="0.0.1">
       <c:changes>
         <c:change date="2017-03-08T00:00:00+00:00" summary="Initial release."/>
       </c:changes>
     </c:release>
-    <c:release date="2017-03-08T00:00:00+00:00" ticket-system="com.github.io7m.jregions" version="0.0.2">
+    <c:release date="2017-03-08T00:00:00+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="0.0.2">
       <c:changes>
         <c:change date="2017-03-08T00:00:00+00:00" summary="Use primogenitor 0.0.6."/>
       </c:changes>
     </c:release>
-    <c:release date="2017-03-09T00:00:00+00:00" ticket-system="com.github.io7m.jregions" version="0.0.3">
+    <c:release date="2017-03-09T00:00:00+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="0.0.3">
       <c:changes>
         <c:change date="2017-03-08T00:00:00+00:00" summary="Add common &quot;value&quot; interfaces.">
           <c:tickets>
@@ -39,17 +40,17 @@
         </c:change>
       </c:changes>
     </c:release>
-    <c:release date="2017-03-13T00:00:00+00:00" ticket-system="com.github.io7m.jregions" version="0.0.4">
+    <c:release date="2017-03-13T00:00:00+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="0.0.4">
       <c:changes>
         <c:change date="2017-03-13T00:00:00+00:00" summary="Use primogenitor 0.0.7."/>
       </c:changes>
     </c:release>
-    <c:release date="2017-04-08T00:00:00+00:00" ticket-system="com.github.io7m.jregions" version="0.0.5">
+    <c:release date="2017-04-08T00:00:00+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="0.0.5">
       <c:changes>
         <c:change date="2017-04-08T00:00:00+00:00" summary="Use primogenitor 1.0.2. Use newest versions of core io7m libraries."/>
       </c:changes>
     </c:release>
-    <c:release date="2017-04-09T00:00:00+00:00" ticket-system="com.github.io7m.jregions" version="0.0.6">
+    <c:release date="2017-04-09T00:00:00+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="0.0.6">
       <c:changes>
         <c:change date="2017-04-09T00:00:00+00:00" summary="Add convenient methods to construct areas from sizes.">
           <c:tickets>
@@ -58,12 +59,12 @@
         </c:change>
       </c:changes>
     </c:release>
-    <c:release date="2017-04-16T00:00:00+00:00" ticket-system="com.github.io7m.jregions" version="1.0.0">
+    <c:release date="2017-04-16T00:00:00+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="1.0.0">
       <c:changes>
         <c:change date="2017-04-16T00:00:00+00:00" summary="Initial public API release."/>
       </c:changes>
     </c:release>
-    <c:release date="2017-05-06T00:00:00+00:00" ticket-system="com.github.io7m.jregions" version="1.1.0">
+    <c:release date="2017-05-06T00:00:00+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="1.1.0">
       <c:changes>
         <c:change date="2017-05-06T00:00:00+00:00" summary="Add splitAlongXY method for dividing areas into quadrants."/>
         <c:change date="2017-05-07T00:00:00+00:00" summary="Stop using terms such as &quot;horizontally&quot;, &quot;vertically&quot;, &quot;width&quot;, &quot;height&quot;, etc. Deprecate methods and add replacements.">
@@ -89,10 +90,24 @@
         </c:change>
       </c:changes>
     </c:release>
-    <c:release date="2017-12-07T22:20:16+00:00" ticket-system="com.github.io7m.jregions" version="2.0.0">
+    <c:release date="2017-12-07T00:00:00+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="2.0.0">
       <c:changes>
         <c:change compatible="false" date="2017-12-07T00:00:00+00:00" summary="Removed dependency on com.io7m.jnull"/>
-        <c:change compatible="false" date="2017-12-07T22:20:16+00:00" summary="All modules are now Java 9 modules. JDK 9 is now required."/>
+        <c:change compatible="false" date="2017-12-07T00:00:00+00:00" summary="All modules are now Java 9 modules. JDK 9 is now required."/>
+      </c:changes>
+    </c:release>
+    <c:release date="2021-01-15T19:00:02+00:00" is-open="true" ticket-system="com.github.io7m.jregions" version="3.0.0">
+      <c:changes>
+        <c:change date="2021-01-11T00:00:00+00:00" summary="Add moveRelativeClamped">
+          <c:tickets>
+            <c:ticket id="16"/>
+          </c:tickets>
+        </c:change>
+        <c:change date="2021-01-15T19:00:02+00:00" summary="Upgrade to Junit 5">
+          <c:tickets>
+            <c:ticket id="18"/>
+          </c:tickets>
+        </c:change>
       </c:changes>
     </c:release>
   </c:releases>

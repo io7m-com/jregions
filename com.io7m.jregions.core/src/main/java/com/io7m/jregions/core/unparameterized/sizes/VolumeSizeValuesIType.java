@@ -19,7 +19,7 @@ package com.io7m.jregions.core.unparameterized.sizes;
 import org.immutables.value.Value;
 
 /**
- * The size of a volume with <tt>int</tt> coordinates.
+ * The size of a volume with {@code int} coordinates.
  */
 
 public interface VolumeSizeValuesIType

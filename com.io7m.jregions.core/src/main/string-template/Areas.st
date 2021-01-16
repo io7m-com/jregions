@@ -31,12 +31,12 @@ import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.junreachable.UnreachableCodeException;
 
 /**
- * \<p\>Functions over areas.\</p\>
+ * \<p>Functions over areas.\</p>
  *
- * \<p\>These functions operate using the concepts of \<i\>minimum-x\</i\>,
- * \<i\>maximum-x\</i\>, \<i\>minimum-y\</i\>, and \<i\>maximum-y\</i\> edges. It is up to
+ * \<p>These functions operate using the concepts of \<i>minimum-x\</i>,
+ * \<i>maximum-x\</i>, \<i>minimum-y\</i>, and \<i>maximum-y\</i> edges. It is up to
  * individual applications to assign meaning to these edges such as "left" for
- * \<i\>minimum-x\</i\> and "top" for \<i\>minimum-y\</i\>.\</p\>
+ * \<i>minimum-x\</i> and "top" for \<i>minimum-y\</i>.\</p>
  */
 
 public final class <className>
@@ -77,14 +77,14 @@ public final class <className>
   }
 
   /**
-   * \<p\>Determine whether or not one area contains another.\</p\>
+   * \<p>Determine whether or not one area contains another.\</p>
    *
-   * \<p\>Containing is reflexive: {@code contains(a, a) == true}.\</p\>
+   * \<p>Containing is reflexive: {@code contains(a, a) == true}.\</p>
    *
-   * \<p\>Containing is transitive: {@code contains(a, b) → contains(b, c) →
-   * contains(a, c)}.\</p\>
+   * \<p>Containing is transitive: {@code contains(a, b) → contains(b, c) →
+   * contains(a, c)}.\</p>
    *
-   * \<p\>Containing is not necessarily symmetric.\</p\>
+   * \<p>Containing is not necessarily symmetric.\</p>
    *
    * @param a   Area A
    * @param b   Area B
@@ -109,9 +109,9 @@ public final class <className>
     final <scalarType> b_y0 = b.minimumY();
     final <scalarType> b_y1 = b.maximumY();
 
-    final boolean c0 = <opClass>.compare(b_x0, a_x0) \>= 0;
+    final boolean c0 = <opClass>.compare(b_x0, a_x0) >= 0;
     final boolean c1 = <opClass>.compare(b_x1, a_x1) \<= 0;
-    final boolean c2 = <opClass>.compare(b_y0, a_y0) \>= 0;
+    final boolean c2 = <opClass>.compare(b_y0, a_y0) >= 0;
     final boolean c3 = <opClass>.compare(b_y1, a_y1) \<= 0;
 
     return c0 && c1 && c2 && c3;
@@ -140,6 +140,113 @@ public final class <className>
     final <scalarType> y_min = <opClass>.add(area.minimumY(), y);
     final <scalarType> y_max = <opClass>.add(area.maximumY(), y);
     return <areaType>.of(x_min, x_max, y_min, y_max);
+  }
+
+  /**
+   * Move the given area by {@code x}, without allowing {@code area}
+   * to leave {@code container}.
+   *
+   * @param container The container area
+   * @param area      The area
+   * @param x         The amount to move on the X axis
+   *
+   * @since 3.0.0
+   * @return A moved area
+   */
+
+  public static <areaType> moveRelativeClampedX(
+    final <areaType> container,
+    final <areaType> area,
+    final <scalarType> x)
+  {
+    <opClass>.notNullArea(container, "Container");
+    <opClass>.notNullArea(area, "Area");
+
+    Preconditions.checkPrecondition(
+      contains(container, area),
+      "Container must contain area");
+
+    final var sizeX = area.sizeX();
+    final var newMinY = area.minimumY();
+    final var newMaxY = area.maximumY();
+    final var movedOnX = moveRelative(area, x, <opClass>.ZERO);
+    if (!contains(container, movedOnX)) {
+      if (<opClass>.compare(x, <opClass>.ZERO) \< 0) {
+        final var newMinX = container.minimumX();
+        final var newMaxX = <opClass>.minimum(container.maximumX(), <opClass>.add(newMinX, sizeX));
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      } else {
+        final var newMinX = <opClass>.maximum(container.minimumX(), <opClass>.subtract(container.maximumX(), sizeX));
+        final var newMaxX = container.maximumX();
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      }
+    }
+    return movedOnX;
+  }
+
+  /**
+   * Move the given area by {@code y}, without allowing {@code area}
+   * to leave {@code container}.
+   *
+   * @param container The container area
+   * @param area      The area
+   * @param y         The amount to move on the Y axis
+   *
+   * @since 3.0.0
+   * @return A moved area
+   */
+
+  public static <areaType> moveRelativeClampedY(
+    final <areaType> container,
+    final <areaType> area,
+    final <scalarType> y)
+  {
+    <opClass>.notNullArea(container, "Container");
+    <opClass>.notNullArea(area, "Area");
+
+    Preconditions.checkPrecondition(
+      contains(container, area),
+      "Container must contain area");
+
+    final var sizeY = area.sizeY();
+    final var newMinX = area.minimumX();
+    final var newMaxX = area.maximumX();
+    final var movedOnY = moveRelative(area, <opClass>.ZERO, y);
+    if (!contains(container, movedOnY)) {
+      if (<opClass>.compare(y, <opClass>.ZERO) \< 0) {
+        final var newMinY = container.minimumY();
+        final var newMaxY = <opClass>.minimum(container.maximumY(), <opClass>.add(newMinY, sizeY));
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      } else {
+        final var newMinY = <opClass>.maximum(container.minimumY(), <opClass>.subtract(container.maximumY(), sizeY));
+        final var newMaxY = container.maximumY();
+        return <areaType>.of(newMinX, newMaxX, newMinY, newMaxY);
+      }
+    }
+    return movedOnY;
+  }
+
+  /**
+   * Move the given area by {@code (x, y)}, without allowing {@code area}
+   * to leave {@code container}.
+   *
+   * @param container The container area
+   * @param area      The area
+   * @param x         The amount to move on the X axis
+   * @param y         The amount to move on the Y axis
+   *
+   * @since 3.0.0
+   * @return A moved area
+   */
+
+  public static <areaType> moveRelativeClamped(
+    final <areaType> container,
+    final <areaType> area,
+    final <scalarType> x,
+    final <scalarType> y)
+  {
+    final var m0 = moveRelativeClampedX(container, area, x);
+    return moveRelativeClampedY(container, m0, y);
   }
 
   /**
@@ -188,8 +295,8 @@ public final class <className>
     final <scalarType> maximum)
   {
     Preconditions.checkPrecondition(
-      <opClass>.compare(maximum, minimum) \>= 0,
-      "Maximum \>= minimum");
+      <opClass>.compare(maximum, minimum) >= 0,
+      "Maximum >= minimum");
     return <opClass>.maximum(<opClass>.minimum(x, maximum), minimum);
   }
 
@@ -948,10 +1055,10 @@ public final class <className>
   }
 
   /**
-   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
-   * sizeY}, respectively.\</p\>
+   * \<p>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p>
    *
-   * \<p\>The area is resized from its own center.\</p\>
+   * \<p>The area is resized from its own center.\</p>
    *
    * @param area   The area
    * @param sizeX  The new sizeX (must be non-negative)
@@ -977,10 +1084,10 @@ public final class <className>
   }
 
   /**
-   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
-   * sizeY}, respectively.\</p\>
+   * \<p>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p>
    *
-   * \<p\>The area is resized by moving its minimum-y-minimum-x corner.\</p\>
+   * \<p>The area is resized by moving its minimum-y-minimum-x corner.\</p>
    *
    * @param area   The area
    * @param sizeX  The new sizeX (must be non-negative)
@@ -1007,10 +1114,10 @@ public final class <className>
   }
 
   /**
-   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
-   * sizeY}, respectively.\</p\>
+   * \<p>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p>
    *
-   * \<p\>The area is resized by moving its minimum-y-maximum-x corner.\</p\>
+   * \<p>The area is resized by moving its minimum-y-maximum-x corner.\</p>
    *
    * @param area   The area
    * @param sizeX  The new sizeX (must be non-negative)
@@ -1037,10 +1144,10 @@ public final class <className>
   }
 
   /**
-   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
-   * sizeY}, respectively.\</p\>
+   * \<p>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p>
    *
-   * \<p\>The area is resized by moving its maximum-y-maximum-x corner.\</p\>
+   * \<p>The area is resized by moving its maximum-y-maximum-x corner.\</p>
    *
    * @param area   The area
    * @param sizeX  The new sizeX (must be non-negative)
@@ -1067,10 +1174,10 @@ public final class <className>
   }
 
   /**
-   * \<p\>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
-   * sizeY}, respectively.\</p\>
+   * \<p>Set the sizeX and sizeY of {@code area} to {@code sizeX} and {@code
+   * sizeY}, respectively.\</p>
    *
-   * \<p\>The area is resized by moving its maximum-y-minimum-x corner.\</p\>
+   * \<p>The area is resized by moving its maximum-y-minimum-x corner.\</p>
    *
    * @param area   The area
    * @param sizeX  The new sizeX (must be non-negative)
@@ -1097,11 +1204,11 @@ public final class <className>
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * \<p>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
    * y_diff} to the sizeY. The size of the resulting area is clamped so that
-   * its sizeX and sizeY are always non-negative.\</p\>
+   * its sizeX and sizeY are always non-negative.\</p>
    *
-   * \<p\>The area is resized by moving its minimum-y-minimum-x corner.\</p\>
+   * \<p>The area is resized by moving its minimum-y-minimum-x corner.\</p>
    *
    * @param area   The area
    * @param x_diff The X difference
@@ -1128,11 +1235,11 @@ public final class <className>
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * \<p>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
    * y_diff} to the sizeY. The size of the resulting area is clamped so that
-   * its sizeX and sizeY are always non-negative.\</p\>
+   * its sizeX and sizeY are always non-negative.\</p>
    *
-   * \<p\>The area is resized by moving its minimum-y-maximum-x corner.\</p\>
+   * \<p>The area is resized by moving its minimum-y-maximum-x corner.\</p>
    *
    * @param area   The area
    * @param x_diff The X difference
@@ -1159,11 +1266,11 @@ public final class <className>
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * \<p>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
    * y_diff} to the sizeY. The size of the resulting area is clamped so that
-   * its sizeX and sizeY are always non-negative.\</p\>
+   * its sizeX and sizeY are always non-negative.\</p>
    *
-   * \<p\>The area is resized by moving its maximum-y-minimum-x corner.\</p\>
+   * \<p>The area is resized by moving its maximum-y-minimum-x corner.\</p>
    *
    * @param area   The area
    * @param x_diff The X difference
@@ -1190,11 +1297,11 @@ public final class <className>
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * \<p>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
    * y_diff} to the sizeY. The size of the resulting area is clamped so that
-   * its sizeX and sizeY are always non-negative.\</p\>
+   * its sizeX and sizeY are always non-negative.\</p>
    *
-   * \<p\>The area is resized by moving its maximum-y-maximum-x corner.\</p\>
+   * \<p>The area is resized by moving its maximum-y-maximum-x corner.\</p>
    *
    * @param area   The area
    * @param x_diff The X difference
@@ -1221,11 +1328,11 @@ public final class <className>
   }
 
   /**
-   * \<p\>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
+   * \<p>Scale {@code area} by adding {@code x_diff} to the sizeX, and {@code
    * y_diff} to the sizeY. The size of the resulting area is clamped so that
-   * its sizeX and sizeY are always non-negative.\</p\>
+   * its sizeX and sizeY are always non-negative.\</p>
    *
-   * \<p\>The area is resized from its own center.\</p\>
+   * \<p>The area is resized from its own center.\</p>
    *
    * @param area   The area
    * @param x_diff The X difference
@@ -1252,13 +1359,13 @@ public final class <className>
   }
 
   /**
-   * \<p\>Determine whether or not two areas overlap.\</p\>
+   * \<p>Determine whether or not two areas overlap.\</p>
    *
-   * \<p\>Overlapping is reflexive: {@code overlaps(a, a) == true}.\</p\>
+   * \<p>Overlapping is reflexive: {@code overlaps(a, a) == true}.\</p>
    *
-   * \<p\>Overlapping is symmetric: {@code overlaps(a, b) == overlaps(b, a)}.\</p\>
+   * \<p>Overlapping is symmetric: {@code overlaps(a, b) == overlaps(b, a)}.\</p>
    *
-   * \<p\>Overlapping is not necessarily transitive.\</p\>
+   * \<p>Overlapping is not necessarily transitive.\</p>
    *
    * @param a   An area
    * @param b   An area
@@ -1295,22 +1402,22 @@ public final class <className>
     final <scalarType> b_y1 = cmp_b.maximumY();
 
     final boolean c0 = <opClass>.compare(a_x0, b_x1) \< 0;
-    final boolean c1 = <opClass>.compare(a_x1, b_x0) \> 0;
+    final boolean c1 = <opClass>.compare(a_x1, b_x0) > 0;
     final boolean c2 = <opClass>.compare(a_y0, b_y1) \< 0;
-    final boolean c3 = <opClass>.compare(a_y1, b_y0) \> 0;
+    final boolean c3 = <opClass>.compare(a_y1, b_y0) > 0;
 
     return c0 && c1 && c2 && c3;
   }
 
   /**
-   * \<p\>Determine whether or not one area could fit inside another.\</p\>
+   * \<p>Determine whether or not one area could fit inside another.\</p>
    *
-   * \<p\>Fitting is reflexive: {@code couldFitInside(a, a) == true}.\</p\>
+   * \<p>Fitting is reflexive: {@code couldFitInside(a, a) == true}.\</p>
    *
-   * \<p\>Fitting is transitive: {@code couldFitInside(a, b) → couldFitInside(b,
-   * c) → couldFitInside(a, c)}.\</p\>
+   * \<p>Fitting is transitive: {@code couldFitInside(a, b) → couldFitInside(b,
+   * c) → couldFitInside(a, c)}.\</p>
    *
-   * \<p\>Fitting is not necessarily symmetric.\</p\>
+   * \<p>Fitting is not necessarily symmetric.\</p>
    *
    * @param a   An area
    * @param b   An area
@@ -1358,7 +1465,7 @@ public final class <className>
   }
 
   /**
-   * \<p\>Determine whether or not a area contains a given point.\</p\>
+   * \<p>Determine whether or not a area contains a given point.\</p>
    *
    * @param a   An area
    * @param x   The X coordinate of the point
@@ -1378,9 +1485,9 @@ public final class <className>
     <opClass>.notNullScalar(y, "y");
 
     final boolean contain_x =
-      <opClass>.compare(x, a.minimumX()) \>= 0 && <opClass>.compare(x, a.maximumX()) \< 0;
+      <opClass>.compare(x, a.minimumX()) >= 0 && <opClass>.compare(x, a.maximumX()) \< 0;
     final boolean contain_y =
-      <opClass>.compare(y, a.minimumY()) \>= 0 && <opClass>.compare(y, a.maximumY()) \< 0;
+      <opClass>.compare(y, a.minimumY()) >= 0 && <opClass>.compare(y, a.maximumY()) \< 0;
     return contain_x && contain_y;
   }
 

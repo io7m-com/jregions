@@ -29,8 +29,8 @@ import com.io7m.jregions.core.unparameterized.volumes.VolumesD;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesF;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesI;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesL;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -40,7 +40,7 @@ public final class Bug14VolumeTest
   @Test
   public void testBugOverlapsL()
   {
-    final VolumeL area0 =
+    final var area0 =
       VolumeL.of(
         0L,
         10L,
@@ -48,7 +48,7 @@ public final class Bug14VolumeTest
         10L,
         0L,
         10L);
-    final VolumeL area1 =
+    final var area1 =
       VolumesL.create(
         0L,
         0L,
@@ -56,14 +56,14 @@ public final class Bug14VolumeTest
         0L,
         0L,
         0L);
-    Assert.assertTrue(VolumesL.overlaps(area0, area1));
-    Assert.assertTrue(VolumesL.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesL.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesL.overlaps(area1, area0));
   }
 
   @Test
   public void testBugOverlapsI()
   {
-    final VolumeI area0 =
+    final var area0 =
       VolumeI.of(
         0,
         10,
@@ -71,7 +71,7 @@ public final class Bug14VolumeTest
         10,
         0,
         10);
-    final VolumeI area1 =
+    final var area1 =
       VolumesI.create(
         0,
         0,
@@ -79,14 +79,14 @@ public final class Bug14VolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(VolumesI.overlaps(area0, area1));
-    Assert.assertTrue(VolumesI.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesI.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesI.overlaps(area1, area0));
   }
 
   @Test
   public void testBugOverlapsD()
   {
-    final VolumeD area0 =
+    final var area0 =
       VolumeD.of(
         (double) 0L,
         10.0,
@@ -94,7 +94,7 @@ public final class Bug14VolumeTest
         10.0,
         (double) 0L,
         10.0);
-    final VolumeD area1 =
+    final var area1 =
       VolumesD.create(
         (double) 0L,
         (double) 0L,
@@ -102,14 +102,14 @@ public final class Bug14VolumeTest
         (double) 0L,
         (double) 0L,
         (double) 0L);
-    Assert.assertTrue(VolumesD.overlaps(area0, area1));
-    Assert.assertTrue(VolumesD.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesD.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesD.overlaps(area1, area0));
   }
 
   @Test
   public void testBugOverlapsF()
   {
-    final VolumeF area0 =
+    final var area0 =
       VolumeF.of(
         (float) 0L,
         10.0F,
@@ -117,7 +117,7 @@ public final class Bug14VolumeTest
         10.0F,
         (float) 0L,
         10.0F);
-    final VolumeF area1 =
+    final var area1 =
       VolumesF.create(
         (float) 0L,
         (float) 0L,
@@ -125,14 +125,14 @@ public final class Bug14VolumeTest
         (float) 0L,
         (float) 0L,
         (float) 0L);
-    Assert.assertTrue(VolumesF.overlaps(area0, area1));
-    Assert.assertTrue(VolumesF.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesF.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesF.overlaps(area1, area0));
   }
 
   @Test
   public void testBugOverlapsBI()
   {
-    final VolumeBI area0 =
+    final var area0 =
       VolumeBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
@@ -140,7 +140,7 @@ public final class Bug14VolumeTest
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final VolumeBI area1 =
+    final var area1 =
       VolumesBI.create(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
@@ -148,14 +148,14 @@ public final class Bug14VolumeTest
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(VolumesBI.overlaps(area0, area1));
-    Assert.assertTrue(VolumesBI.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesBI.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesBI.overlaps(area1, area0));
   }
 
   @Test
   public void testBugOverlapsBD()
   {
-    final VolumeBD area0 =
+    final var area0 =
       VolumeBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
@@ -163,7 +163,7 @@ public final class Bug14VolumeTest
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final VolumeBD area1 =
+    final var area1 =
       VolumesBD.create(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
@@ -171,14 +171,14 @@ public final class Bug14VolumeTest
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(VolumesBD.overlaps(area0, area1));
-    Assert.assertTrue(VolumesBD.overlaps(area1, area0));
+    Assertions.assertTrue(VolumesBD.overlaps(area0, area1));
+    Assertions.assertTrue(VolumesBD.overlaps(area1, area0));
   }
 
   @Test
   public void testBugContainsL()
   {
-    final VolumeL area0 =
+    final var area0 =
       VolumeL.of(
         0L,
         10L,
@@ -186,7 +186,7 @@ public final class Bug14VolumeTest
         10L,
         0L,
         10L);
-    final VolumeL area1 =
+    final var area1 =
       VolumesL.create(
         0L,
         0L,
@@ -194,13 +194,13 @@ public final class Bug14VolumeTest
         0L,
         0L,
         0L);
-    Assert.assertTrue(VolumesL.contains(area0, area1));
+    Assertions.assertTrue(VolumesL.contains(area0, area1));
   }
 
   @Test
   public void testBugContainsI()
   {
-    final VolumeI area0 =
+    final var area0 =
       VolumeI.of(
         0,
         10,
@@ -208,7 +208,7 @@ public final class Bug14VolumeTest
         10,
         0,
         10);
-    final VolumeI area1 =
+    final var area1 =
       VolumesI.create(
         0,
         0,
@@ -216,13 +216,13 @@ public final class Bug14VolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(VolumesI.contains(area0, area1));
+    Assertions.assertTrue(VolumesI.contains(area0, area1));
   }
 
   @Test
   public void testBugContainsD()
   {
-    final VolumeD area0 =
+    final var area0 =
       VolumeD.of(
         0,
         10,
@@ -230,7 +230,7 @@ public final class Bug14VolumeTest
         10,
         0,
         10);
-    final VolumeD area1 =
+    final var area1 =
       VolumesD.create(
         0,
         0,
@@ -238,13 +238,13 @@ public final class Bug14VolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(VolumesD.contains(area0, area1));
+    Assertions.assertTrue(VolumesD.contains(area0, area1));
   }
 
   @Test
   public void testBugContainsF()
   {
-    final VolumeF area0 =
+    final var area0 =
       VolumeF.of(
         0,
         10,
@@ -252,7 +252,7 @@ public final class Bug14VolumeTest
         10,
         0,
         10);
-    final VolumeF area1 =
+    final var area1 =
       VolumesF.create(
         0,
         0,
@@ -260,13 +260,13 @@ public final class Bug14VolumeTest
         0,
         0,
         0);
-    Assert.assertTrue(VolumesF.contains(area0, area1));
+    Assertions.assertTrue(VolumesF.contains(area0, area1));
   }
 
   @Test
   public void testBugContainsBI()
   {
-    final VolumeBI area0 =
+    final var area0 =
       VolumeBI.of(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L),
@@ -274,7 +274,7 @@ public final class Bug14VolumeTest
         BigInteger.valueOf(10L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(10L));
-    final VolumeBI area1 =
+    final var area1 =
       VolumesBI.create(
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
@@ -282,13 +282,13 @@ public final class Bug14VolumeTest
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L),
         BigInteger.valueOf(0L));
-    Assert.assertTrue(VolumesBI.contains(area0, area1));
+    Assertions.assertTrue(VolumesBI.contains(area0, area1));
   }
 
   @Test
   public void testBugContainsBD()
   {
-    final VolumeBD area0 =
+    final var area0 =
       VolumeBD.of(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L),
@@ -296,7 +296,7 @@ public final class Bug14VolumeTest
         BigDecimal.valueOf(10L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(10L));
-    final VolumeBD area1 =
+    final var area1 =
       VolumesBD.create(
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
@@ -304,6 +304,6 @@ public final class Bug14VolumeTest
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L),
         BigDecimal.valueOf(0L));
-    Assert.assertTrue(VolumesBD.contains(area0, area1));
+    Assertions.assertTrue(VolumesBD.contains(area0, area1));
   }
 }

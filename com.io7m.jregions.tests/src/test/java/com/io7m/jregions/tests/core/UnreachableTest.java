@@ -17,6 +17,7 @@
 package com.io7m.jregions.tests.core;
 
 import com.io7m.jregions.core.conversions.AreaConversions;
+import com.io7m.jregions.core.conversions.AreaSizeConversions;
 import com.io7m.jregions.core.parameterized.areas.PAreasBD;
 import com.io7m.jregions.core.parameterized.areas.PAreasBI;
 import com.io7m.jregions.core.parameterized.areas.PAreasD;
@@ -54,24 +55,22 @@ import com.io7m.jregions.core.unparameterized.volumes.VolumesF;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesI;
 import com.io7m.jregions.core.unparameterized.volumes.VolumesL;
 import com.io7m.junreachable.UnreachableCodeException;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.stream.Stream;
 
 public final class UnreachableTest
 {
-  @Rule public final ExpectedException expected = ExpectedException.none();
-
   private static void callPrivate(
     final Class<?> c)
     throws Throwable
   {
     try {
-      final Constructor<?> constructor = c.getDeclaredConstructors()[0];
+      final var constructor = c.getDeclaredConstructors()[0];
       constructor.setAccessible(true);
       constructor.newInstance();
     } catch (final InvocationTargetException e) {
@@ -79,307 +78,60 @@ public final class UnreachableTest
     }
   }
 
-  @Test
-  public void testAreaConversions()
-    throws Throwable
+  @TestFactory
+  public Stream<DynamicTest> testUnreachables()
   {
-    this.checkUnreachable(AreaConversions.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreaSizesBI()
-    throws Throwable
-  {
-    this.checkUnreachable(AreaSizesBI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreaSizesBD()
-    throws Throwable
-  {
-    this.checkUnreachable(AreaSizesBD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreaSizesL()
-    throws Throwable
-  {
-    this.checkUnreachable(AreaSizesL.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreaSizesI()
-    throws Throwable
-  {
-    this.checkUnreachable(AreaSizesI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreaSizesD()
-    throws Throwable
-  {
-    this.checkUnreachable(AreaSizesD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreaSizesF()
-    throws Throwable
-  {
-    this.checkUnreachable(AreaSizesF.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreaSizesBI()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreaSizesBI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreaSizesBD()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreaSizesBD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreaSizesL()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreaSizesL.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreaSizesI()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreaSizesI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreaSizesD()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreaSizesD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreaSizesF()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreaSizesF.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreasL()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreasL.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreasBI()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreasBI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreasBD()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreasBD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreasI()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreasI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreasF()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreasF.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPAreasD()
-    throws Throwable
-  {
-    this.checkUnreachable(PAreasD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreasL()
-    throws Throwable
-  {
-    this.checkUnreachable(AreasL.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreasBI()
-    throws Throwable
-  {
-    this.checkUnreachable(AreasBI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreasBD()
-    throws Throwable
-  {
-    this.checkUnreachable(AreasBD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreasI()
-    throws Throwable
-  {
-    this.checkUnreachable(AreasI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreasF()
-    throws Throwable
-  {
-    this.checkUnreachable(AreasF.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testAreasD()
-    throws Throwable
-  {
-    this.checkUnreachable(AreasD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPVolumesL()
-    throws Throwable
-  {
-    this.checkUnreachable(PVolumesL.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPVolumesBI()
-    throws Throwable
-  {
-    this.checkUnreachable(PVolumesBI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPVolumesBD()
-    throws Throwable
-  {
-    this.checkUnreachable(PVolumesBD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPVolumesI()
-    throws Throwable
-  {
-    this.checkUnreachable(PVolumesI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPVolumesF()
-    throws Throwable
-  {
-    this.checkUnreachable(PVolumesF.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testPVolumesD()
-    throws Throwable
-  {
-    this.checkUnreachable(PVolumesD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testVolumesL()
-    throws Throwable
-  {
-    this.checkUnreachable(VolumesL.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testVolumesBI()
-    throws Throwable
-  {
-    this.checkUnreachable(VolumesBI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testVolumesBD()
-    throws Throwable
-  {
-    this.checkUnreachable(VolumesBD.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testVolumesI()
-    throws Throwable
-  {
-    this.checkUnreachable(VolumesI.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testVolumesF()
-    throws Throwable
-  {
-    this.checkUnreachable(VolumesF.class);
-    Assert.fail();
-  }
-
-  @Test
-  public void testVolumesD()
-    throws Throwable
-  {
-    this.checkUnreachable(VolumesD.class);
-    Assert.fail();
+    return Stream.of(
+      AreaConversions.class,
+      AreaSizeConversions.class,
+      PAreasBD.class,
+      PAreasBI.class,
+      PAreasD.class,
+      PAreasF.class,
+      PAreasI.class,
+      PAreasL.class,
+      PAreaSizesBD.class,
+      PAreaSizesBI.class,
+      PAreaSizesD.class,
+      PAreaSizesF.class,
+      PAreaSizesI.class,
+      PAreaSizesL.class,
+      PVolumesBD.class,
+      PVolumesBI.class,
+      PVolumesD.class,
+      PVolumesF.class,
+      PVolumesI.class,
+      PVolumesL.class,
+      AreasBD.class,
+      AreasBI.class,
+      AreasD.class,
+      AreasF.class,
+      AreasI.class,
+      AreasL.class,
+      AreaSizesBD.class,
+      AreaSizesBI.class,
+      AreaSizesD.class,
+      AreaSizesF.class,
+      AreaSizesI.class,
+      AreaSizesL.class,
+      VolumesBD.class,
+      VolumesBI.class,
+      VolumesD.class,
+      VolumesF.class,
+      VolumesI.class,
+      VolumesL.class
+    ).map(clazz -> {
+      return DynamicTest.dynamicTest("testUnreachable" + clazz, () -> {
+        this.checkUnreachable(clazz);
+      });
+    });
   }
 
   private void checkUnreachable(
     final Class<?> c)
-    throws Throwable
   {
-    this.expected.expect(UnreachableCodeException.class);
-    callPrivate(c);
+    Assertions.assertThrows(UnreachableCodeException.class, () -> {
+      callPrivate(c);
+    });
   }
 }

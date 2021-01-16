@@ -16,13 +16,13 @@
 
 package com.io7m.jregions.core.parameterized.volumes;
 
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import com.io7m.jregions.core.unparameterized.volumes.VolumeValuesIType;
 import org.immutables.value.Value;
 
 /**
- * <p>A volume with <tt>int</tt> coordinates.</p>
+ * <p>A volume with {@code int} coordinates.</p>
  *
  * <p>The coordinates of the area are given in <i>half-closed</i> form. That is,
  * {@link #minimumX()} refers to the minimum <i>inclusive</i> value on the X
@@ -33,7 +33,7 @@ import org.immutables.value.Value;
  *            volume
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface PVolumeIType<S> extends VolumeValuesIType
 {

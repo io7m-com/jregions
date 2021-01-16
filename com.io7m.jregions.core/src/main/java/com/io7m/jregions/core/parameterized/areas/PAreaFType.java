@@ -16,13 +16,13 @@
 
 package com.io7m.jregions.core.parameterized.areas;
 
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import com.io7m.jregions.core.unparameterized.areas.AreaValuesFType;
 import org.immutables.value.Value;
 
 /**
- * <p>An area with <tt>float</tt> coordinates.</p>
+ * <p>An area with {@code float} coordinates.</p>
  *
  * <p>The coordinates of the area are given in <i>half-closed</i> form. That is,
  * {@link #minimumX()} refers to the minimum <i>inclusive</i> value on the X
@@ -33,7 +33,7 @@ import org.immutables.value.Value;
  *            area
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface PAreaFType<S> extends AreaValuesFType
 {
@@ -61,11 +61,11 @@ public interface PAreaFType<S> extends AreaValuesFType
   default void checkPreconditions()
   {
     Preconditions.checkPreconditionD(
-      (double) this.maximumX(),
+      this.maximumX(),
       this.maximumX() >= this.minimumX(),
       x -> "X maximum must be >= X minimum");
     Preconditions.checkPreconditionD(
-      (double) this.maximumY(),
+      this.maximumY(),
       this.maximumY() >= this.minimumY(),
       y -> "Y maximum must be >= Y minimum");
   }

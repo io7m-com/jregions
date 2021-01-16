@@ -29,13 +29,13 @@ import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.junreachable.UnreachableCodeException;
 
 /**
- * \<p\>Functions over volumes.\</p\>
+ * \<p>Functions over volumes.\</p>
  *
- * \<p\>These functions operate using the concepts of \<i\>minimum-x\</i\>,
- * \<i\>maximum-x\</i\>, \<i\>minimum-y\</i\>, \<i\>maximum-y\</i\>,
- * \<i\>minimum-z\</i\>, \<i\>maximum-z\</i\>, edges. It is up to
+ * \<p>These functions operate using the concepts of \<i>minimum-x\</i>,
+ * \<i>maximum-x\</i>, \<i>minimum-y\</i>, \<i>maximum-y\</i>,
+ * \<i>minimum-z\</i>, \<i>maximum-z\</i>, edges. It is up to
  * individual applications to assign meaning to these edges such as "left" for
- * \<i\>minimum-x\</i\>, "top" for \<i\>minimum-y\</i\>, or "far" for \<i\>minimum-z\</i\>.\</p\>
+ * \<i>minimum-x\</i>, "top" for \<i>minimum-y\</i>, or "far" for \<i>minimum-z\</i>.\</p>
  */
 
 public final class <className>
@@ -55,12 +55,12 @@ public final class <className>
    * @param size_x The size of the volume on the X axis
    * @param size_y The size of the volume on the Y axis
    * @param size_z The size of the volume on the Z axis
-   * @param \<S\>    The coordinate space of the volume
+   * @param \<S>    The coordinate space of the volume
    *
    * @return A volume
    */
 
-  public static \<S\> <volumeType>\<S\> create(
+  public static \<S> <volumeType>\<S> create(
     final <scalarType> x,
     final <scalarType> y,
     final <scalarType> z,
@@ -85,25 +85,25 @@ public final class <className>
   }
 
   /**
-   * \<p\>Determine whether or not one volume contains another.\</p\>
+   * \<p>Determine whether or not one volume contains another.\</p>
    *
-   * \<p\>Containing is reflexive: {@code contains(a, a) == true}.\</p\>
+   * \<p>Containing is reflexive: {@code contains(a, a) == true}.\</p>
    *
-   * \<p\>Containing is transitive: {@code contains(a, b) → contains(b, c) →
-   * contains(a, c)}.\</p\>
+   * \<p>Containing is transitive: {@code contains(a, b) → contains(b, c) →
+   * contains(a, c)}.\</p>
    *
-   * \<p\>Containing is not necessarily symmetric.\</p\>
+   * \<p>Containing is not necessarily symmetric.\</p>
    *
    * @param a   Volume A
    * @param b   Volume B
-   * @param \<S\> The coordinate space of the volumes
+   * @param \<S> The coordinate space of the volumes
    *
    * @return {@code true} iff {@code a} contains {@code b}
    */
 
-  public static \<S\> boolean contains(
-    final <volumeType>\<S\> a,
-    final <volumeType>\<S\> b)
+  public static \<S> boolean contains(
+    final <volumeType>\<S> a,
+    final <volumeType>\<S> b)
   {
     <opClass>.notNullVolume(a, "Volume A");
     <opClass>.notNullVolume(b, "Volume B");
@@ -121,11 +121,11 @@ public final class <className>
     final <scalarType> b_z0 = b.minimumZ();
     final <scalarType> b_z1 = b.maximumZ();
 
-    final boolean c0 = <opClass>.compare(b_x0, a_x0) \>= 0;
+    final boolean c0 = <opClass>.compare(b_x0, a_x0) >= 0;
     final boolean c1 = <opClass>.compare(b_x1, a_x1) \<= 0;
-    final boolean c2 = <opClass>.compare(b_y0, a_y0) \>= 0;
+    final boolean c2 = <opClass>.compare(b_y0, a_y0) >= 0;
     final boolean c3 = <opClass>.compare(b_y1, a_y1) \<= 0;
-    final boolean c4 = <opClass>.compare(b_z0, a_z0) \>= 0;
+    final boolean c4 = <opClass>.compare(b_z0, a_z0) >= 0;
     final boolean c5 = <opClass>.compare(b_z1, a_z1) \<= 0;
 
     return c0 && c1 && c2 && c3 && c4 && c5;
@@ -138,13 +138,13 @@ public final class <className>
    * @param x    The amount to move on the X axis
    * @param y    The amount to move on the Y axis
    * @param z    The amount to move on the Z axis
-   * @param \<S\>  The coordinate space of the volume
+   * @param \<S>  The coordinate space of the volume
    *
    * @return A moved volume
    */
 
-  public static \<S\> <volumeType>\<S\> moveRelative(
-    final <volumeType>\<S\> volume,
+  public static \<S> <volumeType>\<S> moveRelative(
+    final <volumeType>\<S> volume,
     final <scalarType> x,
     final <scalarType> y,
     final <scalarType> z)
@@ -161,19 +161,187 @@ public final class <className>
   }
 
   /**
+   * Move the given volume by {@code x}, without allowing {@code volume}
+   * to leave {@code container}.
+   *
+   * @param container The container volume
+   * @param volume    The volume
+   * @param x         The amount to move on the X axis
+   * @param \<S>      The coordinate space of the volume
+   *
+   * @since 3.0.0
+   * @return A moved volume
+   */
+
+  public static \<S> <volumeType>\<S> moveRelativeClampedX(
+    final <volumeType>\<S> container,
+    final <volumeType>\<S> volume,
+    final <scalarType> x)
+  {
+    <opClass>.notNullVolume(container, "Container");
+    <opClass>.notNullVolume(volume, "Volume");
+
+    Preconditions.checkPrecondition(
+      contains(container, volume),
+      "Container must contain volume");
+
+    final var sizeX = volume.sizeX();
+    final var newMinY = volume.minimumY();
+    final var newMaxY = volume.maximumY();
+    final var newMinZ = volume.minimumZ();
+    final var newMaxZ = volume.maximumZ();
+    final var movedOnX = moveRelative(volume, x, <opClass>.ZERO, <opClass>.ZERO);
+    if (!contains(container, movedOnX)) {
+      if (<opClass>.compare(x, <opClass>.ZERO) \< 0) {
+        final var newMinX = container.minimumX();
+        final var newMaxX = <opClass>.minimum(container.maximumX(), <opClass>.add(newMinX, sizeX));
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      } else {
+        final var newMinX = <opClass>.maximum(container.minimumX(), <opClass>.subtract(container.maximumX(), sizeX));
+        final var newMaxX = container.maximumX();
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      }
+    }
+    return movedOnX;
+  }
+
+  /**
+   * Move the given volume by {@code y}, without allowing {@code volume}
+   * to leave {@code container}.
+   *
+   * @param container The container volume
+   * @param volume    The volume
+   * @param y         The amount to move on the Y axis
+   * @param \<S>      The coordinate space of the volume
+   *
+   * @since 3.0.0
+   * @return A moved volume
+   */
+
+  public static \<S> <volumeType>\<S> moveRelativeClampedY(
+    final <volumeType>\<S> container,
+    final <volumeType>\<S> volume,
+    final <scalarType> y)
+  {
+    <opClass>.notNullVolume(container, "Container");
+    <opClass>.notNullVolume(volume, "Volume");
+
+    Preconditions.checkPrecondition(
+      contains(container, volume),
+      "Container must contain volume");
+
+    final var sizeY = volume.sizeY();
+    final var newMinX = volume.minimumX();
+    final var newMaxX = volume.maximumX();
+    final var newMinZ = volume.minimumZ();
+    final var newMaxZ = volume.maximumZ();
+    final var movedOnY = moveRelative(volume, <opClass>.ZERO, y, <opClass>.ZERO);
+    if (!contains(container, movedOnY)) {
+      if (<opClass>.compare(y, <opClass>.ZERO) \< 0) {
+        final var newMinY = container.minimumY();
+        final var newMaxY = <opClass>.minimum(container.maximumY(), <opClass>.add(newMinY, sizeY));
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      } else {
+        final var newMinY = <opClass>.maximum(container.minimumY(), <opClass>.subtract(container.maximumY(), sizeY));
+        final var newMaxY = container.maximumY();
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      }
+    }
+    return movedOnY;
+  }
+
+  /**
+   * Move the given volume by {@code z}, without allowing {@code volume}
+   * to leave {@code container}.
+   *
+   * @param container The container volume
+   * @param volume    The volume
+   * @param z         The amount to move on the Z axis
+   * @param \<S>      The coordinate space of the volume
+   *
+   * @since 3.0.0
+   * @return A moved volume
+   */
+
+  public static \<S> <volumeType>\<S> moveRelativeClampedZ(
+    final <volumeType>\<S> container,
+    final <volumeType>\<S> volume,
+    final <scalarType> z)
+  {
+    <opClass>.notNullVolume(container, "Container");
+    <opClass>.notNullVolume(volume, "Volume");
+
+    Preconditions.checkPrecondition(
+      contains(container, volume),
+      "Container must contain volume");
+
+    final var sizeZ = volume.sizeZ();
+    final var newMinX = volume.minimumX();
+    final var newMaxX = volume.maximumX();
+    final var newMinY = volume.minimumY();
+    final var newMaxY = volume.maximumY();
+    final var movedOnZ = moveRelative(volume, <opClass>.ZERO, <opClass>.ZERO, z);
+    if (!contains(container, movedOnZ)) {
+      if (<opClass>.compare(z, <opClass>.ZERO) \< 0) {
+        final var newMinZ = container.minimumZ();
+        final var newMaxZ = <opClass>.minimum(container.maximumZ(), <opClass>.add(newMinZ, sizeZ));
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      } else {
+        final var newMinZ = <opClass>.maximum(container.minimumZ(), <opClass>.subtract(container.maximumZ(), sizeZ));
+        final var newMaxZ = container.maximumZ();
+        return <volumeType>.of(newMinX, newMaxX, newMinY, newMaxY, newMinZ, newMaxZ);
+      }
+    }
+    return movedOnZ;
+  }
+
+  /**
+   * Move the given volume by {@code (x, y, z)}, without allowing {@code volume}
+   * to leave {@code container}.
+   *
+   * @param container The container volume
+   * @param volume    The volume
+   * @param x         The amount to move on the X axis
+   * @param y         The amount to move on the Y axis
+   * @param z         The amount to move on the Z axis
+   * @param \<S>      The coordinate space of the volume
+   * @since 3.0.0
+   * @return A moved volume
+   */
+
+  public static \<S> <volumeType>\<S> moveRelativeClamped(
+    final <volumeType>\<S> container,
+    final <volumeType>\<S> volume,
+    final <scalarType> x,
+    final <scalarType> y,
+    final <scalarType> z)
+  {
+    <opClass>.notNullVolume(container, "Container");
+    <opClass>.notNullVolume(volume, "Volume");
+
+    Preconditions.checkPrecondition(
+      contains(container, volume),
+      "Container must contain volume");
+
+    final var m0 = moveRelativeClampedX(container, volume, x);
+    final var m1 = moveRelativeClampedY(container, m0, y);
+    return moveRelativeClampedZ(container, m1, z);
+  }
+
+  /**
    * Move the given volume to {@code (x, y, z)}.
    *
    * @param volume The volume
    * @param x    The position to which to move on the X axis
    * @param y    The position to which to move on the Y axis
    * @param z    The position to which to move on the Z axis
-   * @param \<S\>  The coordinate space of the volume
+   * @param \<S> The coordinate space of the volume
    *
    * @return A moved volume
    */
 
-  public static \<S\> <volumeType>\<S\> moveAbsolute(
-    final <volumeType>\<S\> volume,
+  public static \<S> <volumeType>\<S> moveAbsolute(
+    final <volumeType>\<S> volume,
     final <scalarType> x,
     final <scalarType> y,
     final <scalarType> z)
@@ -186,13 +354,13 @@ public final class <className>
    * Move the given volume to {@code (0, 0, 0)}.
    *
    * @param volume The volume
-   * @param \<S\>  The coordinate space of the volume
+   * @param \<S>  The coordinate space of the volume
    *
    * @return A moved volume
    */
 
-  public static \<S\> <volumeType>\<S\> moveToOrigin(
-    final <volumeType>\<S\> volume)
+  public static \<S> <volumeType>\<S> moveToOrigin(
+    final <volumeType>\<S> volume)
   {
     <opClass>.notNullVolume(volume, "Volume");
     return create(
@@ -204,61 +372,50 @@ public final class <className>
       volume.sizeZ());
   }
 
-  private static <scalarType> clamp(
-    final <scalarType> x,
-    final <scalarType> minimum,
-    final <scalarType> maximum)
-  {
-    Preconditions.checkPrecondition(
-      <opClass>.compare(maximum, minimum) \>= 0,
-      "Maximum \>= minimum");
-    return <opClass>.maximum(<opClass>.minimum(x, maximum), minimum);
-  }
-
   /**
    * Brand a given volume as belonging to a different coordinate space.
    * Mixing up coordinate spaces is a common source of difficult-to-locate bugs.
    * Use at your own risk.
    *
    * @param volume A volume
-   * @param \<S\>  The starting coordinate space
-   * @param \<T\>  The resulting coordinate space
+   * @param \<S>  The starting coordinate space
+   * @param \<T>  The resulting coordinate space
    *
    * @return {@code volume}
    */
 
   @SuppressWarnings("unchecked")
-  public static \<S, T\> <volumeType>\<T\> cast(
-    final <volumeType>\<S\> volume)
+  public static \<S, T> <volumeType>\<T> cast(
+    final <volumeType>\<S> volume)
   {
     <opClass>.notNullVolume(volume, "volume");
-    return (<volumeType>\<T\>) volume;
+    return (<volumeType>\<T>) volume;
   }
 
   /**
-   * \<p\>Determine whether or not two volumes overlap.\</p\>
+   * \<p>Determine whether or not two volumes overlap.\</p>
    *
-   * \<p\>Overlapping is reflexive: {@code overlaps(a, a) == true}.\</p\>
+   * \<p>Overlapping is reflexive: {@code overlaps(a, a) == true}.\</p>
    *
-   * \<p\>Overlapping is symmetric: {@code overlaps(a, b) == overlaps(b, a)}.\</p\>
+   * \<p>Overlapping is symmetric: {@code overlaps(a, b) == overlaps(b, a)}.\</p>
    *
-   * \<p\>Overlapping is not necessarily transitive.\</p\>
+   * \<p>Overlapping is not necessarily transitive.\</p>
    *
    * @param a   A volume
    * @param b   A volume
-   * @param \<S\> The coordinate space of the volumes
+   * @param \<S> The coordinate space of the volumes
    *
    * @return {@code true} iff {@code a} overlaps {@code b}
    */
 
-  public static \<S\> boolean overlaps(
-    final <volumeType>\<S\> a,
-    final <volumeType>\<S\> b)
+  public static \<S> boolean overlaps(
+    final <volumeType>\<S> a,
+    final <volumeType>\<S> b)
   {
     <opClass>.notNullVolume(a, "a");
     <opClass>.notNullVolume(b, "b");
 
-    final <volumeType>\<S\> cmp_a = create(
+    final <volumeType>\<S> cmp_a = create(
       a.minimumX(),
       a.minimumY(),
       a.minimumZ(),
@@ -266,7 +423,7 @@ public final class <className>
       <opClass>.maximum(<opClass>.ONE, a.sizeY()),
       <opClass>.maximum(<opClass>.ONE, a.sizeZ()));
 
-    final <volumeType>\<S\> cmp_b = create(
+    final <volumeType>\<S> cmp_b = create(
       b.minimumX(),
       b.minimumY(),
       b.minimumZ(),
@@ -288,35 +445,35 @@ public final class <className>
     final <scalarType> b_z1 = cmp_b.maximumZ();
 
     final boolean c0 = <opClass>.compare(a_x0, b_x1) \< 0;
-    final boolean c1 = <opClass>.compare(a_x1, b_x0) \> 0;
+    final boolean c1 = <opClass>.compare(a_x1, b_x0) > 0;
     final boolean c2 = <opClass>.compare(a_y0, b_y1) \< 0;
-    final boolean c3 = <opClass>.compare(a_y1, b_y0) \> 0;
+    final boolean c3 = <opClass>.compare(a_y1, b_y0) > 0;
     final boolean c4 = <opClass>.compare(a_z0, b_z1) \< 0;
-    final boolean c5 = <opClass>.compare(a_z1, b_z0) \> 0;
+    final boolean c5 = <opClass>.compare(a_z1, b_z0) > 0;
 
     return c0 && c1 && c2 && c3 && c4 && c5;
   }
 
   /**
-   * \<p\>Determine whether or not one volume could fit inside another.\</p\>
+   * \<p>Determine whether or not one volume could fit inside another.\</p>
    *
-   * \<p\>Fitting is reflexive: {@code couldFitInside(a, a) == true}.\</p\>
+   * \<p>Fitting is reflexive: {@code couldFitInside(a, a) == true}.\</p>
    *
-   * \<p\>Fitting is transitive: {@code couldFitInside(a, b) → couldFitInside(b,
-   * c) → couldFitInside(a, c)}.\</p\>
+   * \<p>Fitting is transitive: {@code couldFitInside(a, b) → couldFitInside(b,
+   * c) → couldFitInside(a, c)}.\</p>
    *
-   * \<p\>Fitting is not necessarily symmetric.\</p\>
+   * \<p>Fitting is not necessarily symmetric.\</p>
    *
    * @param a   A volume
    * @param b   A volume
-   * @param \<S\> The coordinate space of the volumes
+   * @param \<S> The coordinate space of the volumes
    *
    * @return {@code true} iff {@code a} could fit inside {@code b}
    */
 
-  public static \<S\> boolean couldFitInside(
-    final <volumeType>\<S\> a,
-    final <volumeType>\<S\> b)
+  public static \<S> boolean couldFitInside(
+    final <volumeType>\<S> a,
+    final <volumeType>\<S> b)
   {
     <opClass>.notNullVolume(a, "a");
     <opClass>.notNullVolume(b, "b");
@@ -335,14 +492,14 @@ public final class <className>
    *
    * @param a   A volume
    * @param b   A volume
-   * @param \<S\> The coordinate space of the volumes
+   * @param \<S> The coordinate space of the volumes
    *
    * @return A volume containing {@code a} and {@code b}
    */
 
-  public static \<S\> <volumeType>\<S\> containing(
-    final <volumeType>\<S\> a,
-    final <volumeType>\<S\> b)
+  public static \<S> <volumeType>\<S> containing(
+    final <volumeType>\<S> a,
+    final <volumeType>\<S> b)
   {
     <opClass>.notNullVolume(a, "a");
     <opClass>.notNullVolume(b, "b");
@@ -357,19 +514,19 @@ public final class <className>
   }
 
   /**
-   * \<p\>Determine whether or not a volume contains a given point.\</p\>
+   * \<p>Determine whether or not a volume contains a given point.\</p>
    *
    * @param a   A volume
    * @param x   The X coordinate of the point
    * @param y   The Y coordinate of the point
    * @param z   The Z coordinate of the point
-   * @param \<S\> The coordinate space of the volume
+   * @param \<S> The coordinate space of the volume
    *
    * @return {@code true} iff {@code a} contains {@code (x, y, z)}
    */
 
-  public static \<S\> boolean containsPoint(
-    final <volumeType>\<S\> a,
+  public static \<S> boolean containsPoint(
+    final <volumeType>\<S> a,
     final <scalarType> x,
     final <scalarType> y,
     final <scalarType> z)
@@ -380,28 +537,28 @@ public final class <className>
     <opClass>.notNullScalar(z, "z");
 
     final boolean contain_x =
-      <opClass>.compare(x, a.minimumX()) \>= 0 && <opClass>.compare(x, a.maximumX()) \< 0;
+      <opClass>.compare(x, a.minimumX()) >= 0 && <opClass>.compare(x, a.maximumX()) \< 0;
     final boolean contain_y =
-      <opClass>.compare(y, a.minimumY()) \>= 0 && <opClass>.compare(y, a.maximumY()) \< 0;
+      <opClass>.compare(y, a.minimumY()) >= 0 && <opClass>.compare(y, a.maximumY()) \< 0;
     final boolean contain_z =
-      <opClass>.compare(z, a.minimumZ()) \>= 0 && <opClass>.compare(z, a.maximumZ()) \< 0;
+      <opClass>.compare(z, a.minimumZ()) >= 0 && <opClass>.compare(z, a.maximumZ()) \< 0;
     return contain_x && contain_y && contain_z;
   }
 
   /**
-   * \<p\>Split the given volume at point {@code (x, y, z)}.\</p\>
+   * \<p>Split the given volume at point {@code (x, y, z)}.\</p>
    *
    * @param v   A volume
    * @param x   The X coordinate of the point
    * @param y   The Y coordinate of the point
    * @param z   The Z coordinate of the point
-   * @param \<S\> The coordinate space of the volume
+   * @param \<S> The coordinate space of the volume
    *
    * @return {@code true} iff {@code a} contains {@code (x, y, z)}
    */
 
-  public static \<S\> <volumeSplitXYZType>\<S, <volumeType>\<S\>\> splitAtXYZ(
-    final <volumeType>\<S\> v,
+  public static \<S> <volumeSplitXYZType>\<S, <volumeType>\<S>\> splitAtXYZ(
+    final <volumeType>\<S> v,
     final <scalarType> x,
     final <scalarType> y,
     final <scalarType> z)
@@ -429,22 +586,22 @@ public final class <className>
     final <scalarType> upper_z_min = lower_z_max;
     final <scalarType> upper_z_max = <opClass>.maximum(v.maximumZ(), lower_z_max);
 
-    final <volumeType>\<S\> x0y0z0 = <volumeType>.of(
+    final <volumeType>\<S> x0y0z0 = <volumeType>.of(
       lower_x_min, lower_x_max, lower_y_min, lower_y_max, lower_z_min, lower_z_max);
-    final <volumeType>\<S\> x0y1z0 = <volumeType>.of(
+    final <volumeType>\<S> x0y1z0 = <volumeType>.of(
       lower_x_min, lower_x_max, upper_y_min, upper_y_max, lower_z_min, lower_z_max);
-    final <volumeType>\<S\> x1y0z0 = <volumeType>.of(
+    final <volumeType>\<S> x1y0z0 = <volumeType>.of(
       upper_x_min, upper_x_max, lower_y_min, lower_y_max, lower_z_min, lower_z_max);
-    final <volumeType>\<S\> x1y1z0 = <volumeType>.of(
+    final <volumeType>\<S> x1y1z0 = <volumeType>.of(
       upper_x_min, upper_x_max, upper_y_min, upper_y_max, lower_z_min, lower_z_max);
 
-    final <volumeType>\<S\> x0y0z1 = <volumeType>.of(
+    final <volumeType>\<S> x0y0z1 = <volumeType>.of(
       lower_x_min, lower_x_max, lower_y_min, lower_y_max, upper_z_min, upper_z_max);
-    final <volumeType>\<S\> x0y1z1 = <volumeType>.of(
+    final <volumeType>\<S> x0y1z1 = <volumeType>.of(
       lower_x_min, lower_x_max, upper_y_min, upper_y_max, upper_z_min, upper_z_max);
-    final <volumeType>\<S\> x1y0z1 = <volumeType>.of(
+    final <volumeType>\<S> x1y0z1 = <volumeType>.of(
       upper_x_min, upper_x_max, lower_y_min, lower_y_max, upper_z_min, upper_z_max);
-    final <volumeType>\<S\> x1y1z1 = <volumeType>.of(
+    final <volumeType>\<S> x1y1z1 = <volumeType>.of(
       upper_x_min, upper_x_max, upper_y_min, upper_y_max, upper_z_min, upper_z_max);
 
     return <volumeSplitXYZType>.of(
@@ -460,13 +617,13 @@ public final class <className>
 
   /**
    * @param volume The volume
-   * @param \<S\>  The coordinate space of the volume
+   * @param \<S>  The coordinate space of the volume
    *
    * @return A terse string describing the position and size of the volume
    */
 
-  public static \<S\> String show(
-    final <volumeType>\<S\> volume)
+  public static \<S> String show(
+    final <volumeType>\<S> volume)
   {
     <opClass>.notNullVolume(volume, "volume");
 
@@ -476,12 +633,12 @@ public final class <className>
 
   /**
    * @param volume The volume
-   * @param \<S\>  The coordinate space of the volume
+   * @param \<S>  The coordinate space of the volume
    * @return The size of the volume
    */
 
-  public static \<S\> <volumeSizeType>\<S\> size(
-    final <volumeType>\<S\> volume)
+  public static \<S> <volumeSizeType>\<S> size(
+    final <volumeType>\<S> volume)
   {
     <opClass>.notNullVolume(volume, "volume");
     return <volumeSizeType>.of(volume.sizeX(), volume.sizeY(), volume.sizeZ());
@@ -490,13 +647,13 @@ public final class <className>
   /**
    * @param volume The volume
    * @param sb   A string builder
-   * @param \<S\>  The coordinate space of the volume
+   * @param \<S>  The coordinate space of the volume
    *
    * @return A terse string describing the position and size of the volume
    */
 
-  public static \<S\> String showToBuilder(
-    final <volumeType>\<S\> volume,
+  public static \<S> String showToBuilder(
+    final <volumeType>\<S> volume,
     final StringBuilder sb)
   {
     <opClass>.notNullVolume(volume, "volume");

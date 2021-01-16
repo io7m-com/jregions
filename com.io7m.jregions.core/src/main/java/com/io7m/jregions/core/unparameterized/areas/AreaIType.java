@@ -16,12 +16,12 @@
 
 package com.io7m.jregions.core.unparameterized.areas;
 
+import com.io7m.immutables.styles.ImmutablesStyleType;
 import com.io7m.jaffirm.core.Preconditions;
-import com.io7m.jregions.core.JRegionsImmutableStyleType;
 import org.immutables.value.Value;
 
 /**
- * <p>An area with <tt>int</tt> coordinates.</p>
+ * <p>An area with {@code int} coordinates.</p>
  *
  * <p>The coordinates of the area are given in <i>half-closed</i> form. That is,
  * {@link #minimumX()} refers to the minimum <i>inclusive</i> value on the X
@@ -29,7 +29,7 @@ import org.immutables.value.Value;
  * the X axis. Likewise for the Y axis.</p>
  */
 
-@JRegionsImmutableStyleType
+@ImmutablesStyleType
 @Value.Immutable
 public interface AreaIType extends AreaValuesIType
 {

@@ -21,7 +21,7 @@ import com.io7m.jregions.generators.PAreaBIGenerator;
 import com.io7m.junreachable.UnreachableCodeException;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.math.BigInteger;
 
@@ -39,9 +39,13 @@ final class PAreasBITestOps
     final BigInteger expected,
     final BigInteger actual)
   {
-    Assert.assertTrue(
-      String.format("expected %s == actual %s", expected, actual),
-      expected.compareTo(actual) == 0);
+    Assertions.assertEquals(
+      expected.compareTo(actual),
+      0,
+      String.format(
+        "expected %s == actual %s",
+        expected,
+        actual));
   }
 
   public static BigInteger constant(
@@ -106,29 +110,36 @@ final class PAreasBITestOps
 
   public static Generator<BigInteger> createWideScalarGenerator()
   {
-    final Generator<Long> base =
+    final var base =
       PrimitiveGenerators.longs(-1_000_000L, 1_000_000L);
     return () -> BigInteger.valueOf(base.next().longValue());
   }
 
   public static Generator<BigInteger> createNarrowScalarGenerator()
   {
-    final Generator<Long> base =
+    final var base =
       PrimitiveGenerators.longs(-400L, 400L);
     return () -> BigInteger.valueOf(base.next().longValue());
   }
 
   public static Generator<BigInteger> createNarrowNonNegativeScalarGenerator()
   {
-    final Generator<Long> base =
+    final var base =
       PrimitiveGenerators.longs(0L, 400L);
     return () -> BigInteger.valueOf(base.next().longValue());
   }
 
   public static Generator<BigInteger> createWideNonNegativeScalarGenerator()
   {
-    final Generator<Long> base =
+    final var base =
       PrimitiveGenerators.longs(0L, 1_000_000L);
+    return () -> BigInteger.valueOf(base.next().longValue());
+  }
+
+  public static Generator<BigInteger> createWidePositiveScalarGenerator()
+  {
+    final var base =
+      PrimitiveGenerators.longs(1L, 1_000_000L);
     return () -> BigInteger.valueOf(base.next().longValue());
   }
 
