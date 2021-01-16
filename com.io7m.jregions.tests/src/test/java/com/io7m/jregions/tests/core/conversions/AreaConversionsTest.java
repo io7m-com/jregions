@@ -17,30 +17,15 @@
 package com.io7m.jregions.tests.core.conversions;
 
 import com.io7m.jregions.core.conversions.AreaConversions;
-import com.io7m.jregions.core.parameterized.areas.PAreaBD;
-import com.io7m.jregions.core.parameterized.areas.PAreaBI;
-import com.io7m.jregions.core.parameterized.areas.PAreaD;
-import com.io7m.jregions.core.parameterized.areas.PAreaF;
-import com.io7m.jregions.core.parameterized.areas.PAreaI;
-import com.io7m.jregions.core.parameterized.areas.PAreaL;
-import com.io7m.jregions.core.unparameterized.areas.AreaBD;
-import com.io7m.jregions.core.unparameterized.areas.AreaBI;
-import com.io7m.jregions.core.unparameterized.areas.AreaD;
-import com.io7m.jregions.core.unparameterized.areas.AreaF;
-import com.io7m.jregions.core.unparameterized.areas.AreaI;
-import com.io7m.jregions.core.unparameterized.areas.AreaL;
 import com.io7m.jregions.generators.PAreaBDGenerator;
 import com.io7m.jregions.generators.PAreaBIGenerator;
 import com.io7m.jregions.generators.PAreaDGenerator;
 import com.io7m.jregions.generators.PAreaFGenerator;
 import com.io7m.jregions.generators.PAreaIGenerator;
 import com.io7m.jregions.generators.PAreaLGenerator;
-import com.io7m.jregions.tests.percentage_pass.PercentPassExtension;
-import com.io7m.jregions.tests.percentage_pass.PercentPassing;
+import com.io7m.percentpass.extension.PercentPassing;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-@ExtendWith(PercentPassExtension.class)
 public final class AreaConversionsTest
 {
   @PercentPassing

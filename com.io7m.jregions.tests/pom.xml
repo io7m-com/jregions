@@ -66,6 +66,10 @@
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.io7m.percentpass</groupId>
+      <artifactId>com.io7m.percentpass.extension</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

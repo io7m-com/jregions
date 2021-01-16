@@ -151,6 +151,11 @@
         <artifactId>junit-jupiter-engine</artifactId>
         <version>${junit.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.io7m.percentpass</groupId>
+        <artifactId>com.io7m.percentpass.extension</artifactId>
+        <version>0.0.1</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
