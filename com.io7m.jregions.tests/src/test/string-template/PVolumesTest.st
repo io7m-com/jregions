@@ -33,8 +33,7 @@ import net.java.quickcheck.Generator;
 import net.java.quickcheck.QuickCheck;
 import net.java.quickcheck.characteristic.AbstractCharacteristic;
 
-import com.io7m.jregions.tests.percentage_pass.PercentPassing;
-import com.io7m.jregions.tests.percentage_pass.PercentPassExtension;
+import com.io7m.percentpass.extension.PercentPassing;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -44,7 +43,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Objects;
 
-@ExtendWith(PercentPassExtension.class)
 public final class <className>
 {
   @Test

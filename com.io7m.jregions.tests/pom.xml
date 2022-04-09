@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>3.0.0</version>
+    <version>4.0.0</version>
   </parent>
 
   <artifactId>com.io7m.jregions.tests</artifactId>
@@ -16,7 +16,7 @@
 
   <name>com.io7m.jregions.tests</name>
   <description>Area types (Test suite)</description>
-  <url>http://github.com/io7m/jregions</url>
+  <url>https://www.io7m.com/software/jregions</url>
 
   <properties>
     <mdep.analyze.skip>true</mdep.analyze.skip>
@@ -65,6 +65,10 @@
     <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.io7m.percentpass</groupId>
+      <artifactId>com.io7m.percentpass.extension</artifactId>
     </dependency>
   </dependencies>
 

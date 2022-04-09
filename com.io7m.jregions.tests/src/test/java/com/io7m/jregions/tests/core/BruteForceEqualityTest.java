@@ -224,6 +224,7 @@ public class BruteForceEqualityTest
     for (final var clazz : classes) {
       EqualsVerifier.forClass(clazz)
         .suppress(Warning.NULL_FIELDS)
+        .suppress(Warning.BIGDECIMAL_EQUALITY)
         .verify();
     }
   }
