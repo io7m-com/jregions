@@ -11,12 +11,12 @@
 
   <groupId>com.io7m.jregions</groupId>
   <artifactId>com.io7m.jregions</artifactId>
-  <version>4.0.0</version>
+  <version>4.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>com.io7m.jregions</name>
   <description>Area types</description>
-  <url>http://github.com/io7m/jregions</url>
+  <url>https://www.io7m.com/software/jregions</url>
 
   <modules>
     <module>com.io7m.jregions.core</module>
