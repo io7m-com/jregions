@@ -16,7 +16,7 @@
 
   <name>com.io7m.jregions.tests</name>
   <description>Area types (Test suite)</description>
-  <url>http://github.com/io7m/jregions</url>
+  <url>https://www.io7m.com/software/jregions</url>
 
   <properties>
     <mdep.analyze.skip>true</mdep.analyze.skip>
