@@ -19,7 +19,9 @@
   <url>https://www.io7m.com/software/jregions</url>
 
   <properties>
+    <spotbugs.skip>true</spotbugs.skip>
     <mdep.analyze.skip>true</mdep.analyze.skip>
+    <checkstyle.skip>true</checkstyle.skip>
   </properties>
 
   <dependencies>
@@ -88,7 +90,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PAreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasBDTest.java
@@ -119,7 +121,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PAreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasBITest.java
@@ -150,7 +152,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PAreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasFTest.java
@@ -181,7 +183,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PAreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasITest.java
@@ -212,7 +214,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PAreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasLTest.java
@@ -243,7 +245,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PAreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasDTest.java
@@ -274,7 +276,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>AreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasBDTest.java
@@ -305,7 +307,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>AreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasBITest.java
@@ -336,7 +338,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>AreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasFTest.java
@@ -367,7 +369,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>AreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasITest.java
@@ -398,7 +400,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>AreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasLTest.java
@@ -429,7 +431,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>AreasTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasDTest.java
@@ -460,7 +462,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PVolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesBDTest.java
@@ -490,7 +492,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PVolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesBITest.java
@@ -520,7 +522,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PVolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesFTest.java
@@ -550,7 +552,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PVolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesITest.java
@@ -580,7 +582,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PVolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesLTest.java
@@ -610,7 +612,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>PVolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesDTest.java
@@ -640,7 +642,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>VolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesBDTest.java
@@ -670,7 +672,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>VolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesBITest.java
@@ -700,7 +702,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>VolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesFTest.java
@@ -730,7 +732,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>VolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesITest.java
@@ -760,7 +762,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>VolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesLTest.java
@@ -790,7 +792,7 @@
             <configuration>
               <templates>
                 <template>
-                  <directory>src/test/string-template</directory>
+                  <directory>src/main/string-template</directory>
                   <name>VolumesTest</name>
                   <target>
                     ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesDTest.java
