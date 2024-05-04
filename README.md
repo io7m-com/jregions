@@ -16,8 +16,9 @@ jregions
 
 ## jregions
 
-The `jregions` package provides simple and fast pre/postcondition and invariant
-checking functions.
+The `jregions` package provides a set of immutable area types specialized
+to most of the Java numeric types. The area types come with an extensive set
+of functions for aligning and moving areas.
 
 ## Features
 
