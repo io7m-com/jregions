@@ -67,13 +67,6 @@ final class VolumeBDOps
     return a.subtract(b);
   }
 
-  public static BigDecimal divide(
-    final BigDecimal a,
-    final BigDecimal b)
-  {
-    return a.divide(b);
-  }
-
   public static BigDecimal constant(
     final long x)
   {

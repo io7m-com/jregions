@@ -19,9 +19,8 @@ package com.io7m.jregions.tests.core.parameterized;
 import com.io7m.jaffirm.core.PreconditionViolationException;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizeF;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizesF;
-import com.io7m.jregions.generators.PAreaSizeFGenerator;
-import net.java.quickcheck.QuickCheck;
-import net.java.quickcheck.characteristic.AbstractCharacteristic;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -54,42 +53,22 @@ public final class PAreaSizeFTest
     Assertions.assertNotEquals(PAreaSizeF.of(0.0f, 10.0f), Integer.valueOf(23));
   }
 
-  @Test
-  public void testIncludesReflexive()
+  @Property
+  public void testIncludesReflexive(
+    final @ForAll PAreaSizeF area)
   {
-    QuickCheck.forAll(
-      PAreaSizeFGenerator.create(),
-      new AbstractCharacteristic<PAreaSizeF<Object>>()
-      {
-        @Override
-        protected void doSpecify(final PAreaSizeF<Object> area)
-          throws Throwable
-        {
-          Assertions.assertTrue(PAreaSizesF.includes(area, area));
-        }
-      });
+    Assertions.assertTrue(PAreaSizesF.includes(area, area));
   }
 
-  @Test
-  public void testIncludesTransitive()
+  @Property
+  public void testIncludesTransitive(
+    final @ForAll PAreaSizeF a,
+    final @ForAll PAreaSizeF b,
+    final @ForAll PAreaSizeF c)
   {
-    final var generator = PAreaSizeFGenerator.create();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic<PAreaSizeF<Object>>()
-      {
-        @Override
-        protected void doSpecify(final PAreaSizeF<Object> a)
-          throws Throwable
-        {
-          final var b = generator.next();
-          final var c = generator.next();
-
-          if (PAreaSizesF.includes(a, b) && PAreaSizesF.includes(b, c)) {
-            Assertions.assertTrue(PAreaSizesF.includes(a, c));
-          }
-        }
-      });
+    if (PAreaSizesF.includes(a, b) && PAreaSizesF.includes(b, c)) {
+      Assertions.assertTrue(PAreaSizesF.includes(a, c));
+    }
   }
 
   @Test

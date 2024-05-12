@@ -17,13 +17,14 @@
 package com.io7m.jregions.tests.core.conversions;
 
 import com.io7m.jregions.core.conversions.AreaConversions;
-import com.io7m.jregions.generators.PAreaBDGenerator;
-import com.io7m.jregions.generators.PAreaBIGenerator;
-import com.io7m.jregions.generators.PAreaDGenerator;
-import com.io7m.jregions.generators.PAreaFGenerator;
-import com.io7m.jregions.generators.PAreaIGenerator;
-import com.io7m.jregions.generators.PAreaLGenerator;
+import com.io7m.jregions.core.parameterized.areas.PAreaBD;
+import com.io7m.jregions.core.parameterized.areas.PAreaBI;
+import com.io7m.jregions.core.parameterized.areas.PAreaD;
+import com.io7m.jregions.core.parameterized.areas.PAreaF;
+import com.io7m.jregions.core.parameterized.areas.PAreaI;
+import com.io7m.jregions.core.parameterized.areas.PAreaL;
 import com.io7m.percentpass.extension.PercentPassing;
+import net.jqwik.api.Arbitraries;
 import org.junit.jupiter.api.Assertions;
 
 public final class AreaConversionsTest
@@ -31,9 +32,9 @@ public final class AreaConversionsTest
   @PercentPassing
   public void testIdentityL0()
   {
-    final var generator = PAreaLGenerator.create();
+    final var generator = Arbitraries.defaultFor(PAreaL.class);
 
-    final var a0 = generator.next();
+    final var a0 = generator.sample();
     final var a1 = AreaConversions.toAreaL(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX());
     Assertions.assertEquals(a0.minimumY(), a1.minimumY());
@@ -46,8 +47,8 @@ public final class AreaConversionsTest
   @PercentPassing
   public void testIdentityI0()
   {
-    final var generator = PAreaIGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaI.class);
+    final var a0 = generator.sample();
     final var a1 = AreaConversions.toAreaI(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX());
     Assertions.assertEquals(a0.minimumY(), a1.minimumY());
@@ -60,8 +61,8 @@ public final class AreaConversionsTest
   @PercentPassing
   public void testIdentityBD0()
   {
-    final var generator = PAreaBDGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaBD.class);
+    final var a0 = generator.sample();
     final var a1 = AreaConversions.toAreaBD(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX());
     Assertions.assertEquals(a0.minimumY(), a1.minimumY());
@@ -74,8 +75,8 @@ public final class AreaConversionsTest
   @PercentPassing
   public void testIdentityBI0()
   {
-    final var generator = PAreaBIGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaBI.class);
+    final var a0 = generator.sample();
     final var a1 = AreaConversions.toAreaBI(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX());
     Assertions.assertEquals(a0.minimumY(), a1.minimumY());
@@ -88,8 +89,8 @@ public final class AreaConversionsTest
   @PercentPassing
   public void testIdentityD0()
   {
-    final var generator = PAreaDGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaD.class);
+    final var a0 = generator.sample();
     final var a1 = AreaConversions.toAreaD(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX(), 0.0);
     Assertions.assertEquals(a0.minimumY(), a1.minimumY(), 0.0);
@@ -102,8 +103,8 @@ public final class AreaConversionsTest
   @PercentPassing
   public void testIdentityF0()
   {
-    final var generator = PAreaFGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaF.class);
+    final var a0 = generator.sample();
     final var a1 = AreaConversions.toAreaF(a0);
     Assertions.assertEquals(a0.minimumX(), a1.minimumX(), 0.0);
     Assertions.assertEquals(a0.minimumY(), a1.minimumY(), 0.0);

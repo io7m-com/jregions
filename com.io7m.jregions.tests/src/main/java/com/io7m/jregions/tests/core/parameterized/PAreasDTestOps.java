@@ -17,10 +17,11 @@
 package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jregions.core.parameterized.areas.PAreaD;
-import com.io7m.jregions.generators.PAreaDGenerator;
+import com.io7m.jregions.core.parameterized.areas.PAreasD;
 import com.io7m.junreachable.UnreachableCodeException;
-import net.java.quickcheck.Generator;
-import net.java.quickcheck.generator.PrimitiveGenerators;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
 import org.junit.jupiter.api.Assertions;
 
 final class PAreasDTestOps
@@ -100,49 +101,70 @@ final class PAreasDTestOps
     return Math.random() * upper;
   }
 
-  public static Generator<Double> createWideScalarGenerator()
+  public static double randomBetweenZeroAndLessThan(
+    final double upper)
   {
-    final var base =
-      PrimitiveGenerators.doubles(-1_000_000.0, 1_000_000.0);
-    return () -> Double.valueOf(base.next().doubleValue());
+    final var sc =
+      Math.clamp(Math.random(), 0.0, 0.99);
+
+    return sc * Math.abs(upper);
   }
 
-  public static Generator<Double> createNarrowScalarGenerator()
+  public static Arbitrary<Double> createWideScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(-400.0, 400.0);
-    return () -> Double.valueOf(base.next().doubleValue());
+    return Arbitraries.doubles()
+      .between(
+        -1_000_000.0,
+        1_000_000.0
+      );
   }
 
-  public static Generator<Double> createNarrowNonNegativeScalarGenerator()
+  public static Arbitrary<Double> createNarrowScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(0.0, 400.0);
-    return () -> Double.valueOf(base.next().doubleValue());
+    return Arbitraries.doubles()
+      .between(
+        -400.0,
+        400.0
+      );
   }
 
-  public static Generator<Double> createWideNonNegativeScalarGenerator()
+  public static Arbitrary<Double> createNarrowNonNegativeScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(0.0, 1_000_000.0);
-    return () -> Double.valueOf(base.next().doubleValue());
+    return Arbitraries.doubles()
+      .between(
+        0.0,
+        400.0
+      );
   }
 
-  public static Generator<Double> createWidePositiveScalarGenerator()
+  public static Arbitrary<Double> createWideNonNegativeScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
-    return () -> Double.valueOf(base.next().doubleValue());
+    return Arbitraries.doubles()
+      .between(
+        0.0,
+        1_000_000.0
+      );
   }
 
-  public static Generator<PAreaD<Object>> createGenerator()
+  public static Arbitrary<Double> createWidePositiveScalarGenerator()
   {
-    return PAreaDGenerator.create();
+    return Arbitraries.doubles()
+      .between(
+        1.0,
+        1_000_000.0
+      );
   }
 
-  public static Generator<PAreaD<Object>> createParameterizedGenerator(
-    final Generator<Double> g)
+  @SuppressWarnings("unchecked")
+  public static Arbitrary<PAreaD<Object>> createGenerator()
   {
-    return new PAreaDGenerator<>(g);
+    return (Arbitrary<PAreaD<Object>>) (Object) Arbitraries.defaultFor(PAreaD.class);
+  }
+
+  public static Arbitrary<PAreaD<Object>> createParameterizedGenerator(
+    final Arbitrary<Double> g)
+  {
+    return Combinators.combine(g, g, g, g)
+      .as(PAreasD::create);
   }
 }

@@ -18,9 +18,8 @@ package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizeL;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizesL;
-import com.io7m.jregions.generators.PAreaSizeLGenerator;
-import net.java.quickcheck.QuickCheck;
-import net.java.quickcheck.characteristic.AbstractCharacteristic;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -45,42 +44,22 @@ public final class PAreaSizeLTest
     Assertions.assertNotEquals(PAreaSizeL.of(0L, 100L), Integer.valueOf(23));
   }
 
-  @Test
-  public void testIncludesReflexive()
+  @Property
+  public void testIncludesReflexive(
+    final @ForAll PAreaSizeL area)
   {
-    QuickCheck.forAll(
-      PAreaSizeLGenerator.create(),
-      new AbstractCharacteristic<PAreaSizeL<Object>>()
-      {
-        @Override
-        protected void doSpecify(final PAreaSizeL<Object> area)
-          throws Throwable
-        {
-          Assertions.assertTrue(PAreaSizesL.includes(area, area));
-        }
-      });
+    Assertions.assertTrue(PAreaSizesL.includes(area, area));
   }
 
-  @Test
-  public void testIncludesTransitive()
+  @Property
+  public void testIncludesTransitive(
+    final @ForAll PAreaSizeL a,
+    final @ForAll PAreaSizeL b,
+    final @ForAll PAreaSizeL c)
   {
-    final var generator = PAreaSizeLGenerator.create();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic<PAreaSizeL<Object>>()
-      {
-        @Override
-        protected void doSpecify(final PAreaSizeL<Object> a)
-          throws Throwable
-        {
-          final var b = generator.next();
-          final var c = generator.next();
-
-          if (PAreaSizesL.includes(a, b) && PAreaSizesL.includes(b, c)) {
-            Assertions.assertTrue(PAreaSizesL.includes(a, c));
-          }
-        }
-      });
+    if (PAreaSizesL.includes(a, b) && PAreaSizesL.includes(b, c)) {
+      Assertions.assertTrue(PAreaSizesL.includes(a, c));
+    }
   }
 
   @Test

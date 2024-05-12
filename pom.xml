@@ -14,7 +14,7 @@
 
   <groupId>com.io7m.jregions</groupId>
   <artifactId>com.io7m.jregions</artifactId>
-  <version>4.0.1-SNAPSHOT</version>
+  <version>5.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>com.io7m.jregions</name>
@@ -22,19 +22,20 @@
   <url>https://www.io7m.com/software/jregions</url>
 
   <modules>
+    <module>com.io7m.jregions.arbitraries</module>
     <module>com.io7m.jregions.core</module>
-    <module>com.io7m.jregions.generators</module>
     <module>com.io7m.jregions.tests</module>
   </modules>
 
   <properties>
     <!-- Configuration -->
-    <io7m.api.previousVersion>3.0.0</io7m.api.previousVersion>
+    <io7m.api.previousVersion>4.0.0</io7m.api.previousVersion>
     <io7m.java.targetJavaVersion>21</io7m.java.targetJavaVersion>
 
     <!-- Third-party dependencies. -->
     <io7m.org.immutables.version>2.10.1</io7m.org.immutables.version>
     <org.junit.version>5.10.2</org.junit.version>
+    <net.jqwik.version>1.8.4</net.jqwik.version>
   </properties>
 
   <inceptionYear>2017</inceptionYear>
@@ -42,7 +43,7 @@
   <licenses>
     <license>
       <name>ISC</name>
-      <url>https://io7m.com/license/isc.txt</url>
+      <url>https://www.io7m.com/license/isc.txt</url>
     </license>
   </licenses>
 
@@ -57,7 +58,7 @@
       <id>io7m</id>
       <name>io7m</name>
       <email>code@io7m.com</email>
-      <url>https://io7m.com</url>
+      <url>https://www.io7m.com</url>
     </developer>
   </developers>
 
@@ -89,6 +90,7 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- Core. -->
       <dependency>
         <groupId>com.io7m.jaffirm</groupId>
         <artifactId>com.io7m.jaffirm.core</artifactId>
@@ -100,6 +102,7 @@
         <version>4.0.2</version>
       </dependency>
 
+      <!-- Build and metadata. -->
       <dependency>
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.annotation.versioning</artifactId>
@@ -111,22 +114,22 @@
         <version>2.0.0</version>
       </dependency>
       <dependency>
-        <groupId>com.io7m.immutables.style</groupId>
-        <artifactId>com.io7m.immutables.style</artifactId>
-        <version>0.0.1</version>
+        <groupId>com.io7m.immutables-style</groupId>
+        <artifactId>com.io7m.immutables-style</artifactId>
+        <version>1.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.immutables</groupId>
         <artifactId>value</artifactId>
         <version>${io7m.org.immutables.version}</version>
       </dependency>
-
       <dependency>
         <groupId>com.io7m.primogenitor</groupId>
         <artifactId>com.io7m.primogenitor.support</artifactId>
         <version>8.2.0</version>
       </dependency>
 
+      <!-- Logging. -->
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
@@ -137,11 +140,8 @@
         <artifactId>logback-classic</artifactId>
         <version>1.5.6</version>
       </dependency>
-      <dependency>
-        <groupId>net.java.quickcheck</groupId>
-        <artifactId>quickcheck</artifactId>
-        <version>0.6</version>
-      </dependency>
+
+      <!-- Test suite. -->
       <dependency>
         <groupId>nl.jqno.equalsverifier</groupId>
         <artifactId>equalsverifier</artifactId>
@@ -157,7 +157,17 @@
       <dependency>
         <groupId>com.io7m.percentpass</groupId>
         <artifactId>com.io7m.percentpass.extension</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>net.jqwik</groupId>
+        <artifactId>jqwik-api</artifactId>
+        <version>${net.jqwik.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.jqwik</groupId>
+        <artifactId>jqwik-engine</artifactId>
+        <version>${net.jqwik.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -168,7 +178,7 @@
         <plugin>
           <groupId>com.io7m.stmp</groupId>
           <artifactId>string-template-maven-plugin</artifactId>
-          <version>1.2.0</version>
+          <version>2.0.0</version>
         </plugin>
 
         <!-- Process annotations -->

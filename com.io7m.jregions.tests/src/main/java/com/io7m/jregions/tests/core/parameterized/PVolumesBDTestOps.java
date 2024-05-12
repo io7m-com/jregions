@@ -16,11 +16,13 @@
 
 package com.io7m.jregions.tests.core.parameterized;
 
+import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.jregions.core.parameterized.volumes.PVolumeBD;
-import com.io7m.jregions.generators.PVolumeBDGenerator;
+import com.io7m.jregions.core.parameterized.volumes.PVolumesBD;
 import com.io7m.junreachable.UnreachableCodeException;
-import net.java.quickcheck.Generator;
-import net.java.quickcheck.generator.PrimitiveGenerators;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
 import org.junit.jupiter.api.Assertions;
 
 import java.math.BigDecimal;
@@ -103,55 +105,82 @@ final class PVolumesBDTestOps
     return a.compareTo(b);
   }
 
+  public static BigDecimal randomBetweenZeroAndLessThan(
+    final BigDecimal upper)
+  {
+    Preconditions.checkPreconditionV(
+      upper.compareTo(BigDecimal.ONE) >= 0,
+      "Upper %s bound must be >= 1",
+      upper
+    );
+
+    final var sc =
+      Math.clamp(Math.random(), 0.0, 0.99);
+
+    return BigDecimal.valueOf((long) (sc * upper.doubleValue()));
+  }
+
   public static BigDecimal randomBounded(
     final BigDecimal upper)
   {
     return BigDecimal.valueOf(Math.random() * upper.doubleValue());
   }
 
-  public static Generator<BigDecimal> createWideScalarGenerator()
+  public static Arbitrary<BigDecimal> createWideScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(-1_000_000.0, 1_000_000.0);
-    return () -> BigDecimal.valueOf(base.next().doubleValue());
+    return Arbitraries.bigDecimals()
+      .between(
+        BigDecimal.valueOf(-1_000_000.0),
+        BigDecimal.valueOf(1_000_000.0)
+      );
   }
 
-  public static Generator<BigDecimal> createNarrowScalarGenerator()
+  public static Arbitrary<BigDecimal> createNarrowScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(-400.0, 400.0);
-    return () -> BigDecimal.valueOf(base.next().doubleValue());
+    return Arbitraries.bigDecimals()
+      .between(
+        BigDecimal.valueOf(-400.0),
+        BigDecimal.valueOf(400.0)
+      );
   }
 
-  public static Generator<BigDecimal> createNarrowNonNegativeScalarGenerator()
+  public static Arbitrary<BigDecimal> createNarrowNonNegativeScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(0.0, 400.0);
-    return () -> BigDecimal.valueOf(base.next().doubleValue());
+    return Arbitraries.bigDecimals()
+      .between(
+        BigDecimal.valueOf(0.0),
+        BigDecimal.valueOf(400.0)
+      );
   }
 
-  public static Generator<BigDecimal> createWideNonNegativeScalarGenerator()
+  public static Arbitrary<BigDecimal> createWideNonNegativeScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(0.0, 1_000_000.0);
-    return () -> BigDecimal.valueOf(base.next().doubleValue());
+    return Arbitraries.bigDecimals()
+      .between(
+        BigDecimal.valueOf(0.0),
+        BigDecimal.valueOf(1_000_000.0)
+      );
   }
 
-  public static Generator<BigDecimal> createWidePositiveScalarGenerator()
+  public static Arbitrary<BigDecimal> createWidePositiveScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
-    return () -> BigDecimal.valueOf(base.next().doubleValue());
+    return Arbitraries.bigDecimals()
+      .between(
+        BigDecimal.valueOf(1.0),
+        BigDecimal.valueOf(1_000_000.0)
+      );
   }
 
-  public static Generator<PVolumeBD<Object>> createGenerator()
+  @SuppressWarnings("unchecked")
+  public static Arbitrary<PVolumeBD<Object>> createGenerator()
   {
-    return PVolumeBDGenerator.create();
+    return (Arbitrary<PVolumeBD<Object>>) (Object) Arbitraries.defaultFor(PVolumeBD.class);
   }
 
-  public static Generator<PVolumeBD<Object>> createParameterizedGenerator(
-    final Generator<BigDecimal> g)
+  public static Arbitrary<PVolumeBD<Object>> createParameterizedGenerator(
+    final Arbitrary<BigDecimal> g)
   {
-    return new PVolumeBDGenerator<>(g);
+    return Combinators.combine(g, g, g, g, g, g)
+      .as(PVolumesBD::create);
   }
 }

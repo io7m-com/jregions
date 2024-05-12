@@ -19,9 +19,8 @@ package com.io7m.jregions.tests.core.parameterized;
 import com.io7m.jaffirm.core.PreconditionViolationException;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizeBD;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizesBD;
-import com.io7m.jregions.generators.PAreaSizeBDGenerator;
-import net.java.quickcheck.QuickCheck;
-import net.java.quickcheck.characteristic.AbstractCharacteristic;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -44,43 +43,22 @@ public final class PAreaSizeBDTest
         new BigDecimal(100)).sizeY());
   }
 
-  @Test
-  public void testIncludesReflexive()
+  @Property
+  public void testIncludesReflexive(
+    final @ForAll PAreaSizeBD area)
   {
-    final var gen = PAreaSizeBDGenerator.create();
-    QuickCheck.forAll(
-      gen,
-      new AbstractCharacteristic<PAreaSizeBD<Object>>()
-      {
-        @Override
-        protected void doSpecify(final PAreaSizeBD<Object> area)
-          throws Throwable
-        {
-          Assertions.assertTrue(PAreaSizesBD.includes(area, area));
-        }
-      });
+    Assertions.assertTrue(PAreaSizesBD.includes(area, area));
   }
 
-  @Test
-  public void testIncludesTransitive()
+  @Property
+  public void testIncludesTransitive(
+    final @ForAll PAreaSizeBD a,
+    final @ForAll PAreaSizeBD b,
+    final @ForAll PAreaSizeBD c)
   {
-    final var generator = PAreaSizeBDGenerator.create();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic<PAreaSizeBD<Object>>()
-      {
-        @Override
-        protected void doSpecify(final PAreaSizeBD<Object> a)
-          throws Throwable
-        {
-          final var b = generator.next();
-          final var c = generator.next();
-
-          if (PAreaSizesBD.includes(a, b) && PAreaSizesBD.includes(b, c)) {
-            Assertions.assertTrue(PAreaSizesBD.includes(a, c));
-          }
-        }
-      });
+    if (PAreaSizesBD.includes(a, b) && PAreaSizesBD.includes(b, c)) {
+      Assertions.assertTrue(PAreaSizesBD.includes(a, c));
+    }
   }
 
   @Test

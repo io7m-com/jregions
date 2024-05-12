@@ -18,9 +18,8 @@ package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizeI;
 import com.io7m.jregions.core.parameterized.sizes.PAreaSizesI;
-import com.io7m.jregions.generators.PAreaSizeIGenerator;
-import net.java.quickcheck.QuickCheck;
-import net.java.quickcheck.characteristic.AbstractCharacteristic;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -45,42 +44,22 @@ public final class PAreaSizeITest
     Assertions.assertNotEquals(PAreaSizeI.of(0, 100), Integer.valueOf(23));
   }
 
-  @Test
-  public void testIncludesReflexive()
+  @Property
+  public void testIncludesReflexive(
+    final @ForAll PAreaSizeI area)
   {
-    QuickCheck.forAll(
-      PAreaSizeIGenerator.create(),
-      new AbstractCharacteristic<PAreaSizeI<Object>>()
-      {
-        @Override
-        protected void doSpecify(final PAreaSizeI<Object> area)
-          throws Throwable
-        {
-          Assertions.assertTrue(PAreaSizesI.includes(area, area));
-        }
-      });
+    Assertions.assertTrue(PAreaSizesI.includes(area, area));
   }
 
-  @Test
-  public void testIncludesTransitive()
+  @Property
+  public void testIncludesTransitive(
+    final @ForAll PAreaSizeI a,
+    final @ForAll PAreaSizeI b,
+    final @ForAll PAreaSizeI c)
   {
-    final var generator = PAreaSizeIGenerator.create();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic<PAreaSizeI<Object>>()
-      {
-        @Override
-        protected void doSpecify(final PAreaSizeI<Object> a)
-          throws Throwable
-        {
-          final var b = generator.next();
-          final var c = generator.next();
-
-          if (PAreaSizesI.includes(a, b) && PAreaSizesI.includes(b, c)) {
-            Assertions.assertTrue(PAreaSizesI.includes(a, c));
-          }
-        }
-      });
+    if (PAreaSizesI.includes(a, b) && PAreaSizesI.includes(b, c)) {
+      Assertions.assertTrue(PAreaSizesI.includes(a, c));
+    }
   }
 
   @Test

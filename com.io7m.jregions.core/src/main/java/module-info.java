@@ -35,4 +35,19 @@ module com.io7m.jregions.core
   exports com.io7m.jregions.core.unparameterized.areas;
   exports com.io7m.jregions.core.unparameterized.sizes;
   exports com.io7m.jregions.core.unparameterized.volumes;
+
+  opens com.io7m.jregions.core.conversions
+    to com.io7m.jregions.tests, nl.jqno.equalsverifier;
+  opens com.io7m.jregions.core.parameterized.areas
+    to com.io7m.jregions.tests, nl.jqno.equalsverifier;
+  opens com.io7m.jregions.core.parameterized.sizes
+    to com.io7m.jregions.tests, nl.jqno.equalsverifier;
+  opens com.io7m.jregions.core.parameterized.volumes
+    to com.io7m.jregions.tests, nl.jqno.equalsverifier;
+  opens com.io7m.jregions.core.unparameterized.areas
+    to com.io7m.jregions.tests, nl.jqno.equalsverifier;
+  opens com.io7m.jregions.core.unparameterized.sizes
+    to com.io7m.jregions.tests, nl.jqno.equalsverifier;
+  opens com.io7m.jregions.core.unparameterized.volumes
+    to com.io7m.jregions.tests, nl.jqno.equalsverifier;
 }

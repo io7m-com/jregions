@@ -17,10 +17,11 @@
 package com.io7m.jregions.tests.core.parameterized;
 
 import com.io7m.jregions.core.parameterized.volumes.PVolumeF;
-import com.io7m.jregions.generators.PVolumeFGenerator;
+import com.io7m.jregions.core.parameterized.volumes.PVolumesF;
 import com.io7m.junreachable.UnreachableCodeException;
-import net.java.quickcheck.Generator;
-import net.java.quickcheck.generator.PrimitiveGenerators;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
 import org.junit.jupiter.api.Assertions;
 
 final class PVolumesFTestOps
@@ -95,55 +96,76 @@ final class PVolumesFTestOps
     return Float.compare(a, b);
   }
 
+  public static float randomBetweenZeroAndLessThan(
+    final float upper)
+  {
+    final var sc =
+      Math.clamp(Math.random(), 0.0, 0.99);
+
+    return (float) (sc * Math.abs(upper));
+  }
+
   public static float randomBounded(
     final float upper)
   {
     return (float) (Math.random() * upper);
   }
 
-  public static Generator<Float> createWideScalarGenerator()
+  public static Arbitrary<Float> createWideScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(-1_000_000.0, 1_000_000.0);
-    return () -> Float.valueOf(base.next().floatValue());
+    return Arbitraries.floats()
+      .between(
+        -1_000_000.0f,
+        1_000_000.0f
+      );
   }
 
-  public static Generator<Float> createNarrowScalarGenerator()
+  public static Arbitrary<Float> createNarrowScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(-400.0, 400.0);
-    return () -> Float.valueOf(base.next().floatValue());
+    return Arbitraries.floats()
+      .between(
+        -400.0f,
+        400.0f
+      );
   }
 
-  public static Generator<Float> createNarrowNonNegativeScalarGenerator()
+  public static Arbitrary<Float> createNarrowNonNegativeScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(0.0, 400.0);
-    return () -> Float.valueOf(base.next().floatValue());
+    return Arbitraries.floats()
+      .between(
+        0.0f,
+        400.0f
+      );
   }
 
-  public static Generator<Float> createWideNonNegativeScalarGenerator()
+  public static Arbitrary<Float> createWideNonNegativeScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(0.0, 1_000_000.0);
-    return () -> Float.valueOf(base.next().floatValue());
+    return Arbitraries.floats()
+      .between(
+        0.0f,
+        1_000_000.0f
+      );
   }
 
-  public static Generator<Float> createWidePositiveScalarGenerator()
+  public static Arbitrary<Float> createWidePositiveScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
-    return () -> Float.valueOf(base.next().floatValue());
+    return Arbitraries.floats()
+      .between(
+        1.0f,
+        1_000_000.0f
+      );
   }
 
-  public static Generator<PVolumeF<Object>> createGenerator()
+  @SuppressWarnings("unchecked")
+  public static Arbitrary<PVolumeF<Object>> createGenerator()
   {
-    return PVolumeFGenerator.create();
+    return (Arbitrary<PVolumeF<Object>>) (Object) Arbitraries.defaultFor(PVolumeF.class);
   }
 
-  public static Generator<PVolumeF<Object>> createParameterizedGenerator(
-    final Generator<Float> g)
+  public static Arbitrary<PVolumeF<Object>> createParameterizedGenerator(
+    final Arbitrary<Float> g)
   {
-    return new PVolumeFGenerator<>(g);
+    return Combinators.combine(g, g, g, g, g, g)
+      .as(PVolumesF::create);
   }
 }

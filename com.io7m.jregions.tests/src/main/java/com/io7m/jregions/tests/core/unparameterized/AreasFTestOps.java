@@ -18,10 +18,11 @@ package com.io7m.jregions.tests.core.unparameterized;
 
 
 import com.io7m.jregions.core.unparameterized.areas.AreaF;
-import com.io7m.jregions.generators.AreaFGenerator;
+import com.io7m.jregions.core.unparameterized.areas.AreasF;
 import com.io7m.junreachable.UnreachableCodeException;
-import net.java.quickcheck.Generator;
-import net.java.quickcheck.generator.PrimitiveGenerators;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
 import org.junit.jupiter.api.Assertions;
 
 final class AreasFTestOps
@@ -96,55 +97,75 @@ final class AreasFTestOps
     return Float.compare(a, b);
   }
 
+  public static float randomBetweenZeroAndLessThan(
+    final float upper)
+  {
+    final var sc =
+      Math.clamp(Math.random(), 0.0, 0.99);
+
+    return (float) (sc * Math.abs(upper));
+  }
+
   public static float randomBounded(
     final float upper)
   {
-    return (float) (Math.random() * upper);
+    return (float) Math.random() * upper;
   }
 
-  public static Generator<Float> createWideScalarGenerator()
+  public static Arbitrary<Float> createWideScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(-1_000_000.0, 1_000_000.0);
-    return () -> Float.valueOf(base.next().floatValue());
+    return Arbitraries.floats()
+      .between(
+        -1_000_000.0f,
+        1_000_000.0f
+      );
   }
 
-  public static Generator<Float> createNarrowScalarGenerator()
+  public static Arbitrary<Float> createNarrowScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(-400.0, 400.0);
-    return () -> Float.valueOf(base.next().floatValue());
+    return Arbitraries.floats()
+      .between(
+        -400.0f,
+        400.0f
+      );
   }
 
-  public static Generator<Float> createNarrowNonNegativeScalarGenerator()
+  public static Arbitrary<Float> createNarrowNonNegativeScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(0.0, 400.0);
-    return () -> Float.valueOf(base.next().floatValue());
+    return Arbitraries.floats()
+      .between(
+        0.0f,
+        400.0f
+      );
   }
 
-  public static Generator<Float> createWideNonNegativeScalarGenerator()
+  public static Arbitrary<Float> createWideNonNegativeScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(0.0, 1_000_000.0);
-    return () -> Float.valueOf(base.next().floatValue());
+    return Arbitraries.floats()
+      .between(
+        0.0f,
+        1_000_000.0f
+      );
   }
 
-  public static Generator<Float> createWidePositiveScalarGenerator()
+  public static Arbitrary<Float> createWidePositiveScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
-    return () -> Float.valueOf(base.next().floatValue());
+    return Arbitraries.floats()
+      .between(
+        1.0f,
+        1_000_000.0f
+      );
   }
 
-  public static Generator<AreaF> createGenerator()
+  public static Arbitrary<AreaF> createGenerator()
   {
-    return AreaFGenerator.create();
+    return Arbitraries.defaultFor(AreaF.class);
   }
 
-  public static Generator<AreaF> createParameterizedGenerator(
-    final Generator<Float> g)
+  public static Arbitrary<AreaF> createParameterizedGenerator(
+    final Arbitrary<Float> g)
   {
-    return new AreaFGenerator(g);
+    return Combinators.combine(g, g, g, g)
+      .as(AreasF::create);
   }
 }

@@ -16,11 +16,13 @@
 
 package com.io7m.jregions.tests.core.unparameterized;
 
+import com.io7m.jaffirm.core.Preconditions;
 import com.io7m.jregions.core.unparameterized.volumes.VolumeL;
-import com.io7m.jregions.generators.VolumeLGenerator;
+import com.io7m.jregions.core.unparameterized.volumes.VolumesL;
 import com.io7m.junreachable.UnreachableCodeException;
-import net.java.quickcheck.Generator;
-import net.java.quickcheck.generator.PrimitiveGenerators;
+import net.jqwik.api.Arbitraries;
+import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
 import org.junit.jupiter.api.Assertions;
 
 final class VolumesLTestOps
@@ -94,55 +96,81 @@ final class VolumesLTestOps
     return Long.compare(a, b);
   }
 
+  public static long randomBetweenZeroAndLessThan(
+    final long upper)
+  {
+    Preconditions.checkPreconditionV(
+      upper >= 1L,
+      "Upper %s bound must be >= 1",
+      Long.valueOf(upper)
+    );
+
+    final var sc =
+      Math.clamp(Math.random(), 0.0, 0.99);
+
+    return (long) (sc * (double) upper);
+  }
+
   public static long randomBounded(
     final long upper)
   {
     return (long) (Math.random() * upper);
   }
 
-  public static Generator<Long> createWideScalarGenerator()
+  public static Arbitrary<Long> createWideScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(-1_000_000.0, 1_000_000.0);
-    return () -> Long.valueOf(base.next().longValue());
+    return Arbitraries.longs()
+      .between(
+        -1_000_000L,
+        1_000_000L
+      );
   }
 
-  public static Generator<Long> createNarrowScalarGenerator()
+  public static Arbitrary<Long> createNarrowScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(-400.0, 400.0);
-    return () -> Long.valueOf(base.next().longValue());
+    return Arbitraries.longs()
+      .between(
+        -400L,
+        400L
+      );
   }
 
-  public static Generator<Long> createNarrowNonNegativeScalarGenerator()
+  public static Arbitrary<Long> createNarrowNonNegativeScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(0.0, 400.0);
-    return () -> Long.valueOf(base.next().longValue());
+    return Arbitraries.longs()
+      .between(
+        0L,
+        400L
+      );
   }
 
-  public static Generator<Long> createWideNonNegativeScalarGenerator()
+  public static Arbitrary<Long> createWideNonNegativeScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(0.0, 1_000_000.0);
-    return () -> Long.valueOf(base.next().longValue());
+    return Arbitraries.longs()
+      .between(
+        0L,
+        1_000_000L
+      );
   }
 
-  public static Generator<Long> createWidePositiveScalarGenerator()
+  public static Arbitrary<Long> createWidePositiveScalarGenerator()
   {
-    final var base =
-      PrimitiveGenerators.doubles(1.0, 1_000_000.0);
-    return () -> Long.valueOf(base.next().longValue());
+    return Arbitraries.longs()
+      .between(
+        1L,
+        1_000_000L
+      );
   }
 
-  public static Generator<VolumeL> createGenerator()
+  public static Arbitrary<VolumeL> createGenerator()
   {
-    return VolumeLGenerator.create();
+    return Arbitraries.defaultFor(VolumeL.class);
   }
 
-  public static Generator<VolumeL> createParameterizedGenerator(
-    final Generator<Long> g)
+  public static Arbitrary<VolumeL> createParameterizedGenerator(
+    final Arbitrary<Long> g)
   {
-    return new VolumeLGenerator(g);
+    return Combinators.combine(g, g, g, g, g, g)
+      .as(VolumesL::create);
   }
 }

@@ -17,13 +17,14 @@
 package com.io7m.jregions.tests.core.conversions;
 
 import com.io7m.jregions.core.conversions.AreaSizeConversions;
-import com.io7m.jregions.generators.PAreaSizeBDGenerator;
-import com.io7m.jregions.generators.PAreaSizeBIGenerator;
-import com.io7m.jregions.generators.PAreaSizeDGenerator;
-import com.io7m.jregions.generators.PAreaSizeFGenerator;
-import com.io7m.jregions.generators.PAreaSizeIGenerator;
-import com.io7m.jregions.generators.PAreaSizeLGenerator;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizeBD;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizeBI;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizeD;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizeF;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizeI;
+import com.io7m.jregions.core.parameterized.sizes.PAreaSizeL;
 import com.io7m.percentpass.extension.PercentPassing;
+import net.jqwik.api.Arbitraries;
 import org.junit.jupiter.api.Assertions;
 
 public final class AreaSizeConversionsTest
@@ -31,8 +32,8 @@ public final class AreaSizeConversionsTest
   @PercentPassing
   public void testIdentityL0()
   {
-    final var generator = PAreaSizeLGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaSizeL.class);
+    final var a0 = generator.sample();
     final var a1 = AreaSizeConversions.toAreaSizeL(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX());
     Assertions.assertEquals(a0.sizeY(), a1.sizeY());
@@ -43,8 +44,8 @@ public final class AreaSizeConversionsTest
   @PercentPassing
   public void testIdentityI0()
   {
-    final var generator = PAreaSizeIGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaSizeI.class);
+    final var a0 = generator.sample();
     final var a1 = AreaSizeConversions.toAreaSizeI(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX());
     Assertions.assertEquals(a0.sizeY(), a1.sizeY());
@@ -55,8 +56,8 @@ public final class AreaSizeConversionsTest
   @PercentPassing
   public void testIdentityBD0()
   {
-    final var generator = PAreaSizeBDGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaSizeBD.class);
+    final var a0 = generator.sample();
     final var a1 = AreaSizeConversions.toAreaSizeBD(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX());
     Assertions.assertEquals(a0.sizeY(), a1.sizeY());
@@ -67,8 +68,8 @@ public final class AreaSizeConversionsTest
   @PercentPassing
   public void testIdentityBI0()
   {
-    final var generator = PAreaSizeBIGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaSizeBI.class);
+    final var a0 = generator.sample();
     final var a1 = AreaSizeConversions.toAreaSizeBI(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX());
     Assertions.assertEquals(a0.sizeY(), a1.sizeY());
@@ -79,8 +80,8 @@ public final class AreaSizeConversionsTest
   @PercentPassing
   public void testIdentityD0()
   {
-    final var generator = PAreaSizeDGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaSizeD.class);
+    final var a0 = generator.sample();
     final var a1 = AreaSizeConversions.toAreaSizeD(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX(), 0.0);
     Assertions.assertEquals(a0.sizeY(), a1.sizeY(), 0.0);
@@ -91,8 +92,8 @@ public final class AreaSizeConversionsTest
   @PercentPassing
   public void testIdentityF0()
   {
-    final var generator = PAreaSizeFGenerator.create();
-    final var a0 = generator.next();
+    final var generator = Arbitraries.defaultFor(PAreaSizeF.class);
+    final var a0 = generator.sample();
     final var a1 = AreaSizeConversions.toAreaSizeF(a0);
     Assertions.assertEquals(a0.sizeX(), a1.sizeX(), 0.0);
     Assertions.assertEquals(a0.sizeY(), a1.sizeY(), 0.0);

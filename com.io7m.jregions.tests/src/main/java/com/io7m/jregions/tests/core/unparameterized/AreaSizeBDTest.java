@@ -17,12 +17,10 @@
 package com.io7m.jregions.tests.core.unparameterized;
 
 import com.io7m.jaffirm.core.PreconditionViolationException;
-import com.io7m.jregions.core.unparameterized.areas.AreaBD;
 import com.io7m.jregions.core.unparameterized.sizes.AreaSizeBD;
 import com.io7m.jregions.core.unparameterized.sizes.AreaSizesBD;
-import com.io7m.jregions.generators.AreaSizeBDGenerator;
-import net.java.quickcheck.QuickCheck;
-import net.java.quickcheck.characteristic.AbstractCharacteristic;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -45,63 +43,33 @@ public final class AreaSizeBDTest
         new BigDecimal(100)).sizeY());
   }
 
-  @Test
-  public void testIncludesReflexive()
+  @Property
+  public void testIncludesReflexive(
+    final @ForAll AreaSizeBD area)
   {
-    QuickCheck.forAll(
-      AreaSizeBDGenerator.create(),
-      new AbstractCharacteristic<AreaSizeBD>()
-      {
-        @Override
-        protected void doSpecify(final AreaSizeBD area)
-          throws Throwable
-        {
-          Assertions.assertTrue(AreaSizesBD.includes(area, area));
-        }
-      });
+    Assertions.assertTrue(AreaSizesBD.includes(area, area));
   }
 
-  @Test
-  public void testIncludesTransitive()
+  @Property
+  public void testIncludesTransitive(
+    final @ForAll AreaSizeBD a,
+    final @ForAll AreaSizeBD b,
+    final @ForAll AreaSizeBD c)
   {
-    final var generator = AreaSizeBDGenerator.create();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic<AreaSizeBD>()
-      {
-        @Override
-        protected void doSpecify(final AreaSizeBD a)
-          throws Throwable
-        {
-          final var b = generator.next();
-          final var c = generator.next();
-
-          if (AreaSizesBD.includes(a, b) && AreaSizesBD.includes(b, c)) {
-            Assertions.assertTrue(AreaSizesBD.includes(a, c));
-          }
-        }
-      });
+    if (AreaSizesBD.includes(a, b) && AreaSizesBD.includes(b, c)) {
+      Assertions.assertTrue(AreaSizesBD.includes(a, c));
+    }
   }
 
-  @Test
-  public void testAreaIdentity()
+  @Property
+  public void testAreaIdentity(
+    final @ForAll AreaSizeBD a)
   {
-    final var generator = AreaSizeBDGenerator.create();
-    QuickCheck.forAll(
-      generator,
-      new AbstractCharacteristic<AreaSizeBD>()
-      {
-        @Override
-        protected void doSpecify(final AreaSizeBD a)
-          throws Throwable
-        {
-          final var s = AreaSizesBD.area(a);
-          Assertions.assertEquals(a.sizeX(), s.sizeX());
-          Assertions.assertEquals(a.sizeY(), s.sizeY());
-          Assertions.assertEquals(BigDecimal.ZERO, s.minimumX());
-          Assertions.assertEquals(BigDecimal.ZERO, s.minimumY());
-        }
-      });
+    final var s = AreaSizesBD.area(a);
+    Assertions.assertEquals(a.sizeX(), s.sizeX());
+    Assertions.assertEquals(a.sizeY(), s.sizeY());
+    Assertions.assertEquals(BigDecimal.ZERO, s.minimumX());
+    Assertions.assertEquals(BigDecimal.ZERO, s.minimumY());
   }
 
   @Test

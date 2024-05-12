@@ -29,12 +29,9 @@ import com.io7m.jaffirm.core.Preconditions;
 import java.util.Objects;
 import com.io7m.junreachable.UnreachableCodeException;
 
-import net.java.quickcheck.Generator;
-import net.java.quickcheck.QuickCheck;
-import net.java.quickcheck.characteristic.AbstractCharacteristic;
-
 import com.io7m.percentpass.extension.PercentPassing;
 
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -49,13 +46,13 @@ public final class <className>
   public void testCouldFitInsideFalseSpecificX0()
     throws Exception
   {
-    final <volumeType>\<Object> v0 =
+    final var v0 =
       <volumeType>.of(
         <opClass>.constant("-1"), <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> v1 =
+    final var v1 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -68,13 +65,13 @@ public final class <className>
   public void testCouldFitInsideFalseSpecificX1()
     throws Exception
   {
-    final <volumeType>\<Object> v0 =
+    final var v0 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("11"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> v1 =
+    final var v1 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -87,13 +84,13 @@ public final class <className>
   public void testCouldFitInsideFalseSpecificY0()
     throws Exception
   {
-    final <volumeType>\<Object> v0 =
+    final var v0 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("-1"), <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> v1 =
+    final var v1 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -106,13 +103,13 @@ public final class <className>
   public void testCouldFitInsideFalseSpecificY1()
     throws Exception
   {
-    final <volumeType>\<Object> v0 =
+    final var v0 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("11"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> v1 =
+    final var v1 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -125,13 +122,13 @@ public final class <className>
   public void testCouldFitInsideFalseSpecificZ0()
     throws Exception
   {
-    final <volumeType>\<Object> v0 =
+    final var v0 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("-1"), <opClass>.constant("10"));
 
-    final <volumeType>\<Object> v1 =
+    final var v1 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -144,13 +141,13 @@ public final class <className>
   public void testCouldFitInsideFalseSpecificZ1()
     throws Exception
   {
-    final <volumeType>\<Object> v0 =
+    final var v0 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("11"));
 
-    final <volumeType>\<Object> v1 =
+    final var v1 =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -163,10 +160,10 @@ public final class <className>
   public void testCreateAll()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
-    final <volumeType>\<Object> c =
+    final var c =
       <volumeOpsType>.create(
         outer.minimumX(),
         outer.minimumY(),
@@ -187,8 +184,8 @@ public final class <className>
   public void testContainsSelfAll()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
     Assertions.assertTrue(<volumeOpsType>.contains(outer, outer));
   }
@@ -197,40 +194,40 @@ public final class <className>
   public void testContainsFalseSpecific()
     throws Exception
   {
-    final <volumeType>\<Object> volume =
+    final var volume =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> out_x_lo =
+    final var out_x_lo =
       <volumeType>.of(
         <opClass>.constant("-10"), <opClass>.constant("-1"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
-    final <volumeType>\<Object> out_x_hi =
+    final var out_x_hi =
       <volumeType>.of(
         <opClass>.constant("11"), <opClass>.constant("21"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> out_y_lo =
+    final var out_y_lo =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("-10"), <opClass>.constant("-1"),
         <opClass>.ZERO, <opClass>.constant("10"));
-    final <volumeType>\<Object> out_y_hi =
+    final var out_y_hi =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("11"), <opClass>.constant("21"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> out_z_lo =
+    final var out_z_lo =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("-10"), <opClass>.constant("-1"));
-    final <volumeType>\<Object> out_z_hi =
+    final var out_z_hi =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -255,16 +252,16 @@ public final class <className>
   public void testMoveRelative()
     throws Exception
   {
-    final <scalarGeneratorType> gen = <opClass>.createWideScalarGenerator();
+    final var gen = <opClass>.createWideScalarGenerator();
 
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
-    final <scalarType> x = gen.next();
-    final <scalarType> y = gen.next();
-    final <scalarType> z = gen.next();
+    final var x = gen.sample();
+    final var y = gen.sample();
+    final var z = gen.sample();
 
-    final <volumeType>\<Object> moved = <volumeOpsType>.moveRelative(outer, x, y, z);
+    final var moved = <volumeOpsType>.moveRelative(outer, x, y, z);
 
     <opClass>.checkEquals(outer.sizeX(), moved.sizeX());
     <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
@@ -285,14 +282,14 @@ public final class <className>
     final var generator =
       <opClass>.createGenerator();
     final var inner =
-      generator.next();
+      generator.sample();
 
-    final var x0off = gen.next();
-    final var x1off = gen.next();
-    final var y0off = gen.next();
-    final var y1off = gen.next();
-    final var z0off = gen.next();
-    final var z1off = gen.next();
+    final var x0off = gen.sample();
+    final var x1off = gen.sample();
+    final var y0off = gen.sample();
+    final var y1off = gen.sample();
+    final var z0off = gen.sample();
+    final var z1off = gen.sample();
 
     final var outer =
       <volumeType>.of(
@@ -308,7 +305,7 @@ public final class <className>
     System.out.println("inner " + inner);
     Assertions.assertTrue(<volumeOpsType>.contains(outer, inner));
 
-    final var x = sGen.next();
+    final var x = sGen.sample();
     final var moved = <volumeOpsType>.moveRelativeClampedX(outer, inner, x);
 
     <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
@@ -329,14 +326,14 @@ public final class <className>
     final var generator =
       <opClass>.createGenerator();
     final var inner =
-      generator.next();
+      generator.sample();
 
-    final var x0off = gen.next();
-    final var x1off = gen.next();
-    final var y0off = gen.next();
-    final var y1off = gen.next();
-    final var z0off = gen.next();
-    final var z1off = gen.next();
+    final var x0off = gen.sample();
+    final var x1off = gen.sample();
+    final var y0off = gen.sample();
+    final var y1off = gen.sample();
+    final var z0off = gen.sample();
+    final var z1off = gen.sample();
 
     final var outer =
       <volumeType>.of(
@@ -352,7 +349,7 @@ public final class <className>
     System.out.println("inner " + inner);
     Assertions.assertTrue(<volumeOpsType>.contains(outer, inner));
 
-    final var y = sGen.next();
+    final var y = sGen.sample();
     final var moved = <volumeOpsType>.moveRelativeClampedY(outer, inner, y);
 
     <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
@@ -373,14 +370,14 @@ public final class <className>
     final var generator =
       <opClass>.createGenerator();
     final var inner =
-      generator.next();
+      generator.sample();
 
-    final var x0off = gen.next();
-    final var x1off = gen.next();
-    final var y0off = gen.next();
-    final var y1off = gen.next();
-    final var z0off = gen.next();
-    final var z1off = gen.next();
+    final var x0off = gen.sample();
+    final var x1off = gen.sample();
+    final var y0off = gen.sample();
+    final var y1off = gen.sample();
+    final var z0off = gen.sample();
+    final var z1off = gen.sample();
 
     final var outer =
       <volumeType>.of(
@@ -396,7 +393,7 @@ public final class <className>
     System.out.println("inner " + inner);
     Assertions.assertTrue(<volumeOpsType>.contains(outer, inner));
 
-    final var z = sGen.next();
+    final var z = sGen.sample();
     final var moved = <volumeOpsType>.moveRelativeClampedZ(outer, inner, z);
 
     <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
@@ -417,14 +414,14 @@ public final class <className>
     final var generator =
       <opClass>.createGenerator();
     final var inner =
-      generator.next();
+      generator.sample();
 
-    final var x0off = gen.next();
-    final var x1off = gen.next();
-    final var y0off = gen.next();
-    final var y1off = gen.next();
-    final var z0off = gen.next();
-    final var z1off = gen.next();
+    final var x0off = gen.sample();
+    final var x1off = gen.sample();
+    final var y0off = gen.sample();
+    final var y1off = gen.sample();
+    final var z0off = gen.sample();
+    final var z1off = gen.sample();
 
     final var outer =
       <volumeType>.of(
@@ -440,9 +437,9 @@ public final class <className>
     System.out.println("inner " + inner);
     Assertions.assertTrue(<volumeOpsType>.contains(outer, inner));
 
-    final var x = sGen.next();
-    final var y = sGen.next();
-    final var z = sGen.next();
+    final var x = sGen.sample();
+    final var y = sGen.sample();
+    final var z = sGen.sample();
     final var moved = <volumeOpsType>.moveRelativeClamped(outer, inner, x, y, z);
 
     <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
@@ -456,14 +453,14 @@ public final class <className>
   public void testMoveAbsolute()
     throws Exception
   {
-    final <scalarGeneratorType> gen = <opClass>.createWideScalarGenerator();
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
-    final <scalarType> x = gen.next();
-    final <scalarType> y = gen.next();
-    final <scalarType> z = gen.next();
-    final <volumeType>\<Object> moved = <volumeOpsType>.moveAbsolute(outer, x, y, z);
+    final var x = gen.sample();
+    final var y = gen.sample();
+    final var z = gen.sample();
+    final var moved = <volumeOpsType>.moveAbsolute(outer, x, y, z);
 
     <opClass>.checkEquals(outer.sizeX(), moved.sizeX());
     <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
@@ -477,10 +474,10 @@ public final class <className>
   public void testMoveToOrigin()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
-    final <volumeType>\<Object> moved = <volumeOpsType>.moveToOrigin(outer);
+    final var moved = <volumeOpsType>.moveToOrigin(outer);
 
     <opClass>.checkEquals(outer.sizeX(),  moved.sizeX());
     <opClass>.checkEquals(outer.sizeY(),  moved.sizeY());
@@ -494,10 +491,10 @@ public final class <className>
   public void testEqualsHashcode()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> volume = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var volume = generator.sample();
 
-    final <volumeType>\<Object> other =
+    final var other =
       <volumeType>.of(
         volume.minimumX(),
         volume.maximumX(),
@@ -518,12 +515,12 @@ public final class <className>
   public void testShowAll()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> any = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var any = generator.sample();
 
     Assertions.assertEquals(<volumeOpsType>.show(any), <volumeOpsType>.show(any));
 
-    final <volumeType>\<Object> next = generator.next();
+    final var next = generator.sample();
     if (!Objects.equals(next, any)) {
       Assertions.assertNotEquals(<volumeOpsType>.show(any), <volumeOpsType>.show(next));
     } else {
@@ -535,7 +532,7 @@ public final class <className>
   public void testZero()
     throws Exception
   {
-    final <volumeType>\<Object> volume = <volumeType>.of(
+    final var volume = <volumeType>.of(
       <opClass>.ZERO, <opClass>.ZERO,
       <opClass>.ZERO, <opClass>.ZERO,
       <opClass>.ZERO, <opClass>.ZERO);
@@ -548,40 +545,40 @@ public final class <className>
   public void testOverlapsFalseSpecific()
     throws Exception
   {
-    final <volumeType>\<Object> volume =
+    final var volume =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> out_x_lo =
+    final var out_x_lo =
       <volumeType>.of(
         <opClass>.constant("-10"), <opClass>.constant("-1"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
-    final <volumeType>\<Object> out_x_hi =
+    final var out_x_hi =
       <volumeType>.of(
         <opClass>.constant("11"), <opClass>.constant("21"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> out_y_lo =
+    final var out_y_lo =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("-10"), <opClass>.constant("-1"),
         <opClass>.ZERO, <opClass>.constant("10"));
-    final <volumeType>\<Object> out_y_hi =
+    final var out_y_hi =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("11"), <opClass>.constant("21"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> out_z_lo =
+    final var out_z_lo =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("-10"), <opClass>.constant("-1"));
-    final <volumeType>\<Object> out_z_hi =
+    final var out_z_hi =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -606,40 +603,40 @@ public final class <className>
   public void testOverlapsTrueSpecific()
     throws Exception
   {
-    final <volumeType>\<Object> volume =
+    final var volume =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> out_x_lo =
+    final var out_x_lo =
       <volumeType>.of(
         <opClass>.constant("-10"), <opClass>.constant("1"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
-    final <volumeType>\<Object> out_x_hi =
+    final var out_x_hi =
       <volumeType>.of(
         <opClass>.constant("9"), <opClass>.constant("21"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> out_y_lo =
+    final var out_y_lo =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("-10"), <opClass>.constant("1"),
         <opClass>.ZERO, <opClass>.constant("10"));
-    final <volumeType>\<Object> out_y_hi =
+    final var out_y_hi =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("9"), <opClass>.constant("21"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <volumeType>\<Object> out_z_lo =
+    final var out_z_lo =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.constant("-10"), <opClass>.constant("1"));
-    final <volumeType>\<Object> out_z_hi =
+    final var out_z_hi =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -664,8 +661,8 @@ public final class <className>
   public void testOverlapsSelfAll()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
     Assertions.assertTrue(<volumeOpsType>.overlaps(outer, outer));
   }
@@ -674,50 +671,56 @@ public final class <className>
   public void testCouldFitInsideSelfAll()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
     Assertions.assertTrue(<volumeOpsType>.couldFitInside(outer, outer));
   }
 
-  @PercentPassing
+  @PercentPassing(executionCount = 1000)
   public void testContainsPointAll()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
-    final <scalarType> w = <opClass>.maximum(<opClass>.ONE, outer.sizeX());
-    final <scalarType> h = <opClass>.maximum(<opClass>.ONE, outer.sizeY());
-    final <scalarType> d = <opClass>.maximum(<opClass>.ONE, outer.sizeZ());
-    final <scalarType> px = <opClass>.randomBounded(w);
-    final <scalarType> py = <opClass>.randomBounded(h);
-    final <scalarType> pz = <opClass>.randomBounded(d);
-    final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
-    final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
-    final <scalarType> ppz = <opClass>.add(outer.minimumZ(), pz);
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeX(), <opClass>.constant("1")) > 0
+    );
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeY(), <opClass>.constant("1")) > 0
+    );
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeZ(), <opClass>.constant("1")) > 0
+    );
+
+    final var px =
+      <opClass>.randomBetweenZeroAndLessThan(outer.sizeX());
+    final var py =
+      <opClass>.randomBetweenZeroAndLessThan(outer.sizeY());
+    final var pz =
+      <opClass>.randomBetweenZeroAndLessThan(outer.sizeZ());
+
+    final var ppx =
+      <opClass>.add(outer.minimumX(), px);
+    final var ppy =
+      <opClass>.add(outer.minimumY(), py);
+    final var ppz =
+      <opClass>.add(outer.minimumZ(), pz);
 
     System.out.println(ppx + " " + ppy + " " + ppz);
 
-    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.ZERO) > 0;
-    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.ZERO) > 0;
-    boolean sizeZ_over = <opClass>.compare(outer.sizeZ(), <opClass>.ZERO) > 0;
-
-    if (sizeX_over && sizeY_over && sizeZ_over) {
-      Assertions.assertTrue(<volumeOpsType>.containsPoint(outer, ppx, ppy, ppz));
-    } else {
-      Assertions.assertFalse(<volumeOpsType>.containsPoint(outer, ppx, ppy, ppz));
-    }
+    Assertions.assertTrue(<volumeOpsType>.containsPoint(outer, ppx, ppy, ppz));
   }
 
   @PercentPassing
   public void testContainingAll()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> a = generator.next();
-    final <volumeType>\<Object> b = generator.next();
-    final <volumeType>\<Object> c = <volumeOpsType>.containing(a, b);
+    final var generator = <opClass>.createGenerator();
+    final var a = generator.sample();
+    final var b = generator.sample();
+    final var c = <volumeOpsType>.containing(a, b);
     Assertions.assertTrue(<opClass>.compare(c.sizeX(), a.sizeX()) >= 0);
     Assertions.assertTrue(<opClass>.compare(c.sizeY(), a.sizeY()) >= 0);
     Assertions.assertTrue(<opClass>.compare(c.sizeZ(), a.sizeZ()) >= 0);
@@ -732,22 +735,22 @@ public final class <className>
   public void testContainsZeroSizeX()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
-    final <scalarType> w = <opClass>.maximum(<opClass>.ONE, outer.sizeX());
-    final <scalarType> h = <opClass>.maximum(<opClass>.ONE, outer.sizeY());
-    final <scalarType> d = <opClass>.maximum(<opClass>.ONE, outer.sizeZ());
-    final <scalarType> px = <opClass>.randomBounded(w);
-    final <scalarType> py = <opClass>.randomBounded(h);
-    final <scalarType> pz = <opClass>.randomBounded(d);
-    final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
-    final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
-    final <scalarType> ppz = <opClass>.add(outer.minimumZ(), pz);
+    final var w = <opClass>.maximum(<opClass>.ONE, outer.sizeX());
+    final var h = <opClass>.maximum(<opClass>.ONE, outer.sizeY());
+    final var d = <opClass>.maximum(<opClass>.ONE, outer.sizeZ());
+    final var px = <opClass>.randomBounded(w);
+    final var py = <opClass>.randomBounded(h);
+    final var pz = <opClass>.randomBounded(d);
+    final var ppx = <opClass>.add(outer.minimumX(), px);
+    final var ppy = <opClass>.add(outer.minimumY(), py);
+    final var ppz = <opClass>.add(outer.minimumZ(), pz);
 
     System.out.println(ppx + " " + ppy + " " + ppz);
 
-    final <volumeType>\<Object> scaled = <volumeOpsType>.create(
+    final var scaled = <volumeOpsType>.create(
       outer.minimumX(),
       outer.minimumY(),
       outer.minimumZ(),
@@ -764,22 +767,22 @@ public final class <className>
   public void testContainsZeroSizeY()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
-    final <scalarType> w = <opClass>.maximum(<opClass>.ONE, outer.sizeX());
-    final <scalarType> h = <opClass>.maximum(<opClass>.ONE, outer.sizeY());
-    final <scalarType> d = <opClass>.maximum(<opClass>.ONE, outer.sizeZ());
-    final <scalarType> px = <opClass>.randomBounded(w);
-    final <scalarType> py = <opClass>.randomBounded(h);
-    final <scalarType> pz = <opClass>.randomBounded(d);
-    final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
-    final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
-    final <scalarType> ppz = <opClass>.add(outer.minimumZ(), pz);
+    final var w = <opClass>.maximum(<opClass>.ONE, outer.sizeX());
+    final var h = <opClass>.maximum(<opClass>.ONE, outer.sizeY());
+    final var d = <opClass>.maximum(<opClass>.ONE, outer.sizeZ());
+    final var px = <opClass>.randomBounded(w);
+    final var py = <opClass>.randomBounded(h);
+    final var pz = <opClass>.randomBounded(d);
+    final var ppx = <opClass>.add(outer.minimumX(), px);
+    final var ppy = <opClass>.add(outer.minimumY(), py);
+    final var ppz = <opClass>.add(outer.minimumZ(), pz);
 
     System.out.println(ppx + " " + ppy + " " + ppz);
 
-    final <volumeType>\<Object> scaled = <volumeOpsType>.create(
+    final var scaled = <volumeOpsType>.create(
       outer.minimumX(),
       outer.minimumY(),
       outer.minimumZ(),
@@ -796,22 +799,22 @@ public final class <className>
   public void testContainsZeroSizeZ()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
-    final <scalarType> w = <opClass>.maximum(<opClass>.ONE, outer.sizeX());
-    final <scalarType> h = <opClass>.maximum(<opClass>.ONE, outer.sizeY());
-    final <scalarType> d = <opClass>.maximum(<opClass>.ONE, outer.sizeZ());
-    final <scalarType> px = <opClass>.randomBounded(w);
-    final <scalarType> py = <opClass>.randomBounded(h);
-    final <scalarType> pz = <opClass>.randomBounded(d);
-    final <scalarType> ppx = <opClass>.add(outer.minimumX(), px);
-    final <scalarType> ppy = <opClass>.add(outer.minimumY(), py);
-    final <scalarType> ppz = <opClass>.add(outer.minimumZ(), pz);
+    final var w = <opClass>.maximum(<opClass>.ONE, outer.sizeX());
+    final var h = <opClass>.maximum(<opClass>.ONE, outer.sizeY());
+    final var d = <opClass>.maximum(<opClass>.ONE, outer.sizeZ());
+    final var px = <opClass>.randomBounded(w);
+    final var py = <opClass>.randomBounded(h);
+    final var pz = <opClass>.randomBounded(d);
+    final var ppx = <opClass>.add(outer.minimumX(), px);
+    final var ppy = <opClass>.add(outer.minimumY(), py);
+    final var ppz = <opClass>.add(outer.minimumZ(), pz);
 
     System.out.println(ppx + " " + ppy + " " + ppz);
 
-    final <volumeType>\<Object> scaled = <volumeOpsType>.create(
+    final var scaled = <volumeOpsType>.create(
       outer.minimumX(),
       outer.minimumY(),
       outer.minimumZ(),
@@ -828,7 +831,7 @@ public final class <className>
   public void testContainsFalseSpecificX0()
     throws Exception
   {
-    final <volumeType>\<Object> volume =
+    final var volume =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -841,7 +844,7 @@ public final class <className>
   public void testContainsFalseSpecificX1()
     throws Exception
   {
-    final <volumeType>\<Object> volume =
+    final var volume =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -854,7 +857,7 @@ public final class <className>
   public void testContainsFalseSpecificY0()
     throws Exception
   {
-    final <volumeType>\<Object> volume =
+    final var volume =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -867,7 +870,7 @@ public final class <className>
   public void testContainsFalseSpecificY1()
     throws Exception
   {
-    final <volumeType>\<Object> volume =
+    final var volume =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -880,7 +883,7 @@ public final class <className>
   public void testContainsFalseSpecificZ0()
     throws Exception
   {
-    final <volumeType>\<Object> volume =
+    final var volume =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -893,7 +896,7 @@ public final class <className>
   public void testContainsFalseSpecificZ1()
     throws Exception
   {
-    final <volumeType>\<Object> volume =
+    final var volume =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
@@ -906,8 +909,8 @@ public final class <className>
   public void testCastAll()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
     final <volumeType>\<Integer> other = <volumeOpsType>.cast(outer);
     Assertions.assertSame(outer, other);
@@ -917,8 +920,8 @@ public final class <className>
   public void testSize()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator = <opClass>.createGenerator();
-    final <volumeType>\<Object> outer = generator.next();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
 
     final <volumeSizeType>\<Object> s = <volumeOpsType>.size(outer);
 
@@ -927,26 +930,37 @@ public final class <className>
     <opClass>.checkEquals(outer.sizeZ(), s.sizeZ());
   }
 
-  @PercentPassing
+  @PercentPassing(executionCount = 1000, passPercent = 93.0)
   public void testSplitAtXYZAll()
     throws Exception
   {
-    final Generator\<<volumeType>\<Object>\> generator =
+    final var generator =
       <opClass>.createParameterizedGenerator(<opClass>.createWideNonNegativeScalarGenerator());
 
-    final <volumeType>\<Object> outer = generator.next();
+    final var outer =
+      generator.sample();
 
-    final <scalarType> x_bound = <opClass>.add(outer.sizeX(), <opClass>.constant("1"));
-    final <scalarType> y_bound = <opClass>.add(outer.sizeY(), <opClass>.constant("1"));
-    final <scalarType> z_bound = <opClass>.add(outer.sizeZ(), <opClass>.constant("1"));
-    final <scalarType> x = <opClass>.randomBounded(x_bound);
-    final <scalarType> y = <opClass>.randomBounded(y_bound);
-    final <scalarType> z = <opClass>.randomBounded(z_bound);
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeX(), <opClass>.constant("2")) \>= 0
+    );
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeY(), <opClass>.constant("2")) \>= 0
+    );
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeZ(), <opClass>.constant("2")) \>= 0
+    );
 
-    System.out.println("outer: " + outer);
-    System.out.println("x:     " + x);
-    System.out.println("y:     " + y);
-    System.out.println("z:     " + z);
+    final var x =
+      <opClass>.randomBetweenZeroAndLessThan(outer.sizeX());
+    final var y =
+      <opClass>.randomBetweenZeroAndLessThan(outer.sizeY());
+    final var z =
+      <opClass>.randomBetweenZeroAndLessThan(outer.sizeZ());
+
+    System.out.println("Outer: " + outer);
+    System.out.println("X:     " + x);
+    System.out.println("Y:     " + y);
+    System.out.println("Z:     " + z);
 
     final <volumeXYZSplitType>\<Object, <volumeType>\<Object>\> s =
       <volumeOpsType>.splitAtXYZ(outer, x, y, z);
@@ -1015,14 +1029,38 @@ public final class <className>
     <opClass>.checkEquals(s.x1y1z0().maximumY(), outer.maximumY());
     <opClass>.checkEquals(s.x1y1z0().maximumZ(), <opClass>.add(s.x0y0z0().minimumZ(), z));
 
-    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y0z0()));
-    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y0z0()));
-    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y1z0()));
-    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y1z0()));
-    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y0z1()));
-    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y0z1()));
-    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x0y1z1()));
-    Assertions.assertTrue(<volumeOpsType>.overlaps(outer, s.x1y1z1()));
+    Assertions.assertTrue(
+      <volumeOpsType>.overlaps(outer, s.x0y0z0()),
+      shouldOverlap(outer, s.x0y0z0())
+    );
+    Assertions.assertTrue(
+      <volumeOpsType>.overlaps(outer, s.x1y0z0()),
+      shouldOverlap(outer, s.x1y0z0())
+    );
+    Assertions.assertTrue(
+      <volumeOpsType>.overlaps(outer, s.x0y1z0()),
+      shouldOverlap(outer, s.x0y1z0())
+    );
+    Assertions.assertTrue(
+      <volumeOpsType>.overlaps(outer, s.x1y1z0()),
+      shouldOverlap(outer, s.x1y1z0())
+    );
+    Assertions.assertTrue(
+      <volumeOpsType>.overlaps(outer, s.x0y0z1()),
+      shouldOverlap(outer, s.x0y0z1())
+    );
+    Assertions.assertTrue(
+      <volumeOpsType>.overlaps(outer, s.x1y0z1()),
+      shouldOverlap(outer, s.x1y0z1())
+    );
+    Assertions.assertTrue(
+      <volumeOpsType>.overlaps(outer, s.x0y1z1()),
+      shouldOverlap(outer, s.x0y1z1())
+    );
+    Assertions.assertTrue(
+      <volumeOpsType>.overlaps(outer, s.x1y1z1()),
+      shouldOverlap(outer, s.x1y1z1())
+    );
 
     Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x0y0z0()));
     Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x1y0z0()));
@@ -1033,28 +1071,107 @@ public final class <className>
     Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x0y1z1()));
     Assertions.assertTrue(<volumeOpsType>.contains(outer, s.x1y1z1()));
 
-    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z0()));
-    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z0()));
-    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z0()));
-    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y0z1()));
-    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z1()));
-    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z1()));
-    Assertions.assertFalse(<volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z1()));
+    Assertions.assertFalse(
+      <volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z0()),
+      shouldNotOverlap(s.x0y0z0(), s.x1y0z0())
+    );
+    Assertions.assertFalse(
+      <volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z0()),
+      shouldNotOverlap(s.x0y0z0(), s.x0y1z0())
+    );
+    Assertions.assertFalse(
+      <volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z0()),
+      shouldNotOverlap(s.x0y0z0(), s.x1y1z0())
+    );
+    Assertions.assertFalse(
+      <volumeOpsType>.overlaps(s.x0y0z0(), s.x0y0z1()),
+      shouldNotOverlap(s.x0y0z0(), s.x0y0z1())
+    );
+    Assertions.assertFalse(
+      <volumeOpsType>.overlaps(s.x0y0z0(), s.x1y0z1()),
+      shouldNotOverlap(s.x0y0z0(), s.x1y0z1())
+    );
+    Assertions.assertFalse(
+      <volumeOpsType>.overlaps(s.x0y0z0(), s.x0y1z1()),
+      shouldNotOverlap(s.x0y0z0(), s.x0y1z1())
+    );
+    Assertions.assertFalse(
+      <volumeOpsType>.overlaps(s.x0y0z0(), s.x1y1z1()),
+      shouldNotOverlap(s.x0y0z0(), s.x1y1z1())
+    );
+  }
+
+  private static String shouldNotOverlap(
+    <volumeType> v0,
+    <volumeType> v1)
+  {
+    final var sb = new StringBuilder();
+    sb.append("Should not overlap:\n");
+    sb.append(
+      "[X %-24s %-24s] [Y %-24s %-24s] [Z %-24s %-24s]\n".formatted(
+        v0.minimumX(),
+        v0.maximumX(),
+        v0.minimumY(),
+        v0.maximumY(),
+        v0.minimumZ(),
+        v0.maximumZ()
+      )
+    );
+    sb.append(
+      "[X %-24s %-24s] [Y %-24s %-24s] [Z %-24s %-24s]\n".formatted(
+        v1.minimumX(),
+        v1.maximumX(),
+        v1.minimumY(),
+        v1.maximumY(),
+        v1.minimumZ(),
+        v1.maximumZ()
+      )
+    );
+    return sb.toString();
+  }
+
+  private static String shouldOverlap(
+    <volumeType> v0,
+    <volumeType> v1)
+  {
+    final var sb = new StringBuilder();
+    sb.append("Should overlap:\n");
+    sb.append(
+      "[X %-24s %-24s] [Y %-24s %-24s] [Z %-24s %-24s]\n".formatted(
+        v0.minimumX(),
+        v0.maximumX(),
+        v0.minimumY(),
+        v0.maximumY(),
+        v0.minimumZ(),
+        v0.maximumZ()
+      )
+    );
+    sb.append(
+      "[X %-24s %-24s] [Y %-24s %-24s] [Z %-24s %-24s]\n".formatted(
+        v1.minimumX(),
+        v1.maximumX(),
+        v1.minimumY(),
+        v1.maximumY(),
+        v1.minimumZ(),
+        v1.maximumZ()
+      )
+    );
+    return sb.toString();
   }
 
   @Test
   public void testSplitXYZSpecific()
     throws Exception
   {
-    final <volumeType>\<Object> volume =
+    final var volume =
       <volumeType>.of(
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"),
         <opClass>.ZERO, <opClass>.constant("10"));
 
-    final <scalarType> x = <opClass>.constant("5");
-    final <scalarType> y = <opClass>.constant("5");
-    final <scalarType> z = <opClass>.constant("5");
+    final var x = <opClass>.constant("5");
+    final var y = <opClass>.constant("5");
+    final var z = <opClass>.constant("5");
 
     final <volumeXYZSplitType>\<Object, <volumeType>\<Object>\> s =
       <volumeOpsType>.splitAtXYZ(volume, x, y, z);
