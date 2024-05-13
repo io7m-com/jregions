@@ -66,13 +66,6 @@ final class VolumeDOps
     return a - b;
   }
 
-  public static double divide(
-    final double a,
-    final double b)
-  {
-    return a / b;
-  }
-
   public static double constant(
     final long x)
   {

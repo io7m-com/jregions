@@ -66,13 +66,6 @@ final class VolumeLOps
     return Math.subtractExact(a, b);
   }
 
-  public static long divide(
-    final long a,
-    final long b)
-  {
-    return a / b;
-  }
-
   public static long constant(
     final long x)
   {

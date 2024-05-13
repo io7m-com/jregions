@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>4.0.0</version>
+    <version>5.0.0</version>
   </parent>
 
   <artifactId>com.io7m.jregions.tests</artifactId>
@@ -19,7 +19,9 @@
   <url>https://www.io7m.com/software/jregions</url>
 
   <properties>
+    <spotbugs.skip>true</spotbugs.skip>
     <mdep.analyze.skip>true</mdep.analyze.skip>
+    <checkstyle.skip>true</checkstyle.skip>
   </properties>
 
   <dependencies>
@@ -30,7 +32,7 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>com.io7m.jregions.generators</artifactId>
+      <artifactId>com.io7m.jregions.arbitraries</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -50,18 +52,37 @@
       <groupId>com.io7m.jaffirm</groupId>
       <artifactId>com.io7m.jaffirm.core</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>net.java.quickcheck</groupId>
-      <artifactId>quickcheck</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-commons</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-engine</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>net.jqwik</groupId>
+      <artifactId>jqwik-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.jqwik</groupId>
+      <artifactId>jqwik-engine</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier</artifactId>
@@ -83,30 +104,30 @@
             <id>generate-area-P-BD</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasBDTest.java
-                  </target>
-                  <properties>
-                    <scalarType>java.math.BigDecimal</scalarType>
-                    <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaBD</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBD</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasBD</areaOpsType>
-                    <className>PAreasBDTest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitBD</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitBD</splitYType>
-                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitBD</splitXYType>
-                    <opClass>PAreasBDTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasBDTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigDecimal</scalarType>
+                  <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.parameterized.areas.PAreaBD</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBD</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasBD</areaOpsType>
+                  <className>PAreasBDTest</className>
+                  <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitBD</splitXType>
+                  <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitBD</splitYType>
+                  <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitBD</splitXYType>
+                  <opClass>PAreasBDTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -114,30 +135,30 @@
             <id>generate-area-P-BI</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasBITest.java
-                  </target>
-                  <properties>
-                    <scalarType>java.math.BigInteger</scalarType>
-                    <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaBI</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBI</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasBI</areaOpsType>
-                    <className>PAreasBITest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitBI</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitBI</splitYType>
-                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitBI</splitXYType>
-                    <opClass>PAreasBITestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasBITest.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigInteger</scalarType>
+                  <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.parameterized.areas.PAreaBI</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBI</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasBI</areaOpsType>
+                  <className>PAreasBITest</className>
+                  <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitBI</splitXType>
+                  <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitBI</splitYType>
+                  <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitBI</splitXYType>
+                  <opClass>PAreasBITestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -145,30 +166,30 @@
             <id>generate-area-P-F</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasFTest.java
-                  </target>
-                  <properties>
-                    <scalarType>float</scalarType>
-                    <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaF</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeF</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasF</areaOpsType>
-                    <className>PAreasFTest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitF</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitF</splitYType>
-                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitF</splitXYType>
-                    <opClass>PAreasFTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasFTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>float</scalarType>
+                  <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.parameterized.areas.PAreaF</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeF</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasF</areaOpsType>
+                  <className>PAreasFTest</className>
+                  <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitF</splitXType>
+                  <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitF</splitYType>
+                  <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitF</splitXYType>
+                  <opClass>PAreasFTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -176,30 +197,30 @@
             <id>generate-area-P-I</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasITest.java
-                  </target>
-                  <properties>
-                    <scalarType>int</scalarType>
-                    <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaI</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeI</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasI</areaOpsType>
-                    <className>PAreasITest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitI</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitI</splitYType>
-                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitI</splitXYType>
-                    <opClass>PAreasITestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasITest.java
+                </outputFile>
+                <properties>
+                  <scalarType>int</scalarType>
+                  <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.parameterized.areas.PAreaI</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeI</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasI</areaOpsType>
+                  <className>PAreasITest</className>
+                  <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitI</splitXType>
+                  <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitI</splitYType>
+                  <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitI</splitXYType>
+                  <opClass>PAreasITestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -207,30 +228,30 @@
             <id>generate-area-P-L</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasLTest.java
-                  </target>
-                  <properties>
-                    <scalarType>long</scalarType>
-                    <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaL</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeL</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasL</areaOpsType>
-                    <className>PAreasLTest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitL</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitL</splitYType>
-                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitL</splitXYType>
-                    <opClass>PAreasLTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasLTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>long</scalarType>
+                  <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.parameterized.areas.PAreaL</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeL</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasL</areaOpsType>
+                  <className>PAreasLTest</className>
+                  <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitL</splitXType>
+                  <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitL</splitYType>
+                  <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitL</splitXYType>
+                  <opClass>PAreasLTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -238,30 +259,30 @@
             <id>generate-area-P-D</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PAreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasDTest.java
-                  </target>
-                  <properties>
-                    <scalarType>double</scalarType>
-                    <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.parameterized.areas.PAreaD</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeD</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasD</areaOpsType>
-                    <className>PAreasDTest</className>
-                    <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitD</splitXType>
-                    <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitD</splitYType>
-                    <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitD</splitXYType>
-                    <opClass>PAreasDTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PAreasDTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>double</scalarType>
+                  <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.parameterized.areas.PAreaD</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeD</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.parameterized.areas.PAreasD</areaOpsType>
+                  <className>PAreasDTest</className>
+                  <splitXType>com.io7m.jregions.core.parameterized.areas.PAreaXSplitD</splitXType>
+                  <splitYType>com.io7m.jregions.core.parameterized.areas.PAreaYSplitD</splitYType>
+                  <splitXYType>com.io7m.jregions.core.parameterized.areas.PAreaXYSplitD</splitXYType>
+                  <opClass>PAreasDTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -269,30 +290,30 @@
             <id>generate-area-BD</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>AreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasBDTest.java
-                  </target>
-                  <properties>
-                    <scalarType>java.math.BigDecimal</scalarType>
-                    <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaBD</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBD</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasBD</areaOpsType>
-                    <className>AreasBDTest</className>
-                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitBD</splitXType>
-                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitBD</splitYType>
-                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitBD</splitXYType>
-                    <opClass>AreasBDTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>AreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/AreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/AreasBDTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigDecimal</scalarType>
+                  <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.unparameterized.areas.AreaBD</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBD</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasBD</areaOpsType>
+                  <className>AreasBDTest</className>
+                  <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitBD</splitXType>
+                  <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitBD</splitYType>
+                  <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitBD</splitXYType>
+                  <opClass>AreasBDTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -300,30 +321,30 @@
             <id>generate-area-BI</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>AreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasBITest.java
-                  </target>
-                  <properties>
-                    <scalarType>java.math.BigInteger</scalarType>
-                    <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaBI</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBI</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasBI</areaOpsType>
-                    <className>AreasBITest</className>
-                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitBI</splitXType>
-                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitBI</splitYType>
-                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitBI</splitXYType>
-                    <opClass>AreasBITestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>AreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/AreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/AreasBITest.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigInteger</scalarType>
+                  <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.unparameterized.areas.AreaBI</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBI</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasBI</areaOpsType>
+                  <className>AreasBITest</className>
+                  <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitBI</splitXType>
+                  <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitBI</splitYType>
+                  <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitBI</splitXYType>
+                  <opClass>AreasBITestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -331,30 +352,30 @@
             <id>generate-area-F</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>AreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasFTest.java
-                  </target>
-                  <properties>
-                    <scalarType>float</scalarType>
-                    <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaF</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeF</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasF</areaOpsType>
-                    <className>AreasFTest</className>
-                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitF</splitXType>
-                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitF</splitYType>
-                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitF</splitXYType>
-                    <opClass>AreasFTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>AreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/AreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/AreasFTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>float</scalarType>
+                  <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.unparameterized.areas.AreaF</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeF</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasF</areaOpsType>
+                  <className>AreasFTest</className>
+                  <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitF</splitXType>
+                  <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitF</splitYType>
+                  <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitF</splitXYType>
+                  <opClass>AreasFTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -362,30 +383,30 @@
             <id>generate-area-I</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>AreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasITest.java
-                  </target>
-                  <properties>
-                    <scalarType>int</scalarType>
-                    <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaI</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeI</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasI</areaOpsType>
-                    <className>AreasITest</className>
-                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitI</splitXType>
-                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitI</splitYType>
-                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitI</splitXYType>
-                    <opClass>AreasITestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>AreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/AreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/AreasITest.java
+                </outputFile>
+                <properties>
+                  <scalarType>int</scalarType>
+                  <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.unparameterized.areas.AreaI</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeI</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasI</areaOpsType>
+                  <className>AreasITest</className>
+                  <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitI</splitXType>
+                  <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitI</splitYType>
+                  <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitI</splitXYType>
+                  <opClass>AreasITestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -393,30 +414,30 @@
             <id>generate-area-L</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>AreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasLTest.java
-                  </target>
-                  <properties>
-                    <scalarType>long</scalarType>
-                    <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaL</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeL</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasL</areaOpsType>
-                    <className>AreasLTest</className>
-                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitL</splitXType>
-                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitL</splitYType>
-                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitL</splitXYType>
-                    <opClass>AreasLTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>AreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/AreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/AreasLTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>long</scalarType>
+                  <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.unparameterized.areas.AreaL</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeL</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasL</areaOpsType>
+                  <className>AreasLTest</className>
+                  <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitL</splitXType>
+                  <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitL</splitYType>
+                  <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitL</splitXYType>
+                  <opClass>AreasLTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -424,30 +445,30 @@
             <id>generate-area-D</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>AreasTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/AreasDTest.java
-                  </target>
-                  <properties>
-                    <scalarType>double</scalarType>
-                    <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
-                    <areaType>com.io7m.jregions.core.unparameterized.areas.AreaD</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeD</areaSizeType>
-                    <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasD</areaOpsType>
-                    <className>AreasDTest</className>
-                    <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitD</splitXType>
-                    <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitD</splitYType>
-                    <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitD</splitXYType>
-                    <opClass>AreasDTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>AreasTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/AreasTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/AreasDTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>double</scalarType>
+                  <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
+                  <areaType>com.io7m.jregions.core.unparameterized.areas.AreaD</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeD</areaSizeType>
+                  <areaOpsType>com.io7m.jregions.core.unparameterized.areas.AreasD</areaOpsType>
+                  <className>AreasDTest</className>
+                  <splitXType>com.io7m.jregions.core.unparameterized.areas.AreaXSplitD</splitXType>
+                  <splitYType>com.io7m.jregions.core.unparameterized.areas.AreaYSplitD</splitYType>
+                  <splitXYType>com.io7m.jregions.core.unparameterized.areas.AreaXYSplitD</splitXYType>
+                  <opClass>AreasDTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -455,29 +476,29 @@
             <id>generate-volume-P-BD</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PVolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesBDTest.java
-                  </target>
-                  <properties>
-                    <scalarType>java.math.BigDecimal</scalarType>
-                    <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeBD</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBD</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesBD</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBD
-                    </volumeXYZSplitType>
-                    <className>PVolumesBDTest</className>
-                    <opClass>PVolumesBDTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesBDTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigDecimal</scalarType>
+                  <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeBD</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBD</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesBD</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBD
+                  </volumeXYZSplitType>
+                  <className>PVolumesBDTest</className>
+                  <opClass>PVolumesBDTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -485,29 +506,29 @@
             <id>generate-volume-P-BI</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PVolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesBITest.java
-                  </target>
-                  <properties>
-                    <scalarType>java.math.BigInteger</scalarType>
-                    <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeBI</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBI</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesBI</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBI
-                    </volumeXYZSplitType>
-                    <className>PVolumesBITest</className>
-                    <opClass>PVolumesBITestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesBITest.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigInteger</scalarType>
+                  <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeBI</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBI</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesBI</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBI
+                  </volumeXYZSplitType>
+                  <className>PVolumesBITest</className>
+                  <opClass>PVolumesBITestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -515,29 +536,29 @@
             <id>generate-volume-P-F</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PVolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesFTest.java
-                  </target>
-                  <properties>
-                    <scalarType>float</scalarType>
-                    <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeF</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeF</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesF</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitF
-                    </volumeXYZSplitType>
-                    <className>PVolumesFTest</className>
-                    <opClass>PVolumesFTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesFTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>float</scalarType>
+                  <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeF</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeF</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesF</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitF
+                  </volumeXYZSplitType>
+                  <className>PVolumesFTest</className>
+                  <opClass>PVolumesFTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -545,29 +566,29 @@
             <id>generate-volume-P-I</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PVolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesITest.java
-                  </target>
-                  <properties>
-                    <scalarType>int</scalarType>
-                    <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeI</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeI</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesI</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitI
-                    </volumeXYZSplitType>
-                    <className>PVolumesITest</className>
-                    <opClass>PVolumesITestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesITest.java
+                </outputFile>
+                <properties>
+                  <scalarType>int</scalarType>
+                  <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeI</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeI</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesI</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitI
+                  </volumeXYZSplitType>
+                  <className>PVolumesITest</className>
+                  <opClass>PVolumesITestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -575,29 +596,29 @@
             <id>generate-volume-P-L</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PVolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesLTest.java
-                  </target>
-                  <properties>
-                    <scalarType>long</scalarType>
-                    <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeL</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeL</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesL</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitL
-                    </volumeXYZSplitType>
-                    <className>PVolumesLTest</className>
-                    <opClass>PVolumesLTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesLTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>long</scalarType>
+                  <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeL</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeL</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesL</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitL
+                  </volumeXYZSplitType>
+                  <className>PVolumesLTest</className>
+                  <opClass>PVolumesLTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -605,29 +626,29 @@
             <id>generate-volume-P-D</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>PVolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesDTest.java
-                  </target>
-                  <properties>
-                    <scalarType>double</scalarType>
-                    <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeD</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeD</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesD</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitD
-                    </volumeXYZSplitType>
-                    <className>PVolumesDTest</className>
-                    <opClass>PVolumesDTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/PVolumesDTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>double</scalarType>
+                  <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.parameterized.volumes.PVolumeD</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeD</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.parameterized.volumes.PVolumesD</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitD
+                  </volumeXYZSplitType>
+                  <className>PVolumesDTest</className>
+                  <opClass>PVolumesDTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -635,29 +656,29 @@
             <id>generate-volume-BD</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>VolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesBDTest.java
-                  </target>
-                  <properties>
-                    <scalarType>java.math.BigDecimal</scalarType>
-                    <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeBD</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBD</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesBD</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBD
-                    </volumeXYZSplitType>
-                    <className>VolumesBDTest</className>
-                    <opClass>VolumesBDTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>VolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/VolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/VolumesBDTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigDecimal</scalarType>
+                  <scalarGeneratorType>Generator&lt;java.math.BigDecimal&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeBD</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBD</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesBD</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBD
+                  </volumeXYZSplitType>
+                  <className>VolumesBDTest</className>
+                  <opClass>VolumesBDTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -665,29 +686,29 @@
             <id>generate-volume-BI</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>VolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesBITest.java
-                  </target>
-                  <properties>
-                    <scalarType>java.math.BigInteger</scalarType>
-                    <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeBI</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBI</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesBI</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBI
-                    </volumeXYZSplitType>
-                    <className>VolumesBITest</className>
-                    <opClass>VolumesBITestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>VolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/VolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/VolumesBITest.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigInteger</scalarType>
+                  <scalarGeneratorType>Generator&lt;java.math.BigInteger&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeBI</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBI</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesBI</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBI
+                  </volumeXYZSplitType>
+                  <className>VolumesBITest</className>
+                  <opClass>VolumesBITestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -695,29 +716,29 @@
             <id>generate-volume-F</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>VolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesFTest.java
-                  </target>
-                  <properties>
-                    <scalarType>float</scalarType>
-                    <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeF</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeF</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesF</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitF
-                    </volumeXYZSplitType>
-                    <className>VolumesFTest</className>
-                    <opClass>VolumesFTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>VolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/VolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/VolumesFTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>float</scalarType>
+                  <scalarGeneratorType>Generator&lt;Float&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeF</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeF</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesF</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitF
+                  </volumeXYZSplitType>
+                  <className>VolumesFTest</className>
+                  <opClass>VolumesFTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -725,29 +746,29 @@
             <id>generate-volume-I</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>VolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesITest.java
-                  </target>
-                  <properties>
-                    <scalarType>int</scalarType>
-                    <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeI</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeI</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesI</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitI
-                    </volumeXYZSplitType>
-                    <className>VolumesITest</className>
-                    <opClass>VolumesITestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>VolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/VolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/VolumesITest.java
+                </outputFile>
+                <properties>
+                  <scalarType>int</scalarType>
+                  <scalarGeneratorType>Generator&lt;Integer&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeI</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeI</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesI</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitI
+                  </volumeXYZSplitType>
+                  <className>VolumesITest</className>
+                  <opClass>VolumesITestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -755,29 +776,29 @@
             <id>generate-volume-L</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>VolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesLTest.java
-                  </target>
-                  <properties>
-                    <scalarType>long</scalarType>
-                    <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeL</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeL</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesL</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitL
-                    </volumeXYZSplitType>
-                    <className>VolumesLTest</className>
-                    <opClass>VolumesLTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>VolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/VolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/VolumesLTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>long</scalarType>
+                  <scalarGeneratorType>Generator&lt;Long&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeL</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeL</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesL</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitL
+                  </volumeXYZSplitType>
+                  <className>VolumesLTest</className>
+                  <opClass>VolumesLTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -785,29 +806,29 @@
             <id>generate-volume-D</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/test/string-template</directory>
-                  <name>VolumesTest</name>
-                  <target>
-                    ${project.build.directory}/generated-test-sources/string-template/com/io7m/jregions/tests/core/unparameterized/VolumesDTest.java
-                  </target>
-                  <properties>
-                    <scalarType>double</scalarType>
-                    <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
-                    <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeD</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeD</volumeSizeType>
-                    <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesD</volumeOpsType>
-                    <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitD
-                    </volumeXYZSplitType>
-                    <className>VolumesDTest</className>
-                    <opClass>VolumesDTestOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>VolumesTest</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/VolumesTest.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/tests/core/parameterized/VolumesDTest.java
+                </outputFile>
+                <properties>
+                  <scalarType>double</scalarType>
+                  <scalarGeneratorType>Generator&lt;Double&gt;</scalarGeneratorType>
+                  <volumeType>com.io7m.jregions.core.unparameterized.volumes.VolumeD</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeD</volumeSizeType>
+                  <volumeOpsType>com.io7m.jregions.core.unparameterized.volumes.VolumesD</volumeOpsType>
+                  <volumeXYZSplitType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitD
+                  </volumeXYZSplitType>
+                  <className>VolumesDTest</className>
+                  <opClass>VolumesDTestOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
         </executions>
@@ -821,11 +842,11 @@
             <id>add-source</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>add-test-source</goal>
+              <goal>add-source</goal>
             </goals>
             <configuration>
               <sources>
-                <source>${project.build.directory}/generated-test-sources/string-template</source>
+                <source>${project.build.directory}/generated-sources/string-template</source>
               </sources>
             </configuration>
           </execution>

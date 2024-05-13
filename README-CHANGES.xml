@@ -110,13 +110,26 @@
         </c:change>
       </c:changes>
     </c:release>
-    <c:release date="2022-04-09T16:34:20+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="4.0.0">
+    <c:release date="2022-04-09T00:00:00+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="4.0.0">
       <c:changes>
         <c:change compatible="false" date="2022-04-09T00:00:00+00:00" summary="Require JDK 17"/>
       </c:changes>
     </c:release>
+    <c:release date="2024-05-13T20:21:27+00:00" is-open="false" ticket-system="com.github.io7m.jregions" version="5.0.0">
+      <c:changes>
+        <c:change date="2024-04-19T00:00:00+00:00" summary="Update nl.jqno.equalsverifier:equalsverifier:3.15.5 → 3.16.1."/>
+        <c:change date="2024-04-19T00:00:00+00:00" summary="Update org.immutables:value:2.10.0 → 2.10.1."/>
+        <c:change date="2024-04-19T00:00:00+00:00" summary="Update ch.qos.logback:logback-classic:1.4.14 → 1.5.6."/>
+        <c:change date="2024-04-20T00:00:00+00:00" summary="Update junit.version:5.10.1 → 5.10.2."/>
+        <c:change date="2024-04-22T00:00:00+00:00" summary="Update org.slf4j:slf4j-api:2.0.10 → 2.0.13."/>
+        <c:change date="2024-05-05T00:00:00+00:00" summary="Update com.io7m.jaffirm:com.io7m.jaffirm.core:4.0.0 → 4.0.1."/>
+        <c:change compatible="false" date="2024-05-12T00:00:00+00:00" summary="Remove com.io7m.jregions.generators module."/>
+        <c:change date="2024-05-12T00:00:00+00:00" summary="Add new com.io7m.jregions.arbitraries module."/>
+        <c:change compatible="false" date="2024-05-13T00:00:00+00:00" summary="Require JDK 21."/>
+      </c:changes>
+    </c:release>
   </c:releases>
   <c:ticket-systems>
-    <c:ticket-system default="false" id="com.github.io7m.jregions" url="https://github.com/io7m/jregions/issues/"/>
+    <c:ticket-system default="false" id="com.github.io7m.jregions" url="https://www.github.com/io7m-com/jregions/issues/"/>
   </c:ticket-systems>
 </c:changelog>

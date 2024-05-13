@@ -1,0 +1,1906 @@
+AreasTest(
+  scalarType,
+  scalarGeneratorType,
+  areaType,
+  areaSizeType,
+  areaOpsType,
+  className,
+  splitXType,
+  splitYType,
+  splitXYType,
+  opClass) ::= <<
+/*
+ * Copyright © 2017 \<code@io7m.com\> http://io7m.com
+ *
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+ * SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+ * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ */
+
+package com.io7m.jregions.tests.core.unparameterized;
+
+import com.io7m.jaffirm.core.Preconditions;
+import com.io7m.jaffirm.core.PreconditionViolationException;
+import java.util.Objects;
+import com.io7m.junreachable.UnreachableCodeException;
+
+import com.io7m.percentpass.extension.PercentPassing;
+
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import java.util.Objects;
+
+public final class <className>
+{
+  @PercentPassing
+  public void testCreateAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var c =
+      <areaOpsType>.create(
+        outer.minimumX(),
+        outer.minimumY(),
+        outer.sizeX(),
+        outer.sizeY());
+
+    <opClass>.checkEquals(outer.minimumX(), c.minimumX());
+    <opClass>.checkEquals(outer.minimumY(), c.minimumY());
+    <opClass>.checkEquals(outer.maximumX(), c.maximumX());
+    <opClass>.checkEquals(outer.maximumY(), c.maximumY());
+  }
+
+  @PercentPassing
+  public void testContainsSelfAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+    Assertions.assertTrue(<areaOpsType>.contains(outer, outer));
+  }
+
+  @Test
+  public void testContainsFalseSpecific()
+    throws Exception
+  {
+    final var area = <areaType>.of(<opClass>.ZERO, <opClass>.constant("10"), <opClass>.ZERO, <opClass>.constant("10"));
+
+    final var left = <areaType>.of(<opClass>.constant("-10"), <opClass>.constant("-1"), <opClass>.ZERO, <opClass>.constant("10"));
+    final var right = <areaType>.of(<opClass>.constant("11"), <opClass>.constant("20"), <opClass>.ZERO, <opClass>.constant("10"));
+    final var top = <areaType>.of(<opClass>.ZERO, <opClass>.constant("10"), <opClass>.constant("-10"), <opClass>.constant("-1"));
+    final var bottom = <areaType>.of(<opClass>.ZERO, <opClass>.constant("10"), <opClass>.constant("11"), <opClass>.constant("20"));
+
+    Assertions.assertFalse(<areaOpsType>.contains(area, left));
+    Assertions.assertFalse(<areaOpsType>.contains(area, right));
+    Assertions.assertFalse(<areaOpsType>.contains(area, top));
+    Assertions.assertFalse(<areaOpsType>.contains(area, bottom));
+
+    Assertions.assertFalse(<areaOpsType>.contains(left, area));
+    Assertions.assertFalse(<areaOpsType>.contains(right, area));
+    Assertions.assertFalse(<areaOpsType>.contains(top, area));
+    Assertions.assertFalse(<areaOpsType>.contains(bottom, area));
+  }
+
+  @PercentPassing
+  public void testMoveRelative()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var x = gen.sample();
+    final var y = gen.sample();
+    final var moved = <areaOpsType>.moveRelative(outer, x, y);
+
+    <opClass>.checkEquals(outer.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
+    <opClass>.checkEquals(<opClass>.absolute(x), <opClass>.absoluteDifference(outer.minimumX(), moved.minimumX()));
+    <opClass>.checkEquals(<opClass>.absolute(y), <opClass>.absoluteDifference(outer.minimumY(), moved.minimumY()));
+  }
+
+  @PercentPassing
+  public void testMoveRelativeClampedX()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var left_offset = gen.sample();
+    final var right_offset = gen.sample();
+    final var top_offset = gen.sample();
+    final var bottom_offset = gen.sample();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+    Assertions.assertTrue(<areaOpsType>.contains(outer, inner));
+
+    final var x = gen.sample();
+    final var moved = <areaOpsType>.moveRelativeClampedX(outer, inner, x);
+
+    <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+
+    Assertions.assertTrue(<areaOpsType>.contains(outer, moved));
+  }
+
+  @PercentPassing
+  public void testMoveRelativeClampedXZero()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var left_offset = gen.sample();
+    final var right_offset = gen.sample();
+    final var top_offset = gen.sample();
+    final var bottom_offset = gen.sample();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    final var x = gen.sample();
+    final var moved = <areaOpsType>.moveRelativeClampedX(outer, inner, <opClass>.ZERO);
+
+    Assertions.assertEquals(inner, moved);
+  }
+
+  @PercentPassing
+  public void testMoveRelativeClampedXNoContainment()
+    throws Exception
+  {
+    final var nnGen =
+      <opClass>.createWideNonNegativeScalarGenerator();
+    final var gen =
+      <opClass>.createWideScalarGenerator();
+    final var generator =
+      <opClass>.createGenerator();
+
+    final var outer = generator.sample();
+
+    final var left_offset = nnGen.sample();
+    final var right_offset = nnGen.sample();
+    final var top_offset = nnGen.sample();
+    final var bottom_offset = nnGen.sample();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    Assertions.assertFalse(<areaOpsType>.contains(inner, outer));
+
+    final var x = gen.sample();
+
+    try {
+      <areaOpsType>.moveRelativeClampedX(inner, outer, x);
+      Assertions.fail();
+    } catch (PreconditionViolationException e) {
+      // Good
+    }
+  }
+
+  @PercentPassing
+  public void testMoveRelativeClampedY()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var left_offset = gen.sample();
+    final var right_offset = gen.sample();
+    final var top_offset = gen.sample();
+    final var bottom_offset = gen.sample();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+    Assertions.assertTrue(<areaOpsType>.contains(outer, inner));
+
+    final var y = gen.sample();
+    final var moved = <areaOpsType>.moveRelativeClampedY(outer, inner, y);
+
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+
+    Assertions.assertTrue(<areaOpsType>.contains(outer, moved));
+  }
+
+  @PercentPassing
+  public void testMoveRelativeClampedYZero()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var left_offset = gen.sample();
+    final var right_offset = gen.sample();
+    final var top_offset = gen.sample();
+    final var bottom_offset = gen.sample();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    final var x = gen.sample();
+    final var moved = <areaOpsType>.moveRelativeClampedY(outer, inner, <opClass>.ZERO);
+
+    Assertions.assertEquals(inner, moved);
+  }
+
+  @PercentPassing
+  public void testMoveRelativeClampedYNoContainment()
+    throws Exception
+  {
+    final var nnGen =
+      <opClass>.createWideNonNegativeScalarGenerator();
+    final var gen =
+      <opClass>.createWideScalarGenerator();
+    final var generator =
+      <opClass>.createGenerator();
+
+    final var outer = generator.sample();
+
+    final var left_offset = nnGen.sample();
+    final var right_offset = nnGen.sample();
+    final var top_offset = nnGen.sample();
+    final var bottom_offset = nnGen.sample();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    Assertions.assertFalse(<areaOpsType>.contains(inner, outer));
+
+    final var y = gen.sample();
+
+    try {
+      <areaOpsType>.moveRelativeClampedY(inner, outer, y);
+      Assertions.fail();
+    } catch (PreconditionViolationException e) {
+      // Good
+    }
+  }
+
+  @PercentPassing
+  public void testMoveRelativeClamped()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var left_offset = gen.sample();
+    final var right_offset = gen.sample();
+    final var top_offset = gen.sample();
+    final var bottom_offset = gen.sample();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    final var x = gen.sample();
+    final var y = gen.sample();
+    final var moved = <areaOpsType>.moveRelativeClamped(outer, inner, x, y);
+
+    <opClass>.checkEquals(inner.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), moved.sizeY());
+
+    Assertions.assertTrue(<areaOpsType>.contains(outer, inner));
+  }
+
+  @PercentPassing
+  public void testMoveAbsolute()
+    throws Exception
+  {
+    final var gen = <opClass>.createWideScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+
+    final var outer = generator.sample();
+    final var x = gen.sample();
+    final var y = gen.sample();
+    final var moved = <areaOpsType>.moveAbsolute(outer, x, y);
+
+    <opClass>.checkEquals(outer.sizeX(), moved.sizeX());
+    <opClass>.checkEquals(outer.sizeY(), moved.sizeY());
+    <opClass>.checkEquals(x, moved.minimumX());
+    <opClass>.checkEquals(y, moved.minimumY());
+  }
+
+  @PercentPassing
+  public void testMoveToOrigin()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+
+    final var outer = generator.sample();
+    final var moved = <areaOpsType>.moveToOrigin(outer);
+
+    <opClass>.checkEquals(outer.sizeX(),  moved.sizeX());
+    <opClass>.checkEquals(outer.sizeY(),  moved.sizeY());
+    <opClass>.checkEquals(<opClass>.ZERO,  moved.minimumX());
+    <opClass>.checkEquals(<opClass>.ZERO,  moved.minimumY());
+  }
+
+  @PercentPassing
+  public void testEqualsHashcode()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+
+    final var area = generator.sample();
+    final var other =
+      <areaType>.of(
+        area.minimumX(),
+        area.maximumX(),
+        area.minimumY(),
+        area.maximumY());
+    Assertions.assertEquals(area, area);
+    Assertions.assertEquals(area, other);
+    Assertions.assertEquals(other, area);
+    Assertions.assertEquals((long) area.hashCode(), (long) other.hashCode());
+
+    Assertions.assertNotEquals(area, null);
+    Assertions.assertNotEquals(area, Integer.valueOf(23));
+  }
+
+  @PercentPassing
+  public void testShowAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var any = generator.sample();
+
+    Assertions.assertEquals(<areaOpsType>.show(any), <areaOpsType>.show(any));
+
+    final var next = generator.sample();
+    if (!Objects.equals(next, any)) {
+      Assertions.assertNotEquals(<areaOpsType>.show(any), <areaOpsType>.show(next));
+    } else {
+      Assertions.assertEquals(<areaOpsType>.show(any), <areaOpsType>.show(next));
+    }
+  }
+
+  @Test
+  public void testZero()
+    throws Exception
+  {
+    final var area = <areaType>.of(<opClass>.ZERO, <opClass>.ZERO, <opClass>.ZERO, <opClass>.ZERO);
+    <opClass>.checkEquals(<opClass>.ZERO,  area.sizeX());
+    <opClass>.checkEquals(<opClass>.ZERO,  area.sizeY());
+  }
+
+  @Test
+  public void testHollowOut()
+    throws Exception
+  {
+    final var outer = <areaType>.of(<opClass>.ZERO, <opClass>.constant("99"), <opClass>.ZERO, <opClass>.constant("99"));
+    final var inner = <areaOpsType>.hollowOut(
+      outer,
+      <opClass>.constant("10"),
+      <opClass>.constant("20"),
+      <opClass>.constant("30"),
+      <opClass>.constant("40"));
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.minimumX());
+    <opClass>.checkEquals(<opClass>.subtract(<opClass>.constant("99"), <opClass>.constant("20")),  inner.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("30"),  inner.minimumY());
+    <opClass>.checkEquals(<opClass>.subtract(<opClass>.constant("99"), <opClass>.constant("40")),  inner.maximumY());
+  }
+
+  @PercentPassing
+  public void testHollowOutSelfAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var any = generator.sample();
+
+    Assertions.assertEquals(any, <areaOpsType>.hollowOut(any, <opClass>.ZERO, <opClass>.ZERO,  <opClass>.ZERO, <opClass>.ZERO));
+  }
+
+  @PercentPassing
+  public void testHollowOutEvenlyAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowNonNegativeScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var any = generator.sample();
+
+    final var offset = gen.sample();
+    final var hollow0 =
+      <areaOpsType>.hollowOut(any, offset, offset, offset, offset);
+    final var hollow1 =
+      <areaOpsType>.hollowOutEvenly(any, offset);
+    Assertions.assertEquals(hollow0, hollow1);
+  }
+
+  @Test
+  public void testHollowOutTooLargeMinX()
+    throws Exception
+  {
+    final var outer = <areaType>.of(<opClass>.ZERO, <opClass>.constant("100"), <opClass>.ZERO, <opClass>.constant("100"));
+    final var inner = <areaOpsType>.hollowOut(
+      outer,
+      <opClass>.constant("120"),
+      <opClass>.constant("20"),
+      <opClass>.constant("30"),
+      <opClass>.constant("40"));
+
+    <opClass>.checkEquals(<opClass>.constant("100"),  inner.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("100"),  inner.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("30"),  inner.minimumY());
+    <opClass>.checkEquals(<opClass>.subtract(<opClass>.constant("100"), <opClass>.constant("40")),  inner.maximumY());
+  }
+
+  @Test
+  public void testHollowOutTooLargeMaxX()
+    throws Exception
+  {
+    final var outer = <areaType>.of(<opClass>.ZERO, <opClass>.constant("100"), <opClass>.ZERO, <opClass>.constant("100"));
+    final var inner = <areaOpsType>.hollowOut(
+      outer,
+      <opClass>.constant("10"),
+      <opClass>.constant("120"),
+      <opClass>.constant("30"),
+      <opClass>.constant("40"));
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("30"),  inner.minimumY());
+    <opClass>.checkEquals(<opClass>.subtract(<opClass>.constant("100"), <opClass>.constant("40")),  inner.maximumY());
+  }
+
+  @Test
+  public void testHollowOutTooLargeMinY()
+    throws Exception
+  {
+    final var outer = <areaType>.of(<opClass>.ZERO, <opClass>.constant("100"), <opClass>.ZERO, <opClass>.constant("100"));
+    final var inner = <areaOpsType>.hollowOut(
+      outer,
+      <opClass>.constant("10"),
+      <opClass>.constant("20"),
+      <opClass>.constant("120"),
+      <opClass>.constant("40"));
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.minimumX());
+    <opClass>.checkEquals(<opClass>.subtract(<opClass>.constant("100"), <opClass>.constant("20")),  inner.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("100"),  inner.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("100"),  inner.maximumY());
+  }
+
+  @Test
+  public void testHollowOutTooLargeMaxY()
+    throws Exception
+  {
+    final var outer = <areaType>.of(<opClass>.ZERO, <opClass>.constant("100"), <opClass>.ZERO, <opClass>.constant("100"));
+    final var inner = <areaOpsType>.hollowOut(
+      outer,
+      <opClass>.constant("10"),
+      <opClass>.constant("20"),
+      <opClass>.constant("30"),
+      <opClass>.constant("120"));
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.minimumX());
+    <opClass>.checkEquals(<opClass>.subtract(<opClass>.constant("100"), <opClass>.constant("20")),  inner.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("30"),  inner.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("30"),  inner.maximumY());
+  }
+
+  @Test
+  public void testAlignHorizontallyCenterSpecific()
+    throws Exception
+  {
+    final var outer = <areaType>.of(<opClass>.ZERO, <opClass>.constant("100"), <opClass>.ZERO, <opClass>.constant("100"));
+    final var inner = <areaType>.of(<opClass>.ZERO, <opClass>.constant("10"), <opClass>.ZERO, <opClass>.constant("10"));
+
+    <opClass>.checkEquals(<opClass>.constant("100"),  outer.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("100"),  outer.sizeY());
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeY());
+
+    final var aligned =
+      <areaOpsType>.alignHorizontallyCenter(outer, inner);
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeY());
+    <opClass>.checkEquals(<opClass>.constant("45"),  aligned.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("55"),  aligned.maximumX());
+  }
+
+  @PercentPassing
+  public void testAlignHorizontallyMinXAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned = <areaOpsType>.alignHorizontallyMinX(outer, inner);
+
+    <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
+    <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+
+    <opClass>.checkEquals(aligned.minimumX(), outer.minimumX());
+  }
+
+  @PercentPassing
+  public void testAlignHorizontallyMinXOffsetAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var offset = gen.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignHorizontallyMinXOffset(outer, inner, offset);
+
+    <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
+    <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+
+    <opClass>.checkEquals(aligned.minimumX(), <opClass>.add(outer.minimumX(), offset));
+  }
+
+  @PercentPassing
+  public void testAlignHorizontallyMaxXAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignHorizontallyMaxX(outer, inner);
+
+    <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
+    <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+
+    <opClass>.checkEquals(aligned.maximumX(), outer.maximumX());
+  }
+
+  @PercentPassing
+  public void testAlignHorizontallyMaxXOffsetAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var offset = gen.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignHorizontallyMaxXOffset(outer, inner, offset);
+
+    <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
+    <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+
+    <opClass>.checkEquals(aligned.maximumX(), <opClass>.subtract(outer.maximumX(), offset));
+  }
+
+  @PercentPassing
+  public void testAlignHorizontallyCenterAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignHorizontallyCenter(outer, inner);
+
+    <opClass>.checkEquals(inner.minimumY(), aligned.minimumY());
+    <opClass>.checkEquals(inner.maximumY(), aligned.maximumY());
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+
+    final var diff_left =
+      <opClass>.absoluteDifference(
+        outer.minimumX(),
+        aligned.minimumX());
+    final var diff_right =
+      <opClass>.absoluteDifference(
+        outer.maximumX(),
+        aligned.maximumX());
+    Assertions.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
+  }
+
+  @Test
+  public void testAlignVerticallyCenterSpecific()
+    throws Exception
+  {
+    final var outer = <areaType>.of(<opClass>.ZERO, <opClass>.constant("100"), <opClass>.ZERO, <opClass>.constant("100"));
+    final var inner = <areaType>.of(<opClass>.ZERO, <opClass>.constant("10"), <opClass>.ZERO, <opClass>.constant("10"));
+
+    <opClass>.checkEquals(<opClass>.constant("100"),  outer.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("100"),  outer.sizeY());
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeY());
+
+    final var aligned =
+      <areaOpsType>.alignVerticallyCenter(outer, inner);
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeY());
+    <opClass>.checkEquals(<opClass>.ZERO,  aligned.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("45"),  aligned.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("55"),  aligned.maximumY());
+  }
+
+  @Test
+  public void testAlignVerticallyCenterSpecific2()
+    throws Exception
+  {
+    final var outer = <areaType>.of(<opClass>.constant("6"), <opClass>.constant("634"), <opClass>.ZERO, <opClass>.constant("16"));
+    final var inner = <areaType>.of(<opClass>.constant("3"), <opClass>.constant("13"), <opClass>.constant("6"), <opClass>.constant("16"));
+
+    <opClass>.checkEquals(<opClass>.constant("628"),  outer.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("16"),  outer.sizeY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  inner.sizeY());
+
+    final var aligned =
+      <areaOpsType>.alignVerticallyCenter(outer, inner);
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  aligned.sizeY());
+
+    <opClass>.checkEquals(<opClass>.constant("3"),  aligned.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("13"),  aligned.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("3"),  aligned.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("13"),  aligned.maximumY());
+  }
+
+  @PercentPassing
+  public void testAlignVerticallyCenterAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignVerticallyCenter(outer, inner);
+
+    <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    final var diff_top =
+      <opClass>.absoluteDifference(
+        outer.minimumY(),
+        aligned.minimumY());
+    final var diff_bottom =
+      <opClass>.absoluteDifference(
+        outer.maximumY(),
+        aligned.maximumY());
+    final var diff_diff =
+      <opClass>.absoluteDifference(diff_bottom, diff_top);
+    Assertions.assertTrue(<opClass>.compare(diff_diff, <opClass>.constant("1")) \<= 0);
+  }
+
+  @PercentPassing
+  public void testAlignVerticallyMinYAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignVerticallyMinY(outer, inner);
+
+    <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(aligned.minimumY(),  outer.minimumY());
+  }
+
+  @PercentPassing
+  public void testAlignVerticallyMinYOffsetAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var offset = gen.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignVerticallyMinYOffset(outer, inner, offset);
+
+    <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(aligned.minimumY(), <opClass>.add(outer.minimumY(), offset));
+  }
+
+  @PercentPassing
+  public void testAlignVerticallyMaxYAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignVerticallyMaxY(outer, inner);
+
+    <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(aligned.maximumY(),  outer.maximumY());
+  }
+
+  @PercentPassing
+  public void testAlignVerticallyMaxYOffsetAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var offset = gen.sample();
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignVerticallyMaxYOffset(outer, inner, offset);
+
+    <opClass>.checkEquals(inner.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(inner.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(aligned.maximumY(), <opClass>.subtract(outer.maximumY(), offset));
+  }
+
+  @PercentPassing
+  public void testAlignCenterAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignCenter(outer, inner);
+
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    final var diff_left =
+      <opClass>.absoluteDifference(
+        outer.minimumX(),
+        aligned.minimumX());
+    final var diff_right =
+      <opClass>.absoluteDifference(
+        outer.maximumX(),
+        aligned.maximumX());
+    final var diff_top =
+      <opClass>.absoluteDifference(
+        outer.minimumY(),
+        aligned.minimumY());
+    final var diff_bottom =
+      <opClass>.absoluteDifference(
+        outer.maximumY(),
+        aligned.maximumY());
+
+    Assertions.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_top, diff_bottom), <opClass>.constant("1")) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
+  }
+
+  @PercentPassing
+  public void testAlignMinYMinXAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignMinYMinX(outer, inner);
+
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(outer.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(outer.minimumY(),  aligned.minimumY());
+  }
+
+  @PercentPassing
+  public void testAlignMinYMinXOffsetAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var offset_top = gen.sample();
+    final var offset_left = gen.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignMinYMinXOffset(outer, inner, offset_left, offset_top);
+
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(<opClass>.add(outer.minimumX(), offset_left), aligned.minimumX());
+    <opClass>.checkEquals(<opClass>.add(outer.minimumY(), offset_top), aligned.minimumY());
+  }
+
+  @PercentPassing
+  public void testAlignMaxYMinXAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignMaxYMinX(outer, inner);
+
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(outer.minimumX(),  aligned.minimumX());
+    <opClass>.checkEquals(outer.maximumY(),  aligned.maximumY());
+  }
+
+  @PercentPassing
+  public void testAlignMaxYMinXOffsetAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var offset_bottom = gen.sample();
+    final var offset_left = gen.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignMaxYMinXOffset(
+        outer,
+        inner,
+        offset_left,
+        offset_bottom);
+
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(<opClass>.add(outer.minimumX(), offset_left), aligned.minimumX());
+    <opClass>.checkEquals(<opClass>.subtract(outer.maximumY(), offset_bottom), aligned.maximumY());
+  }
+
+  @PercentPassing
+  public void testAlignMaxYMaxXAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignMaxYMaxX(outer, inner);
+
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(outer.maximumX(),  aligned.maximumX());
+    <opClass>.checkEquals(outer.maximumY(),  aligned.maximumY());
+  }
+
+  @PercentPassing
+  public void testAlignMaxYMaxXOffsetAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var offset_bottom = gen.sample();
+    final var offset_right = gen.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignMaxYMaxXOffset(
+        outer,
+        inner,
+        offset_right,
+        offset_bottom);
+
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(<opClass>.subtract(outer.maximumX(), offset_right), aligned.maximumX());
+    <opClass>.checkEquals(<opClass>.subtract(outer.maximumY(), offset_bottom), aligned.maximumY());
+  }
+
+  @PercentPassing
+  public void testAlignMinYMaxXAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignMinYMaxX(outer, inner);
+
+    <opClass>.checkEquals(inner.sizeX(), aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(), aligned.sizeY());
+
+    <opClass>.checkEquals(outer.maximumX(), aligned.maximumX());
+    <opClass>.checkEquals(outer.minimumY(), aligned.minimumY());
+  }
+
+  @PercentPassing
+  public void testAlignMinYMaxXOffsetAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var offset_top = gen.sample();
+    final var offset_right = gen.sample();
+
+    final var inner = generator.sample();
+    final var aligned =
+      <areaOpsType>.alignMinYMaxXOffset(
+        outer,
+        inner,
+        offset_right,
+        offset_top);
+
+    <opClass>.checkEquals(inner.sizeX(),  aligned.sizeX());
+    <opClass>.checkEquals(inner.sizeY(),  aligned.sizeY());
+
+    <opClass>.checkEquals(<opClass>.subtract(outer.maximumX(), offset_right), aligned.maximumX());
+    <opClass>.checkEquals(<opClass>.add(outer.minimumY(), offset_top), aligned.minimumY());
+  }
+
+  @PercentPassing
+  public void testSetSizeFromMinYMinXAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowNonNegativeScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var expected_sizeX = gen.sample();
+    final var expected_sizeY = gen.sample();
+
+    final var resized =
+      <areaOpsType>.setSizeFromMinYMinX(
+        outer,
+        expected_sizeX,
+        expected_sizeY);
+
+    <opClass>.checkEquals(outer.maximumX(), resized.maximumX());
+    <opClass>.checkEquals(outer.maximumY(), resized.maximumY());
+    <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+    <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
+  }
+
+  @PercentPassing
+  public void testSetSizeFromMinYMaxXAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowNonNegativeScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var expected_sizeX = gen.sample();
+    final var expected_sizeY = gen.sample();
+
+    final var resized =
+      <areaOpsType>.setSizeFromMinYMaxX(
+        outer,
+        expected_sizeX,
+        expected_sizeY);
+
+    <opClass>.checkEquals(outer.minimumX(), resized.minimumX());
+    <opClass>.checkEquals(outer.maximumY(), resized.maximumY());
+    <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+    <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
+  }
+
+  @PercentPassing
+  public void testSetSizeFromMaxYMinXAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowNonNegativeScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var expected_sizeX = gen.sample();
+    final var expected_sizeY = gen.sample();
+
+    final var resized =
+      <areaOpsType>.setSizeFromMaxYMinX(
+        outer,
+        expected_sizeX,
+        expected_sizeY);
+
+    <opClass>.checkEquals(outer.maximumX(), resized.maximumX());
+    <opClass>.checkEquals(outer.minimumY(), resized.minimumY());
+    <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+    <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
+  }
+
+  @PercentPassing
+  public void testSetSizeFromMaxYMaxXAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowNonNegativeScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var expected_sizeX = gen.sample();
+    final var expected_sizeY = gen.sample();
+
+    final var resized =
+      <areaOpsType>.setSizeFromMaxYMaxX(
+        outer,
+        expected_sizeX,
+        expected_sizeY);
+
+    <opClass>.checkEquals(outer.minimumX(), resized.minimumX());
+    <opClass>.checkEquals(outer.minimumY(), resized.minimumY());
+    <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+    <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
+  }
+
+  @PercentPassing
+  public void testSetSizeFromCenterAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowNonNegativeScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var expected_sizeX = gen.sample();
+    final var expected_sizeY = gen.sample();
+
+    final var resized =
+      <areaOpsType>.setSizeFromCenter(outer, expected_sizeX, expected_sizeY);
+
+    <opClass>.checkEquals(expected_sizeX,  resized.sizeX());
+    <opClass>.checkEquals(expected_sizeY,  resized.sizeY());
+
+    final var diff_left =
+      <opClass>.absoluteDifference(
+        outer.minimumX(),
+        resized.minimumX());
+
+    final var diff_right =
+      <opClass>.absoluteDifference(
+        outer.maximumX(),
+        resized.maximumX());
+
+    final var diff_top =
+      <opClass>.absoluteDifference(
+        outer.minimumY(),
+        resized.minimumY());
+
+    final var diff_bottom =
+      <opClass>.absoluteDifference(
+        outer.maximumY(),
+        resized.maximumY());
+
+    Assertions.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_top, diff_bottom), <opClass>.constant("1")) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(<opClass>.absoluteDifference(diff_right, diff_left), <opClass>.constant("1")) \<= 0);
+  }
+
+  @Test
+  public void testOverlapsFalseSpecific()
+    throws Exception
+  {
+    final var area = <areaType>.of(
+      <opClass>.constant("0"), <opClass>.constant("10"),
+      <opClass>.constant("0"), <opClass>.constant("10"));
+
+    final var left =
+      <areaType>.of(
+        <opClass>.constant("-10"),
+        <opClass>.constant("-1"),
+        <opClass>.constant("0"),
+        <opClass>.constant("10"));
+    final var right =
+      <areaType>.of(
+        <opClass>.constant("11"),
+        <opClass>.constant("20"),
+        <opClass>.constant("0"),
+        <opClass>.constant("10"));
+    final var top =
+      <areaType>.of(
+        <opClass>.constant("0"),
+        <opClass>.constant("10"),
+        <opClass>.constant("-10"),
+        <opClass>.constant("-1"));
+    final var bottom =
+      <areaType>.of(
+        <opClass>.constant("0"),
+        <opClass>.constant("10"),
+        <opClass>.constant("11"),
+        <opClass>.constant("20"));
+
+    Assertions.assertFalse(<areaOpsType>.overlaps(area, left));
+    Assertions.assertFalse(<areaOpsType>.overlaps(area, right));
+    Assertions.assertFalse(<areaOpsType>.overlaps(area, top));
+    Assertions.assertFalse(<areaOpsType>.overlaps(area, bottom));
+
+    Assertions.assertFalse(<areaOpsType>.overlaps(left, area));
+    Assertions.assertFalse(<areaOpsType>.overlaps(right, area));
+    Assertions.assertFalse(<areaOpsType>.overlaps(top, area));
+    Assertions.assertFalse(<areaOpsType>.overlaps(bottom, area));
+  }
+
+  @Test
+  public void testOverlapsTrueSpecific()
+    throws Exception
+  {
+    final var area = <areaType>.of(
+      <opClass>.constant("0"),
+      <opClass>.constant("10"),
+      <opClass>.constant("0"),
+      <opClass>.constant("10"));
+
+    final var left =
+      <areaType>.of(
+        <opClass>.constant("-10"),
+        <opClass>.constant("1"),
+        <opClass>.constant("0"),
+        <opClass>.constant("10"));
+    final var right =
+      <areaType>.of(
+        <opClass>.constant("9"),
+        <opClass>.constant("20"),
+        <opClass>.constant("0"),
+        <opClass>.constant("10"));
+    final var top =
+      <areaType>.of(
+        <opClass>.constant("0"),
+        <opClass>.constant("10"),
+        <opClass>.constant("-10"),
+        <opClass>.constant("1"));
+    final var bottom =
+      <areaType>.of(
+        <opClass>.constant("0"),
+        <opClass>.constant("10"),
+        <opClass>.constant("9"),
+        <opClass>.constant("20"));
+
+    Assertions.assertTrue(<areaOpsType>.overlaps(area, left));
+    Assertions.assertTrue(<areaOpsType>.overlaps(area, right));
+    Assertions.assertTrue(<areaOpsType>.overlaps(area, top));
+    Assertions.assertTrue(<areaOpsType>.overlaps(area, bottom));
+
+    Assertions.assertTrue(<areaOpsType>.overlaps(left, area));
+    Assertions.assertTrue(<areaOpsType>.overlaps(right, area));
+    Assertions.assertTrue(<areaOpsType>.overlaps(top, area));
+    Assertions.assertTrue(<areaOpsType>.overlaps(bottom, area));
+  }
+
+  @PercentPassing
+  public void testOverlapsSelfAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    Assertions.assertTrue(<areaOpsType>.overlaps(outer, outer));
+  }
+
+  @PercentPassing
+  public void testContainsTrueAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowNonNegativeScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var left_offset = gen.sample();
+    final var right_offset = gen.sample();
+    final var top_offset = gen.sample();
+    final var bottom_offset = gen.sample();
+    final var inner =
+      <areaOpsType>.hollowOut(outer, left_offset, right_offset, top_offset, bottom_offset);
+
+    System.out.println("outer " + outer);
+    System.out.println("inner " + inner);
+
+    Assertions.assertTrue(<areaOpsType>.contains(outer, inner));
+    Assertions.assertFalse(<areaOpsType>.contains(inner, outer));
+  }
+
+  @PercentPassing
+  public void testCouldFitInsideSelfAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    Assertions.assertTrue(<areaOpsType>.couldFitInside(outer, outer));
+  }
+
+  @PercentPassing
+  public void testCouldFitInsideAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowNonNegativeScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var inner = <areaOpsType>.hollowOutEvenly(outer, gen.sample());
+    Assertions.assertTrue(<areaOpsType>.couldFitInside(inner, outer));
+  }
+
+  @PercentPassing
+  public void testContainsPointAll()
+    throws Exception
+  {
+    final var generator =
+      <opClass>.createGenerator();
+    final var outer =
+      generator.sample();
+
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeX(), <opClass>.constant("1")) >= 0
+    );
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeY(), <opClass>.constant("1")) >= 0
+    );
+
+    final var px =
+      <opClass>.randomBetweenZeroAndLessThan(outer.sizeX());
+    final var py =
+      <opClass>.randomBetweenZeroAndLessThan(outer.sizeY());
+    final var ppx =
+      <opClass>.add(outer.minimumX(), px);
+    final var ppy =
+      <opClass>.add(outer.minimumY(), py);
+
+    System.out.println("Outer: " + outer);
+    System.out.println("Ppx:   " + ppx);
+    System.out.println("Ppy:   " + ppy);
+
+    Assertions.assertTrue(<areaOpsType>.containsPoint(outer, ppx, ppy));
+  }
+
+  @PercentPassing
+  public void testContainingAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var a = generator.sample();
+    final var b = generator.sample();
+    final var c = <areaOpsType>.containing(a, b);
+    Assertions.assertTrue(<opClass>.compare(c.sizeX(), a.sizeX()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeY(), a.sizeY()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeX(), b.sizeX()) >= 0);
+    Assertions.assertTrue(<opClass>.compare(c.sizeY(), b.sizeY()) >= 0);
+    Assertions.assertTrue(<areaOpsType>.contains(c, a));
+    Assertions.assertTrue(<areaOpsType>.contains(c, b));
+  }
+
+  @PercentPassing
+  public void testContainsZeroWidth()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var w = <opClass>.maximum(<opClass>.constant("1"), outer.sizeX());
+    final var h = <opClass>.maximum(<opClass>.constant("1"), outer.sizeY());
+    final var px = <opClass>.randomBounded(w);
+    final var py = <opClass>.randomBounded(h);
+    final var ppx = <opClass>.add(outer.minimumX(), px);
+    final var ppy = <opClass>.add(outer.minimumY(), py);
+
+    final var scaled = <areaOpsType>.create(
+      outer.minimumX(),
+      outer.minimumY(),
+      <opClass>.constant("0"),
+      outer.sizeY());
+
+    System.out.println(ppx + " " + ppy);
+
+    Assertions.assertFalse(<areaOpsType>.containsPoint(scaled, ppx, ppy));
+  }
+
+  @PercentPassing
+  public void testContainsZeroHeight()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var w = <opClass>.maximum(<opClass>.constant("1"), outer.sizeX());
+    final var h = <opClass>.maximum(<opClass>.constant("1"), outer.sizeY());
+    final var px = <opClass>.randomBounded(w);
+    final var py = <opClass>.randomBounded(h);
+    final var ppx = <opClass>.add(outer.minimumX(), px);
+    final var ppy = <opClass>.add(outer.minimumY(), py);
+
+    final var scaled = <areaOpsType>.create(
+      outer.minimumX(),
+      outer.minimumY(),
+      outer.sizeX(),
+      <opClass>.constant("0"));
+
+    System.out.println(ppx + " " + ppy);
+
+    Assertions.assertFalse(<areaOpsType>.containsPoint(scaled, ppx, ppy));
+  }
+
+  @PercentPassing
+  public void testFitBetweenHorizontalAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var left = generator.sample();
+    final var right = generator.sample();
+
+    final var leftmost = <opClass>.minimum(
+      <opClass>.minimum(left.minimumX(), left.maximumX()),
+      <opClass>.minimum(right.minimumX(), right.maximumX()));
+    final var rightmost = <opClass>.maximum(
+      <opClass>.maximum(left.minimumX(), left.maximumX()),
+      <opClass>.maximum(right.minimumX(), right.maximumX()));
+
+    final var fitted =
+      <areaOpsType>.fitBetweenHorizontal(outer, left, right);
+
+    Assertions.assertTrue(<opClass>.compare(fitted.minimumX(), leftmost) >= 0);
+    Assertions.assertTrue(<opClass>.compare(fitted.maximumX(), rightmost) \<= 0);
+    <opClass>.checkEquals(outer.minimumY(),  fitted.minimumY());
+    <opClass>.checkEquals(outer.maximumY(),  fitted.maximumY());
+  }
+
+  @PercentPassing
+  public void testFitBetweenVerticalAll()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var top = generator.sample();
+    final var bottom = generator.sample();
+
+    final var topmost = <opClass>.minimum(
+      <opClass>.minimum(top.minimumY(), top.maximumY()),
+      <opClass>.minimum(bottom.minimumY(), bottom.maximumY()));
+    final var bottommost = <opClass>.maximum(
+      <opClass>.maximum(top.minimumY(), top.maximumY()),
+      <opClass>.maximum(bottom.minimumY(), bottom.maximumY()));
+
+    final var fitted =
+      <areaOpsType>.fitBetweenVertical(outer, top, bottom);
+
+    Assertions.assertTrue(<opClass>.compare(fitted.minimumY(), topmost) >= 0);
+    Assertions.assertTrue(<opClass>.compare(fitted.maximumY(), bottommost) \<= 0);
+    <opClass>.checkEquals(outer.minimumX(),  fitted.minimumX());
+    <opClass>.checkEquals(outer.maximumX(),  fitted.maximumX());
+  }
+
+  @PercentPassing
+  public void testScaleFromMinYMinXAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var x_diff = gen.sample();
+    final var y_diff = gen.sample();
+
+    final var resized =
+      <areaOpsType>.scaleFromMinYMinX(outer, x_diff, y_diff);
+
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
+
+    <opClass>.checkEquals(outer.maximumX(),  resized.maximumX());
+    <opClass>.checkEquals(outer.maximumY(),  resized.maximumY());
+  }
+
+  @PercentPassing
+  public void testScaleFromMinYMaxXAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var x_diff = gen.sample();
+    final var y_diff = gen.sample();
+
+    final var resized =
+      <areaOpsType>.scaleFromMinYMaxX(outer, x_diff, y_diff);
+
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
+
+    <opClass>.checkEquals(outer.minimumX(),  resized.minimumX());
+    <opClass>.checkEquals(outer.maximumY(),  resized.maximumY());
+  }
+
+  @PercentPassing
+  public void testScaleFromMaxYMaxXAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var x_diff = gen.sample();
+    final var y_diff = gen.sample();
+
+    final var resized =
+      <areaOpsType>.scaleFromMaxYMaxX(outer, x_diff, y_diff);
+
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
+
+    <opClass>.checkEquals(outer.minimumX(),  resized.minimumX());
+    <opClass>.checkEquals(outer.minimumY(),  resized.minimumY());
+  }
+
+  @PercentPassing
+  public void testScaleFromMaxYMinXAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var x_diff = gen.sample();
+    final var y_diff = gen.sample();
+
+    final var resized =
+      <areaOpsType>.scaleFromMaxYMinX(outer, x_diff, y_diff);
+
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
+
+    <opClass>.checkEquals(outer.maximumX(),  resized.maximumX());
+    <opClass>.checkEquals(outer.minimumY(),  resized.minimumY());
+  }
+
+  @PercentPassing
+  public void testScaleFromCenterAll()
+    throws Exception
+  {
+    final var gen = <opClass>.createNarrowScalarGenerator();
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final var x_diff = gen.sample();
+    final var y_diff = gen.sample();
+
+    final var resized =
+      <areaOpsType>.scaleFromCenter(outer, x_diff, y_diff);
+
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeX(), x_diff)), resized.sizeX());
+    <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
+  }
+
+  @PercentPassing
+  public void testSplitAlongXAll()
+    throws Exception
+  {
+    final var generator =
+      <opClass>.createParameterizedGenerator(<opClass>.createWideNonNegativeScalarGenerator());
+
+    final var outer = generator.sample();
+
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeY(), <opClass>.constant("2")) \>= 0
+    );
+
+    final var bound = <opClass>.add(outer.sizeY(), <opClass>.constant("1"));
+    final var sizeY = <opClass>.randomBounded(bound);
+
+    final <splitXType>\<<areaType>\> pair =
+      <areaOpsType>.splitAlongParallelToX(outer, sizeY);
+
+    final var lower = pair.lower();
+    final var upper = pair.upper();
+
+    System.out.println("SizeY: " + sizeY);
+    System.out.println("Lower: " + lower);
+    System.out.println("Upper: " + upper);
+
+    Assertions.assertTrue(<opClass>.compare(lower.sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(upper.sizeY(), outer.sizeY()) \<= 0);
+
+    <opClass>.checkEquals(outer.sizeY(), <opClass>.add(lower.sizeY(), upper.sizeY()));
+    <opClass>.checkEquals(outer.sizeX(),  lower.sizeX());
+    <opClass>.checkEquals(outer.sizeX(),  upper.sizeX());
+
+    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) > 0;
+    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) > 0;
+
+    if (sizeX_over && sizeY_over) {
+      final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.constant("0")) > 0 && <opClass>.compare(lower.sizeY(), <opClass>.constant("0")) > 0;
+      final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) > 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) > 0;
+
+      if (lower_ok) {
+        Assertions.assertTrue(<areaOpsType>.overlaps(outer, lower));
+        Assertions.assertTrue(<areaOpsType>.contains(outer, lower));
+        if (upper_ok) {
+          Assertions.assertFalse(<areaOpsType>.overlaps(lower, upper));
+        }
+      }
+      if (upper_ok) {
+        Assertions.assertTrue(<areaOpsType>.overlaps(outer, upper));
+        Assertions.assertTrue(<areaOpsType>.contains(outer, upper));
+        if (lower_ok) {
+          Assertions.assertFalse(<areaOpsType>.overlaps(lower, upper));
+        }
+      }
+    }
+  }
+
+  @Test
+  public void testSplitAlongXSpecific()
+    throws Exception
+  {
+    final var box =
+      <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("0"), <opClass>.constant("10"));
+
+    final <splitXType>\<<areaType>\> pair =
+      <areaOpsType>.splitAlongParallelToX(box, <opClass>.constant("5"));
+
+    final var lower = pair.lower();
+    final var upper = pair.upper();
+
+    <opClass>.checkEquals(<opClass>.constant("0"),  lower.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  lower.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("0"),  upper.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  upper.maximumX());
+
+    <opClass>.checkEquals(<opClass>.constant("5"),  lower.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  lower.maximumY());
+    <opClass>.checkEquals(<opClass>.constant("0"),  upper.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("5"),  upper.maximumY());
+
+    <opClass>.checkEquals(<opClass>.constant("5"),  lower.sizeY());
+    <opClass>.checkEquals(<opClass>.constant("5"),  upper.sizeY());
+
+    Assertions.assertTrue(<areaOpsType>.contains(box, upper));
+    Assertions.assertTrue(<areaOpsType>.contains(box, lower));
+    Assertions.assertFalse(<areaOpsType>.overlaps(upper, lower));
+    Assertions.assertTrue(<areaOpsType>.overlaps(box, lower));
+    Assertions.assertTrue(<areaOpsType>.overlaps(box, upper));
+  }
+
+  @Test
+  public void testSplitAlongXTiny()
+    throws Exception
+  {
+    final var box =
+      <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("0"), <opClass>.constant("10"));
+    final <splitXType>\<<areaType>\> pair =
+      <areaOpsType>.splitAlongParallelToX(box, <opClass>.constant("20"));
+
+    final var lower = pair.lower();
+    final var upper = pair.upper();
+
+    <opClass>.checkEquals(<opClass>.constant("0"),  lower.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  lower.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("0"),  upper.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  upper.maximumX());
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  lower.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  lower.maximumY());
+    <opClass>.checkEquals(<opClass>.constant("0"),  upper.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  upper.maximumY());
+
+    <opClass>.checkEquals(<opClass>.constant("0"),  lower.sizeY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  upper.sizeY());
+  }
+
+  @Test
+  public void testSplitAlongYSpecific()
+    throws Exception
+  {
+    final var box =
+      <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("0"), <opClass>.constant("10"));
+    final <splitYType>\<<areaType>\> pair =
+      <areaOpsType>.splitAlongParallelToY(box, <opClass>.constant("5"));
+
+    final var lower = pair.lower();
+    final var upper = pair.upper();
+
+    <opClass>.checkEquals(<opClass>.constant("0"),  lower.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  lower.maximumY());
+    <opClass>.checkEquals(<opClass>.constant("0"),  upper.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  upper.maximumY());
+
+    <opClass>.checkEquals(<opClass>.constant("0"),  lower.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("5"),  lower.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("5"),  upper.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  upper.maximumX());
+
+    <opClass>.checkEquals(<opClass>.constant("5"),  lower.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("5"),  upper.sizeX());
+
+    Assertions.assertTrue(<areaOpsType>.contains(box, upper));
+    Assertions.assertTrue(<areaOpsType>.contains(box, lower));
+    Assertions.assertFalse(<areaOpsType>.overlaps(upper, lower));
+    Assertions.assertTrue(<areaOpsType>.overlaps(box, lower));
+    Assertions.assertTrue(<areaOpsType>.overlaps(box, upper));
+  }
+
+  @Test
+  public void testSplitAlongYTiny()
+    throws Exception
+  {
+    final var box =
+      <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("0"), <opClass>.constant("10"));
+    final <splitYType>\<<areaType>\> pair =
+      <areaOpsType>.splitAlongParallelToY(box, <opClass>.constant("20"));
+
+    final var lower = pair.lower();
+    final var upper = pair.upper();
+
+    <opClass>.checkEquals(<opClass>.constant("0"),  lower.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  lower.maximumY());
+    <opClass>.checkEquals(<opClass>.constant("0"),  upper.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"),  upper.maximumY());
+
+    <opClass>.checkEquals(<opClass>.constant("0"),  lower.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  lower.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  upper.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"),  upper.maximumX());
+
+    <opClass>.checkEquals(<opClass>.constant("10"),  lower.sizeX());
+    <opClass>.checkEquals(<opClass>.constant("0"),  upper.sizeX());
+  }
+
+  @PercentPassing
+  public void testSplitAlongYAll()
+    throws Exception
+  {
+    final var generator =
+      <opClass>.createParameterizedGenerator(<opClass>.createWideNonNegativeScalarGenerator());
+
+    final var outer = generator.sample();
+
+    final var bound = <opClass>.add(outer.sizeX(), <opClass>.constant("1"));
+    final var sizeX = <opClass>.randomBounded(bound);
+    final <splitYType>\<<areaType>\> pair =
+      <areaOpsType>.splitAlongParallelToY(outer, sizeX);
+
+    final var lower = pair.lower();
+    final var upper = pair.upper();
+
+    System.out.println("sizeY: " + sizeX);
+    System.out.println("lower:   " + lower);
+    System.out.println("upper:  " + upper);
+
+    Assertions.assertTrue(<opClass>.compare(lower.sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(upper.sizeX(), outer.sizeX()) \<= 0);
+    <opClass>.checkEquals(outer.sizeX(), <opClass>.add(lower.sizeX(), upper.sizeX()));
+    <opClass>.checkEquals(outer.sizeY(), lower.sizeY());
+    <opClass>.checkEquals(outer.sizeY(), upper.sizeY());
+
+    boolean sizeY_over = <opClass>.compare(outer.sizeY(), <opClass>.constant("0")) > 0;
+    boolean sizeX_over = <opClass>.compare(outer.sizeX(), <opClass>.constant("0")) > 0;
+
+    if (sizeX_over && sizeY_over) {
+      final boolean lower_ok = <opClass>.compare(lower.sizeX(), <opClass>.constant("0")) > 0 && <opClass>.compare(lower.sizeY(), <opClass>.constant("0")) > 0;
+      final boolean upper_ok = <opClass>.compare(upper.sizeX(), <opClass>.constant("0")) > 0 && <opClass>.compare(upper.sizeY(), <opClass>.constant("0")) > 0;
+
+      if (lower_ok) {
+        Assertions.assertTrue(<areaOpsType>.overlaps(outer, lower));
+        Assertions.assertTrue(<areaOpsType>.contains(outer, lower));
+      }
+      if (upper_ok) {
+        Assertions.assertTrue(<areaOpsType>.overlaps(outer, upper));
+        Assertions.assertTrue(<areaOpsType>.contains(outer, upper));
+      }
+    }
+  }
+
+  @PercentPassing(executionCount = 1000)
+  public void testSplitAlongXYAll()
+    throws Exception
+  {
+    final var generator =
+      <opClass>.createParameterizedGenerator(<opClass>.createWideNonNegativeScalarGenerator());
+
+    final var outer =
+      generator.sample();
+
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeX(), <opClass>.constant("2")) \>= 0
+    );
+    Assumptions.assumeTrue(
+      <opClass>.compare(outer.sizeY(), <opClass>.constant("2")) \>= 0
+    );
+
+    final var x =
+      <opClass>.randomBetweenZeroAndLessThan(outer.sizeX());
+    final var y =
+      <opClass>.randomBetweenZeroAndLessThan(outer.sizeY());
+
+    System.out.println("Outer: " + outer);
+    System.out.println("X:     " + x);
+    System.out.println("Y:     " + y);
+
+    final <splitXYType>\<<areaType>\> quadrants =
+      <areaOpsType>.splitAlongXY(outer, x, y);
+
+    System.out.println("quadrants x0y0: " + quadrants.x0y0());
+    System.out.println("quadrants x1y0: " + quadrants.x1y0());
+    System.out.println("quadrants x0y1: " + quadrants.x0y1());
+    System.out.println("quadrants x1y1: " + quadrants.x1y1());
+
+    final var x0y0 = quadrants.x0y0();
+    final var x1y0 = quadrants.x1y0();
+    final var x0y1 = quadrants.x0y1();
+    final var x1y1 = quadrants.x1y1();
+
+    Assertions.assertTrue(<opClass>.compare(x0y0.sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(x1y0.sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(x0y1.sizeY(), outer.sizeY()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(x1y1.sizeY(), outer.sizeY()) \<= 0);
+
+    Assertions.assertTrue(<opClass>.compare(x0y0.sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(x1y0.sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(x0y1.sizeX(), outer.sizeX()) \<= 0);
+    Assertions.assertTrue(<opClass>.compare(x1y1.sizeX(), outer.sizeX()) \<= 0);
+
+    <opClass>.checkEquals(x0y0.minimumX(), outer.minimumX());
+    <opClass>.checkEquals(x0y0.minimumY(), outer.minimumY());
+    <opClass>.checkEquals(x0y0.maximumX(), <opClass>.add(x0y0.minimumX(), x));
+    <opClass>.checkEquals(x0y0.maximumY(), <opClass>.add(x0y0.minimumY(), y));
+
+    <opClass>.checkEquals(x1y0.minimumX(), <opClass>.add(x0y0.minimumX(), x));
+    <opClass>.checkEquals(x1y0.minimumY(), outer.minimumY());
+    <opClass>.checkEquals(x1y0.maximumX(), outer.maximumX());
+    <opClass>.checkEquals(x1y0.maximumY(), <opClass>.add(x0y0.minimumY(), y));
+
+    <opClass>.checkEquals(x0y1.minimumX(), outer.minimumX());
+    <opClass>.checkEquals(x0y1.minimumY(), <opClass>.add(x0y0.minimumY(), y));
+    <opClass>.checkEquals(x0y1.maximumX(), <opClass>.add(x0y0.minimumX(), x));
+    <opClass>.checkEquals(x0y1.maximumY(), outer.maximumY());
+
+    <opClass>.checkEquals(x1y1.minimumX(), <opClass>.add(x0y0.minimumX(), x));
+    <opClass>.checkEquals(x1y1.minimumY(), <opClass>.add(x0y0.minimumY(), y));
+    <opClass>.checkEquals(x1y1.maximumX(), outer.maximumX());
+    <opClass>.checkEquals(x1y1.maximumY(), outer.maximumY());
+
+    <opClass>.checkEquals(outer.sizeY(), <opClass>.add(x0y0.sizeY(), x0y1.sizeY()));
+    <opClass>.checkEquals(outer.sizeY(), <opClass>.add(x1y0.sizeY(), x1y1.sizeY()));
+
+    <opClass>.checkEquals(outer.sizeX(), <opClass>.add(x0y0.sizeX(), x1y0.sizeX()));
+    <opClass>.checkEquals(outer.sizeX(), <opClass>.add(x0y1.sizeX(), x1y1.sizeX()));
+  }
+
+  @Test
+  public void testSplitAlongXYSpecific()
+    throws Exception
+  {
+    final var box =
+      <areaType>.of(<opClass>.constant("0"), <opClass>.constant("10"), <opClass>.constant("0"), <opClass>.constant("10"));
+
+    final <splitXYType>\<<areaType>\> quadrants =
+      <areaOpsType>.splitAlongXY(box, <opClass>.constant("5"), <opClass>.constant("5"));
+
+    final var x0y0 = quadrants.x0y0();
+    final var x1y0 = quadrants.x1y0();
+    final var x0y1 = quadrants.x0y1();
+    final var x1y1 = quadrants.x1y1();
+
+    <opClass>.checkEquals(<opClass>.constant("0"), x0y0.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), x0y0.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("0"), x0y0.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), x0y0.maximumY());
+
+    <opClass>.checkEquals(<opClass>.constant("5"), x1y0.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"), x1y0.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("0"), x1y0.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("5"), x1y0.maximumY());
+
+    <opClass>.checkEquals(<opClass>.constant("0"), x0y1.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), x0y1.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), x0y1.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"), x0y1.maximumY());
+
+    <opClass>.checkEquals(<opClass>.constant("5"), x1y1.minimumX());
+    <opClass>.checkEquals(<opClass>.constant("10"), x1y1.maximumX());
+    <opClass>.checkEquals(<opClass>.constant("5"), x1y1.minimumY());
+    <opClass>.checkEquals(<opClass>.constant("10"), x1y1.maximumY());
+
+    Assertions.assertTrue(<areaOpsType>.contains(box, x0y0));
+    Assertions.assertTrue(<areaOpsType>.contains(box, x1y0));
+    Assertions.assertTrue(<areaOpsType>.contains(box, x0y1));
+    Assertions.assertTrue(<areaOpsType>.contains(box, x1y1));
+
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y0, x1y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y0, x0y1));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y0, x1y1));
+
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y0, x0y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y0, x0y1));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y0, x1y1));
+
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y1, x0y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y1, x1y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x0y1, x1y1));
+
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y1, x0y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y1, x1y0));
+    Assertions.assertFalse(<areaOpsType>.overlaps(x1y1, x0y1));
+  }
+
+  @PercentPassing
+  public void testSize()
+    throws Exception
+  {
+    final var generator = <opClass>.createGenerator();
+    final var outer = generator.sample();
+
+    final <areaSizeType> s = <areaOpsType>.size(outer);
+
+    <opClass>.checkEquals(outer.sizeX(), s.sizeX());
+    <opClass>.checkEquals(outer.sizeY(), s.sizeY());
+  }
+}
+
+>>

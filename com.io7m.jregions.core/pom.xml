@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>com.io7m.jregions</groupId>
     <artifactId>com.io7m.jregions</artifactId>
-    <version>4.0.0</version>
+    <version>5.0.0</version>
   </parent>
 
   <artifactId>com.io7m.jregions.core</artifactId>
@@ -45,8 +44,8 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.io7m.immutables.style</groupId>
-      <artifactId>com.io7m.immutables.style</artifactId>
+      <groupId>com.io7m.immutables-style</groupId>
+      <artifactId>com.io7m.immutables-style</artifactId>
       <scope>provided</scope>
     </dependency>
   </dependencies>
@@ -63,26 +62,28 @@
             <id>generate-area-P-BD</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasBD.java</target>
-                  <properties>
-                    <scalarType>java.math.BigDecimal</scalarType>
-                    <areaType>PAreaBD</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBD</areaSizeType>
-                    <className>PAreasBD</className>
-                    <splitXType>PAreaXSplitBD</splitXType>
-                    <splitYType>PAreaYSplitBD</splitYType>
-                    <splitXYType>PAreaXYSplitBD</splitXYType>
-                    <opClass>PAreaBDOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasBD.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigDecimal</scalarType>
+                  <areaType>PAreaBD</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBD</areaSizeType>
+                  <className>PAreasBD</className>
+                  <splitXType>PAreaXSplitBD</splitXType>
+                  <splitYType>PAreaYSplitBD</splitYType>
+                  <splitXYType>PAreaXYSplitBD</splitXYType>
+                  <opClass>PAreaBDOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -90,26 +91,28 @@
             <id>generate-area-P-BI</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasBI.java</target>
-                  <properties>
-                    <scalarType>java.math.BigInteger</scalarType>
-                    <areaType>PAreaBI</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBI</areaSizeType>
-                    <className>PAreasBI</className>
-                    <splitXType>PAreaXSplitBI</splitXType>
-                    <splitYType>PAreaYSplitBI</splitYType>
-                    <splitXYType>PAreaXYSplitBI</splitXYType>
-                    <opClass>PAreaBIOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasBI.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigInteger</scalarType>
+                  <areaType>PAreaBI</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeBI</areaSizeType>
+                  <className>PAreasBI</className>
+                  <splitXType>PAreaXSplitBI</splitXType>
+                  <splitYType>PAreaYSplitBI</splitYType>
+                  <splitXYType>PAreaXYSplitBI</splitXYType>
+                  <opClass>PAreaBIOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -117,26 +120,28 @@
             <id>generate-area-P-I</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasI.java</target>
-                  <properties>
-                    <scalarType>int</scalarType>
-                    <areaType>PAreaI</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeI</areaSizeType>
-                    <className>PAreasI</className>
-                    <splitXType>PAreaXSplitI</splitXType>
-                    <splitYType>PAreaYSplitI</splitYType>
-                    <splitXYType>PAreaXYSplitI</splitXYType>
-                    <opClass>PAreaIOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasI.java
+                </outputFile>
+                <properties>
+                  <scalarType>int</scalarType>
+                  <areaType>PAreaI</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeI</areaSizeType>
+                  <className>PAreasI</className>
+                  <splitXType>PAreaXSplitI</splitXType>
+                  <splitYType>PAreaYSplitI</splitYType>
+                  <splitXYType>PAreaXYSplitI</splitXYType>
+                  <opClass>PAreaIOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -144,26 +149,28 @@
             <id>generate-area-P-F</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasF.java</target>
-                  <properties>
-                    <scalarType>float</scalarType>
-                    <areaType>PAreaF</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeF</areaSizeType>
-                    <className>PAreasF</className>
-                    <splitXType>PAreaXSplitF</splitXType>
-                    <splitYType>PAreaYSplitF</splitYType>
-                    <splitXYType>PAreaXYSplitF</splitXYType>
-                    <opClass>PAreaFOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasF.java
+                </outputFile>
+                <properties>
+                  <scalarType>float</scalarType>
+                  <areaType>PAreaF</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeF</areaSizeType>
+                  <className>PAreasF</className>
+                  <splitXType>PAreaXSplitF</splitXType>
+                  <splitYType>PAreaYSplitF</splitYType>
+                  <splitXYType>PAreaXYSplitF</splitXYType>
+                  <opClass>PAreaFOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -171,26 +178,28 @@
             <id>generate-area-P-D</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasD.java</target>
-                  <properties>
-                    <scalarType>double</scalarType>
-                    <areaType>PAreaD</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeD</areaSizeType>
-                    <className>PAreasD</className>
-                    <splitXType>PAreaXSplitD</splitXType>
-                    <splitYType>PAreaYSplitD</splitYType>
-                    <splitXYType>PAreaXYSplitD</splitXYType>
-                    <opClass>PAreaDOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasD.java
+                </outputFile>
+                <properties>
+                  <scalarType>double</scalarType>
+                  <areaType>PAreaD</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeD</areaSizeType>
+                  <className>PAreasD</className>
+                  <splitXType>PAreaXSplitD</splitXType>
+                  <splitYType>PAreaYSplitD</splitYType>
+                  <splitXYType>PAreaXYSplitD</splitXYType>
+                  <opClass>PAreaDOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -198,26 +207,28 @@
             <id>generate-area-P-L</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PAreas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasL.java</target>
-                  <properties>
-                    <scalarType>long</scalarType>
-                    <areaType>PAreaL</areaType>
-                    <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeL</areaSizeType>
-                    <className>PAreasL</className>
-                    <splitXType>PAreaXSplitL</splitXType>
-                    <splitYType>PAreaYSplitL</splitYType>
-                    <splitXYType>PAreaXYSplitL</splitXYType>
-                    <opClass>PAreaLOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PAreas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PAreas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/areas/PAreasL.java
+                </outputFile>
+                <properties>
+                  <scalarType>long</scalarType>
+                  <areaType>PAreaL</areaType>
+                  <areaSizeType>com.io7m.jregions.core.parameterized.sizes.PAreaSizeL</areaSizeType>
+                  <className>PAreasL</className>
+                  <splitXType>PAreaXSplitL</splitXType>
+                  <splitYType>PAreaYSplitL</splitYType>
+                  <splitXYType>PAreaXYSplitL</splitXYType>
+                  <opClass>PAreaLOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -225,26 +236,28 @@
             <id>generate-area-BD</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Areas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasBD.java</target>
-                  <properties>
-                    <scalarType>java.math.BigDecimal</scalarType>
-                    <areaType>AreaBD</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBD</areaSizeType>
-                    <className>AreasBD</className>
-                    <splitXType>AreaXSplitBD</splitXType>
-                    <splitYType>AreaYSplitBD</splitYType>
-                    <splitXYType>AreaXYSplitBD</splitXYType>
-                    <opClass>AreaBDOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Areas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Areas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasBD.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigDecimal</scalarType>
+                  <areaType>AreaBD</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBD</areaSizeType>
+                  <className>AreasBD</className>
+                  <splitXType>AreaXSplitBD</splitXType>
+                  <splitYType>AreaYSplitBD</splitYType>
+                  <splitXYType>AreaXYSplitBD</splitXYType>
+                  <opClass>AreaBDOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -252,26 +265,28 @@
             <id>generate-area-BI</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Areas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasBI.java</target>
-                  <properties>
-                    <scalarType>java.math.BigInteger</scalarType>
-                    <areaType>AreaBI</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBI</areaSizeType>
-                    <className>AreasBI</className>
-                    <splitXType>AreaXSplitBI</splitXType>
-                    <splitYType>AreaYSplitBI</splitYType>
-                    <splitXYType>AreaXYSplitBI</splitXYType>
-                    <opClass>AreaBIOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Areas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Areas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasBI.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigInteger</scalarType>
+                  <areaType>AreaBI</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeBI</areaSizeType>
+                  <className>AreasBI</className>
+                  <splitXType>AreaXSplitBI</splitXType>
+                  <splitYType>AreaYSplitBI</splitYType>
+                  <splitXYType>AreaXYSplitBI</splitXYType>
+                  <opClass>AreaBIOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -279,26 +294,28 @@
             <id>generate-area-I</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Areas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasI.java</target>
-                  <properties>
-                    <scalarType>int</scalarType>
-                    <areaType>AreaI</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeI</areaSizeType>
-                    <className>AreasI</className>
-                    <splitXType>AreaXSplitI</splitXType>
-                    <splitYType>AreaYSplitI</splitYType>
-                    <splitXYType>AreaXYSplitI</splitXYType>
-                    <opClass>AreaIOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Areas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Areas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasI.java
+                </outputFile>
+                <properties>
+                  <scalarType>int</scalarType>
+                  <areaType>AreaI</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeI</areaSizeType>
+                  <className>AreasI</className>
+                  <splitXType>AreaXSplitI</splitXType>
+                  <splitYType>AreaYSplitI</splitYType>
+                  <splitXYType>AreaXYSplitI</splitXYType>
+                  <opClass>AreaIOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -306,26 +323,28 @@
             <id>generate-area-F</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Areas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasF.java</target>
-                  <properties>
-                    <scalarType>float</scalarType>
-                    <areaType>AreaF</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeF</areaSizeType>
-                    <className>AreasF</className>
-                    <splitXType>AreaXSplitF</splitXType>
-                    <splitYType>AreaYSplitF</splitYType>
-                    <splitXYType>AreaXYSplitF</splitXYType>
-                    <opClass>AreaFOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Areas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Areas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasF.java
+                </outputFile>
+                <properties>
+                  <scalarType>float</scalarType>
+                  <areaType>AreaF</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeF</areaSizeType>
+                  <className>AreasF</className>
+                  <splitXType>AreaXSplitF</splitXType>
+                  <splitYType>AreaYSplitF</splitYType>
+                  <splitXYType>AreaXYSplitF</splitXYType>
+                  <opClass>AreaFOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -333,26 +352,28 @@
             <id>generate-area-D</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Areas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasD.java</target>
-                  <properties>
-                    <scalarType>double</scalarType>
-                    <areaType>AreaD</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeD</areaSizeType>
-                    <className>AreasD</className>
-                    <splitXType>AreaXSplitD</splitXType>
-                    <splitYType>AreaYSplitD</splitYType>
-                    <splitXYType>AreaXYSplitD</splitXYType>
-                    <opClass>AreaDOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Areas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Areas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasD.java
+                </outputFile>
+                <properties>
+                  <scalarType>double</scalarType>
+                  <areaType>AreaD</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeD</areaSizeType>
+                  <className>AreasD</className>
+                  <splitXType>AreaXSplitD</splitXType>
+                  <splitYType>AreaYSplitD</splitYType>
+                  <splitXYType>AreaXYSplitD</splitXYType>
+                  <opClass>AreaDOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -360,26 +381,28 @@
             <id>generate-area-L</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Areas</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasL.java</target>
-                  <properties>
-                    <scalarType>long</scalarType>
-                    <areaType>AreaL</areaType>
-                    <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeL</areaSizeType>
-                    <className>AreasL</className>
-                    <splitXType>AreaXSplitL</splitXType>
-                    <splitYType>AreaYSplitL</splitYType>
-                    <splitXYType>AreaXYSplitL</splitXYType>
-                    <opClass>AreaLOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Areas</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Areas.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/areas/AreasL.java
+                </outputFile>
+                <properties>
+                  <scalarType>long</scalarType>
+                  <areaType>AreaL</areaType>
+                  <areaSizeType>com.io7m.jregions.core.unparameterized.sizes.AreaSizeL</areaSizeType>
+                  <className>AreasL</className>
+                  <splitXType>AreaXSplitL</splitXType>
+                  <splitYType>AreaYSplitL</splitYType>
+                  <splitXYType>AreaXYSplitL</splitXYType>
+                  <opClass>AreaLOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -387,24 +410,27 @@
             <id>generate-volume-P-BD</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PVolumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesBD.java</target>
-                  <properties>
-                    <scalarType>java.math.BigDecimal</scalarType>
-                    <volumeType>PVolumeBD</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBD</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBD</volumeSplitXYZType>
-                    <className>PVolumesBD</className>
-                    <opClass>PVolumeBDOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesBD.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigDecimal</scalarType>
+                  <volumeType>PVolumeBD</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBD</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBD
+                  </volumeSplitXYZType>
+                  <className>PVolumesBD</className>
+                  <opClass>PVolumeBDOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -412,24 +438,27 @@
             <id>generate-volume-P-BI</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PVolumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesBI.java</target>
-                  <properties>
-                    <scalarType>java.math.BigInteger</scalarType>
-                    <volumeType>PVolumeBI</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBI</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBI</volumeSplitXYZType>
-                    <className>PVolumesBI</className>
-                    <opClass>PVolumeBIOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesBI.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigInteger</scalarType>
+                  <volumeType>PVolumeBI</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeBI</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitBI
+                  </volumeSplitXYZType>
+                  <className>PVolumesBI</className>
+                  <opClass>PVolumeBIOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -437,24 +466,26 @@
             <id>generate-volume-P-I</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PVolumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesI.java</target>
-                  <properties>
-                    <scalarType>int</scalarType>
-                    <volumeType>PVolumeI</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeI</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitI</volumeSplitXYZType>
-                    <className>PVolumesI</className>
-                    <opClass>PVolumeIOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesI.java
+                </outputFile>
+                <properties>
+                  <scalarType>int</scalarType>
+                  <volumeType>PVolumeI</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeI</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitI</volumeSplitXYZType>
+                  <className>PVolumesI</className>
+                  <opClass>PVolumeIOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -462,24 +493,26 @@
             <id>generate-volume-P-F</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PVolumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesF.java</target>
-                  <properties>
-                    <scalarType>float</scalarType>
-                    <volumeType>PVolumeF</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeF</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitF</volumeSplitXYZType>
-                    <className>PVolumesF</className>
-                    <opClass>PVolumeFOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesF.java
+                </outputFile>
+                <properties>
+                  <scalarType>float</scalarType>
+                  <volumeType>PVolumeF</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeF</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitF</volumeSplitXYZType>
+                  <className>PVolumesF</className>
+                  <opClass>PVolumeFOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -487,24 +520,26 @@
             <id>generate-volume-P-D</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PVolumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesD.java</target>
-                  <properties>
-                    <scalarType>double</scalarType>
-                    <volumeType>PVolumeD</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeD</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitD</volumeSplitXYZType>
-                    <className>PVolumesD</className>
-                    <opClass>PVolumeDOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesD.java
+                </outputFile>
+                <properties>
+                  <scalarType>double</scalarType>
+                  <volumeType>PVolumeD</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeD</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitD</volumeSplitXYZType>
+                  <className>PVolumesD</className>
+                  <opClass>PVolumeDOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -512,24 +547,26 @@
             <id>generate-volume-P-L</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>PVolumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesL.java</target>
-                  <properties>
-                    <scalarType>long</scalarType>
-                    <volumeType>PVolumeL</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeL</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitL</volumeSplitXYZType>
-                    <className>PVolumesL</className>
-                    <opClass>PVolumeLOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>PVolumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/PVolumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/parameterized/volumes/PVolumesL.java
+                </outputFile>
+                <properties>
+                  <scalarType>long</scalarType>
+                  <volumeType>PVolumeL</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.parameterized.sizes.PVolumeSizeL</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.parameterized.volumes.PVolumeXYZSplitL</volumeSplitXYZType>
+                  <className>PVolumesL</className>
+                  <opClass>PVolumeLOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -537,24 +574,27 @@
             <id>generate-volume-BD</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Volumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesBD.java</target>
-                  <properties>
-                    <scalarType>java.math.BigDecimal</scalarType>
-                    <volumeType>VolumeBD</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBD</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBD</volumeSplitXYZType>
-                    <className>VolumesBD</className>
-                    <opClass>VolumeBDOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Volumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Volumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesBD.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigDecimal</scalarType>
+                  <volumeType>VolumeBD</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBD</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBD
+                  </volumeSplitXYZType>
+                  <className>VolumesBD</className>
+                  <opClass>VolumeBDOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -562,24 +602,27 @@
             <id>generate-volume-BI</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Volumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesBI.java</target>
-                  <properties>
-                    <scalarType>java.math.BigInteger</scalarType>
-                    <volumeType>VolumeBI</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBI</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBI</volumeSplitXYZType>
-                    <className>VolumesBI</className>
-                    <opClass>VolumeBIOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Volumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Volumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesBI.java
+                </outputFile>
+                <properties>
+                  <scalarType>java.math.BigInteger</scalarType>
+                  <volumeType>VolumeBI</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeBI</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitBI
+                  </volumeSplitXYZType>
+                  <className>VolumesBI</className>
+                  <opClass>VolumeBIOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -587,24 +630,27 @@
             <id>generate-volume-I</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Volumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesI.java</target>
-                  <properties>
-                    <scalarType>int</scalarType>
-                    <volumeType>VolumeI</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeI</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitI</volumeSplitXYZType>
-                    <className>VolumesI</className>
-                    <opClass>VolumeIOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Volumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Volumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesI.java
+                </outputFile>
+                <properties>
+                  <scalarType>int</scalarType>
+                  <volumeType>VolumeI</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeI</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitI
+                  </volumeSplitXYZType>
+                  <className>VolumesI</className>
+                  <opClass>VolumeIOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -612,24 +658,27 @@
             <id>generate-volume-F</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Volumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesF.java</target>
-                  <properties>
-                    <scalarType>float</scalarType>
-                    <volumeType>VolumeF</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeF</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitF</volumeSplitXYZType>
-                    <className>VolumesF</className>
-                    <opClass>VolumeFOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Volumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Volumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesF.java
+                </outputFile>
+                <properties>
+                  <scalarType>float</scalarType>
+                  <volumeType>VolumeF</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeF</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitF
+                  </volumeSplitXYZType>
+                  <className>VolumesF</className>
+                  <opClass>VolumeFOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -637,24 +686,27 @@
             <id>generate-volume-D</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Volumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesD.java</target>
-                  <properties>
-                    <scalarType>double</scalarType>
-                    <volumeType>VolumeD</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeD</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitD</volumeSplitXYZType>
-                    <className>VolumesD</className>
-                    <opClass>VolumeDOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Volumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Volumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesD.java
+                </outputFile>
+                <properties>
+                  <scalarType>double</scalarType>
+                  <volumeType>VolumeD</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeD</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitD
+                  </volumeSplitXYZType>
+                  <className>VolumesD</className>
+                  <opClass>VolumeDOps</opClass>
+                </properties>
+              </template>
             </configuration>
           </execution>
 
@@ -662,24 +714,46 @@
             <id>generate-volume-L</id>
             <phase>generate-sources</phase>
             <goals>
-              <goal>render</goal>
+              <goal>renderTemplate</goal>
             </goals>
             <configuration>
-              <templates>
-                <template>
-                  <directory>src/main/string-template</directory>
-                  <name>Volumes</name>
-                  <target>${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesL.java</target>
-                  <properties>
-                    <scalarType>long</scalarType>
-                    <volumeType>VolumeL</volumeType>
-                    <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeL</volumeSizeType>
-                    <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitL</volumeSplitXYZType>
-                    <className>VolumesL</className>
-                    <opClass>VolumeLOps</opClass>
-                  </properties>
-                </template>
-              </templates>
+              <template>
+                <name>Volumes</name>
+                <inputFile>
+                  ${project.basedir}/src/main/string-template/Volumes.st
+                </inputFile>
+                <outputFile>
+                  ${project.build.directory}/generated-sources/string-template/com/io7m/jregions/core/unparameterized/volumes/VolumesL.java
+                </outputFile>
+                <properties>
+                  <scalarType>long</scalarType>
+                  <volumeType>VolumeL</volumeType>
+                  <volumeSizeType>com.io7m.jregions.core.unparameterized.sizes.VolumeSizeL</volumeSizeType>
+                  <volumeSplitXYZType>com.io7m.jregions.core.unparameterized.volumes.VolumeXYZSplitL
+                  </volumeSplitXYZType>
+                  <className>VolumesL</className>
+                  <opClass>VolumeLOps</opClass>
+                </properties>
+              </template>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.build.directory}/generated-sources/string-template</source>
+              </sources>
             </configuration>
           </execution>
         </executions>

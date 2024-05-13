@@ -66,13 +66,6 @@ final class VolumeIOps
     return Math.subtractExact(a, b);
   }
 
-  public static int divide(
-    final int a,
-    final int b)
-  {
-    return a / b;
-  }
-
   public static int constant(
     final long x)
   {

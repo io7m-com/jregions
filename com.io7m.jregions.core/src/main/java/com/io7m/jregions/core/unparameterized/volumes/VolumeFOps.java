@@ -66,13 +66,6 @@ final class VolumeFOps
     return a - b;
   }
 
-  public static float divide(
-    final float a,
-    final float b)
-  {
-    return a / b;
-  }
-
   public static float constant(
     final long x)
   {

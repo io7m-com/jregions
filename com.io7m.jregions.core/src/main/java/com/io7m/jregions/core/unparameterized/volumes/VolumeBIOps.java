@@ -67,13 +67,6 @@ final class VolumeBIOps
     return a.subtract(b);
   }
 
-  public static BigInteger divide(
-    final BigInteger a,
-    final BigInteger b)
-  {
-    return a.divide(b);
-  }
-
   public static BigInteger constant(
     final long x)
   {
