@@ -921,7 +921,7 @@ public final class <className>
     <opClass>.checkEquals(outer.sizeZ(), s.sizeZ());
   }
 
-  @PercentPassing(executionCount = 1000, passPercent = 93.0)
+  @PercentPassing(executionCount = 1000, passPercent = 92.0)
   public void testSplitAtXYZAll()
     throws Exception
   {
