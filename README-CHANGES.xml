@@ -115,10 +115,11 @@
         <c:change compatible="false" date="2022-04-09T00:00:00+00:00" summary="Require JDK 17"/>
       </c:changes>
     </c:release>
-    <c:release date="2024-05-12T21:18:38+00:00" is-open="true" ticket-system="com.github.io7m.jregions" version="5.0.0">
+    <c:release date="2024-05-13T20:11:53+00:00" is-open="true" ticket-system="com.github.io7m.jregions" version="5.0.0">
       <c:changes>
         <c:change compatible="false" date="2024-05-12T00:00:00+00:00" summary="Remove com.io7m.jregions.generators module."/>
-        <c:change date="2024-05-12T21:18:38+00:00" summary="Add new com.io7m.jregions.arbitraries module."/>
+        <c:change date="2024-05-12T00:00:00+00:00" summary="Add new com.io7m.jregions.arbitraries module."/>
+        <c:change compatible="false" date="2024-05-13T20:11:53+00:00" summary="Require JDK 21."/>
       </c:changes>
     </c:release>
   </c:releases>
