@@ -1537,7 +1537,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.maximum(<opClass>.constant("0"), <opClass>.add(outer.sizeY(), y_diff)), resized.sizeY());
   }
 
-  @PercentPassing
+  @PercentPassing(executionCount = 1000, passPercent = 96.0)
   public void testSplitAlongXAll()
     throws Exception
   {
@@ -1711,7 +1711,7 @@ public final class <className>
     <opClass>.checkEquals(<opClass>.constant("0"),  upper.sizeX());
   }
 
-  @PercentPassing
+  @PercentPassing(executionCount = 1000, passPercent = 96.0)
   public void testSplitAlongYAll()
     throws Exception
   {
@@ -1756,7 +1756,7 @@ public final class <className>
     }
   }
 
-  @PercentPassing(executionCount = 1000)
+  @PercentPassing(executionCount = 1000, passPercent = 96.0)
   public void testSplitAlongXYAll()
     throws Exception
   {
