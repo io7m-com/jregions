@@ -35,7 +35,7 @@
     <!-- Third-party dependencies. -->
     <io7m.org.immutables.version>2.10.1</io7m.org.immutables.version>
     <org.junit.version>5.10.3</org.junit.version>
-    <net.jqwik.version>1.8.5</net.jqwik.version>
+    <net.jqwik.version>1.9.0</net.jqwik.version>
   </properties>
 
   <inceptionYear>2017</inceptionYear>
