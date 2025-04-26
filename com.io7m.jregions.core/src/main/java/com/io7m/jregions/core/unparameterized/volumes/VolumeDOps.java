@@ -20,6 +20,8 @@ import com.io7m.junreachable.UnreachableCodeException;
 
 import java.util.Objects;
 
+// CHECKSTYLE:OFF
+
 final class VolumeDOps
 {
   public static final double ZERO = 0.0;

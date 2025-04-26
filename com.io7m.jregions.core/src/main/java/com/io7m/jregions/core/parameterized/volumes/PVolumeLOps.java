@@ -20,6 +20,8 @@ import com.io7m.junreachable.UnreachableCodeException;
 
 import java.util.Objects;
 
+// CHECKSTYLE:OFF
+
 final class PVolumeLOps
 {
   public static final long ZERO = 0L;

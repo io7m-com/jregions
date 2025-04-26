@@ -20,6 +20,8 @@ import com.io7m.junreachable.UnreachableCodeException;
 
 import java.util.Objects;
 
+// CHECKSTYLE:OFF
+
 final class VolumeIOps
 {
   public static final int ZERO = 0;

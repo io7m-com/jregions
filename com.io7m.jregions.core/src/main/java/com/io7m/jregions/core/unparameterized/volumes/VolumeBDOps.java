@@ -21,6 +21,8 @@ import com.io7m.junreachable.UnreachableCodeException;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+// CHECKSTYLE:OFF
+
 final class VolumeBDOps
 {
   public static final BigDecimal ZERO = BigDecimal.ZERO;

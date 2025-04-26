@@ -20,6 +20,8 @@ import com.io7m.junreachable.UnreachableCodeException;
 
 import java.util.Objects;
 
+// CHECKSTYLE:OFF
+
 final class PVolumeFOps
 {
   public static final float ZERO = 0.0f;

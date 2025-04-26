@@ -21,6 +21,8 @@ import com.io7m.junreachable.UnreachableCodeException;
 import java.math.BigInteger;
 import java.util.Objects;
 
+// CHECKSTYLE:OFF
+
 final class AreaBIOps
 {
   public static final BigInteger ZERO = BigInteger.ZERO;
