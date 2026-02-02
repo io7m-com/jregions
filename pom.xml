@@ -34,7 +34,7 @@
 
     <!-- Third-party dependencies. -->
     <io7m.org.immutables.version>2.12.1</io7m.org.immutables.version>
-    <org.junit.version>5.14.1</org.junit.version>
+    <org.junit.version>5.14.2</org.junit.version>
     <net.jqwik.version>1.9.3</net.jqwik.version>
   </properties>
 
